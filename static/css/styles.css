@@ -1,6 +1,31 @@
 body {
     font-family: 'Montserrat', sans-serif;
 }
+/* Start navbar styles */
+/* Media Qs @ 576px */
 .navbar {
-    font-size: 1.5rem;
+    font-size: 3.5vw;
+}
+/* End navbar styles */
+/* General styles */
+/* s
+contents
+
+hero-img
+
+*/
+.hero-img {
+    position: absolute;
+    top: 4vh;
+    z-index: -1;
+}
+@media (max-width: 576px) {
+    /* Start navbar styles */
+    .show {
+        font-size: 5vw;
+    }
+    .collapsing {
+        font-size: 5vw;
+    }
+    /* End navbar styles */
 }

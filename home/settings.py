@@ -58,7 +58,9 @@ CSRF_TRUSTED_ORIGINS = ['https://8000-thebrightsp-makewebwork-b9c54f1injp.ws-eu6
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
