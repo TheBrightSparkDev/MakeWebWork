@@ -4,28 +4,50 @@ body {
 /* Start navbar styles */
 /* Media Qs @ 576px */
 .navbar {
-    font-size: 3.5vw;
+    font-size: 3.2vw;
+    padding:0px;
 }
 /* End navbar styles */
-/* General styles */
-/* s
-contents
 
+/* Start hero image styles
+contents
+hero-img-holder
+hero-img-spacer
 hero-img
 
 */
-.hero-img {
-    position: absolute;
-    top: 4vh;
+/* Media Qs @ 576px */
+.hero-img-holder {
+    position:relative;
+    bottom:calc(calc(16.6vw / 10.63) * 7);
+    width:100%;
+    height:100vh;
+    overflow: hidden;
     z-index: -1;
 }
+.hero-img{
+    z-index: -1;
+    height:100vh;
+    position:absolute;
+    top:0;
+    left:calc(calc(calc(calc(50vh / 9) * 16) - calc(calc(100vh / 9) * 16)) + 50vw);
+}
+/* end hero image styles */
+
 @media (max-width: 576px) {
     /* Start navbar styles */
     .show {
         font-size: 5vw;
+        background-color: rgba(0,0,0,.3);
     }
     .collapsing {
         font-size: 5vw;
+        background-color: rgba(0,0,0,.3);
     }
     /* End navbar styles */
+    /* start hero image styles */
+    .hero-img-holder {
+        bottom:calc(calc(33.3vw / 10.6) * 7.1);
+    }
+    /* End hero image styles */
 }

@@ -46,7 +46,27 @@ input needed
 This is the best way other than using the site to get an idea of how everything works. There are no other wireframes created for this app as I went straight to a digital wireframe.
 
 # Challenges overcome <a name="challenges"></a>
-input needed
+
+# centering image
+
+This may seem like an easy task but no matter what I was doing I couldn't center the image as according to a google search you can only center align something smaller than 100% 
+
+This lead to me going down the route of calculating the position to be exactly the middle this is a breakdown of the calculation
+
+The image width is determined by the height so I had to get the ratio of the image which is 16:9 
+
+This enabled me to calculate the width by using the ratio done by dividing by the height (9) and mulitplying by the width (16)
+
+So now I had the width I just needed a sure fire way to position it the exact same place each time so using left I then did the calculation again but this time using half the vh this
+center the image to the left perfectly 
+
+Finally I add 50vw to the total this centers the image in the middle of the screen regardless of viewport height try it out it works perfectly. There is likely a less complex way of 
+doing this but I couldn't find it.
+
+This is the CSS code to look out for:
+left:calc(calc(calc(calc(50vh / 9) * 16) - calc(calc(100vh / 9) * 16)) + 50vw);
+
+Another benefit of this is my animation became easier by just scaling the vh against the scroll position 
 
 # Technology used<a name="technology_used"></a>
 ## Wireframes<a name="wireframes"></a>
