@@ -25,6 +25,7 @@ hero-img
     overflow: hidden;
     z-index: -1;
 }
+/* The left value is calculated here just incase someone has javascript disabled in their browser */
 .hero-img{
     z-index: -1;
     height:100vh;

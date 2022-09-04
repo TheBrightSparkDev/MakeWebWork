@@ -145,6 +145,7 @@ The Logo was made by my in illustrator and photoshop
 ## Websites I copy and pasted from:
   - [google fonts](https://fonts.google.com/)
   - [materialize colors](https://materializecss.com/color.html)
+  - [javascript tutorial](https://www.javascripttutorial.net/javascript-dom/javascript-scroll-events/)
 ## All websites used are linked below nothing was copy and pasted just checked:
   - [Bootstrap breakpoints](https://getbootstrap.com/docs/5.0/layout/breakpoints/)
 
@@ -152,6 +153,8 @@ The Logo was made by my in illustrator and photoshop
 ## Content 
 
 - I used a collapsible navbar from bootstrap the generic one. Edited it to fit my sites theme.
+- I was concerned about performance issues as I am using the scroll event alot on the homepage so I looked up how to throttle events
+this is where I found some code on javascript tutorials site that did exactly what I was looking to do. I user this multiple times throughout my code.
 
 ## Media
 

@@ -37,6 +37,10 @@
 
     <!-- Start coreJS -->
     {% block corejs %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" 
+    integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer">
+    </script>
     {% endblock %}
     <!-- End coreJS -->
 
@@ -46,7 +50,7 @@
     <!-- End extra_js -->
 
     <!-- Content for every page -->
-    <title>Boutique Ado {% block extra_title %}{% endblock %}</title>
+    <title>MakeWebWork {% block extra_title %}{% endblock %}</title>
   </head>
   <body class="black white-text">
     <!-- NAVBAR -->
@@ -83,9 +87,10 @@
 
     <!-- Start postloadjs -->
     {% block postloadjs %}
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
         $('.toast').toast('show');
-    </script>
+    </script> -->
+    <script type="text/javascript" src="{% static 'js/navbar.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" 
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
