@@ -68,6 +68,17 @@ left:calc(calc(calc(calc(50vh / 9) * 16) - calc(calc(100vh / 9) * 16)) + 50vw);
 
 Another benefit of this is my animation became easier by just scaling the vh against the scroll position 
 
+I actually ended up having to create this in javascript afterwards the javascript code is a little cleaner though.
+
+# navbar not working 
+
+This was a really frustrating issue early in development the navbar kept breaking.
+
+At the stage of writing this I am currently still trying to understand what the issue is. I am taking a guess 
+that it's something to do with the load times where the system is loading the js file before the DOM is ready slighlty dissapointing that bootstrap didn't think of that being an issue but will add an event listener to make sure DOM is loaded first.
+
+Turns out I was misusing blocks in Django I was actually overwriting postloadJS whereas I thought calling block tag was actually extending I understand that a little better to avoid the issue again I added an empty block called extrapostjs where I will add extra js files for specific pages.
+
 # Technology used<a name="technology_used"></a>
 ## Wireframes<a name="wireframes"></a>
 - adobe XD

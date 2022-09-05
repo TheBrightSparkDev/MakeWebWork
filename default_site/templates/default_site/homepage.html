@@ -1,11 +1,21 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<div id="hero-holder" class="col-12 hero-img-holder">
-    <img id="hero-resize" class="hero-img" src="{% static 'images/multicolor_paint_explosion.png' %}">
+<div class="col-12 hero-img-holder">
+    <img class="hero-img" src="{% static 'images/multicolor_paint_explosion.png' %}" alt="A large splash image of a muliticolor paint explosion">
 </div>
-<div>
-    <h1>Random heading</h1>
+<div id="hero-cover" class="custom-scroll mx-3 grey darken-4">
+    <div class="mx-3 text-center">
+        <h1>What do we do differently?</h1>
+        <p>
+            At makewebwork we start by creating a functional website and a data model to enable you to do everything you need right now.
+            We then look at where you want to be in the future. You might have a blog or e-commerce business today but plan on turning it into a subscription 
+            model in the future we lay the groundworks for what you need now and start work on the subscription model in the background while you're 
+            busy creating. When you are ready the subscription model will be too all you have to do is unlock it for a fee and it becomes functional 
+            straight away.
+        </p>
+    </div>
+</div>
     <h1>Random heading</h1>
     <h1>Random heading</h1>
     <h1>Random heading</h1>
@@ -14,8 +24,8 @@
     <p>This text is random and doesn't mean anything for now. This text is random and doesn't mean anything for now. This text is random and doesn't mean anything for now. 
     This text is random and doesn't mean anything for now. This text is random and doesn't mean anything for now. This text is random and doesn't mean anything for now. 
     </p>
-</div>
+
 {% endblock %}
-{% block postloadjs %}
+{% block extrapostjs %}
 <script type="text/javascript" src="{% static 'js/img_scroll.js' %}"></script>
 {% endblock %}
