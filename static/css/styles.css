@@ -9,6 +9,16 @@ body {
 }
 /* End navbar styles */
 
+/* General styles */
+/* Media Qs @ 576px, 768px */
+.circle{
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+}
+
+/* End general styles */
+
 /* Start hero image styles
 contents
 hero-img-holder

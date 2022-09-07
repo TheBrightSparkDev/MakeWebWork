@@ -22,7 +22,6 @@ var waitPeriodMs = 20 // this is how long the scroll event has to wait between f
  * direction: string, left, top
  * startpos: int, this is the starting position of the animation 
  * endpos: int, this is the ending position of the animation
- * mulitplyer: int, this multiplies the scroll value when calculating how far the variable should move
  * }
  */
 
@@ -30,27 +29,24 @@ var waitPeriodMs = 20 // this is how long the scroll event has to wait between f
 const heroCover = {
     id: "hero-cover",
     start: 0,
-    end: 0,
-    direction: "top",
-    startpos:0,
-    endpos: -Math.abs(screenHeight),
-    multiplyer:1.5,
+    end: screenHeight,
+    direction: "margin-top",
+    startpos: 0,
+    endpos: -Math.abs(screenHeight / 2),
 }
 
-
-
 // make sure you add your element to this list.
+// make sure that the elements are in order of display as there is a complex calculation done at the beginning
 const knownElements = [heroCover]
 // this becomes the list of items on the current page.
 const currentPage = []
 /* This is where the elements get called */
 var elementList = $(".custom-scroll")
 /* this is where variables that need to persist stay */
-var currScrollPos = window.pageYOffset
-console.log(currScrollPos)
+var currScrollPos = window.scrollY
 var lastPos = 0
 var scrolled = 0
-console.log(scrolled)
+var offset = 0
 /* this forces the script to wait for the page to load */
 window.addEventListener("load", function(event){
     Initializer()
@@ -135,40 +131,40 @@ function checkKnown(){
 }
 function activateCurrent(){
     for (var element of currentPage){
+        /* This function doesn't set the intial position of the elements it just tells the browser when it should animate and when it shouldn't */
+        // get element 
         var el = $("#" + element.id)
-        el.css("position", "relative")
-        // gets the actual position of the element now
-        var coords = document.querySelector("#" + element.id).getBoundingClientRect()
-        element.top = coords.top + currScrollPos
-        element.bottom = coords.bottom + currScrollPos
-        element.start = -Math.abs(screenHeight) - element.start
-        element.progress = 0
-        var el = $("#" + element.id)
-        // sets startpos of element taking into account current scroll position
-        if (currScrollPos > (element.top + element.start)){
-            // value is the amount past the start point of the animation the page has gone
-            var value = (currScrollPos - (element.top + element.start)) * element.multiplyer
+        // get position of the element in relation to the top of the page
+        var posFromTop = document.querySelector("#" + element.id).offset().top
+        // set two points when to start animating and when to stop 
+        element.begin = posFromTop - screenHeight - element.start + offset
+        element.finish = posFromTop - screenHeight + element.end + offset
+        // if the element affects the margin top all elements after will have their begin and finish offset 
+        if (element.direction == "margin-top"){
+            var addToOffset = element.startpos + element.endpos
+            // only true if animation moves everything up
             if (element.startpos > element.endpos){
-                // invert scroll (move up or left when scrolling down)
-                console.log("value is executed here")
-                if (-Math.abs(value) > element.endpos){
-                    element.progress = -Math.abs(value)
-                    el.css(element.direction, element.progress)
-                } else {
-                    el.css(element.direction, element.endpos)
-                }
+                // increases how quickly the rest of the elements are animated
+                offset + addToOffset
             } else {
-                // normal scroll (move down or right when scrolling up)
-                if (value < element.endpos){
-                    element.progress = value
-                    el.css(element.direction, element.progress)
-                } else {
-                    el.css(element.direction, element.endpos)
-                }
-            }
+                // decreases how quickly the rest of the elements are animated
+                offset - addToOffset
+            }               
         }
-        // corrects all the values based on clients window size
+        // calculate the amount the image needs to move per scroll movement based on how far it needs to travel
+        // Math.abs guaratees a positive number
+        var distanceTravelled = Math.abs(element.startpos + element.endpos)
+        var lengthOfAnimation = Math.abs(element.end - element.start)
+        // Now we have the two numbers we need to calculate an amount to multiply the scroll wheel by 
+        element.multiplyer = lengthOfAnimation / distanceTravelled
     }
+    setInitialPos()
+}
+function setInitialPos(){
+    /* The goal of this function is to use the currScrollPos and calculate where each element should be in their respective animations
+    this is only really usefull if the page gets refreshed as without this it was causing some visual bugs such as animations
+    moving to far over or downwards putting every other animation out aswell */
+    
 }
 /* 
 This is where the variables are constantly updated 
@@ -184,7 +180,7 @@ document.addEventListener("scroll" ,(e) => {
 setInterval(() => {
     if (scrolling) {
         scrolling = false;
-        currScrollPos = window.pageYOffset
+        currScrollPos = window.scrollY
         scrolled = currScrollPos - lastPos
         lastPos = currScrollPos
         updateAll(currScrollPos, scrolled)
@@ -193,49 +189,6 @@ setInterval(() => {
 function updateAll(currScrollPos, scrolled){
     // animates elements that are supposed to be animated
     for (var element of currentPage){
-        // checking position of element
-        var coords = document.querySelector("#" + element.id).getBoundingClientRect()
-        element.top = coords.top + currScrollPos
-        element.bottom = coords.bottom + currScrollPos
-        // these elements attributes determine whether the object should be animated
-        if (debug){
-            console.log(element.id)
-            console.log("more or equal to " + element.top + element.start)
-            console.log("less or equal to " + element.bottom + element.end)
-            console.log("scrolpos " + currScrollPos)
-            console.log(currScrollPos >= (element.top + element.start) && currScrollPos <= (element.bottom + element.end))
-            if (element.progress > element.endpos){
-                console.log("the element.progress was set to high for this to be animated the bug is handled but it shouldnt happen")
-            }
-        }
-        if (currScrollPos >= (element.top + element.start) && currScrollPos <= (element.bottom + element.end)){
-            // animate this
-            console.log(scrolled)
-            if (element.startpos > element.endpos){
-                // invert scroll (move up or left when scrolling down)
-                // this is a bug catcher from function activateCurrent()
-                if (element.progress < element.endpos){
-                    element.progress = element.endpos
-                }
-                element.progress = element.progress - (scrolled * element.multiplyer)
-                if (element.progress >= element.endpos && element.progress <= element.startpos){
-                    var el = $("#" + element.id)
-                    el.css(element.direction, (element.progress - (scrolled * element.multiplyer)))
-                    console.log("updated upwards")
-                }
-            } else {
-                // normal scroll (move down or right when scrolling up)
-                if (element.progress > element.endpos){
-                    element.progress = element.endpos
-                }
-                element.progress = element.progress + (scrolled * element.multiplyer)
-                if (element.progress <= element.endpos && element.progress >= element.startpos){
-                    var el = $("#" + element.id)
-                    el.css(element.direction, (element.progress + (scrolled * element.multiplyer)))
-                    console.log("updated downwards")
-                }
-            }
-
-        }
+        
     } 
 }

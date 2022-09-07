@@ -1,0 +1,78 @@
+// just a save of the old code before the correction
+ var el = $("#" + element.id)
+        // gets the actual position of the element now
+        var coords = document.querySelector("#" + element.id).getBoundingClientRect()
+        element.top = coords.top + currScrollPos
+        element.start = -Math.abs(screenHeight) - element.start
+        element.progress = 0
+        var el = $("#" + element.id)
+        // sets startpos of element taking into account current scroll position
+        if (currScrollPos > (element.top + element.start)){
+            // value is the amount past the start point of the animation the page has gone
+            var value = (currScrollPos - (element.top + element.start)) * element.multiplyer
+            if (element.startpos > element.endpos){
+                // invert scroll (move up or left when scrolling down)
+                console.log("value is executed here")
+                if (-Math.abs(value) > element.endpos){
+                    element.progress = -Math.abs(value)
+                    el.css(element.direction, element.progress)
+                } else {
+                    el.css(element.direction, element.endpos)
+                }
+            } else {
+                // normal scroll (move down or right when scrolling up)
+                if (value < element.endpos){
+                    element.progress = value
+                    el.css(element.direction, element.progress)
+                } else {
+                    el.css(element.direction, element.endpos)
+                }
+            }
+        }
+        // corrects all the values based on clients window size
+
+
+
+// checking position of element
+        var coords = document.querySelector("#" + element.id).getBoundingClientRect()
+        element.top = coords.top + currScrollPos
+        // these elements attributes determine whether the object should be animated
+        if (debug){
+            console.log(element.id)
+            console.log("more or equal to " + (element.top + element.start))
+            console.log("less or equal to " + (element.top + element.end))
+            console.log("scrolpos " + currScrollPos)
+            console.log(currScrollPos >= (element.top + element.start) && currScrollPos <= (element.top + element.end))
+            if (element.progress < element.endpos){
+                console.log("the element.progress was set to high for this to be animated the bug is handled but it shouldnt happen")
+            }
+        }
+        if (currScrollPos >= (element.top + element.start) && currScrollPos <= (element.top + element.end)){
+            // animate this
+            console.log(scrolled)
+            if (element.startpos > element.endpos){
+                // invert scroll (move up or left when scrolling down)
+                // this is a bug catcher from function activateCurrent()
+                if (element.progress < element.endpos){
+                    element.progress = element.endpos
+                }
+                element.progress = element.progress - (scrolled * element.multiplyer)
+                if (element.progress >= element.endpos && element.progress <= element.startpos){
+                    var el = $("#" + element.id)
+                    el.css(element.direction, (element.progress - (scrolled * element.multiplyer)))
+                    console.log("updated upwards")
+                }
+            } else {
+                // normal scroll (move down or right when scrolling up)
+                if (element.progress > element.endpos){
+                    element.progress = element.endpos
+                }
+                element.progress = element.progress + (scrolled * element.multiplyer)
+                if (element.progress <= element.endpos && element.progress >= element.startpos){
+                    var el = $("#" + element.id)
+                    el.css(element.direction, (element.progress + (scrolled * element.multiplyer)))
+                    console.log("updated downwards")
+                }
+            }
+
+        }
