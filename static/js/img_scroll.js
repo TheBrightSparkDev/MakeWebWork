@@ -10,7 +10,7 @@ var screenHeight = window.innerHeight
 var screenWidth = window.innerWidth
 /* Settings for scroll */
 var scrollMultiplyer = 1 // higher = faster smaller = slower 
-var waitPeriodMs = 50 // this is how long the scroll event has to wait between fires higher the number the better the performance
+var waitPeriodMs = 20 // this is how long the scroll event has to wait between fires higher the number the better the performance
 
 /**
  *  settings per object 
@@ -34,7 +34,7 @@ const heroCover = {
     direction: "top",
     startpos:0,
     endpos: -Math.abs(screenHeight),
-    multiplyer:1,
+    multiplyer:1.5,
 }
 
 
@@ -47,8 +47,10 @@ const currentPage = []
 var elementList = $(".custom-scroll")
 /* this is where variables that need to persist stay */
 var currScrollPos = window.pageYOffset
+console.log(currScrollPos)
 var lastPos = 0
-var scrolled = window.pageYOffset
+var scrolled = 0
+console.log(scrolled)
 /* this forces the script to wait for the page to load */
 window.addEventListener("load", function(event){
     Initializer()
@@ -134,16 +136,38 @@ function checkKnown(){
 function activateCurrent(){
     for (var element of currentPage){
         var el = $("#" + element.id)
-        // sets startpos
         el.css("position", "relative")
-        el.css(element.direction, element.startpos)
-        // gets the actual position of the element initially
+        // gets the actual position of the element now
         var coords = document.querySelector("#" + element.id).getBoundingClientRect()
-        element.top = coords.top
-        element.bottom = coords.bottom
-        // corrects all the values based on clients window size
-        element.start = element.start - window.innerHeight
+        element.top = coords.top + currScrollPos
+        element.bottom = coords.bottom + currScrollPos
+        element.start = -Math.abs(screenHeight) - element.start
         element.progress = 0
+        var el = $("#" + element.id)
+        // sets startpos of element taking into account current scroll position
+        if (currScrollPos > (element.top + element.start)){
+            // value is the amount past the start point of the animation the page has gone
+            var value = (currScrollPos - (element.top + element.start)) * element.multiplyer
+            if (element.startpos > element.endpos){
+                // invert scroll (move up or left when scrolling down)
+                console.log("value is executed here")
+                if (-Math.abs(value) > element.endpos){
+                    element.progress = -Math.abs(value)
+                    el.css(element.direction, element.progress)
+                } else {
+                    el.css(element.direction, element.endpos)
+                }
+            } else {
+                // normal scroll (move down or right when scrolling up)
+                if (value < element.endpos){
+                    element.progress = value
+                    el.css(element.direction, element.progress)
+                } else {
+                    el.css(element.direction, element.endpos)
+                }
+            }
+        }
+        // corrects all the values based on clients window size
     }
 }
 /* 
@@ -161,77 +185,57 @@ setInterval(() => {
     if (scrolling) {
         scrolling = false;
         currScrollPos = window.pageYOffset
-        scrolled = lastPos - currScrollPos
+        scrolled = currScrollPos - lastPos
         lastPos = currScrollPos
-        updateAll(currScrollPos, scrolled, lastPos)
+        updateAll(currScrollPos, scrolled)
     }
 },waitPeriodMs);
-function updateAll(currScrollPos, scrolled, lastPos){
+function updateAll(currScrollPos, scrolled){
     // animates elements that are supposed to be animated
     for (var element of currentPage){
-        console.log(currScrollPos)
-        console.log(element.top + element.start)
-        console.log(element.bottom + element.end)
+        // checking position of element
         var coords = document.querySelector("#" + element.id).getBoundingClientRect()
-        element.top = coords.top 
-        element.bottom = coords.bottom 
+        element.top = coords.top + currScrollPos
+        element.bottom = coords.bottom + currScrollPos
+        // these elements attributes determine whether the object should be animated
+        if (debug){
+            console.log(element.id)
+            console.log("more or equal to " + element.top + element.start)
+            console.log("less or equal to " + element.bottom + element.end)
+            console.log("scrolpos " + currScrollPos)
+            console.log(currScrollPos >= (element.top + element.start) && currScrollPos <= (element.bottom + element.end))
+            if (element.progress > element.endpos){
+                console.log("the element.progress was set to high for this to be animated the bug is handled but it shouldnt happen")
+            }
+        }
         if (currScrollPos >= (element.top + element.start) && currScrollPos <= (element.bottom + element.end)){
-            // animate element
-            console.log("animate this")
-            console.log(element.endpos)
-            console.log(element.startpos)
+            // animate this
+            console.log(scrolled)
             if (element.startpos > element.endpos){
-                // makes element move up or left
-                // checks value wont be out of endpos bounds
-                console.log("element needs to be moved up")
-                if (-Math.abs(scrolled) + element.progress >= element.endpos){
-                    // if out of endpos bounds need to set it to endpos
-                    console.log("out of endpos bounds")
-                    var el = $("#" + element.id)
-                    el.css(element.direction, element.endpos)
+                // invert scroll (move up or left when scrolling down)
+                // this is a bug catcher from function activateCurrent()
+                if (element.progress < element.endpos){
                     element.progress = element.endpos
-                } else {
-                    // code is within end bounds so check if in start bounds
-                    if (-Math.abs(scrolled) + element.progress <= element.startpos){
-                        // element out of start bounds so set value to startpos
-                        console.log("out of startpos bounds")
-                        var el = $("#" + element.id)
-                        el.css(element.direction, element.startpos)
-                        element.progress = element.startpos
-                    } else {
-                        // element within both bounds
-                        console.log("animating")
-                        console.log(scrolled)
-                        console.log(element.progress)
-                        var el = $("#" + element.id)
-                        el.css(element.direction, (element.progress - scrolled))
-                        element.progress = element.progress - scrolled
-                    }
+                }
+                element.progress = element.progress - (scrolled * element.multiplyer)
+                if (element.progress >= element.endpos && element.progress <= element.startpos){
+                    var el = $("#" + element.id)
+                    el.css(element.direction, (element.progress - (scrolled * element.multiplyer)))
+                    console.log("updated upwards")
                 }
             } else {
-                // makes element move down or right
-                console.log("element needs to be moved down")
-                if (scrolled + element.progress >= element.endpos){
-                    // if out of endpos bounds need to set it to endpos
-                    $("#" + element.id).css(element.direction, element.endpos)
+                // normal scroll (move down or right when scrolling up)
+                if (element.progress > element.endpos){
                     element.progress = element.endpos
-                } else {
-                    // code is within end bounds so check if in start bounds
-                    if (scrolled + element.progress <= element.startpos){
-                        // element out of start bounds so set value to startpos
-                        $("#" + element.id).css(element.direction, element.startpos)
-                        element.progress = element.startpos
-                    } else {
-                        // element within both bounds
-
-                        $("#" + element.id).css(element.direction, element.progress + scrolled)
-                        element.progress = element.progress + scrolled
-                    }
+                }
+                element.progress = element.progress + (scrolled * element.multiplyer)
+                if (element.progress <= element.endpos && element.progress >= element.startpos){
+                    var el = $("#" + element.id)
+                    el.css(element.direction, (element.progress + (scrolled * element.multiplyer)))
+                    console.log("updated downwards")
                 }
             }
-            
-        } else {
-            console.log("dont animate this")
+
         }
     } 
 }
