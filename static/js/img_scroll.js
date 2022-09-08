@@ -158,7 +158,7 @@ function activateCurrent(){
         // Now we have the two numbers we need to calculate an amount to multiply the scroll wheel by 
         element.multiplyer = lengthOfAnimation / distanceTravelled
     }
-    setInitialPos()
+    setInitialPos(element.id)
 }
 function setInitialPos(){
     /* The goal of this function is to use the currScrollPos and calculate where each element should be in their respective animations
