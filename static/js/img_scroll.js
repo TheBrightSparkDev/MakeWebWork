@@ -226,6 +226,6 @@ function updateAll(currScrollPos, scrolled){
     // animates elements that are supposed to be animated
     for (var element of currentPage){
         // if the element affects the margin top all elements after will have their begin and finish offset 
-
+        
     } 
 }
