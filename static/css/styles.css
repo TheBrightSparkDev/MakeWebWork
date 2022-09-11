@@ -17,6 +17,9 @@ body {
     align-items: center;
 }
 
+#master-container{
+    overflow: hidden;
+}
 /* End general styles */
 
 /* Start hero image styles
