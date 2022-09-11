@@ -203,7 +203,16 @@ function activateCurrent(){
         element.finish = posFromTop - screenHeight + element.end
         // calculate the amount the image needs to move per scroll movement based on how far it needs to travel
         // Math.abs guaratees a positive number
-        var distanceTravelled = Math.abs(element.startpos + element.endpos)
+        if (element.endpos < 0){
+            var distanceTravelled = Math.abs(element.startpos + element.endpos)
+        } else {
+            var distanceTravelled = Math.abs(element.startpos - element.endpos)
+        }
+        if (element.start < 0){
+            var lengthOfAnimation = Math.abs(element.end + element.start)
+        } else {
+            var lengthOfAnimation = Math.abs(element.end - element.start)
+        }
         var lengthOfAnimation = Math.abs(element.end - element.start)
         // Now we have the two numbers we need to calculate an amount to multiply the scroll wheel by 
         element.multiplyer = distanceTravelled / lengthOfAnimation
