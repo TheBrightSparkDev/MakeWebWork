@@ -13,7 +13,7 @@ if (debug){
 var screenHeight = window.innerHeight
 var screenWidth = window.innerWidth
 /* Settings for scroll */
-var waitPeriodMs = 20 // this is how long the scroll event has to wait between fires higher the number the better the performance
+var waitPeriodMs = 40 // this is how long the scroll event has to wait between fires higher the number the better the performance
 const propslist = ["start","end","startpos","endpos"] // this is essential for the createObjects function. It's a list of property names in the order they should be declared
 /* This is a list of elements that need to be animated */
 var elementList = $(".custom-scroll")
@@ -23,7 +23,6 @@ var currentPage = []
 var currScrollPos = window.scrollY
 var lastPos = 0
 var scrolled = 0
-var offset = 0
 /* this forces the script to wait for the page to load */
 window.addEventListener("load", function(event){
     Initializer()
@@ -202,17 +201,8 @@ function activateCurrent(){
         element.begin = posFromTop - screenHeight - element.start
         element.finish = posFromTop - screenHeight + element.end
         // calculate the amount the image needs to move per scroll movement based on how far it needs to travel
-        // Math.abs guaratees a positive number
-        if (element.endpos < 0){
-            var distanceTravelled = Math.abs(element.startpos + element.endpos)
-        } else {
-            var distanceTravelled = Math.abs(element.startpos - element.endpos)
-        }
-        if (element.start < 0){
-            var lengthOfAnimation = Math.abs(element.end + element.start)
-        } else {
-            var lengthOfAnimation = Math.abs(element.end - element.start)
-        }
+        // Math.abs guaratees a positive number        
+        var distanceTravelled = Math.abs(element.startpos - element.endpos)
         var lengthOfAnimation = Math.abs(element.end - element.start)
         // Now we have the two numbers we need to calculate an amount to multiply the scroll wheel by 
         element.multiplyer = distanceTravelled / lengthOfAnimation
@@ -228,12 +218,6 @@ function activateCurrent(){
         // sets the style that will be used to animate
         el.css(element.direction, "0")
     }
-    setInitialPos(element)
-}
-function setInitialPos(){
-    /* The goal of this function is to use the currScrollPos and calculate where each element should be in their respective animations
-    this is only really usefull if the page gets refreshed as without this it was causing some visual bugs such as animations
-    moving to far over or downwards putting every other animation out aswell */
     updateAll(currScrollPos)
 }
 /* 
@@ -244,7 +228,7 @@ the following code was copy and pasted from this site:
 https://www.javascripttutorial.net/javascript-dom/javascript-scroll-events/ 
 */
 let scrolling = false;
-document.addEventListener("scroll" ,(e) => {
+window.addEventListener("scroll" ,(e) => {
     scrolling = true;
 });
 setInterval(() => {
@@ -253,38 +237,41 @@ setInterval(() => {
         currScrollPos = window.scrollY
         console.log(currScrollPos)
         updateAll(currScrollPos)
+        console.log("check positions")
     }
 },waitPeriodMs);
 function updateAll(currScrollPos){
     /**
      * 
      */
-    // this variable is used to offset everything after a vertical animation is played
     var offset = 0
+    // this variable is used to offset everything after a vertical animation is played
     for (var element of currentPage){
         // used to set the offset variable at the end of animation calculation
         var val
-        currScrollPos = currScrollPos - offset
+        var scrollPosition = currScrollPos - offset
         // if the element affects the margin top all elements after will have their begin and finish offset 
         var el = $("#" + element.id) 
+        console.log(element.id)
+        console.log(element.id)
+        console.log(element.id)
+        console.log(element.id)
         console.log("offset = " + offset)
-        console.log(currScrollPos)
-        if (currScrollPos < (element.begin)){ // if current scroll pos is less that begin
+        console.log("scrollPosition: " + scrollPosition)
+        console.log("begin: " + element.begin)
+        console.log("finish: " + element.finish)
+        if (scrollPosition < (element.begin)){ // if current scroll pos is less that begin
             el.css(element.direction, element.startpos) // sets pos to start position
             val = element.startpos
-        } else if (currScrollPos > element.finish){ // if current scroll pos is more than finish
+            console.log("less than start")
+        } else if (scrollPosition > element.finish){ // if current scroll pos is more than finish
             el.css(element.direction, element.endpos) // sets the pos to end position 
             val = element.endpos
+            console.log("more than finish")
         } else { // else covers when its between the values
-            // this is where the code makes a calculation as to where the elements should be
-            // if (element.multiplyer < 1){
-            //     var dist = (currScrollPos - element.begin) / element.multiplyer
-            // } else {
-            //     var dist = (currScrollPos - element.begin) * element.multiplyer
-            // }
-            var dist = ((currScrollPos - element.begin) * element.multiplyer)
-            console.log("begin: " + element.begin)
-            console.log("finish: " + element.finish)
+            var dist = ((scrollPosition - element.begin) * element.multiplyer)
+            console.log("between finish and start")
+            console.log("distance: " + dist)
             if (element.startpos > element.endpos){
                 // this is to avoid a jump as the mulitplyer calculation isn't perfect
                 if (element.endpos < (element.startpos - dist)){

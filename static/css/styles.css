@@ -10,15 +10,35 @@ body {
 /* End navbar styles */
 
 /* General styles */
-/* Media Qs @ 576px, 768px */
+/* Media Qs @ 768px, 992px, 1200px, 1400px */
+.circle-overlap{
+    margin-top: -10vw;
+}
+/* Media Qs @ 768px, 992px, 1200px, 1400px */
 .circle{
+    height:40vw;
+    width:40vw;
     border-radius: 50%;
     display: flex;
     align-items: center;
+    justify-content: center;
+}
+.pink-circle{
+    background-color:rgba(233, 30, 99, 0.1);
+}
+.cyan-circle{
+    background-color:rgba(0, 188, 212, 0.1);
+}
+.green-circle{
+    background-color:rgba(76, 175, 80, 0.1);
+}
+
+.circle-text{
+    opacity:1 !important;
 }
 
 #master-container{
-    overflow: hidden;
+    overflow-x: hidden;
 }
 /* End general styles */
 
@@ -64,4 +84,43 @@ hero-img
         bottom:calc(calc(33.3vw / 10.6) * 7.1);
     }
     /* End hero image styles */
+}
+@media (min-width: 576px){
+
+}
+@media (min-width: 768px){
+    .circle-overlap{
+        margin-top: -7.5vw;
+    }
+    .circle{
+        height:30vw;
+        width:30vw;
+    }
+}
+@media (min-width: 992px){
+    .circle-overlap{
+        margin-top: -6.25vw;
+    }
+    .circle{
+        height:25vw;
+        width:25vw;
+    }
+}
+@media (min-width: 1200px){
+    .circle-overlap{
+        margin-top: -5vw;
+    }
+    .circle{
+        height:20vw;
+        width:20vw;
+    }
+}
+@media (min-width: 1400px){
+    .circle-overlap{
+        margin-top: -3.25vw;
+    }
+    .circle{
+        height:15vw;
+        width:15vw;
+    }
 }
