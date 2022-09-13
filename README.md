@@ -100,8 +100,17 @@ input needed
 # Manual public testing <a name="manual-public-testing"></a>
 input needed
 
-# Automatic testing with Jest <a name="I-despise-jsdom"></a>
-input needed
+# Automatic testing <a name="I-despise-jsdom"></a>
+
+## img_scroll.js
+
+If you set debug to true it will run automatic tests to determine whether you've made a mistake in your animationprops or if you're missing any properties such as an ID or animationprops. The debugger will also continuously spit out each update and the variables it uses to do it's calculations which can lead to an overdose of information.
+
+The reason I implemented the tests directly into the file is so that when users use the designer it will spit out easy to understand errors and makes my life much easier when trying to debug the code.
+
+Jest while it's likely capable of what I am doing here would be extremely difficult to implement to the level I have implemented in these tests.
+
+The only way to manually test is to see if you put in good info into the start,end,startpos,endpos,direction properties if so it'll do what you want if not it wont. It can be a little difficult to understand initially but it becomes intuitive after a while.
 
 # Validator Testing <a name="validator-testing"></a>
 
