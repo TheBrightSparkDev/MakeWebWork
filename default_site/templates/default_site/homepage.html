@@ -4,7 +4,7 @@
 <div class="col-12 hero-img-holder">
     <img class="hero-img" src="{% static 'images/multicolor_paint_explosion.png' %}" alt="A large splash image of a muliticolor paint explosion">
 </div>
-<div id="hero-cover" class="custom-scroll black" animationProps="100,screenHeight/2,0,screenHeight/1.5,down">
+<div id="hero-cover" class="custom-scroll black" animationProps="100,screenHeight/2,0,-screenHeight/1.5,down">
     <div class="mx-3 grey darken-4">
         <div class="mx-3 text-center">
             <h1>What do we do differently?</h1>
@@ -18,12 +18,14 @@
 </div>
 <div>
     <div id="possibilities" class="text-center circle pink-circle custom-scroll" 
-    animationProps="0,screenHeight/4,screenwidth,screenwidth/8,right">
-        <h5 class="pink-text circle-text">Unlimited possibilities</h5>
+    animationProps="screenHeight/4,screenHeight/2,screenwidth,50,right">
+        <h3 class="pink-text circle-text">Unlimited possibilities</h3>
     </div>
-    <div id="potential" class="text-center circle circle-overlap cyan-circle custom-scroll" 
-    animationProps="0,screenHeight/4,screenwidth,screenwidth/2,right">
-        <h5 class="cyan-text circle-text">Unlimited potential</h5>
+</div>
+<div>
+    <div id="potential" class="text-center circle cyan-circle custom-scroll" 
+    animationProps="screenHeight/4,screenHeight/2,screenwidth,50,left">
+        <h3 class="cyan-text circle-text">Unlimited potential</h3>
     </div>
 </div>
 <!-- rest of the homepage content -->

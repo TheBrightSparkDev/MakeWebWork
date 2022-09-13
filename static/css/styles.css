@@ -16,8 +16,8 @@ body {
 }
 /* Media Qs @ 768px, 992px, 1200px, 1400px */
 .circle{
-    height:40vw;
-    width:40vw;
+    height:50vw;
+    width:50vw;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -32,13 +32,15 @@ body {
 .green-circle{
     background-color:rgba(76, 175, 80, 0.1);
 }
-
 .circle-text{
     opacity:1 !important;
 }
-
-#master-container{
+.animation{
+    position: relative;
+    width:100%;
     overflow-x: hidden;
+}
+#master-container{
 }
 /* End general styles */
 
@@ -89,38 +91,26 @@ hero-img
 
 }
 @media (min-width: 768px){
-    .circle-overlap{
-        margin-top: -7.5vw;
+    .circle{
+        height:40vw;
+        width:40vw;
     }
+}
+@media (min-width: 992px){
     .circle{
         height:30vw;
         width:30vw;
     }
 }
-@media (min-width: 992px){
-    .circle-overlap{
-        margin-top: -6.25vw;
-    }
+@media (min-width: 1200px){
     .circle{
         height:25vw;
         width:25vw;
     }
 }
-@media (min-width: 1200px){
-    .circle-overlap{
-        margin-top: -5vw;
-    }
+@media (min-width: 1400px){
     .circle{
         height:20vw;
         width:20vw;
-    }
-}
-@media (min-width: 1400px){
-    .circle-overlap{
-        margin-top: -3.25vw;
-    }
-    .circle{
-        height:15vw;
-        width:15vw;
     }
 }

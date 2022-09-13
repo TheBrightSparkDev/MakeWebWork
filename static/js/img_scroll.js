@@ -4,7 +4,7 @@
 - you must add an id of your choosing
 - you must define the start,end,startpos,endpos,direction in an attribute named animationprops in this order
 */
-var debug = true // set this to false in production
+var debug = false // set this to false in production
 var debugg = false // this is here to turn off selected tests by adding a g to the end of the word debug in the various debug if statements throughout this file
 if (debug){
     console.log("connected");
@@ -27,7 +27,6 @@ var scrolled = 0
 window.addEventListener("load", function(event){
     Initializer()
   });
-
 function Initializer(){
     /**
      * This function calls all the essential functions to do with initialising elements.
@@ -35,6 +34,10 @@ function Initializer(){
      * The other option was jest for java testing but this was a much cleaner approach and very simple to implement
      * It also sped up development massively as it very clearly states any issues related to the HTML elements
      */
+    // these are here to handle window resizing
+    screenHeight = window.innerHeight
+    screenWidth = window.innerWidth
+    currScrollPos = window.scrollY
     if (debug){
     testHTMLElements()
     }
@@ -42,10 +45,8 @@ function Initializer(){
     if (debug){
         checkObjects()
         }
-    console.log("anything after this is ignored")
     activateCurrent()
 }
-
 // automatic tests (only work when debug set to true)
 function testHTMLElements(){
     for (var element of elementList){
@@ -142,8 +143,13 @@ function createObjects(){
         // this iterates through a list of property names in the same order they should be declared
         for (var prop of propslist){
             var slice = props.indexOf(",")
+            // this is if the variable is set to a negative number
+            var invert = false
             el[prop] = props.slice(0,slice)
             // this corrects the value if the developer has chosen a variable
+            if(el[prop].toLowerCase().includes("-")){
+                invert = true
+            }
             if (el[prop].toLowerCase().includes("screenheight")){
                 var value = screenHeight
                 // this handles if the user has used a calculation of screenheight
@@ -153,7 +159,11 @@ function createObjects(){
                     var value = screenHeight + calc
                     value = eval(value)
                 } 
-                el[prop] = value
+                if (invert){
+                    el[prop] = -Math.abs(value)
+                } else {
+                    el[prop] = value
+                }
             } else if( el[prop].toLowerCase().includes("screenwidth")){
                 var value = screenWidth
                 // this handles if the user has used a calculation of screenwidth
@@ -163,7 +173,11 @@ function createObjects(){
                     var value = screenWidth + calc
                     value = eval(value)
                 }
-                el[prop] = value
+                if (invert){
+                    el[prop] = -Math.abs(value)
+                } else {
+                    el[prop] = value
+                }
             }
             el[prop] = Number(el[prop])
             // this removes the value and its comma so next time it gets the next value
@@ -177,8 +191,6 @@ function createObjects(){
         if (el.direction === "down"){
             el.direction = "top"
         }
-        // since the endpos is always going to be negative I am just setting it here
-        el.endpos = -Math.abs(el.endpos)
         currentPage.push(el)
     }
     if (debug){
@@ -198,12 +210,16 @@ function activateCurrent(){
         // get position of the element in relation to the top of the page
         var posFromTop = el.offset().top
         // set two points when to start animating and when to stop 
-        element.begin = posFromTop - screenHeight - element.start
-        element.finish = posFromTop - screenHeight + element.end
+        element.begin = posFromTop - screenHeight + element.start
         // calculate the amount the image needs to move per scroll movement based on how far it needs to travel
         // Math.abs guaratees a positive number        
         var distanceTravelled = Math.abs(element.startpos - element.endpos)
         var lengthOfAnimation = Math.abs(element.end - element.start)
+        if(debug){
+            console.log(distanceTravelled)
+            console.log(lengthOfAnimation)
+        }
+        element.finish = element.begin + lengthOfAnimation
         // Now we have the two numbers we need to calculate an amount to multiply the scroll wheel by 
         element.multiplyer = distanceTravelled / lengthOfAnimation
         if (debug){
@@ -213,7 +229,12 @@ function activateCurrent(){
         if (element.direction === "top" || element.direction === "bottom"){
             element.direction = "margin-" + element.direction
         } else {
-            el.css("position","relative")
+            // this makes the container stay the same size
+            var parent = document.getElementById(element.id).parentElement
+            var height = document.getElementById(element.id).clientHeight + "px"
+            parent.classList.add("animation")
+            parent.setAttribute("style", `height:${height};`)
+            el.css("position","absolute")
         }
         // sets the style that will be used to animate
         el.css(element.direction, "0")
@@ -227,6 +248,7 @@ on the page when it's their turn of course!
 the following code was copy and pasted from this site: 
 https://www.javascripttutorial.net/javascript-dom/javascript-scroll-events/ 
 */
+// this detects the scroll event and recalculates the animation properties
 let scrolling = false;
 window.addEventListener("scroll" ,(e) => {
     scrolling = true;
@@ -235,9 +257,7 @@ setInterval(() => {
     if (scrolling) {
         scrolling = false;
         currScrollPos = window.scrollY
-        console.log(currScrollPos)
         updateAll(currScrollPos)
-        console.log("check positions")
     }
 },waitPeriodMs);
 function updateAll(currScrollPos){
@@ -252,52 +272,47 @@ function updateAll(currScrollPos){
         var scrollPosition = currScrollPos - offset
         // if the element affects the margin top all elements after will have their begin and finish offset 
         var el = $("#" + element.id) 
-        console.log(element.id)
-        console.log(element.id)
-        console.log(element.id)
-        console.log(element.id)
-        console.log("offset = " + offset)
-        console.log("scrollPosition: " + scrollPosition)
-        console.log("begin: " + element.begin)
-        console.log("finish: " + element.finish)
+        if (debug){
+            console.log(element.id)
+            console.log(element.id)
+            console.log(element.id)
+            console.log(element.id)
+            console.log("offset = " + offset)
+            console.log("scrollPosition: " + scrollPosition)
+            console.log("begin: " + element.begin)
+            console.log("finish: " + element.finish)
+        }
         if (scrollPosition < (element.begin)){ // if current scroll pos is less that begin
             el.css(element.direction, element.startpos) // sets pos to start position
             val = element.startpos
-            console.log("less than start")
+            if (debug){
+                console.log("less than begin")
+            }
         } else if (scrollPosition > element.finish){ // if current scroll pos is more than finish
             el.css(element.direction, element.endpos) // sets the pos to end position 
             val = element.endpos
-            console.log("more than finish")
+            if (debug){
+                console.log("more than finish")
+            }
         } else { // else covers when its between the values
             var dist = ((scrollPosition - element.begin) * element.multiplyer)
-            console.log("between finish and start")
-            console.log("distance: " + dist)
-            if (element.startpos > element.endpos){
-                // this is to avoid a jump as the mulitplyer calculation isn't perfect
-                if (element.endpos < (element.startpos - dist)){
-                    el.css(element.direction, (element.startpos - dist))
-                    val = (element.startpos - dist)
-                } else {
-                    el.css(element.direction, element.endpos) 
-                    val = element.endpos
-                }
-                if (element.direction == "margin-top"){
-                    offset = val
-                } else if (element.direction == "margin-bottom"){
-                    offset = val
-                }
-            } else { // I have my suspicions this block will never be used
-                if (element.endpos < (element.startpos - dist)){
-                    el.css(element.direction, (element.startpos + dist))
-                    val = (element.startpos + dist)
-                } else {
-                    el.css(element.direction, element.endpos) 
-                    val = element.endpos
-                }
-                if (debug){
-                    console.log("I thought this would never be used I was wrong")
-                }
+            if (debug){
+                console.log("between finish and start")
+                console.log("distance: " + dist)
             }
+            // this is to avoid a jump as the mulitplyer calculation isn't perfect
+            if (element.endpos < (element.startpos - dist)){
+                el.css(element.direction, (element.startpos - dist))
+                val = (element.startpos - dist)
+            } else {
+                el.css(element.direction, element.endpos) 
+                val = element.endpos
+            }
+            if (element.direction == "margin-top"){
+                offset = val
+            } else if (element.direction == "margin-bottom"){
+                offset = val
+            }        
         }
         if (element.direction == "margin-top"){
             offset = val
@@ -306,3 +321,15 @@ function updateAll(currScrollPos){
         }
     } 
 }
+// this detects screen resizing and recalculates the animation properties
+let resizing = false;
+window.addEventListener("resize", function(event){
+    resizing = true;
+  });
+setInterval(() => {
+    if (resizing) {
+    resizing = false
+    currentPage = []
+    Initializer()
+    }
+},500);
