@@ -2,33 +2,71 @@
 {% load static %}
 {% block content %}
 <div class="col-12 hero-img-holder">
-    <img class="hero-img" src="{% static 'images/multicolor_paint_explosion.png' %}" alt="A large splash image of a muliticolor paint explosion">
+    <img class="hero-img" src="{% static 'images/multicolor_paint_explosion.png' %}" 
+    alt="A large splash image of a muliticolor paint explosion">
 </div>
-<div id="hero-cover" class="custom-scroll black" animationProps="100,screenHeight/2,0,-screenHeight/1.5,down">
+<div id="hero-cover" class="custom-scroll black" 
+animationProps="100,screenHeight/2,0,-screenHeight/1.5,down">
     <div class="mx-3 grey darken-4">
-        <div class="mx-3 text-center">
+        <div class="mx-3 text-center py-3">
             <h1>What do we do differently?</h1>
             <p>
                 At makewebwork we specialise in data driven websites for technophobes and techies alike. 
-                Whatever your background we will turn your vision into reality. A data driven website is 
+                Whatever your background, we will turn your vision into reality. A data driven website is 
                 a site with no restrictions.
             </p>
         </div>
     </div>
 </div>
-<div>
+<div class="mt-3">
     <div id="possibilities" class="text-center circle pink-circle custom-scroll" 
     animationProps="screenHeight/4,screenHeight/2,screenwidth,50,right">
         <h3 class="pink-text circle-text">Unlimited possibilities</h3>
     </div>
 </div>
-<div>
+<div class="circle-overlap mb-3">
     <div id="potential" class="text-center circle cyan-circle custom-scroll" 
     animationProps="screenHeight/4,screenHeight/2,screenwidth,50,left">
         <h3 class="cyan-text circle-text">Unlimited potential</h3>
     </div>
 </div>
 <!-- rest of the homepage content -->
+<div class="mx-3 py-3 grey darken-4 text-center">
+    <h3 class="mx-3"> We will make your website in 3 simple steps </h3>
+</div>
+<div class="bg-image">
+    <img class="behind right" src="{% static 'images/multicolor_paint_explosion.png' %}" 
+        alt="A large splash image of a muliticolor paint explosion">
+</div>
+<div class="bg-image">
+    <img class="behind left" src="{% static 'images/multicolor_paint_explosion.png' %}" 
+        alt="A large splash image of a muliticolor paint explosion">
+</div>
+<div class="mt-3">
+    <div id="design" class="text-center circle pink-circle custom-scroll" 
+    animationProps="screenHeight/4,screenHeight/2,screenwidth,screenwidth/12,left">
+        <h3 class="pink-text circle-text">We design a website to compliment your business</h3>
+    </div>
+</div>
+<div class="circle-overlap">
+    <div id="data" class="text-center circle green-circle custom-scroll" 
+    animationProps="screenHeight/4,screenHeight/2,screenwidth,screenwidth/12*3,left">
+        <h3 class="green-text circle-text">We create a data model to sit behind your site</h3>
+    </div>
+</div>
+<div class="circle-overlap mb-3">
+    <div id="development" class="text-center circle cyan-circle custom-scroll" 
+    animationProps="screenHeight/4,screenHeight/2,screenwidth,screenwidth/12*5,left">
+        <h3 class="cyan-text circle-text">We then <br>create a development plan</h3>
+    </div>
+</div>
+<div class="mx-3 py-3 grey darken-4 text-center">
+    <h3 class="mx-3"> What comes as standard? </h3>
+    <p class="my-3">This is quite the list!</p>
+</div>
+<div class="scroll-X">
+    <div></div>
+</div>
 <h1>Random heading</h1>
 <h1>Random heading</h1>
 <h1>Random heading</h1>

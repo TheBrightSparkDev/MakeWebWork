@@ -10,11 +10,11 @@ body {
 /* End navbar styles */
 
 /* General styles */
-/* Media Qs @ 768px, 992px, 1200px, 1400px */
+
 .circle-overlap{
     margin-top: -10vw;
 }
-/* Media Qs @ 768px, 992px, 1200px, 1400px */
+/* Media Qs @  992px */
 .circle{
     height:50vw;
     width:50vw;
@@ -39,6 +39,28 @@ body {
     position: relative;
     width:100%;
     overflow-x: hidden;
+}
+/* Media Qs @  992px */
+.bg-image{
+    width: 100%;
+    position:absolute;
+    height:130vw;
+    overflow: hidden;
+}
+/* Media Qs @  992px */
+.behind{
+    z-index: -1;
+    position:absolute;
+    width:150%;
+}
+/* Media Qs @  992px */
+.right{
+    left:10%
+}
+/* Media Qs @  992px */
+.left{
+    top:40%;
+    right:10%;
 }
 #master-container{
 }
@@ -91,26 +113,23 @@ hero-img
 
 }
 @media (min-width: 768px){
-    .circle{
-        height:40vw;
-        width:40vw;
-    }
+
 }
 @media (min-width: 992px){
     .circle{
         height:30vw;
         width:30vw;
     }
+    .bg-image{
+        height:80vw;
+    }
+    .behind{
+        width:100%;
+    }
 }
 @media (min-width: 1200px){
-    .circle{
-        height:25vw;
-        width:25vw;
-    }
+
 }
 @media (min-width: 1400px){
-    .circle{
-        height:20vw;
-        width:20vw;
-    }
+
 }
