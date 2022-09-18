@@ -37,7 +37,6 @@ function Initializer(){
     // these are here to handle window resizing
     screenHeight = window.innerHeight
     screenWidth = window.innerWidth
-    currScrollPos = window.scrollY
     if (debug){
     testHTMLElements()
     }
@@ -208,9 +207,19 @@ function activateCurrent(){
         // get element 
         var el = $("#" + element.id)
         // get position of the element in relation to the top of the page
-        var posFromTop = el.offset().top
-        // set two points when to start animating and when to stop 
-        element.begin = posFromTop - screenHeight + element.start
+        // this if statement catches the instances where the user has scrolled and then resized page
+        if(resizing){
+            for (var tempEl of tempList){
+                if (tempEl.id == element.id){
+                    // sets when the element should start animating
+                    element.begin = tempEl.begin
+                }
+            }
+        } else {
+            var posFromTop = el.offset().top
+            // sets when the element should start animating
+            element.begin = posFromTop - screenHeight + element.start
+        }
         // calculate the amount the image needs to move per scroll movement based on how far it needs to travel
         // Math.abs guaratees a positive number        
         var distanceTravelled = Math.abs(element.startpos - element.endpos)
@@ -328,8 +337,14 @@ window.addEventListener("resize", function(event){
   });
 setInterval(() => {
     if (resizing) {
+    // this section of code is here to save the origional begin so that resizing doesn't ruin animations
+    var wait = true
+    setInterval(() => {
+        if (wait){
+            wait = false
+        }
+    },250);
+    location.reload();
     resizing = false
-    currentPage = []
-    Initializer()
     }
-},500);
+},1000);
