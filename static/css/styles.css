@@ -10,6 +10,16 @@ body {
 /* End navbar styles */
 
 /* General styles */
+::-webkit-scrollbar-track-piece{
+    background: rgba(233, 30, 99, 0.3);
+}
+::-webkit-scrollbar{
+    width:5px;
+    height:5px;
+}
+::-webkit-scrollbar-thumb{
+    background:rgba(0, 188, 212, 1);
+}
 .scroll-X{
     overflow-x: scroll;
     display: flex;
