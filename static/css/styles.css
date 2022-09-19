@@ -10,6 +10,13 @@ body {
 /* End navbar styles */
 
 /* General styles */
+.btn-toggle{
+    border-color:rgba(0, 188, 212, 1);
+    color:rgba(0, 188, 212, 1) ;
+}
+.btn-toggle:hover{
+    background-color:rgba(233, 30, 99, 1);
+}
 ::-webkit-scrollbar-track-piece{
     background: rgba(233, 30, 99, 0.3);
 }
