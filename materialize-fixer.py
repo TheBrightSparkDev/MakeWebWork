@@ -7,7 +7,7 @@ so may look into a clever function that minimises the css
 file in the future but for now it will do.
 """
 
-f = open("colors.css")
+f = open("colors-before-fixing.css")
 
 
 def convert(val):
@@ -71,25 +71,25 @@ for line in f:
             hexval = line[hashnum:end]
             rgb = convertToRgba(hexval)
             if "text" in name:
-                print(name + "{color: rgba" + rgb + ", 1)}")
-                print(name + ".op-9" + "{color: rgba" + rgb + ", 0.9)}")
-                print(name + ".op-8" + "{color: rgba" + rgb + ", 0.8)}")
-                print(name + ".op-7" + "{color: rgba" + rgb + ", 0.7)}")
-                print(name + ".op-6" + "{color: rgba" + rgb + ", 0.6)}")
-                print(name + ".op-5" + "{color: rgba" + rgb + ", 0.5)}")
-                print(name + ".op-4" + "{color: rgba" + rgb + ", 0.4)}")
-                print(name + ".op-3" + "{color: rgba" + rgb + ", 0.3)}")
-                print(name + ".op-2" + "{color: rgba" + rgb + ", 0.2)}")
-                print(name + ".op-1" + "{color: rgba" + rgb + ", 0.1)}")
+                print(name + "{color: rgba" + rgb + ", 1) !important;}")
+                print(name + ".op-9" + "{color: rgba" + rgb + ", 0.9) !important;}")
+                print(name + ".op-8" + "{color: rgba" + rgb + ", 0.8) !important;}")
+                print(name + ".op-7" + "{color: rgba" + rgb + ", 0.7) !important;}")
+                print(name + ".op-6" + "{color: rgba" + rgb + ", 0.6) !important;}")
+                print(name + ".op-5" + "{color: rgba" + rgb + ", 0.5) !important;}")
+                print(name + ".op-4" + "{color: rgba" + rgb + ", 0.4) !important;}")
+                print(name + ".op-3" + "{color: rgba" + rgb + ", 0.3) !important;}")
+                print(name + ".op-2" + "{color: rgba" + rgb + ", 0.2) !important;}")
+                print(name + ".op-1" + "{color: rgba" + rgb + ", 0.1) !important;}")
             else:
-                print(name + "{background-color: rgba" + rgb + ", 1)}")
-                print(name + ".op-9" + "{background-color: rgba" + rgb + ", 0.9)}")
-                print(name + ".op-8" + "{background-color: rgba" + rgb + ", 0.8)}")
-                print(name + ".op-7" + "{background-color: rgba" + rgb + ", 0.7)}")
-                print(name + ".op-6" + "{background-color: rgba" + rgb + ", 0.6)}")
-                print(name + ".op-5" + "{background-color: rgba" + rgb + ", 0.5)}")
-                print(name + ".op-4" + "{background-color: rgba" + rgb + ", 0.4)}")
-                print(name + ".op-3" + "{background-color: rgba" + rgb + ", 0.3)}")
-                print(name + ".op-2" + "{background-color: rgba" + rgb + ", 0.2)}")
-                print(name + ".op-1" + "{background-color: rgba" + rgb + ", 0.1)}")
+                print(name + "{background-color: rgba" + rgb + ", 1) !important;}")
+                print(name + ".op-9" + "{background-color: rgba" + rgb + ", 0.9) !important;}")
+                print(name + ".op-8" + "{background-color: rgba" + rgb + ", 0.8) !important;}")
+                print(name + ".op-7" + "{background-color: rgba" + rgb + ", 0.7) !important;}")
+                print(name + ".op-6" + "{background-color: rgba" + rgb + ", 0.6) !important;}")
+                print(name + ".op-5" + "{background-color: rgba" + rgb + ", 0.5) !important;}")
+                print(name + ".op-4" + "{background-color: rgba" + rgb + ", 0.4) !important;}")
+                print(name + ".op-3" + "{background-color: rgba" + rgb + ", 0.3) !important;}")
+                print(name + ".op-2" + "{background-color: rgba" + rgb + ", 0.2) !important;}")
+                print(name + ".op-1" + "{background-color: rgba" + rgb + ", 0.1) !important;}")
 
