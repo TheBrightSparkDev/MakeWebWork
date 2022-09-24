@@ -53,7 +53,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'home.urls'
 
-CSRF_TRUSTED_ORIGINS = ['https://8000-thebrightsp-makewebwork-b9c54f1injp.ws-eu64.gitpod.io/*']
+CSRF_TRUSTED_ORIGINS = ['https://8000-thebrightsp-makewebwork-b9c54f1injp.ws-eu67.gitpod.io/*']
 
 TEMPLATES = [
     {

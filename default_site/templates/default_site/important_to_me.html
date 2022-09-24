@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<h2 class="grey darken-4 mx-3 my-3 text-center py-3">What is important to you?</h2>
+<div id="security" class="col-12 col-lg-6 col-xl-4 col-xxl-2 grey darken-4 text-center my-2 selectable" selected="False">
+    <h3 class="pt-3">Security</h3>
+    <i class="fa-solid fa-lock important-icon"></i>
+    <p class="mx-2 py-3">
+        No one wants to be hacked or have their website taken advantage of select this option to find out more about how we avoid this!
+    </p>
+</div>
+<script type="text/javascript" src="{% static 'js/selection.js' %}"></script>
+
+{% endblock %}

@@ -60,4 +60,29 @@ class EvolvingFunctions(models.Model):
     display = models.BooleanField(null=False, blank=False, default=True)
 
 
+class importantOptions(models.Model):
+    '''
+    This class is used to define the various options customers
+    might deem important to them allowing me to show them a 
+    personalised answer to them
+    '''
+
+    name = models.CharField(max_length=30, null=False, blank=False)
+    description = models.CharField(max_length=250, null=False, blank=False)
+    longdescription = models.CharField(max_length=1000, null=False, blank=False)
+    display = models.BooleanField(null=False, blank=False, default=True)
+
+
 # anything after this is not exclusive to this website
+
+class socials(models.Model):
+    '''
+    This class is used to define the various social media links
+    this table will be the same for every website owner apart from
+    the links
+    '''
+
+    brand = models.CharField(max_length=30, null=False, blank=False)
+    fontawesome = models.CharField(max_length=50, null=False, blank=False)
+    link = models.CharField(max_length=150, null="true", blank="true")
+    display = models.BooleanField(null=False, blank=False, default=True)
