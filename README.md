@@ -79,6 +79,18 @@ that it's something to do with the load times where the system is loading the js
 
 Turns out I was misusing blocks in Django I was actually overwriting postloadJS whereas I thought calling block tag was actually extending I understand that a little better to avoid the issue again I added an empty block called extrapostjs where I will add extra js files for specific pages.
 
+# colors unable to easily add transparency
+
+This was really me thinking about me in the future really the easy way to get round this is to add opacity and set that to a value but that means that the element below inherits the opacity... This was a slight problem not a big one really but due to me wanting to make a designer eventually. I quickly looked into how to not inherit opacity. Turns out it's relatively simple just use RGBA to set color easy!
+
+Only issue is that materialize is sert using hex values. Yuck makes sense as its more efficient saving valuable space! How do I fix this then? Due to my prior knowledge with adobve software and photoshop I knew that hex is basically rgb.
+
+Hex uses the first value and mulitplies it by 16 a b c d e f basically mean 10 11 12 13 14 15 respectively 15*16 is 240 the second letter is taken at facevalue. 
+
+So max value is 15 * 16 + 15 which is 255. so all I had to do is create a script to look at materializes code and edit it. In order to be lazy I took the entire css file into word and used replace on paragraphs to make each rule sit on its own line I didn't want it to happen for the } though as they would all be on the same line and I wanted to do a line at a time to for loop through. So i did another replace to add a paragraph after }. 
+
+Then I created a quick and dirty python script and set it to print out the values I wanted. then > the output to another file called newcolors took a few attempts and then I sorted it. The script takes less than a second to run creating a 5k line css file. Next challenge is to create a quick and dirty python file to slap those into a database so I can add the indiviual colors in style tags in the designer allowing me to very efficiently serve user created HTML later but I can imagine that will show up in a later challenge
+
 # Technology used<a name="technology_used"></a>
 ## Wireframes<a name="wireframes"></a>
 - adobe XD
@@ -111,6 +123,10 @@ The reason I implemented the tests directly into the file is so that when users 
 Jest while it's likely capable of what I am doing here would be extremely difficult to implement to the level I have implemented in these tests.
 
 The only way to manually test is to see if you put in good info into the start,end,startpos,endpos,direction properties if so it'll do what you want if not it wont. It can be a little difficult to understand initially but it becomes intuitive after a while.
+
+## selection.js
+
+If you set debug to true it will run tests to ensure you have set the HTML correctly and it will output it's activity to the page including the connected message.
 
 # Validator Testing <a name="validator-testing"></a>
 

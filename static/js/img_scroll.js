@@ -4,9 +4,9 @@
 - you must add an id of your choosing
 - you must define the start,end,startpos,endpos,direction in an attribute named animationprops in this order
 */
-var debug = false // set this to false in production
-var debugg = false // this is here to turn off selected tests by adding a g to the end of the word debug in the various debug if statements throughout this file
-if (debug){
+var debugimgscroll = false // set this to false in production
+var debuggimgscroll = false // this is here to turn off selected tests by adding a g to the end of the word debugimgscroll in the various debugimgscroll if statements throughout this file
+if (debugimgscroll){
     console.log("connected");
 }
 /* these are predefined variables you can use when defining animation properties */
@@ -30,23 +30,23 @@ window.addEventListener("load", function(event){
 function Initializer(){
     /**
      * This function calls all the essential functions to do with initialising elements.
-     * This function can also call the test cases if the debug variable is set to true.
+     * This function can also call the test cases if the debugimgscroll variable is set to true.
      * The other option was jest for java testing but this was a much cleaner approach and very simple to implement
      * It also sped up development massively as it very clearly states any issues related to the HTML elements
      */
     // these are here to handle window resizing
     screenHeight = window.innerHeight
     screenWidth = window.innerWidth
-    if (debug){
+    if (debugimgscroll){
     testHTMLElements()
     }
     createObjects()
-    if (debug){
+    if (debugimgscroll){
         checkObjects()
         }
     activateCurrent()
 }
-// automatic tests (only work when debug set to true)
+// automatic tests (only work when debugimgscroll set to true)
 function testHTMLElements(){
     for (var element of elementList){
         // Check ID matches a knownElements item
@@ -64,7 +64,7 @@ function testHTMLElements(){
 }
 function checkObjects(){
     /**
-     * This function is only called when debug is true 
+     * This function is only called when debugimgscroll is true 
      * It looks at the values determined by the user and lets the user know if there are any mistakes
      */
     // currentPage is a list of objects
@@ -192,7 +192,7 @@ function createObjects(){
         }
         currentPage.push(el)
     }
-    if (debug){
+    if (debugimgscroll){
         for (var element of currentPage){
             console.log(element)
         }
@@ -224,14 +224,14 @@ function activateCurrent(){
         // Math.abs guaratees a positive number        
         var distanceTravelled = Math.abs(element.startpos - element.endpos)
         var lengthOfAnimation = Math.abs(element.end - element.start)
-        if(debug){
+        if(debugimgscroll){
             console.log(distanceTravelled)
             console.log(lengthOfAnimation)
         }
         element.finish = element.begin + lengthOfAnimation
         // Now we have the two numbers we need to calculate an amount to multiply the scroll wheel by 
         element.multiplyer = distanceTravelled / lengthOfAnimation
-        if (debug){
+        if (debugimgscroll){
             console.log("this is just after the element has been activated")
             console.log(element)
         }
@@ -281,7 +281,7 @@ function updateAll(currScrollPos){
         var scrollPosition = currScrollPos - offset
         // if the element affects the margin top all elements after will have their begin and finish offset 
         var el = $("#" + element.id) 
-        if (debug){
+        if (debugimgscroll){
             console.log(element.id)
             console.log(element.id)
             console.log(element.id)
@@ -294,18 +294,18 @@ function updateAll(currScrollPos){
         if (scrollPosition < (element.begin)){ // if current scroll pos is less that begin
             el.css(element.direction, element.startpos) // sets pos to start position
             val = element.startpos
-            if (debug){
+            if (debugimgscroll){
                 console.log("less than begin")
             }
         } else if (scrollPosition > element.finish){ // if current scroll pos is more than finish
             el.css(element.direction, element.endpos) // sets the pos to end position 
             val = element.endpos
-            if (debug){
+            if (debugimgscroll){
                 console.log("more than finish")
             }
         } else { // else covers when its between the values
             var dist = ((scrollPosition - element.begin) * element.multiplyer)
-            if (debug){
+            if (debugimgscroll){
                 console.log("between finish and start")
                 console.log("distance: " + dist)
             }
