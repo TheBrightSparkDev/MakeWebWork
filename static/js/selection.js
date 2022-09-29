@@ -72,11 +72,11 @@ function elementTest(){
 }
 function AddEvents(){
     for (var element of selectionList){
+        el = document.getElementById(element.id)
+        el.addEventListener('click',() => {toggle(element.id)})
         if (debugselection){
             console.log("element with id: " + element.id + " should now be functioning")
         }
-        el = document.getElementById(element.id)
-        el.addEventListener('click',() => {toggle(element.id)})
     }
 }
 function toggle(id){
