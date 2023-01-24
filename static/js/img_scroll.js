@@ -139,6 +139,7 @@ function createObjects(){
         el.id = element.id
         // This retrieves the animationprops attribute
         var props = document.getElementById(el.id).getAttribute("animationprops")
+        el.width = document.getElementById(el.id).offsetWidth / 2
         // this iterates through a list of property names in the same order they should be declared
         for (var prop of propslist){
             var slice = props.indexOf(",")
@@ -184,6 +185,12 @@ function createObjects(){
         }
         el.direction = props
         // this corrects the value so that animating it becomes easier
+        if (el.direction === "left"){
+            el.endpos = el.endpos - el.width
+        }
+        if (el.direction === "right"){
+            el.endpos = el.endpos - el.width
+        }
         if (el.direction === "up"){
             el.direction = "top"
         }
@@ -284,12 +291,12 @@ function updateAll(currScrollPos){
         if (debugimgscroll){
             console.log(element.id)
             console.log(element.id)
-            console.log(element.id)
-            console.log(element.id)
             console.log("offset = " + offset)
             console.log("scrollPosition: " + scrollPosition)
             console.log("begin: " + element.begin)
             console.log("finish: " + element.finish)
+            console.log(element.id)
+            console.log(element.id)
         }
         if (scrollPosition < (element.begin)){ // if current scroll pos is less that begin
             el.css(element.direction, element.startpos) // sets pos to start position
