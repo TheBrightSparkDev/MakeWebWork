@@ -50,10 +50,6 @@ a:hover{
 .blue-link:hover{
     color: rgba(33,150,243, 1) !important;
 }
-.selectable:hover{
-    background-color: rgba(200,200,200, 1) !important;
-    color:white;
-}
 .selected.selectable{
     background-color: rgba(255,255,255, 1) !important;
     color:black;
@@ -181,6 +177,10 @@ body {
     }
     .important-icon{
         font-size: 5vw;
+    }
+    .selectable:hover{
+        background-color: rgba(230,230,230, 1) !important;
+        color:black;
     }
 }
 @media (min-width: 1200px){
