@@ -51,8 +51,8 @@ a:hover{
     color: rgba(33,150,243, 1) !important;
 }
 .selectable:hover{
-    background-color: rgba(255,255,255, 1) !important;
-    color:black;
+    background-color: rgba(200,200,200, 1) !important;
+    color:white;
 }
 .selected.selectable{
     background-color: rgba(255,255,255, 1) !important;
