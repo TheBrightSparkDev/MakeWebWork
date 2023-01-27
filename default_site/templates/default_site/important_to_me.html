@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 <h2 class="grey darken-4 mx-3 my-3 text-center py-3">What is important to you?</h2>
-<div class="general-container">
+<div class="selection-container">
     {% for option in options %}
         {% if option.display %}
             <div id="{{option.name}}" class="col-12 col-lg-6 col-xl-4 col-xxl-2 grey darken-4 text-center my-2 selectable" selected="False">
@@ -11,10 +11,17 @@
                 <p class="mx-2 py-3">
                     {{option.description}}
                 </p>
+                <p class="mx-2 py-3 d-none">
+                    {{option.longdescription}}
+                </p>
             </div>
         {% endif %}
     {% endfor %}
 </div>
+<div id="submit" class="grey darken-4 my-3 text-center py-3 col-md-2 offset-md-5 col-8 offset-2">
+    <h2>Submit</h2>
+</div>
+
 <script type="text/javascript" src="{% static 'js/selection.js' %}"></script>
 
 {% endblock %}

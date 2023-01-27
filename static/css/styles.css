@@ -108,6 +108,17 @@ body {
     flex-direction: row;
     align-items: center;
 }
+.selection-container{
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: left;
+    flex-direction: row;
+    align-items: center;
+}
+#submit{
+    display:none;
+}
 .footer-icon{
     font-size: 10vw;
     padding-left:5vw
@@ -179,9 +190,14 @@ body {
         font-size: 5vw;
     }
     .selectable:hover{
-        background-color: rgba(230,230,230, 1) !important;
+        background-color: rgba(150,150,150, 1) !important;
+        color:white;
+    }
+    .selected.selectable{
+        background-color: rgba(255,255,255, 1) !important;
         color:black;
     }
+
 }
 @media (min-width: 1200px){
 

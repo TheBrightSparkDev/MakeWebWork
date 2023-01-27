@@ -1,6 +1,6 @@
 var debugselection = true
 // only used if debug is true
-
+var submitActivated = false
 var beforeselectionList = $(".selectable")
 var selectionList = []
 for (var item of beforeselectionList){
@@ -124,6 +124,11 @@ function toggle(e){
             console.log("This runs if it doesn't detect the class selected is on the element")
         }
     }
+    if ($(".selected").length > 0){
+        displaySubmit(true)
+    } else {
+        displaySubmit(false)
+    }
 }
 function sizeChecker(){
     var response = false
@@ -142,4 +147,48 @@ function sizeChecker(){
         }
     }
     return response
+}
+function displaySubmit(bool){
+    el = $("#submit")
+    var element = document.getElementById("submit")
+    if(bool){
+        el.fadeIn("fast")
+        if (!submitActivated){
+        element.addEventListener('click',() => {submit()})
+        submitActivated = true
+        }
+    } else {
+        el.fadeOut("fast")
+        if (submitActivated){
+            element.removeEventListener('click')
+            submitActivated = false
+        }
+    }
+}
+function submit(){
+    var selectedEls = $(".selected")
+    var selectedElsList = []
+    for (var item of selectedEls){
+    selectedElsList.push(item.id)
+    }
+    console.log(selectedElsList)
+    if (selectedElsList.length > 0){
+        var hideList = []
+        for (var el of selectionList){
+            console.log(selectionList)
+            console.log(el)
+            if (selectedElsList.includes(el)){
+            } else {
+                hideList.push(el)
+            }
+        }
+        console.log("hidelist: " + hideList )
+        for (var el in hideList){
+            console.log("fading")
+            console.log(el)
+            // fadeout doesnt work because of bootstrap classes either remove bootstrap classes or find a different way
+            $("#" + el).fadeOut()
+        }
+    }
+    
 }
