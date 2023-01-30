@@ -5,13 +5,13 @@
 <div class="selection-container">
     {% for option in options %}
         {% if option.display %}
-            <div id="{{option.name}}" class="col-12 col-lg-6 col-xl-4 col-xxl-2 grey darken-4 text-center my-2 selectable" selected="False">
+            <div id="{{option.name}}" class="col-12 col-lg-6 col-xl-4 col-xxl-2 grey darken-4 text-center my-2 selectable">
                 <h3 class="pt-3">{{option.name}}</h3>
                 <i class="{{option.icon}} important-icon"></i>
-                <p class="mx-2 py-3">
+                <p class="mx-2 py-3 jshort">
                     {{option.description}}
                 </p>
-                <p class="mx-2 py-3 d-none">
+                <p class="mx-2 py-3 d-none jlong">
                     {{option.longdescription}}
                 </p>
             </div>

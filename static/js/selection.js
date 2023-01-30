@@ -1,9 +1,11 @@
-var debugselection = true
-// only used if debug is true
-var submitActivated = false
-var beforeselectionList = $(".selectable")
-var selectionList = []
-for (var item of beforeselectionList){
+var debugselection = false // Set to true to debug page
+var submitted = false // true after submit 
+var submitActivated = false // true after at least one element selected
+var beforeSelectionList = $(".selectable") // this gets a list of elements
+var selectionList = [] // this becomes a list of IDs found on the elements in beforeSelectionList
+var remain = [] // used after submit 
+var hideList = [] // used after submit
+for (var item of beforeSelectionList){
     selectionList.push(item.id)
 }
 if (debugselection){
@@ -12,6 +14,7 @@ if (debugselection){
     console.log(selectionList)
     console.log("thats a total of " + selectionList.length)
 }
+// essentially the main function 
 window.addEventListener("load", function(event){
     if (debugselection){
         console.log("initialising!")
@@ -27,6 +30,7 @@ window.addEventListener("load", function(event){
             if (e.key == " " || e.code == "Space"){
                 elementTest()
             }
+        // end of copy and pasted code
         }
     }
     // corrects any errors created by uniform size (caused by the browser cached font awesome icon not loading quickly enough)
@@ -36,6 +40,8 @@ window.addEventListener("load", function(event){
         }
     },250)
 });
+
+// Automated tests only happen when debugSelection is set to true
 
 function checkBefore(){
     console.log("This is just a helpful note:")
@@ -76,15 +82,22 @@ function uniformSize(){
         el = document.getElementById(element)
         sizes.push(el.offsetHeight)
     }
-    console.log(sizes)
     var biggest = Math.max.apply(0,sizes) + "px"
-    for (var element of selectionList){
-        el = document.getElementById(element)
-        el.style.height = biggest
+    if (submitted){
+        for (var element of remain){
+            el = document.getElementById(element)
+            el.style.height = biggest
+        }
+    } else {
+        for (var element of selectionList){
+            el = document.getElementById(element)
+            el.style.height = biggest
+        }
     }
 }
 
 function AddEvents(){
+    // this function adds the event listeners so the user can select elements on the page
     for (var element of selectionList){
         el = document.getElementById(element)
         el.addEventListener('click',(e) => {toggle(e)})
@@ -110,14 +123,12 @@ function toggle(e){
     el = document.getElementById(id)
     el.classList.toggle("selected")
     if(el.classList.value.includes("selected")){
-        el.setAttribute("selected","True")
         if (debugselection){
             console.log("element with id " + id + " should have been toggled so the selected attribute equals True")
             console.log("This is the current value of selected: " + el.getAttribute("selected"))
             console.log("This runs if it detects the class selected is on the element")
         }
     } else {
-        el.setAttribute("selected","False")
         if (debugselection){
             console.log("element with id " + id + " should have been toggled so the selected attribute equals False") 
             console.log("This is the current value of selected: " + el.getAttribute("selected"))
@@ -131,21 +142,31 @@ function toggle(e){
     }
 }
 function sizeChecker(){
+    // this checks the sizes of elements on the page
+    // if it detects the selectable elements contents are too large to fit in parent DIV
+    // it calls uniformsize function to correct the element and keep all elements the same size
     var response = false
     for (var element of selectionList){
         el = document.getElementById(element)
         var height = 0
         for (var child of el.children){
-            console.log(child.offsetHeight)
+            if (debugselection){
+                console.log(child.offsetHeight)
+            }
             height = child.offsetHeight + height
         }
+        // this is subjective 24 is margin of title and description P tags added together had difficulty getting the margin reliably 
+        // possible improvement: Get margin of each element somehow and add to total
         height = height + 24
-        console.log(height)
+        if (debugselection){
+            console.log(height) 
+        }
         if (el.offsetHeight < height ){
             el.style.height = height + "px"
             response = true
         }
     }
+    // returns bool true if elements inside are too big for container false overwise
     return response
 }
 function displaySubmit(bool){
@@ -166,28 +187,33 @@ function displaySubmit(bool){
     }
 }
 function submit(){
+    submitted = true
     var selectedEls = $(".selected")
     var selectedElsList = []
     for (var item of selectedEls){
     selectedElsList.push(item.id)
     }
-    console.log(selectedElsList)
     if (selectedElsList.length > 0){
-        var hideList = []
         for (var el of selectionList){
-            console.log(selectionList)
-            console.log(el)
             if (selectedElsList.includes(el)){
+                document.getElementById(el).classList.toggle("selected")
+                remain.push(el)
             } else {
                 hideList.push(el)
             }
         }
-        console.log("hidelist: " + hideList )
-        for (var el in hideList){
-            console.log("fading")
-            console.log(el)
-            // fadeout doesnt work because of bootstrap classes either remove bootstrap classes or find a different way
-            $("#" + el).fadeOut()
+        if (debugselection){
+            console.log("hidelist: " + hideList )
+        }
+        for (var el of hideList){
+            element = document.getElementById(el)
+            // Jquery doesnt support style very well so using vanilla javascript
+            element.style.display = "none"
+        }
+        for (var el of remain){
+            element = document.getElementById(el)
+            element.querySelector('.jshort').classList.toggle("d-none")
+            element.querySelector('.jlong').classList.toggle("d-none")
         }
     }
     
