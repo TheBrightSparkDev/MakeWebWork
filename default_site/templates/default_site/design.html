@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="col-12 hero-img-holder">
+    <img class="hero-img" src="{% static 'images/Pink_paint_explosion.png' %}" 
+    alt="A large splash image of a pink paint explosion">
+</div>
+<div id="hero-cover" class="custom-scroll black" 
+animationProps="100,screenHeight/2,0,-screenHeight/1.5,down">
+    <div class="mx-3 grey darken-4">
+        <div class="mx-3 text-center py-3">
+            <h1>Gallery</h1>
+            <p>
+                Here you will be able to see designs created by others in the web designer!
+            </p>
+        </div>
+    </div>
+</div>
+<div class="my-3">
+    <h3 class="mx-3 text-center mb-3 pb-3">The Designer</h3>
+    <div class="bg-image">
+        <img class="behind left" src="{% static 'images/Pink_paint_explosion.png' %}" 
+            alt="A large splash image of a pink paint explosion">
+    </div>
+    <div class="bg-image">
+        <img class="behind right" src="{% static 'images/Pink_paint_explosion.png' %}" 
+            alt="A large splash image of a pink paint explosion">
+    </div>
+    <div class="mt-3">
+        <div id="design" class="text-center custom-scroll circle" 
+        animationProps="screenHeight/4,screenHeight/2,screenwidth,screenwidth/12*3,left">
+            <img class="img-fluid" src="{% static 'images/Circle_Add_elements_small.png' %}" 
+            alt="A circular image that displays an example of the element adding process">
+        </div>
+    </div>
+    <div class="circle-overlap">
+        <div id="data" class="text-center custom-scroll circle" 
+        animationProps="screenHeight/4,screenHeight/2,screenwidth,screenwidth/12*6,left">
+            <img class="img-fluid" src="{% static 'images/Circle_Add_elements.png' %}" 
+            alt="A circular image that displays an example of the element adding process when text is selected">
+        </div>
+    </div>
+    <div class="circle-overlap pb-3">
+        <div id="development" class="text-center custom-scroll circle" 
+        animationProps="screenHeight/4,screenHeight/2,screenwidth,screenwidth/12*9,left">
+            <img class="img-fluid" src="{% static 'images/Circle_colours.png' %}" 
+            alt="A circular image full of colours">
+        </div>
+    </div>
+</div>
+<div class="my-3 grey darken-4 col-12 col-md-6 col-lg-4 offset-md-3 offset-lg-4">
+    <h3 class="mx-3 my-3 py-3 text-center">Keeping it simple</h3>
+</div>
+<div class="my-3 grey darken-4 col-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4 grey darken-4">
+    <img class="img-fluid" src="{% static 'images/Example_of_blocks.PNG' %}" 
+    alt="A screenshot of the designer where mulitple images have been added">
+</div>
+<div class="my-3 grey darken-4 col-12">
+    <p class="py-3 px-3">
+        The goal when it comes to creating the designer is to make it as simple as possible. 
+        Seperated into blocks so you don't have to worry about any complex layouts leave that 
+        to us!
+    </p>
+</div>
+<div class="my-3 grey darken-4 col-12 col-md-6 col-lg-4 offset-md-3 offset-lg-4">
+    <h3 class="mx-3 my-3 py-3 text-center">Optional</h3>
+</div>
+<div class="my-3 grey darken-4 col-12">
+    <p class="py-3 px-3">
+        The designer will always be there if you need it but is entirely optional see it as a 
+        tool to save money rather than something you have to use. It also gives you the freedom 
+        to just experiment and showcase your designs and ideas. Even if it's just a pointer for 
+        us to finish off!
+    </p>
+</div>
+<h2 class="grey darken-4 mx-3 my-3 text-center py-3">So far so good?</h2>
+<a href="{% url 'important' %}">
+    <h3 class="grey darken-4 col-10 offset-1 col-xl-6 offset-xl-3 text-center py-3 grey-link">Click here to find out more!</h3>
+</a>
+{% endblock %}
