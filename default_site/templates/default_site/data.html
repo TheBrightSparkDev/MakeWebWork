@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="col-12 hero-img-holder">
+    <img class="hero-img" src="{% static 'images/Blue_paint_explosion.png' %}" 
+    alt="A large splash image of a pink paint explosion">
+</div>
+<div id="hero-cover" class="custom-scroll black" 
+animationProps="100,screenHeight/2,0,-screenHeight/1.5,down">
+    <div class="mx-3 grey darken-4 col-12 col-md-6 col-lg-4 offset-md-1">
+        <div class="mx-3 text-center py-3">
+            <h1>Databases</h1>
+            <p>
+                Why do you NEED one?
+            </p>
+        </div>
+    </div>
+</div>
+<div class="my-3 grey darken-4 col-12 col-md-8 offset-md-2 ">
+    <h2 class="py-3 px-3 text-center">
+        Here's a few reasons...
+    </h2>
+    <p class="py-3 px-3 text-center">
+        Firstly data doesn't mean saving people ages and birthdays to sell on to cold callers... that's not our goal, here at MakeWebWork the data we talk about is things 
+        that will help you help your customers
+    </p>
+    <p class="py-3 px-3 text-center">   
+        For example an online store might benefit from knowing what is in a customers wishlist or basket. If they signed in during their visit they would have
+        provided an email and let us know their marketing preferance. Let's say you saw a product that's in 70 of you potential customers basket. So you change the price 
+        normally that wouldn't mean anything but for those that have selected yes to marketing emails will receive and email saying the price has changed with a direct 
+        link to the website. When they return we would have saved their basket meaning that they will also have everything else they had selected. Data is more powerful than 
+        you realise.
+    </p>
+    <h3 class="py-3 px-3 text-center">      
+        Wait, did you say sign in? 
+    </h3>   
+    <p class="py-3 px-3 text-center">  
+        Yeah another thing databases enable you to support where else can you store your customers passwords and usernames safely? 
+        There are so many ways databases will support your business data allows you to create a genuinely personalised experience for you customers.
+        Got a great customer you appreciate let them know with a sign in message! The possibilities are endless when it comes to data. It really is up
+        to you how you want to use it, let us worry about implementing the functionality.
+    </p>    
+    <h3 class="py-3 px-3 text-center">  
+        Data helps you understand your audience
+    </h3>
+    <p class="py-3 px-3 text-center">     
+        Order history, financial information, product performance, website performance, most visited pages, time spent on each page. These are all things
+        that could help you understand your customers. Maybe you want to collect feedback from customers why didn't they buy? Why are they leaving
+        the site? Do they plan on coming back? all things made possible by databases
+    </p>    
+</div>
+<div class="my-3 grey darken-4 col-12 col-md-6 col-lg-4 offset-md-3 offset-lg-4">
+    <h3 class="mx-3 my-3 py-3 text-center">Where's the catch?</h3>
+</div>
+<div class="my-3 grey darken-4 col-12 col-md-8 offset-md-2 ">
+    <p class="py-3 px-3 text-center">
+        Databases need to be managed, indexes need to be setup, tables need to be provisioned, access restrictions need to be set, they need to be monitored
+        for bad data....
+    </p>
+    <p class="py-3 px-3 text-center">
+        Wait, why are we telling YOU this?
+    </p>
+    <h4 class="py-3 px-3 text-center">
+        We do all that. 
+    </h4>
+</div>
+<div class="my-3 grey darken-4 col-12 col-md-6 col-lg-4 offset-md-3 offset-lg-4">
+    <h3 class="mx-3 my-3 py-3 text-center">Not convinced?</h3>
+</div>
+<div class="my-3 grey darken-4 col-12 col-md-8 offset-md-2 ">
+    <p class="py-3 px-3 text-center">
+        Maybe you don't need a database right now?
+    </p>
+    <h3 class="py-3 px-3 text-center">
+        or
+    </h3>
+    <p class="py-3 px-3 text-center">
+        Maybe a chat with us might make you realise the true potential data could have on you and your customers experience.
+    </p>
+</div>
+<h2 class="grey darken-4 mx-3 my-3 text-center py-3">So far so good?</h2>
+<a href="{% url 'important' %}">
+    <h3 class="grey darken-4 col-10 offset-1 col-xl-6 offset-xl-3 text-center py-3 grey-link">Click here to find out more!</h3>
+</a>
+{% endblock %}

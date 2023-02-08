@@ -1,3 +1,11 @@
+'''
+These are the models used in the default site app these models
+are all gathered by mostly static system tables. The reason for
+using static tables is to avoid hard coding information into the
+site that is subject to change. Allowing me to change the data in
+the table once and having it replicated throughout the site.
+'''
+
 from django.db import models
 
 # Create your models here.
@@ -60,23 +68,37 @@ class EvolvingFunctions(models.Model):
     display = models.BooleanField(null=False, blank=False, default=True)
 
 
-class importantOptions(models.Model):
+class ImportantOptions(models.Model):
     '''
     This class is used to define the various options customers
-    might deem important to them allowing me to show them a 
+    might deem important to them allowing me to show them a
     personalised answer to them
     '''
 
     name = models.CharField(max_length=30, null=False, blank=False)
     icon = models.CharField(max_length=100, null=False, blank=False)
     description = models.CharField(max_length=250, null=False, blank=False)
-    longdescription = models.CharField(max_length=5000, null=False, blank=False)
+    longdescription = models.CharField(max_length=5000, null=False, blank=False) # noqa
     display = models.BooleanField(null=False, blank=False, default=True)
+
+
+class ContactOptions(models.Model):
+    '''
+    This class is used to define the various social media links
+    this table will be the same for every website owner apart from
+    the links
+    '''
+
+    name = models.CharField(max_length=30, null=False, blank=False)
+    description = models.CharField(max_length=50, null=False, blank=False)
+    link = models.CharField(max_length=150, null=True, blank=True)
+    display = models.BooleanField(null=False, blank=False, default=True)
+    full = models.BooleanField(null=False, blank=False, default=False)
 
 
 # anything after this is not exclusive to this website
 
-class socials(models.Model):
+class Socials(models.Model):
     '''
     This class is used to define the various social media links
     this table will be the same for every website owner apart from
