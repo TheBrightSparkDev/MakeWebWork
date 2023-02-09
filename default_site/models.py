@@ -84,9 +84,7 @@ class ImportantOptions(models.Model):
 
 class ContactOptions(models.Model):
     '''
-    This class is used to define the various social media links
-    this table will be the same for every website owner apart from
-    the links
+    This class is used to define the various ways you can get in contact
     '''
 
     name = models.CharField(max_length=30, null=False, blank=False)
