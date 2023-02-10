@@ -13,7 +13,7 @@ if (debugimgscroll){
 var screenHeight = window.innerHeight
 var screenWidth = window.innerWidth
 /* Settings for scroll */
-var waitPeriodMs = 40 // this is how long the scroll event has to wait between fires higher the number the better the performance
+var waitPeriodMs = 30 // this is how long the scroll event has to wait between fires higher the number the better the performance the more jagged the animations become
 const propslist = ["start","end","startpos","endpos"] // this is essential for the createObjects function. It's a list of property names in the order they should be declared
 /* This is a list of elements that need to be animated */
 var elementList = $(".custom-scroll")

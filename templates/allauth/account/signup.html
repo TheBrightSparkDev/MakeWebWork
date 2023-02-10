@@ -1,0 +1,24 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+{% block content %}
+<div class="text-center black op-5 col-12">
+  <h1 class="my-3">Sign Up</h1>
+  <a class="col-5 col-md-3 grey darken-4 selectable my-3 mx-3 btn text-white selectable" href="{{ login_url }}">Been here before?</a>
+
+  <div class="black op-5 my-3">
+    <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+      {% csrf_token %}
+      <div class="mx-3">
+        {{ form.as_p }}
+      </div>
+      {% if redirect_field_value %}
+      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+      {% endif %}
+      <button class="btn text-white col-5 col-md-3 grey darken-4 mx-3 my-1 selectable" type="submit">{% trans "Sign Up" %}</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

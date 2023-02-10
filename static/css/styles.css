@@ -25,7 +25,13 @@
 ::-webkit-scrollbar-thumb{
     background:rgba(0, 188, 212, 1);
 }
-
+/* Auth page styles */
+.hero-bg{
+    width: 100%;
+    position:absolute;
+    overflow: hidden;
+    z-index: -1;
+}
 /* General styles */
 a {
     text-decoration: none;
