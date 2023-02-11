@@ -32,6 +32,45 @@
     overflow: hidden;
     z-index: -1;
 }
+label{
+    width:100%;
+}
+input[type='text']{
+    color:white !important;
+    background-color: #212121 !important;
+    text-align:center;
+}
+input[type='password']{
+    color:white !important;
+    background-color: #212121 !important;
+    text-align:center;
+}
+input[type='email']{
+    color:white !important;
+    background-color: #212121 !important;
+    text-align:center;
+}
+/* 
+The autofill boxes were ugly which really bothered me 
+the below code came from: 
+https://css-tricks.com/almanac/selectors/a/autofill/ 
+much better 
+*/
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: 1px solid grey;
+  -webkit-text-fill-color: white;
+  -webkit-box-shadow: 0 0 0px 1000px #212121 inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+/* end of external code */
 /* General styles */
 a {
     text-decoration: none;

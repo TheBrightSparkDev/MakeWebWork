@@ -1,62 +1,24 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<div class="col-12 hero-img-holder">
-    <img class="hero-img" src="{% static 'images/Purple_paint_explosion.png' %}" 
-    alt="A large splash image of a pink paint explosion">
+<h2 class="grey darken-4 mx-3 my-3 text-center py-3">Select the options that apply to you</h2>
+<div class="selection-container">
+    {% for option in options %}
+        {% if option.display %}
+            <div id="{{option.id}}" class="col-12 col-lg-6 col-xl-4 col-xxl-2 grey darken-4 text-center my-2 selectable">
+                <h3 class="pt-3">{{option.name}}</h3>
+                <i class="{{option.icon}} important-icon"></i>
+                <p class="mx-2 py-3 jshort">
+                    {{option.description}}
+                </p>
+            </div>
+        {% endif %}
+    {% endfor %}
 </div>
-<div id="hero-cover" class="custom-scroll black" 
-animationProps="100,screenHeight/2,0,-screenHeight/1.5,down">
-    <div class="mx-3 grey darken-4 col-12 col-md-6 col-lg-4 offset-md-1">
-        <div class="mx-3 text-center py-3">
-            <h1>Come say hi</h1>
-            <p>
-                We can't wait to hear from you!
-            </p>
-        </div>
-    </div>
+<div id="Form" class="grey darken-4 my-3 text-center py-3 col-md-2 offset-md-5 col-8 offset-2">
+    <h2>Submit</h2>
 </div>
-<div class="my-3 grey darken-4 col-12 col-md-6 col-lg-4 offset-md-3 offset-lg-4">
-    <h3 class="mx-3 my-3 py-3 text-center">Got a website already?</h3>
-</div>
-<div class="my-3 grey darken-4 col-12">
-    <p class="py-3 px-3">
-        We will take a look at it and redesign it together to match our backend infrastructure and data models.
-    </p>
-</div>
-<div class="my-3 grey darken-4 col-12 col-md-6 col-lg-4 offset-md-3 offset-lg-4">
-    <h3 class="mx-3 my-3 py-3 text-center">Got a business already?</h3>
-</div>
-<div class="my-3 grey darken-4 col-12">
-    <p class="py-3 px-3">
-        Let us know what support you need to make it an online sensation!
-    </p>
-</div>
-<div class="my-3 grey darken-4 col-12 col-md-6 col-lg-4 offset-md-3 offset-lg-4">
-    <h3 class="mx-3 my-3 py-3 text-center">Got a business idea</h3>
-</div>
-<div class="my-3 grey darken-4 col-12">
-    <p class="py-3 px-3">
-        Let us help you make it an online sensation
-    </p>
-</div>
-<div class="my-3 grey darken-4 col-12 col-md-6 col-lg-4 offset-md-3 offset-lg-4">
-    <h3 class="mx-3 my-3 py-3 text-center">Just a chat?</h3>
-</div>
-<div class="my-3 grey darken-4 col-12">
-    <p class="py-3 px-3">
-        No problem we look forward to hearing from you!
-    </p>
-</div>
-<div class="my-3 grey darken-4 col-12 col-md-6 col-lg-4 offset-md-3 offset-lg-4">
-    <h3 class="mx-3 my-3 py-3 text-center">Partnership programme</h3>
-</div>
-<div class="my-3 grey darken-4 col-12">
-    <p class="py-3 px-3">
-        Sometimes a brilliant idea comes from a mind that doesn't currently have the opportunities to action them. That's why in MakeWebWork we want to support these ideas
-        with no upfront cost. We will invest in you providing a website and managing your cloud infrastucture with the hopes to make a profitable business together. This is 
-        a case by case offer you will be put in contact with the director of MakeWebWork we recommend having a presentation ready, research your market and tell us what you
-        plan to do differently. We can't promise success but we will try our best to get your idea out there. No capital support will be given to acquire goods or concepts.
-    </p>
-</div>
+
+<script type="text/javascript" src="{% static 'js/selection.js' %}"></script>
+
 {% endblock %}

@@ -24,6 +24,9 @@ class AdminFunctions(models.Model):
     extended = models.CharField(max_length=500, null=False, blank=False)
     id_for_html = models.CharField(max_length=50, null=False, blank=False)
     display = models.BooleanField(null=False, blank=False, default=True)
+    
+    def __str__(self):
+        return self.name
 
 
 class SecurityFunctions(models.Model):
@@ -38,6 +41,9 @@ class SecurityFunctions(models.Model):
     extended = models.CharField(max_length=500, null=False, blank=False)
     id_for_html = models.CharField(max_length=50, null=False, blank=False)
     display = models.BooleanField(null=False, blank=False, default=True)
+    
+    def __str__(self):
+        return self.name
 
 
 class ComplianceFunctions(models.Model):
@@ -52,6 +58,9 @@ class ComplianceFunctions(models.Model):
     extended = models.CharField(max_length=500, null=False, blank=False)
     id_for_html = models.CharField(max_length=50, null=False, blank=False)
     display = models.BooleanField(null=False, blank=False, default=True)
+    
+    def __str__(self):
+        return self.name
 
 
 class EvolvingFunctions(models.Model):
@@ -66,6 +75,9 @@ class EvolvingFunctions(models.Model):
     extended = models.CharField(max_length=500, null=False, blank=False)
     id_for_html = models.CharField(max_length=50, null=False, blank=False)
     display = models.BooleanField(null=False, blank=False, default=True)
+    
+    def __str__(self):
+        return self.name
 
 
 class ImportantOptions(models.Model):
@@ -81,17 +93,28 @@ class ImportantOptions(models.Model):
     longdescription = models.CharField(max_length=5000, null=False, blank=False) # noqa
     display = models.BooleanField(null=False, blank=False, default=True)
 
+    def __str__(self):
+        return self.name
+
 
 class ContactOptions(models.Model):
     '''
     This class is used to define the various ways you can get in contact
     '''
-
+    htmlId = models.CharField(max_length=30, null=False, blank=False)
     name = models.CharField(max_length=30, null=False, blank=False)
-    description = models.CharField(max_length=50, null=False, blank=False)
+    description = models.CharField(max_length=500, null=False, blank=False)
+    formQ1 = models.CharField(max_length=100, null=False, blank=False)
+    formQ2 = models.CharField(max_length=100, null=False, blank=False)
+    formQ3 = models.CharField(max_length=100, null=False, blank=False)
+    formQ4 = models.CharField(max_length=100, null=False, blank=False)
+    formQ5 = models.CharField(max_length=100, null=False, blank=False)
     link = models.CharField(max_length=150, null=True, blank=True)
     display = models.BooleanField(null=False, blank=False, default=True)
     full = models.BooleanField(null=False, blank=False, default=False)
+
+    def __str__(self):
+        return self.name
 
 
 # anything after this is not exclusive to this website
@@ -107,3 +130,6 @@ class Socials(models.Model):
     fontawesome = models.CharField(max_length=50, null=False, blank=False)
     link = models.CharField(max_length=150, null="true", blank="true")
     display = models.BooleanField(null=False, blank=False, default=True)
+
+    def __str__(self):
+        return self.brand

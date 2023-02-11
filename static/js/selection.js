@@ -1,4 +1,4 @@
-var debugselection = false // Set to true to debug page
+var debugselection = true // Set to true to debug page
 var submitted = false // true after submit 
 var submitActivated = false // true after at least one element selected
 var beforeSelectionList = $(".selectable") // this gets a list of elements
@@ -170,8 +170,16 @@ function sizeChecker(){
     return response
 }
 function displaySubmit(bool){
-    el = $("#submit")
-    var element = document.getElementById("submit")
+    // there are two supported options for the submit button one is form one is submit
+    // form displays a form to the user based on the options they have chosen
+    // submit displays extra information to the user about thier selections
+    if ($("#submit")){
+        el = $("#submit")
+        var element = document.getElementById("submit")
+    } else if ($("#form")) {
+        el = $("#form")
+        var element = document.getElementById("form")
+    }
     if(bool){
         el.fadeIn("fast")
         if (!submitActivated){

@@ -77,7 +77,7 @@ def contact(request):
     '''
     context = {
         "socials": Socials.objects.all(),
-        "ContactOptions": ContactOptions.object.all()
+        "options": ContactOptions.objects.all()
     }
     return render(request, 'default_site/contact.html', context)
 
@@ -88,6 +88,6 @@ def important_to_me(request):
     '''
     context = {
         "socials": Socials.objects.all(),
-        "options": ContactOptions.objects.all()
+        "options": ImportantOptions.objects.all()
     }
     return render(request, 'default_site/important_to_me.html', context)

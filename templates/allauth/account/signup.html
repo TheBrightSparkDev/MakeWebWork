@@ -6,8 +6,6 @@
 {% block content %}
 <div class="text-center black op-5 col-12">
   <h1 class="my-3">Sign Up</h1>
-  <a class="col-5 col-md-3 grey darken-4 selectable my-3 mx-3 btn text-white selectable" href="{{ login_url }}">Been here before?</a>
-
   <div class="black op-5 my-3">
     <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
       {% csrf_token %}
