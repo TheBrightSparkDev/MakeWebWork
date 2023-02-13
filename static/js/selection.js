@@ -1,13 +1,33 @@
+// this javascript file is set to activate and handle multiple selection pages 
+// I really liked the idea that someone could personalise content to suit what they 
+// are interested in so I created this so you would have a list of things to choose from
+// once you have made your choice only the things that interest you are left allowing you to 
+// read more. I then had a great idea to do the same with forms I had two options: recreate this 
+// file and I would have a much simpler job but I chose option two I am trying to challenge myself 
+// so this file will behave differently depending on the ID of the submit button I will also have 
+// to make a few catches to ensure that someone can't edit the id and break the page. 
+
+// bug when page resized everything is reset
+
+// found a shortcut.. this is the only thing that distinguishes a form from a submit 
+// Jquery supports some animation effects vanilla supports changing styles. 
+// having both equals max flexibilty
+if (document.getElementById("submit")){
+    var elJquery = $("#submit")
+    var elVanilla = document.getElementById("submit")
+} else if (document.getElementById("form")) {
+    var elJquery = $("#form")
+    var elVanilla = document.getElementById("form")
+}
 var debugselection = true // Set to true to debug page
 var submitted = false // true after submit 
 var submitActivated = false // true after at least one element selected
 var beforeSelectionList = $(".selectable") // this gets a list of elements
 var selectionList = [] // this becomes a list of IDs found on the elements in beforeSelectionList
-var remain = [] // used after submit 
-var hideList = [] // used after submit
 for (var item of beforeSelectionList){
     selectionList.push(item.id)
 }
+var selectedElsList = [] // this is a global variable as it's used in submit and back functions 
 if (debugselection){
     console.log("selection.js connected")
     console.log("these html elements have been detected")
@@ -16,34 +36,46 @@ if (debugselection){
 }
 // essentially the main function 
 window.addEventListener("load", function(event){
+    // this is true if required elements are active on the html page
+    var initialise = ElementChecker()
     if (debugselection){
         console.log("initialising!")
         checkBefore()
         console.log("Look for mulitple mentions of the same element that means there has been a problem with the selectionlist")
     }
-    uniformSize()
-    AddEvents()
-    if (debugselection){
-        console.log("Calibration test ready please pay attention to the html elements with the selectable tags and press spacebar when you are ready to run the calibration test")
-        // copy and pasted from here: https://stackoverflow.com/questions/24386354/execute-js-code-after-pressing-the-spacebar 
-        document.body.onkeyup = function(e) {
-            if (e.key == " " || e.code == "Space"){
-                elementTest()
+    // If this is false that means this file is not needed so nothing happens
+    if (initialise){
+        uniformSize()
+        AddEvents()
+        if (debugselection){
+            console.log("Calibration test ready please pay attention to the html elements with the selectable tags and press spacebar when you are ready to run the calibration test")
+            // copy and pasted from here: https://stackoverflow.com/questions/24386354/execute-js-code-after-pressing-the-spacebar 
+            document.body.onkeyup = function(e) {
+                if (e.key == " " || e.code == "Space"){
+                    elementTest()
+                }
+            // end of copy and pasted code
             }
-        // end of copy and pasted code
         }
+        // corrects any errors created by uniform size (caused by the browser cached font awesome icon not loading quickly enough)
+        this.setTimeout(() =>{
+            if (sizeChecker()){
+                uniformSize()
+            }
+        },250)
     }
-    // corrects any errors created by uniform size (caused by the browser cached font awesome icon not loading quickly enough)
-    this.setTimeout(() =>{
-        if (sizeChecker()){
-            uniformSize()
-        }
-    },250)
 });
 
 // Automated tests only happen when debugSelection is set to true
 
 function checkBefore(){
+    console.log("if submit found it will be the next log")
+    console.log(document.getElementById("submit"))
+    console.log("if form found it will be the next log")
+    console.log(document.getElementById("form"))
+    if ( document.getElementById("submit") && document.getElementById("form")){
+        console.log("You currently cant have a submit and a form multiple select on the same page sorry! In the future you can though! Clicking one button will activate both")
+    }
     console.log("This is just a helpful note:")
     console.log("if you want the color to to be different when selected the css rules you want to target are .selectable:hover and .selected background-color and color")
     if (selectionList.len < 1){
@@ -60,6 +92,20 @@ function checkBefore(){
             console.log("ignore this if that was intended of course!")
         }
     }
+    console.log("In order for the submit button to function correctly there needs to be an initial div and an aftersubmit div")
+    if (!document.getElementById("intial")){
+        // this means there isn't an initial div
+        console.log("no initial div found")
+    }
+    if (!document.getElementById("afterSubmit")){
+        // this means there isn't an aftersubmit div
+        console.log("no aftersubmit div found")
+    }
+    if (!document.getElementById("back")){
+        // this means there isn't an aftersubmit div
+        console.log("In order for users to have a good experience an element with the back id should be present so users can reset page to the initial state make sure it's in the after submit section of course")
+    }
+    // need a test to make sure back is hidden initially 
 }
 function elementTest(){
     console.log("detected elements should show blue")
@@ -74,6 +120,26 @@ function elementTest(){
     }
 }
 // end of automated tests 
+
+function ElementChecker(){
+    // this file checks elements are present true if they are false if they are not
+    // a false response from this will stop this file from functioning 
+    if (typeof elJquery == "undefined"){
+        // this means there isn't a submit or form button on the page
+        if((selectionList.len < 1)){
+            // this means there is no selectable elements on the page
+            if (!document.getElementById("intial")){
+                // this means there isn't an initial div
+                if (!document.getElementById("afterSubmit")){
+                    // this means there isn't an aftersubmit div
+                    return false
+                }
+            }
+        }
+    }
+    // if one test fails above it returns true
+    return true
+}
 
 function uniformSize(){
     // this function resizes elements to give a uniform look
@@ -104,6 +170,10 @@ function AddEvents(){
         if (debugselection){
             console.log("element with id: " + element + " should now be functioning")
         }
+    }
+    if (document.getElementById("back")){
+        document.getElementById("back").addEventListener('click',() => {back()})
+        console.log("back activated")
     }
 }
 function toggle(e){
@@ -170,26 +240,17 @@ function sizeChecker(){
     return response
 }
 function displaySubmit(bool){
-    // there are two supported options for the submit button one is form one is submit
-    // form displays a form to the user based on the options they have chosen
-    // submit displays extra information to the user about thier selections
-    if ($("#submit")){
-        el = $("#submit")
-        var element = document.getElementById("submit")
-    } else if ($("#form")) {
-        el = $("#form")
-        var element = document.getElementById("form")
-    }
+    // bool is a boolean if true displays the submit button is false hides it
     if(bool){
-        el.fadeIn("fast")
+        elJquery.fadeIn("fast")
         if (!submitActivated){
-        element.addEventListener('click',() => {submit()})
+        elVanilla.addEventListener('click',() => {submit()})
         submitActivated = true
         }
     } else {
-        el.fadeOut("fast")
+        elJquery.fadeOut("fast")
         if (submitActivated){
-            element.removeEventListener('click')
+            elVanilla.removeEventListener('click')
             submitActivated = false
         }
     }
@@ -197,32 +258,23 @@ function displaySubmit(bool){
 function submit(){
     submitted = true
     var selectedEls = $(".selected")
-    var selectedElsList = []
     for (var item of selectedEls){
-    selectedElsList.push(item.id)
+        selectedElsList.push(item.id)
     }
-    if (selectedElsList.length > 0){
-        for (var el of selectionList){
-            if (selectedElsList.includes(el)){
-                document.getElementById(el).classList.toggle("selected")
-                remain.push(el)
-            } else {
-                hideList.push(el)
-            }
-        }
-        if (debugselection){
-            console.log("hidelist: " + hideList )
-        }
-        for (var el of hideList){
-            element = document.getElementById(el)
-            // Jquery doesnt support style very well so using vanilla javascript
-            element.style.display = "none"
-        }
-        for (var el of remain){
-            element = document.getElementById(el)
-            element.querySelector('.jshort').classList.toggle("d-none")
-            element.querySelector('.jlong').classList.toggle("d-none")
-        }
+    document.getElementById("initial").style.display = "none"
+    for (var id of selectedElsList){
+        document.getElementById(id).classList.toggle("selected")
+        document.getElementById(id+"hide").classList.toggle("hide")
     }
-    
+    document.getElementById("afterSubmit").style.display = "block"
+}
+
+function back(){
+    document.getElementById("afterSubmit").style.display = "none"
+    for (var id of selectedElsList){
+        document.getElementById(id+"hide").classList.toggle("hide")
+    }
+    document.getElementById("initial").style.display = "block"
+    // finally resets the value of selectedElsList
+    selectedElsList = []
 }

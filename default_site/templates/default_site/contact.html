@@ -1,22 +1,88 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<h2 class="grey darken-4 mx-3 my-3 text-center py-3">Select the options that apply to you</h2>
-<div class="selection-container">
-    {% for option in options %}
-        {% if option.display %}
-            <div id="{{option.id}}" class="col-12 col-lg-6 col-xl-4 col-xxl-2 grey darken-4 text-center my-2 selectable">
-                <h3 class="pt-3">{{option.name}}</h3>
-                <i class="{{option.icon}} important-icon"></i>
-                <p class="mx-2 py-3 jshort">
-                    {{option.description}}
-                </p>
-            </div>
-        {% endif %}
-    {% endfor %}
+<!-- This is what displays before the submit button-->
+<div id="initial" class="col-12">
+    <h2 class="grey darken-4 mx-3 my-3 text-center py-3">Select the options that apply to you</h2>
+    <div class="selection-container">
+        {% for option in options %}
+            {% if option.display %}
+                <div id="{{option.id}}" class="col-12 col-lg-6 col-xl-4 col-xxl-2 grey darken-4 text-center my-2 selectable">
+                    <h3 class="pt-3">{{option.name}}</h3>
+                    <p class="mx-2 py-3">
+                        {{option.description}}
+                    </p>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div id="form" class="grey darken-4 my-3 text-center py-3 col-md-2 offset-md-5 col-8 offset-2">
+        <h2>Submit</h2>
+    </div>
 </div>
-<div id="Form" class="grey darken-4 my-3 text-center py-3 col-md-2 offset-md-5 col-8 offset-2">
-    <h2>Submit</h2>
+<!-- This is what displays after the submit button -->
+<div id="afterSubmit">
+    <div id="back" class="grey darken-4 my-3 text-center py-3 col-4 col-md-2">
+        <h2>Back</h2>
+    </div>
+    <div class="selection-container">
+        {% for option in options %}
+            {% if option.display %}
+                <div id="{{option.id}}hide" class="col-12 grey darken-4 text-center my-2 hide">
+                    <div class="col-4 col-md-2">
+                        <h3 class="pt-3">{{option.name}}</h3>
+                    </div>
+                    <div class="col-8 col-md-10">
+                        {% if option.formQ1 != null %}
+                        <p>
+                            <label for="{{option.id}}formQ1">
+                                {{option.formQ1}}
+                            </label>
+                            <input type="text" name="{{option.id}}formQ1" required id="id{{option.id}}formQ1">
+                        </p>
+                        {% endif %}
+
+                        {% if option.formQ2 != null %}
+                        <p>
+                            <label for="{{option.id}}formQ2">
+                                {{option.formQ2}}
+                            </label>
+                            <input type="text" name="{{option.id}}formQ2" required id="id{{option.id}}formQ2">
+                        </p>
+                        {% endif %}
+
+                        {% if option.formQ3 != null %}
+                        <p>
+                            <label for="{{option.id}}formQ3">
+                                {{option.formQ3}}
+                            </label>
+                            <input type="text" name="{{option.id}}formQ3" required id="id{{option.id}}formQ3">
+                        </p>
+                        {% endif %}
+
+                        {% if option.formQ4 != null %}
+                        <p>
+                            <label for="{{option.id}}formQ4">
+                                {{option.formQ4}}
+                            </label>
+                            <input type="text" name="{{option.id}}formQ4" required id="id{{option.id}}formQ4">
+                        </p>
+                        {% endif %}
+
+                        {% if option.formQ5 != null %}
+                        <p>
+                            <label for="{{option.id}}formQ5">
+                                {{option.formQ5}}
+                            </label>
+                            <input type="text" name="{{option.id}}formQ5" required id="id{{option.id}}formQ5">
+                        </p>
+                        {% endif %}
+
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
 </div>
 
 <script type="text/javascript" src="{% static 'js/selection.js' %}"></script>

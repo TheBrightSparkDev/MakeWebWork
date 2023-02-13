@@ -1,27 +1,44 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<h2 class="grey darken-4 mx-3 my-3 text-center py-3">What is important to you?</h2>
-<div class="selection-container">
-    {% for option in options %}
-        {% if option.display %}
+<div id="initial" class="col-12">
+    <h2 class="grey darken-4 mx-3 my-3 text-center py-3">Select the options that apply to you</h2>
+    <div class="selection-container">
+        {% for option in options %}
+            {% if option.display %}
             <div id="{{option.name}}" class="col-12 col-lg-6 col-xl-4 col-xxl-2 grey darken-4 text-center my-2 selectable">
                 <h3 class="pt-3">{{option.name}}</h3>
                 <i class="{{option.icon}} important-icon"></i>
-                <p class="mx-2 py-3 jshort">
+                <p class="mx-2 py-3">
                     {{option.description}}
                 </p>
-                <p class="mx-2 py-3 d-none jlong">
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div id="submit" class="grey darken-4 my-3 text-center py-3 col-md-2 offset-md-5 col-8 offset-2">
+        <h2>Submit</h2>
+    </div>
+</div>
+<!-- This is what displays after the submit button -->
+<div id="afterSubmit">
+    <div id="back" class="grey darken-4 my-3 text-center py-3 col-4 col-md-2">
+        <h2>Back</h2>
+    </div>
+    <div class="selection-container">
+        {% for option in options %}
+            {% if option.display %}
+            <div id="{{option.name}}hide" class="col-12 grey darken-4 text-center my-2 hide">
+                <h3 class="pt-3">{{option.name}}</h3>
+                <i class="{{option.icon}} important-icon"></i>
+                <p class="mx-2 py-3">
                     {{option.longdescription}}
                 </p>
             </div>
-        {% endif %}
-    {% endfor %}
+            {% endif %}
+        {% endfor %}
+    </div>
 </div>
-<div id="submit" class="grey darken-4 my-3 text-center py-3 col-md-2 offset-md-5 col-8 offset-2">
-    <h2>Submit</h2>
-</div>
-
 <script type="text/javascript" src="{% static 'js/selection.js' %}"></script>
 
 {% endblock %}

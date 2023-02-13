@@ -10,6 +10,8 @@ from django.db import models
 
 # Create your models here.
 # following classes are exclusive to this website
+# for my own sanity
+# pylint: disable=locally-disabled, multiple-statements, fixme, invalid-str-returned
 
 
 class AdminFunctions(models.Model):
@@ -24,7 +26,7 @@ class AdminFunctions(models.Model):
     extended = models.CharField(max_length=500, null=False, blank=False)
     id_for_html = models.CharField(max_length=50, null=False, blank=False)
     display = models.BooleanField(null=False, blank=False, default=True)
-    
+
     def __str__(self):
         return self.name
 
@@ -41,7 +43,7 @@ class SecurityFunctions(models.Model):
     extended = models.CharField(max_length=500, null=False, blank=False)
     id_for_html = models.CharField(max_length=50, null=False, blank=False)
     display = models.BooleanField(null=False, blank=False, default=True)
-    
+
     def __str__(self):
         return self.name
 
@@ -58,7 +60,7 @@ class ComplianceFunctions(models.Model):
     extended = models.CharField(max_length=500, null=False, blank=False)
     id_for_html = models.CharField(max_length=50, null=False, blank=False)
     display = models.BooleanField(null=False, blank=False, default=True)
-    
+
     def __str__(self):
         return self.name
 
@@ -75,7 +77,7 @@ class EvolvingFunctions(models.Model):
     extended = models.CharField(max_length=500, null=False, blank=False)
     id_for_html = models.CharField(max_length=50, null=False, blank=False)
     display = models.BooleanField(null=False, blank=False, default=True)
-    
+
     def __str__(self):
         return self.name
 
@@ -104,11 +106,11 @@ class ContactOptions(models.Model):
     htmlId = models.CharField(max_length=30, null=False, blank=False)
     name = models.CharField(max_length=30, null=False, blank=False)
     description = models.CharField(max_length=500, null=False, blank=False)
-    formQ1 = models.CharField(max_length=100, null=False, blank=False)
-    formQ2 = models.CharField(max_length=100, null=False, blank=False)
-    formQ3 = models.CharField(max_length=100, null=False, blank=False)
-    formQ4 = models.CharField(max_length=100, null=False, blank=False)
-    formQ5 = models.CharField(max_length=100, null=False, blank=False)
+    formQ1 = models.CharField(max_length=100, null=True, blank=True)
+    formQ2 = models.CharField(max_length=100, null=True, blank=True)
+    formQ3 = models.CharField(max_length=100, null=True, blank=True)
+    formQ4 = models.CharField(max_length=100, null=True, blank=True)
+    formQ5 = models.CharField(max_length=100, null=True, blank=True)
     link = models.CharField(max_length=150, null=True, blank=True)
     display = models.BooleanField(null=False, blank=False, default=True)
     full = models.BooleanField(null=False, blank=False, default=False)
