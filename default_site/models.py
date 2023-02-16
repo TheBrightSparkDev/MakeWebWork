@@ -11,7 +11,7 @@ from django.db import models
 # Create your models here.
 # following classes are exclusive to this website
 # for my own sanity
-# pylint: disable=locally-disabled, multiple-statements, fixme, invalid-str-returned
+# pylint: disable=locally-disabled, multiple-statements, fixme, invalid-str-returned # noqa
 
 
 class AdminFunctions(models.Model):
@@ -106,11 +106,66 @@ class ContactOptions(models.Model):
     htmlId = models.CharField(max_length=30, null=False, blank=False)
     name = models.CharField(max_length=30, null=False, blank=False)
     description = models.CharField(max_length=500, null=False, blank=False)
+    formQ1type = models.CharField(max_length=50, null=True, blank=True,
+                                  default="text")
+    formQ1Class = models.CharField(max_length=50, null=True, blank=True)
+    formQ1number = models.IntegerField(null=True, blank=True, default=1)
+    formQ1CharLimit = models.IntegerField(null=True, blank=True, default=500)
     formQ1 = models.CharField(max_length=100, null=True, blank=True)
+    formQ2type = models.CharField(max_length=50, null=True, blank=True,
+                                  default="text")
+    formQ2Class = models.CharField(max_length=50, null=True, blank=True)
+    formQ2number = models.IntegerField(null=True, blank=True, default=1)
+    formQ2CharLimit = models.IntegerField(null=True, blank=True, default=500)
     formQ2 = models.CharField(max_length=100, null=True, blank=True)
+    formQ3type = models.CharField(max_length=50, null=True, blank=True,
+                                  default="text")
+    formQ3Class = models.CharField(max_length=50, null=True, blank=True)
+    formQ3number = models.IntegerField(null=True, blank=True, default=1)
+    formQ3CharLimit = models.IntegerField(null=True, blank=True, default=500)
     formQ3 = models.CharField(max_length=100, null=True, blank=True)
+    formQ4type = models.CharField(max_length=50, null=True, blank=True,
+                                  default="text")
+    formQ4Class = models.CharField(max_length=50, null=True, blank=True)
+    formQ4number = models.IntegerField(null=True, blank=True, default=1)
+    formQ4CharLimit = models.IntegerField(null=True, blank=True, default=500)
     formQ4 = models.CharField(max_length=100, null=True, blank=True)
+    formQ5type = models.CharField(max_length=50, null=True, blank=True,
+                                  default="text")
+    formQ5Class = models.CharField(max_length=50, null=True, blank=True)
+    formQ5number = models.IntegerField(null=True, blank=True, default=1)
+    formQ5CharLimit = models.IntegerField(null=True, blank=True, default=500)
     formQ5 = models.CharField(max_length=100, null=True, blank=True)
+    formQ6type = models.CharField(max_length=50, null=True, blank=True,
+                                  default="text")
+    formQ6Class = models.CharField(max_length=50, null=True, blank=True)
+    formQ6number = models.IntegerField(null=True, blank=True, default=1)
+    formQ6CharLimit = models.IntegerField(null=True, blank=True, default=500)
+    formQ6 = models.CharField(max_length=100, null=True, blank=True)
+    formQ7type = models.CharField(max_length=50, null=True, blank=True,
+                                  default="text")
+    formQ7Class = models.CharField(max_length=50, null=True, blank=True)
+    formQ7number = models.IntegerField(null=True, blank=True, default=1)
+    formQ7CharLimit = models.IntegerField(null=True, blank=True, default=500)
+    formQ7 = models.CharField(max_length=100, null=True, blank=True)
+    formQ8type = models.CharField(max_length=50, null=True, blank=True,
+                                  default="text")
+    formQ8Class = models.CharField(max_length=50, null=True, blank=True)
+    formQ8number = models.IntegerField(null=True, blank=True, default=1)
+    formQ8CharLimit = models.IntegerField(null=True, blank=True, default=500)
+    formQ8 = models.CharField(max_length=100, null=True, blank=True)
+    formQ9type = models.CharField(max_length=50, null=True, blank=True,
+                                  default="text")
+    formQ9Class = models.CharField(max_length=50, null=True, blank=True)
+    formQ9number = models.IntegerField(null=True, blank=True, default=1)
+    formQ9CharLimit = models.IntegerField(null=True, blank=True, default=500)
+    formQ9 = models.CharField(max_length=100, null=True, blank=True)
+    formQ10type = models.CharField(max_length=50, null=True, blank=True,
+                                   default="text")
+    formQ10Class = models.CharField(max_length=50, null=True, blank=True)
+    formQ10number = models.IntegerField(null=True, blank=True, default=1)
+    formQ10CharLimit = models.IntegerField(null=True, blank=True, default=500)
+    formQ10 = models.CharField(max_length=100, null=True, blank=True)
     link = models.CharField(max_length=150, null=True, blank=True)
     display = models.BooleanField(null=False, blank=False, default=True)
     full = models.BooleanField(null=False, blank=False, default=False)

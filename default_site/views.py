@@ -75,6 +75,9 @@ def contact(request):
     the tabs are created using data gathered from the database
     the footer depends upon data retrieved from the database
     '''
+    if request.method == "POST":
+        print("hello world")
+
     context = {
         "socials": Socials.objects.all(),
         "options": ContactOptions.objects.all()

@@ -91,6 +91,79 @@ So max value is 15 * 16 + 15 which is 255. so all I had to do is create a script
 
 Then I created a quick and dirty python script and set it to print out the values I wanted. then > the output to another file called newcolors took a few attempts and then I sorted it. The script takes less than a second to run creating a 5k line css file. Next challenge is to create a quick and dirty python file to slap those into a database so I can add the indiviual colors in style tags in the designer allowing me to very efficiently serve user created HTML later but I can imagine that will show up in a later challenge
 
+# Form handler for my contact options page
+
+The page that accepts the input is a single form split into multiple chunks each chunk can have 10 questions each 
+there is one part that always displays which is I am a human. so the answers to that need to map to the customer 
+table a request number needs to be the link between the customer table and the rest of the questions 
+
+So how do I create a form that has 40 plus fields where only sometimes fields are used and the validation needs to 
+only trigger if the option was chosen origionally. So the sturcture coming from the front end is a mystery.. 
+
+I also would love to have the fields be saved during the editing process they can be very big answers like whats your
+idea? I try explaining this website as an idea in less than 2000 characters... No chance but we all know what its like
+you've just written a whole bunch of text and bam you hit a wall cant think of the next bit leave the page come back and
+all your hard work is gone. So the system needs to as soon as an account is created create an account create a request number
+put any answers in the table with an incomplete tag so that when I am looking through requests I don't see the incomplete ones.
+
+One way to solve this would be have the individual blocks of questions be saved individually without a page refresh. Also need
+the system if refreshed to not reset to the way it was before. So if the user is logged in it needs to know what options were
+already selected... Sounds like my JS file needs to be able to access the table? or I have a hidden field at the top of the page
+which is created by the backend which contains an attribute called previouschosenoptions that gets passed through the submit function
+straight away... Which would display the correct blocks.. If user already logged in then it could use that to autofill the inputs 
+
+But say user refreshes and changes their options there will be data in the hidden sections.. Soo I need to segment them into seperate 
+saves so you save and next one pops open.. Maybe some animations could be used here to make the save process more exciting to the 
+user.. This allows me to handle each part seperately and it all gets sent to the same table apart from the customer one at the start.
+
+This seems doable now but likely very complex. The things I will do to make my UX fit my minds eye...
+
+Data solution 
+
+table one customer
+unique ID primary key
+name 
+lastname 
+etc.
+
+table two request table
+Unique ID (foreign key customer table)
+Request ID primary key
+
+table three quesitons table 
+Question ID primary key
+request ID foreign key request table
+question 1 question
+question 1 answer 
+question 2 question 
+question 2 answer
+etc 
+
+This allows one customer to have multiple requests 
+and each request to have multiple questions 
+
+Javascript needs to get the submit use the label values as the questions 
+then match them with the answers using the for on the labels to match to the answers
+
+Will need to take the label value at the begginning of the page load and then make the links 
+remembering the ids and saving the actual input elements rather than what their IDs were. Why? 
+So that a user cant change the format of the questions and change the labels and submit bad data
+for nefarious reasons or because they want to.. The javascript also needs to do a check to make sure 
+all data is legitmate data aswell avoiding SQL injections With a custom error message stating I know 
+how to handle SQL injections to the front end just to rub it in... 
+
+This allows me to only validate fields that are not hidden and only submit data of the particular block aswell.
+
+So this will handle every seperate contact option the 
+same way. Will need to have a unique form referance to
+group all the answers. 
+
+Also allows flexibilty in the future so I can add groups and
+change questions whenever I like without any additional changes
+to the form handler. 
+
+and have a foreign key to a customer table allowing 
+a multiple to one relationship 
 # Technology used<a name="technology_used"></a>
 ## Wireframes<a name="wireframes"></a>
 - adobe XD
