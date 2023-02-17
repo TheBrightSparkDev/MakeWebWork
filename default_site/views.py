@@ -66,6 +66,31 @@ def development(request):
     return render(request, 'default_site/development.html', context)
 
 
+def formCreator(formData):
+    '''
+    If the customer form name ever gets changed update customerForm value too
+    '''
+    customerForm = "I am a human"
+    data = []
+    questionKeys = []
+    i = 1
+    while i <= 20:
+        option = "formQ" + str(i)
+        questionKeys.append(option)
+        i = i + 1
+
+    for line in formData:
+        if line.name == customerForm:
+            # this makes I am human always display first
+            data.insert(0, line.name)
+        else:
+            data.append(line.name)
+        for question in questionKeys:
+            if line[str(question)] != "":
+                data[line.name][question] = line[str(question)]
+    return data
+
+
 def contact(request):
     '''
     This is the development page there are no forms on this page just
@@ -74,11 +99,18 @@ def contact(request):
     the future will be easier
     the tabs are created using data gathered from the database
     the footer depends upon data retrieved from the database
+    Make sure if you update the amount of questions available in the contact
+    model you change the variable numberofquestionsperblock here
     '''
+
+    question_groups = ContactOptions.objects.all()
+    form = formCreator(question_groups)
+
     if request.method == "POST":
         print("hello world")
 
     context = {
+        "form": form,
         "socials": Socials.objects.all(),
         "options": ContactOptions.objects.all()
     }
