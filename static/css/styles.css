@@ -32,7 +32,7 @@
     overflow: hidden;
     z-index: -1;
 }
-label{
+label:not(.ignore-label-styles){
     width:100%;
 }
 input[type='text']{
