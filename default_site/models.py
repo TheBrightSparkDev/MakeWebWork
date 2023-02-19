@@ -109,16 +109,17 @@ class Customer(models.Model):
     EmailAddress = models.CharField(max_length=100, null=False, blank=False)
     PhoneNumber = models.CharField(max_length=15, null=False, blank=False)
     password = models.CharField(max_length=30, null=False, blank=False)
+    
 
 
 class ContactOptions(models.Model):
     '''
     This class is used to define the various ways you can get in contact
     '''
-    htmlId = models.CharField(max_length=30, null=False, blank=False)
     name = models.CharField(max_length=30, null=False, blank=False)
     description = models.CharField(max_length=500, null=False, blank=False)
-
+    displayorder = models.IntegerField()
+    
     def __str__(self):
         return self.name
 
@@ -136,7 +137,7 @@ class FormQuestions(models.Model):
     blockclass = models.CharField(max_length=50, null=True, blank=True)
     labelclass = models.CharField(max_length=50, null=True, blank=True)
     inputclass = models.CharField(max_length=50, null=True, blank=True)
-    type = [
+    typechoices = [
         ('BTN', 'button'), ('CKB', 'checkbox'), ('COL', 'color'),
         ('DAT', 'date'), ('DTL', 'datetime-local'), ('BTN', 'email'),
         ('FIL', 'file'), ('HDN', 'hidden'), ('IMG', 'image'),
@@ -144,8 +145,12 @@ class FormQuestions(models.Model):
         ('RAD', 'radio'), ('RNG', 'range'), ('RST', 'reset'),
         ('SRC', 'search'), ('TEL', 'tel'), ('TXT', 'text'),
         ('TIM', 'time'), ('URL', 'url'), ('WEK', 'week'),
+        ('SEL', 'select')
     ]
-    selectoptions = models.CharField(max_length=500)
+    type = models.CharField(max_length=50, null=True, blank=True,
+                            choices=typechoices)
+    selectoptions = models.CharField(max_length=500, null=True,
+                                     blank=True)
     multiselection = models.BooleanField(null=False, blank=False,
                                          default=False)
     charlimit = models.IntegerField(null=True, blank=True, default=500)

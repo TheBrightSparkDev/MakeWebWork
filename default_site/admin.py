@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import (AdminFunctions, SecurityFunctions, ComplianceFunctions,
                      EvolvingFunctions, Socials, ImportantOptions,
-                     ContactOptions)
+                     ContactOptions, FormQuestions, Customer)
 
 # Register your models here.
 admin.site.register(AdminFunctions)
@@ -11,3 +11,5 @@ admin.site.register(EvolvingFunctions)
 admin.site.register(Socials)
 admin.site.register(ImportantOptions)
 admin.site.register(ContactOptions)
+admin.site.register(FormQuestions)
+admin.site.register(Customer)

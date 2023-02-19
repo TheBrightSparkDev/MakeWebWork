@@ -35,6 +35,9 @@
 label:not(.ignore-label-styles){
     width:100%;
 }
+.input-fill{
+    width:100%;
+}
 input[type='text']{
     color:white !important;
     background-color: #212121 !important;

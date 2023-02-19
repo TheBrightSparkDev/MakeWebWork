@@ -42,75 +42,7 @@
     <div class="selection-container">
         {% for option in options %}
             {% if option.display %}
-                {% if option.name == "I am a human" %}
-                <div id="{{option.id}}hide" class="col-12 grey darken-4 text-center my-2 hide">
-                    <div class="col-4 col-md-2">
-                        <h3 class="pt-3">{{option.name}}</h3>
-                    </div>
-                    <div class="col-8 col-md-10">
-                        {% if option.formQ1 != null %}
-                            <p>
-                                <label class="ignore-label-styles" for="{{option.id}}formQ1">{{option.formQ1}}</label>
-                                <input class="option.formQ1class" type="{{option.formQ1type}}" name="{{option.id}}formQ1" maxlength="option.formQ1CharLimit" required id="id{{option.id}}formQ1">
-                            </p>
-                        {% endif %}
-                        {% if option.formQ2 != null %}
-                        <p>
-                            <label for="{{option.id}}formQ2">{{option.formQ2}}</label>
-                            <input class="option.formQ2class" type="{{option.formQ2type}}" name="{{option.id}}formQ2" maxlength="option.formQ2CharLimit" required id="id{{option.id}}formQ2">
-                        </p>
-                        {% endif %}
-                        {% if option.formQ3 != null %}
-                        <p>
-                            <label for="{{option.id}}formQ3">{{option.formQ3}}</label>
-                            <input class="option.formQ3class" type="{{option.formQ3type}}" name="{{option.id}}formQ3" maxlength="option.formQ3CharLimit" required id="id{{option.id}}formQ3">
-                        </p>
-                        {% endif %}
-                        {% if option.formQ4 != null %}
-                        <p>
-                            <label for="{{option.id}}formQ4">{{option.formQ4}}</label>
-                            <input class="option.formQ4class" type="{{option.formQ4type}}" name="{{option.id}}formQ4" maxlength="option.formQ4CharLimit" required id="id{{option.id}}formQ4">
-                        </p>
-                        {% endif %}
-                        {% if option.formQ5 != null %}
-                        <p>
-                            <label for="{{option.id}}formQ5">{{option.formQ5}}</label>
-                            <input class="option.formQ5class" type="{{option.formQ5type}}" name="{{option.id}}formQ5" maxlength="option.formQ5CharLimit" required id="id{{option.id}}formQ5">
-                        </p>
-                        {% endif %}
-                        {% if option.formQ6 != null %}
-                        <p>
-                            <label for="{{option.id}}formQ6">{{option.formQ6}}</label>
-                            <input class="option.formQ6class" type="{{option.formQ6type}}" name="{{option.id}}formQ6" maxlength="option.formQ6CharLimit" required id="id{{option.id}}formQ6">
-                        </p>
-                        {% endif %}
-                        {% if option.formQ7 != null %}
-                        <p>
-                            <label for="{{option.id}}formQ7">{{option.formQ7}}</label>
-                            <input class="option.formQ7class" type="{{option.formQ7type}}" name="{{option.id}}formQ7" maxlength="option.formQ7CharLimit" required id="id{{option.id}}formQ7">
-                        </p>
-                        {% endif %}
-                        {% if option.formQ8 != null %}
-                        <p>
-                            <label for="{{option.id}}formQ8">{{option.formQ8}}</label>
-                            <input class="option.formQ8class" type="{{option.formQ8type}}" name="{{option.id}}formQ8" maxlength="option.formQ8CharLimit" required id="id{{option.id}}formQ8">
-                        </p>
-                        {% endif %}
-                        {% if option.formQ9 != null %}
-                        <p>
-                            <label for="{{option.id}}formQ9">{{option.formQ9}}</label>
-                            <input class="option.formQ9class" type="{{option.formQ9type}}" name="{{option.id}}formQ9" maxlength="option.formQ9CharLimit" required id="id{{option.id}}formQ9">
-                        </p>
-                        {% endif %}
-                        {% if option.formQ10 != null %}
-                        <p>
-                            <label for="{{option.id}}formQ10">{{option.formQ10}}</label>
-                            <input class="option.formQ10class" type="{{option.formQ10type}}" name="{{option.id}}formQ10" maxlength="option.formQ10CharLimit" required id="id{{option.id}}formQ10">
-                        </p>
-                        {% endif %}
-                    </div>
-                </div>
-                {% endif %}
+                
             {% endif %}
         {% endfor %}
         {% for option in options %}

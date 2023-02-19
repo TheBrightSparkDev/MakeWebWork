@@ -9,8 +9,8 @@ in forms and placing orders
 from django.shortcuts import render, HttpResponse
 from .models import (AdminFunctions, SecurityFunctions, ComplianceFunctions,
                      EvolvingFunctions, Socials, ImportantOptions,
-                     ContactOptions)
-
+                     ContactOptions, FormQuestions)
+from django.contrib.auth.decorators import login_required
 
 # for my own sanity
 # pylint: disable=locally-disabled, multiple-statements, fixme, no-member
@@ -66,6 +66,7 @@ def development(request):
     return render(request, 'default_site/development.html', context)
 
 
+@login_required
 def contact(request):
     '''
     This is the development page there are no forms on this page just
@@ -77,14 +78,13 @@ def contact(request):
     Make sure if you update the amount of questions available in the contact
     model you change the variable numberofquestionsperblock here
     '''
-    ContactOptions.objects.all().delete()
     if request.method == "POST":
         print("hello world")
 
     context = {
-        
+        "questions": FormQuestions.objects.all(),
         "socials": Socials.objects.all(),
-        "options": ContactOptions.objects.all()
+        "options": ContactOptions.objects.all().order_by("displayorder").values() # noqa
     }
     return render(request, 'default_site/contact.html', context)
 
