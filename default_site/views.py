@@ -9,7 +9,7 @@ in forms and placing orders
 from django.shortcuts import render, HttpResponse
 from .models import (AdminFunctions, SecurityFunctions, ComplianceFunctions,
                      EvolvingFunctions, Socials, ImportantOptions,
-                     ContactOptions, FormQuestions)
+                     ContactOptions, FormQuestions, Selectoptions)
 from django.contrib.auth.decorators import login_required
 
 # for my own sanity
@@ -82,6 +82,7 @@ def contact(request):
         print("hello world")
 
     context = {
+        "selectoptions": Selectoptions.objects.all(),
         "questions": FormQuestions.objects.all(),
         "socials": Socials.objects.all(),
         "options": ContactOptions.objects.all().order_by("displayorder").values() # noqa

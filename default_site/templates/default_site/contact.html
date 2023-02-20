@@ -7,18 +7,6 @@
     <div class="selection-container">
         {% for option in options %}
             {% if option.display %}
-                {% if option.name == "I am a human" %}
-                    <div id="{{option.id}}" class="col-12 col-lg-6 col-xl-4 col-xxl-2 grey darken-4 text-center my-2 selectable">
-                        <h3 class="pt-3">{{option.name}}</h3>
-                        <p class="mx-2 py-3">
-                            {{option.description}}
-                        </p>
-                    </div>
-                {% endif %}
-            {% endif %}
-        {% endfor %}
-        {% for option in options %}
-            {% if option.display %}
                 {% if option.name != "I am a human" %}
                     <div id="{{option.id}}" class="col-12 col-lg-6 col-xl-4 col-xxl-2 grey darken-4 text-center my-2 selectable">
                         <h3 class="pt-3">{{option.name}}</h3>
@@ -42,28 +30,36 @@
     <div class="selection-container">
         {% for option in options %}
             {% if option.display %}
-                
+                {% if option.name != "I am a human" %}
+                <div id="{{option.id}}hide" class="col-12 grey darken-4 text-center my-2 hide">
+                    <div class="col-4 col-md-2">
+                        <h3 class="pt-3">{{option.name}}</h3>
+                    </div>
+                    <div class="col-8 col-md-10">
+                        {% for q in questions %}
+                            {% if q.contactoption.id == option.id %}
+                                <p class="{{q.blockclass}}">
+                                    <label class="{{q.labelclass}}" for="{{q.id}}">{{q.question}}</label>
+                                    {% if q.type == "select" %}
+                                    <select name="{{q.id}}" id="{{q.id}}">
+                                        {% for op in selectoptions %}
+                                            {% if op.formquestion.ID == q.ID %}
+                                                <option value="{{op.optionname}}">{{op.optionname}}</option>
+                                            {% endif %}    
+                                        {% endfor %}
+                                    </select>
+                                    {% else %}
+                                    <input class="{{q.inputclass}}" type="{{q.type}}" name="{{q.id}}" id="{{q.id}}"
+                                    placeholder="{{q.placeholdertext}}" maxlength="{{q.charlimit}}" {% if q.required %} required {% endif %}>
+                                    {% endif %}
+                                </p>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
             {% endif %}
         {% endfor %}
-        {% for option in options %}
-        {% if option.display %}
-            {% if option.name != "I am a human" %}
-            <div id="{{option.id}}hide" class="col-12 grey darken-4 text-center my-2 hide">
-                <div class="col-4 col-md-2">
-                    <h3 class="pt-3">{{option.name}}</h3>
-                </div>
-                <div class="col-8 col-md-10">
-                    {% if option.formQ1 != null %}
-                        <p>
-                            <label for="{{option.id}}formQ1">{{option.formQ1}}</label>
-                            <input class="option.formQ1class" type="{{option.formQ1type}}" name="{{option.id}}formQ1" maxlength="option.formQ1CharLimit" required id="id{{option.id}}formQ1">
-                        </p>
-                    {% endif %}
-                </div>
-            </div>
-            {% endif %}
-        {% endif %}
-    {% endfor %}
     </div>
 </div>
 

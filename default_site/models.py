@@ -111,7 +111,6 @@ class Customer(models.Model):
     password = models.CharField(max_length=30, null=False, blank=False)
     
 
-
 class ContactOptions(models.Model):
     '''
     This class is used to define the various ways you can get in contact
@@ -119,6 +118,7 @@ class ContactOptions(models.Model):
     name = models.CharField(max_length=30, null=False, blank=False)
     description = models.CharField(max_length=500, null=False, blank=False)
     displayorder = models.IntegerField()
+    display = models.BooleanField(default=True)
     
     def __str__(self):
         return self.name
@@ -138,26 +138,41 @@ class FormQuestions(models.Model):
     labelclass = models.CharField(max_length=50, null=True, blank=True)
     inputclass = models.CharField(max_length=50, null=True, blank=True)
     typechoices = [
-        ('BTN', 'button'), ('CKB', 'checkbox'), ('COL', 'color'),
-        ('DAT', 'date'), ('DTL', 'datetime-local'), ('BTN', 'email'),
-        ('FIL', 'file'), ('HDN', 'hidden'), ('IMG', 'image'),
-        ('MON', 'month'), ('NUM', 'number'), ('PWD', 'password'),
-        ('RAD', 'radio'), ('RNG', 'range'), ('RST', 'reset'),
-        ('SRC', 'search'), ('TEL', 'tel'), ('TXT', 'text'),
-        ('TIM', 'time'), ('URL', 'url'), ('WEK', 'week'),
-        ('SEL', 'select')
+        ('button', 'button'), ('checkbox', 'checkbox'), ('color', 'color'),
+        ('date', 'date'), ('datetime-local', 'datetime-local'),
+        ('email', 'email'), ('file', 'file'), ('hidden', 'hidden'),
+        ('image', 'image'), ('month', 'month'), ('number', 'number'), 
+        ('password', 'password'), ('radio', 'radio'), ('range', 'range'), 
+        ('reset', 'reset'), ('search', 'search'), ('tel', 'tel'), 
+        ('text', 'text'), ('time', 'time'), ('url', 'url'), 
+        ('week', 'week'), ('select', 'select')
     ]
     type = models.CharField(max_length=50, null=True, blank=True,
                             choices=typechoices)
-    selectoptions = models.CharField(max_length=500, null=True,
-                                     blank=True)
     multiselection = models.BooleanField(null=False, blank=False,
                                          default=False)
     charlimit = models.IntegerField(null=True, blank=True, default=500)
+    placeholdertext = models.CharField(max_length=500, null=True, blank=True)
+    required = models.BooleanField(null=False, blank=False,
+                                   default=True)
 
     def __str__(self):
         return self.question
 
+
+class Selectoptions(models.Model):
+    '''
+    This class serves as a way to add mulitple options in a selectbox
+    for the form question if the form question has the type of select
+    '''
+    ID = models.BigAutoField(primary_key=True)
+    formquestion = models.ForeignKey(FormQuestions, on_delete=models.CASCADE)
+    optionname = models.CharField(max_length=100, null=False, blank=False)
+    order = models.IntegerField(null=False, blank=False)
+
+    def __str__(self):
+        name = self.formquestion.question + " option: " + self.optionName
+        return name
 
 # anything after this is not exclusive to this website
 
