@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static '/css/webformstyles.css' %}">
+{% endblock %}
 {% block content %}
 <!-- This is what displays before the submit button-->
 <div id="initial" class="col-12">
@@ -7,14 +10,12 @@
     <div class="selection-container">
         {% for option in options %}
             {% if option.display %}
-                {% if option.name != "I am a human" %}
                     <div id="{{option.id}}" class="col-12 col-lg-6 col-xl-4 col-xxl-2 grey darken-4 text-center my-2 selectable">
                         <h3 class="pt-3">{{option.name}}</h3>
                         <p class="mx-2 py-3">
                             {{option.description}}
                         </p>
                     </div>
-                {% endif %}
             {% endif %}
         {% endfor %}
     </div>
@@ -30,15 +31,14 @@
     <div class="selection-container">
         {% for option in options %}
             {% if option.display %}
-                {% if option.name != "I am a human" %}
-                <div id="{{option.id}}hide" class="col-12 grey darken-4 text-center my-2 hide">
+                <div id="{{option.id}}hide" class="row form-area grey darken-4 text-center my-2 hide">
                     <div class="col-4 col-md-2">
                         <h3 class="pt-3">{{option.name}}</h3>
                     </div>
-                    <div class="col-8 col-md-10">
+                    <div class="form-area">
                         {% for q in questions %}
                             {% if q.contactoption.id == option.id %}
-                                <p class="{{q.blockclass}}">
+                                <div class="{{q.blockclass}}">
                                     <label class="{{q.labelclass}}" for="{{q.id}}">{{q.question}}</label>
                                     {% if q.type == "select" %}
                                     <select name="{{q.id}}" id="{{q.id}}">
@@ -52,12 +52,11 @@
                                     <input class="{{q.inputclass}}" type="{{q.type}}" name="{{q.id}}" id="{{q.id}}"
                                     placeholder="{{q.placeholdertext}}" maxlength="{{q.charlimit}}" {% if q.required %} required {% endif %}>
                                     {% endif %}
-                                </p>
+                                </div>
                             {% endif %}
                         {% endfor %}
                     </div>
                 </div>
-                {% endif %}
             {% endif %}
         {% endfor %}
     </div>

@@ -141,10 +141,10 @@ class FormQuestions(models.Model):
         ('button', 'button'), ('checkbox', 'checkbox'), ('color', 'color'),
         ('date', 'date'), ('datetime-local', 'datetime-local'),
         ('email', 'email'), ('file', 'file'), ('hidden', 'hidden'),
-        ('image', 'image'), ('month', 'month'), ('number', 'number'), 
-        ('password', 'password'), ('radio', 'radio'), ('range', 'range'), 
-        ('reset', 'reset'), ('search', 'search'), ('tel', 'tel'), 
-        ('text', 'text'), ('time', 'time'), ('url', 'url'), 
+        ('image', 'image'), ('month', 'month'), ('number', 'number'),
+        ('password', 'password'), ('radio', 'radio'), ('range', 'range'),
+        ('reset', 'reset'), ('search', 'search'), ('tel', 'tel'),
+        ('text', 'text'), ('time', 'time'), ('url', 'url'),
         ('week', 'week'), ('select', 'select')
     ]
     type = models.CharField(max_length=50, null=True, blank=True,
@@ -171,7 +171,7 @@ class Selectoptions(models.Model):
     order = models.IntegerField(null=False, blank=False)
 
     def __str__(self):
-        name = self.formquestion.question + " option: " + self.optionName
+        name = self.formquestion.question + " option: " + self.optionname
         return name
 
 # anything after this is not exclusive to this website
