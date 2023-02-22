@@ -45,6 +45,7 @@ window.addEventListener("load", function(event){
     }
     // If this is false that means this file is not needed so nothing happens
     if (initialise){
+        announcePresence()
         uniformSize()
         AddEvents()
         if (debugselection){
@@ -111,15 +112,20 @@ function elementTest(){
     console.log("detected elements should show blue")
     for (var element of selectionList){
         var el = document.getElementById(element)
-        if (el.getAttribute('style') == 'background-color: blue !important'){
+        if (el.getAttribute('style').includes('background-color: blue !important')){
             el.setAttribute('style','');
         } else {
             el.setAttribute('style','background-color: blue !important');
             console.log("blue") 
         }     
+        uniformSize()
     }
 }
 // end of automated tests 
+
+function announcePresence(){
+    document.getElementsByTagName("head")[0].setAttribute("id","SelectionJS") 
+}
 
 function ElementChecker(){
     // this file checks elements are present true if they are false if they are not
@@ -143,21 +149,23 @@ function ElementChecker(){
 
 function uniformSize(){
     // this function resizes elements to give a uniform look
-    var sizes = []
-    for (var element of selectionList){
-        el = document.getElementById(element)
-        sizes.push(el.offsetHeight)
-    }
-    var biggest = Math.max.apply(0,sizes) + "px"
-    if (submitted){
-        for (var element of remain){
-            el = document.getElementById(element)
-            el.style.height = biggest
-        }
-    } else {
+    if (!submitted){
+        var sizes = []
         for (var element of selectionList){
             el = document.getElementById(element)
-            el.style.height = biggest
+            sizes.push(el.offsetHeight)
+        }
+        var biggest = Math.max.apply(0,sizes) + "px"
+        if (submitted){
+            for (var element of remain){
+                el = document.getElementById(element)
+                el.style.height = biggest
+            }
+        } else {
+            for (var element of selectionList){
+                el = document.getElementById(element)
+                el.style.height = biggest
+            }
         }
     }
 }
@@ -195,13 +203,11 @@ function toggle(e){
     if(el.classList.value.includes("selected")){
         if (debugselection){
             console.log("element with id " + id + " should have been toggled so the selected attribute equals True")
-            console.log("This is the current value of selected: " + el.getAttribute("selected"))
             console.log("This runs if it detects the class selected is on the element")
         }
     } else {
         if (debugselection){
             console.log("element with id " + id + " should have been toggled so the selected attribute equals False") 
-            console.log("This is the current value of selected: " + el.getAttribute("selected"))
             console.log("This runs if it doesn't detect the class selected is on the element")
         }
     }
@@ -236,7 +242,7 @@ function sizeChecker(){
             response = true
         }
     }
-    // returns bool true if elements inside are too big for container false overwise
+    // returns bool true if elements inside are too big for container false otherwise
     return response
 }
 function displaySubmit(bool){
@@ -250,11 +256,12 @@ function displaySubmit(bool){
     } else {
         elJquery.fadeOut("fast")
         if (submitActivated){
-            elVanilla.removeEventListener('click')
+            elVanilla.removeEventListener('click',() => {submit()})
             submitActivated = false
         }
     }
 }
+
 function submit(){
     submitted = true
     var selectedEls = $(".selected")
@@ -263,18 +270,28 @@ function submit(){
     }
     document.getElementById("initial").style.display = "none"
     for (var id of selectedElsList){
-        document.getElementById(id).classList.toggle("selected")
-        document.getElementById(id+"hide").classList.toggle("hide")
+        if(document.getElementById(id+"hide").classList.contains("hide")){
+            document.getElementById(id+"hide").classList.toggle("hide") 
+        }
     }
     document.getElementById("afterSubmit").style.display = "block"
+    displaySubmit(false)
+    selectedElsList = []
 }
 
 function back(){
+    submitted = false
     document.getElementById("afterSubmit").style.display = "none"
+    var selectedEls = $(".selected")
+    for (var item of selectedEls){
+        selectedElsList.push(item.id)
+    }
     for (var id of selectedElsList){
-        document.getElementById(id+"hide").classList.toggle("hide")
+        document.getElementById(id).classList.toggle("selected")
+        if(!document.getElementById(id+"hide").classList.contains("hide")){
+            document.getElementById(id+"hide").classList.toggle("hide") 
+        }
     }
     document.getElementById("initial").style.display = "block"
-    // finally resets the value of selectedElsList
     selectedElsList = []
 }

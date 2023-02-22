@@ -5,10 +5,11 @@
 - you must define the start,end,startpos,endpos,direction in an attribute named animationprops in this order
 */
 var debugimgscroll = false // set this to false in production
-var debuggimgscroll = false // this is here to turn off selected tests by adding a g to the end of the word debugimgscroll in the various debugimgscroll if statements throughout this file
+var debuggimgscroll = false// this is here to turn off selected tests by adding a g to the end of the word debugimgscroll in the various debugimgscroll if statements throughout this file
 if (debugimgscroll){
-    console.log("connected");
+    console.log("connected img scroll");
 }
+var SelectionJS = false
 /* these are predefined variables you can use when defining animation properties */
 var screenHeight = window.innerHeight
 var screenWidth = window.innerWidth
@@ -26,7 +27,31 @@ var scrolled = 0
 /* this forces the script to wait for the page to load */
 window.addEventListener("load", function(event){
     Initializer()
+    SelectionJS = CheckForSelectionJS()
   });
+
+function CheckForSelectionJS(){
+    /**
+     * This function disables the reload on page resize if it detects selection.js as 
+     * this would ruin the experience for a user if they resize the browser after pressing 
+     * submit. It also means that animations will not set back to the position they should be
+     * perfectly on these pages but it's a small price to pay. Eventually this will be redundant
+     * when I correctly implement a way of recalculating the position of animated elements without
+     * refreshing but that sounds like a future me problem...
+     */
+    if (document.getElementsByTagName("head")[0].getAttribute("id") == "SelectionJS" ){
+        if (debugimgscroll){
+        console.log("Detected SelectionJS")
+        }
+        return true
+    } else {
+        if (debugimgscroll){
+            console.log("No SelectionJS Detected")
+        }
+        return false
+    }
+}
+
 function Initializer(){
     /**
      * This function calls all the essential functions to do with initialising elements.
@@ -290,12 +315,10 @@ function updateAll(currScrollPos){
         var el = $("#" + element.id) 
         if (debugimgscroll){
             console.log(element.id)
-            console.log(element.id)
             console.log("offset = " + offset)
             console.log("scrollPosition: " + scrollPosition)
             console.log("begin: " + element.begin)
             console.log("finish: " + element.finish)
-            console.log(element.id)
             console.log(element.id)
         }
         if (scrollPosition < (element.begin)){ // if current scroll pos is less that begin
@@ -351,7 +374,9 @@ setInterval(() => {
             wait = false
         }
     },250);
-    location.reload();
+    if (!SelectionJS){
+        location.reload();
+    }
     resizing = false
     }
 },1000);
