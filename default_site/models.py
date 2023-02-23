@@ -145,7 +145,7 @@ class FormQuestions(models.Model):
         ('password', 'password'), ('radio', 'radio'), ('range', 'range'),
         ('reset', 'reset'), ('search', 'search'), ('tel', 'tel'),
         ('text', 'text'), ('time', 'time'), ('url', 'url'),
-        ('week', 'week'), ('select', 'select')
+        ('week', 'week'), ('select', 'select'), ('textarea', 'textarea')
     ]
     type = models.CharField(max_length=50, null=True, blank=True,
                             choices=typechoices)

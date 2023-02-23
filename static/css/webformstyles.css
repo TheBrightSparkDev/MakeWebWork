@@ -3,6 +3,7 @@
     width:100%;
     flex-wrap:wrap;
     align-items:center;
+    justify-content:space-around;
     margin-bottom:20px;
     margin-top:20px;
 }
@@ -40,6 +41,9 @@ label:not(.ignore-label-styles){
     width:100%;
 }
 .input-fill{
+    width:100%;
+}
+.input-deep{
     width:100%;
 }
 input[type='text']{
@@ -91,6 +95,10 @@ input[type='month']{
     color:white !important;
     background-color: #212121 !important;
     text-align:center;
+}
+textarea{
+    color:white !important;
+    background-color: #212121 !important;
 }
 
 /* 

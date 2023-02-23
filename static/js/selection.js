@@ -240,6 +240,9 @@ function sizeChecker(){
         if (el.offsetHeight < height ){
             el.style.height = height + "px"
             response = true
+        } else if (el.offsetHeight > (height + 50 )){
+            el.style.height = height + "px"
+            response = true
         }
     }
     // returns bool true if elements inside are too big for container false otherwise
@@ -295,3 +298,23 @@ function back(){
     document.getElementById("initial").style.display = "block"
     selectedElsList = []
 }
+// This corrects any elements that don't look right after a resize event and 
+// makes them all the same size again
+let resizing = false;
+window.addEventListener("resize", function(event){
+    resizing = true;
+  });
+setInterval(() => {
+    if (resizing) {
+    var wait = true
+    setInterval(() => {
+        if (wait){
+            wait = false
+        }
+    },250);
+    resizing = false
+    if (sizeChecker()){
+        uniformSize()
+    }
+    }
+},1000);

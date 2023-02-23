@@ -48,9 +48,12 @@
                                             {% endif %}    
                                         {% endfor %}
                                     </select>
+                                    {% elif q.type == "textarea" %}
+                                        <textarea class="{{q.inputclass}}" id="{{q.id}}" name="{{q.id}}" placeholder="{% if q.placeholdertext != None %}{{q.placeholdertext}}{% endif %}"
+                                        rows="{% if q.charlimit >= 1000 %}10{% else %}{% widthratio q.charlimit 100 1 %}{% endif %}"></textarea>
                                     {% else %}
                                     <input class="{{q.inputclass}}" type="{{q.type}}" name="{{q.id}}" id="{{q.id}}"
-                                    placeholder="{{q.placeholdertext}}" maxlength="{{q.charlimit}}" {% if q.required %} required {% endif %}>
+                                    placeholder='{% if q.placeholdertext != None %}{{q.placeholdertext}}{% endif %}' maxlength="{{q.charlimit}}" {% if q.required %} required {% endif %}>
                                     {% endif %}
                                 </div>
                             {% endif %}
