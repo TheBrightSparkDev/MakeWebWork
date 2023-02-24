@@ -296,6 +296,9 @@ function back(){
         }
     }
     document.getElementById("initial").style.display = "block"
+    if (sizeChecker()){
+        uniformSize()
+    }
     selectedElsList = []
 }
 // This corrects any elements that don't look right after a resize event and 
