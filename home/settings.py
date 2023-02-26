@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # my applications
     'default_site',
     'home',
+    
     # for allauth
     'django.contrib.sites',
     'allauth',
