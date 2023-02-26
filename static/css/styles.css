@@ -114,6 +114,14 @@ body {
     flex-direction: row;
     align-items: center;
 }
+.choice-container{
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    flex-direction: row;
+    align-items: center;
+}
 .footer-icon{
     font-size: 10vw;
     padding-left:5vw

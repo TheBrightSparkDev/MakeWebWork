@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="mx-3 grey darken-4 col-12 col-md-6 col-lg-4 offset-md-1">
+    <div class="mx-3 text-center py-3">
+        <h1>Price Calculator</h1>
+        <p>
+            Not exact but close enough.
+        </p>
+    </div>
+</div>
+<div id="Journey-1" class="row grey darken-4 my-3">
+    {% include '/workspace/MakeWebWork/price_calculator/templates/price_calculator/includes/journey_1.html' %}
+</div>
+<div id="Journey-1-1" class="row grey darken-4 hide my-3">
+
+</div>
+<div id="Journey-1-2" class="row grey darken-4 hide my-3">
+
+</div>
+<div id="Journey-2" class="row grey darken-4 hide my-3">
+
+</div>
+
+
+{% endblock %}

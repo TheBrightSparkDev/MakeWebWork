@@ -17,15 +17,18 @@ from django.contrib import admin
 from django.urls import path, include
 from default_site.views import (home, important_to_me, design,
                                 development, data, contact)
-
+from price_calculator.views import (journey)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # default site paths
     path('', home, name="home"),
     path('design', design, name="design"),
     path('data', data, name="data"),
     path('development', development, name="development"),
     path('contact', contact, name="contact"),
     path('important', important_to_me, name="important"),
-    path('accounts/', include('allauth.urls'))
+    path('accounts/', include('allauth.urls')),
+    # price calculator paths
+    path('price_calculator/', journey, name="journey")
 ]
