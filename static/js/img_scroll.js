@@ -26,7 +26,7 @@ var lastPos = 0
 var scrolled = 0
 /* this forces the script to wait for the page to load */
 window.addEventListener("load", function(event){
-    Initializer()
+    InitialiseImgScroll()
     SelectionJS = CheckForSelectionJS()
   });
 
@@ -52,7 +52,7 @@ function CheckForSelectionJS(){
     }
 }
 
-function Initializer(){
+function InitialiseImgScroll(){
     /**
      * This function calls all the essential functions to do with initialising elements.
      * This function can also call the test cases if the debugimgscroll variable is set to true.
