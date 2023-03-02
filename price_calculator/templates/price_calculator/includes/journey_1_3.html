@@ -1,9 +1,21 @@
-<h2 class="grey darken-3 col-10 col-md-6 offset-md-3 py-3 my-3 text-center">Partnership</h2>
-<h3 class="mx-1">How much was your turnover over last 5 years?</h3>
-<input id="Profit" calc="valuescale, {0,35%}, {1000000,5%}" type="text" maxlength="10" pattern="[0-9]">
-<h4 class="mx-2 mt-2"></h4>
-<p id="Profit-after" class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3"></p>
+<h2 class="grey darken-3 col-10 col-md-6 py-3 my-3 text-center">Partnership</h2>
+<p>
+    The partnership programme is best used by companies that are struggling to purchase a website outright
+    it allows you to trade a percentage of your company for a platform to grow your business.
+    This also puts us in a position where we directly benefit from creating a great website and 
+    building your business.
+</p>
+<div class="push-down choice-container">
+    <label class="mx-1 push-down text-center" for="Profit">How much was your turnover over last 5 years?</label>
+    <input class="small-input mx-auto" id="Profit" calc="valuescale, {0,35%}, {1000000,5%}" type="text" maxlength="10" pattern="[0-9]">
+</div>
+<h4 class="push-down text-center">Below would be our shares in your company:</h4>
+<p id="Profit-after" class="text-center col-3 grey darken-3 text-center my-3 py-3"></p>
 <div class="row choice-container JSJourneyOptions">
-    <button class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" related="-3" href="#">back</button>
-    <button class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" href="#">Contact us</button>
+    <button class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" related="Journey1" href="#">back</button>
+    {% if user.is_authenticated %}
+    <a class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" href="{% url 'contact' %}">Contact us</a>
+    {% else %}
+    <a class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" href="{% url 'account_login' %}">Login to contact us</a>
+    {% endif %}
 </div>

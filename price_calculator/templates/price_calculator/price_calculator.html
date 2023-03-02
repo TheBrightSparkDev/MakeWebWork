@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static '/css/webformstyles.css' %}">
+{% endblock %}
 {% block content %}
 
 <div class="mx-3 grey darken-4 col-12 col-md-6 col-lg-4 offset-md-1">
@@ -10,18 +13,23 @@
         </p>
     </div>
 </div>
-<div id="Journey1" class="row grey darken-4 my-3">
-    {% include '/workspace/MakeWebWork/price_calculator/templates/price_calculator/includes/journey_1.html' %}
-</div>
-<div id="Journey1-1" class="row grey darken-4 hide my-3">
-    {% include '/workspace/MakeWebWork/price_calculator/templates/price_calculator/includes/journey_1_1.html' %}
-</div>
-<div id="Journey1-2" class="row grey darken-4 hide my-3">
-    {% include '/workspace/MakeWebWork/price_calculator/templates/price_calculator/includes/journey_1_2.html' %}
-</div>
-<div id="Journey1-3" class="row grey darken-4 hide my-3">
-    {% include '/workspace/MakeWebWork/price_calculator/templates/price_calculator/includes/journey_1_3.html' %}
+<div class="push-content-under my-3">
+   <div class="journey-container col-12">
+    <div id="Journey1" class="choice-container grey darken-4 journey">
+        {% include '/workspace/MakeWebWork/price_calculator/templates/price_calculator/includes/journey_1.html' %}
+    </div>
+    <div id="Journey1-1" class="choice-container grey darken-4 hide journey">
+        {% include '/workspace/MakeWebWork/price_calculator/templates/price_calculator/includes/journey_1_1.html' %}
+    </div>
+    <div id="Journey1-2" class="choice-container grey darken-4 hide journey">
+        {% include '/workspace/MakeWebWork/price_calculator/templates/price_calculator/includes/journey_1_2.html' %}
+    </div>
+    <div id="Journey1-3" class="choice-container grey darken-4 hide journey">
+        {% include '/workspace/MakeWebWork/price_calculator/templates/price_calculator/includes/journey_1_3.html' %}
+    </div>
+</div> 
 </div>
 
-<script type="text/javascript" src="{% static 'js/price_calculator.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'js/journey.js' %}"></script>
 {% endblock %}

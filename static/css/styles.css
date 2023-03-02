@@ -32,7 +32,21 @@
     overflow: hidden;
     z-index: -1;
 }
+/* Journey styles */
+.journey-container{
+    overflow:hidden;
+    position:absolute;
+}
+.push-content-under{
+    position: relative;
+}
+.journey{
+    position:relative;
+}
 /* General styles */
+.push-down{
+    width:100%;
+}
 a {
     text-decoration: none;
     color:inherit;

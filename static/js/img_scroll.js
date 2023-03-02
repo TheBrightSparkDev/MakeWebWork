@@ -27,26 +27,26 @@ var scrolled = 0
 /* this forces the script to wait for the page to load */
 window.addEventListener("load", function(event){
     InitialiseImgScroll()
-    SelectionJS = CheckForSelectionJS()
+    DontReload = CheckForSelectionJSOrJourneyJS()
   });
 
-function CheckForSelectionJS(){
+function CheckForSelectionJSOrJourneyJS(){
     /**
-     * This function disables the reload on page resize if it detects selection.js as 
+     * This function disables the reload on page resize if it detects selection.js or Journey.js as 
      * this would ruin the experience for a user if they resize the browser after pressing 
      * submit. It also means that animations will not set back to the position they should be
      * perfectly on these pages but it's a small price to pay. Eventually this will be redundant
      * when I correctly implement a way of recalculating the position of animated elements without
      * refreshing but that sounds like a future me problem...
      */
-    if (document.getElementsByTagName("head")[0].getAttribute("id") == "SelectionJS" ){
+    if (document.getElementsByTagName("head")[0].getAttribute("id") == "SelectionJS" || document.getElementsByTagName("head")[0].getAttribute("id") == "JourneyJS" ){
         if (debugimgscroll){
-        console.log("Detected SelectionJS")
+        console.log("Detected" + document.getElementsByTagName("head")[0].getAttribute("id"))
         }
         return true
     } else {
         if (debugimgscroll){
-            console.log("No SelectionJS Detected")
+            console.log("No SelectionJS or JourneyJS Detected")
         }
         return false
     }
@@ -374,7 +374,7 @@ setInterval(() => {
             wait = false
         }
     },250);
-    if (!SelectionJS){
+    if (DontReload){
         location.reload();
     }
     resizing = false

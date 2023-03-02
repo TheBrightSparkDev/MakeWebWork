@@ -45,7 +45,7 @@ window.addEventListener("load", function(event){
     }
     // If this is false that means this file is not needed so nothing happens
     if (initialise){
-        announcePresence()
+        announceSelectionPresence()
         uniformSize()
         AddEvents()
         if (debugselection){
@@ -123,7 +123,7 @@ function elementTest(){
 }
 // end of automated tests 
 
-function announcePresence(){
+function announceSelectionPresence(){
     document.getElementsByTagName("head")[0].setAttribute("id","SelectionJS") 
 }
 
