@@ -1,0 +1,83 @@
+<h2 class="grey darken-3 col-10 col-md-6 py-3 my-3 text-center">Premium</h2>
+<p>
+    Use this page to estimate the cost of your website there are a few tools to help you to predict the values for some
+    of the questions using these wont affect the value at the end.
+</p>
+
+<div class="push-down choice-container">
+
+
+    <div class="col-5 flex-container">
+        <label class="mx-1 push-down text-center" for="Pages">How many individual webpages do you plan on having?</label>
+        <input class="small-input mx-auto" id="Pages" calc="valuescale, {int,int}, {5,0}, {100,250}, {1000,1500}, {10000,10000}" target="pagesvalue" type="text" maxlength="10" pattern="[0-9]">
+    </div>
+    <div class="col-5 flex-container">
+        <p class="push-down text-center">The total cost of your webpages is:</p>
+        <h3 id="pagesvalue" target="upfronttotal" class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
+    </div>
+
+
+    <div class="col-5 flex-container">
+        <label class="mx-1 push-down text-center" for="Pages">Tool: How many subscribers do you think you will have</label>
+        <input class="small-input mx-auto" id="Subscribers" calc="valuescale, {int,int}, {1, 60}" target="subscribertotal" type="text" maxlength="10" pattern="[0-9]">
+    </div>
+    <div class="col-5 flex-container">
+        <p class="push-down text-center">This is how much traffic to expect from these subscribers alone</p>
+        <h3 id="subscribertotal" class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
+    </div>
+
+
+    <div class="col-5 flex-container">
+        <label class="mx-1 push-down text-center" for="Pages">How much traffic do you expect in a month (average)</label>
+        <input class="small-input mx-auto" id="Compute" calc="valuescale, {int,pound}, {1,10}, {1000,50}, {10000,100}, {100000,500}, {1000000,10000}" target="computetotal" type="text" maxlength="10" pattern="[0-9]">
+    </div>
+    <div class="col-5 flex-container">
+        <p class="push-down text-center">We predict the compute costs to be:</p>
+        <h3 id="computetotal" target="monthlytotal" class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
+    </div>
+
+
+    <p class="push-down text-center">A rough idea of file sizes:</p>
+    <p class="push-down text-center">Video: 720p = 19mB/min | 1080p = 46mB/min | 4k = 173mB/min</p>
+    <p class="push-down text-center">Images: 720p = 4.15mB | 1080p = 8.29mB | 4k = 33.18mB</p>
+    <div class="col-5 flex-container">
+        <label class="mx-1 push-down text-center" for="Pages">How much data will be stored to support your website? (GB)</label>
+        <input class="small-input mx-auto" id="storage" calc="valuescale, {int,int}, {1, 5}, {50, 15}, {100,20}, {10000,1000}" target="storagetotal" type="text" maxlength="10" pattern="[0-9]">
+    </div>
+    <div class="col-5 flex-container">
+        <p class="push-down text-center">We expect the storage costs to be:</p>
+        <h3 id="storagetotal" target="monthlytotal" class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
+    </div>
+
+    <div class="choice-container">
+        <p class="push-down">
+            This is the section where you can choose from prebuilt modules these modules will add functionality
+            to your website for example a subscription website should have the direct debit module selected to be able to take
+            recurring payments monthly.
+        </p>
+        <h3 class="text-center push-down">Select the modules you would like to add below</h3>
+        {% for module in modules %} 
+            {% if module.available %}
+            <div class="col-5 flex-container">
+                <label class="text-center" for="{{module.moduleID}}">{{module.name}}</label>
+                <p class="hide{{module.moduleID}}">{{module.description}}</p>
+                <input class="flipswitch" type="checkbox" id="{{module.moduleID}}" target="upfronttotal" calc="{{module.cost}}">
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+<h4 class="push-down text-center">Total monthly cost of Maintenance:</h4>
+<h3 id="monthlytotal"  class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
+<h4 class="push-down text-center">Total upfront cost of building the site:</h4>
+<h3 id="upfronttotal"  class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
+<div class="row choice-container JSJourneyOptions">
+    <button class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" related="Journey1" href="#">back</button>
+    <button class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" related="Journey1_2_1" href="#">back</button>
+    {% if user.is_authenticated %}
+    <a class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" href="{% url 'contact' %}">Contact us</a>
+    {% else %}
+    <a class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" href="{% url 'account_login' %}">Login to contact us</a>
+    {% endif %}
+</div>

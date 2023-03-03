@@ -136,6 +136,13 @@ body {
     flex-direction: row;
     align-items: center;
 }
+.flex-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    flex-direction: row;
+    align-items: center;
+}
 .footer-icon{
     font-size: 10vw;
     padding-left:5vw

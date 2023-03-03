@@ -1,21 +1,21 @@
-<h2 class="grey darken-3 col-10 col-md-6 py-3 my-3 text-center">Partnership</h2>
-<p>
-    The partnership programme is best used by companies that are struggling to purchase a website outright
-    it allows you to trade a percentage of your company for a platform to grow your business.
-    This also puts us in a position where we directly benefit from creating a great website and 
-    building your business.
+<h2 class="grey darken-3 col-10 col-md-6 py-3 my-3 text-center">Premium</h2>
+<p class="mx-3">
+    The premium model is a monthly cost to include managing and monitoring your website there is an 
+    upfront cost to support the initial bulk of development and reviews. From then onwards there will 
+    be a process of change requests so if you want something improved you submit a request for 
+    functionality and we will quote you on the cost to make it happen you can spread it out by increasing 
+    your monthly cost or pay for the change outright. It also allows you access to our prebuilt modules
+    which makes development a lot more affordable. Of course you will get access to our designer when it's
+    released too.
 </p>
-<div class="push-down choice-container">
-    <label class="mx-1 push-down text-center" for="Profit">How much was your turnover over last 5 years?</label>
-    <input class="small-input mx-auto" id="Profit" calc="valuescale, {0,35%}, {1000000,5%}" type="text" maxlength="10" pattern="[0-9]">
-</div>
-<h4 class="push-down text-center">Below would be our shares in your company:</h4>
-<p id="Profit-after" class="text-center col-3 grey darken-3 text-center my-3 py-3"></p>
+
+<p class="mx-3">
+    What kind of website do you want us to build for you initially?
+</p>
+
 <div class="row choice-container JSJourneyOptions">
-    <button class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" related="Journey1" href="#">back</button>
-    {% if user.is_authenticated %}
-    <a class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" href="{% url 'contact' %}">Contact us</a>
-    {% else %}
-    <a class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" href="{% url 'account_login' %}">Login to contact us</a>
-    {% endif %}
+    <button class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" related="Journey1-2-1" href="#">Subscription based</button>
+    <button class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" related="Journey1-2-2" href="#">Retail</button>
+    <button class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" related="Journey1-2-4" href="#">Other</button>
+    <button class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" related="Journey1" href="#">Back</button>
 </div>

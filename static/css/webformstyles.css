@@ -121,6 +121,52 @@ select:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0px 1000px #212121 inset;
   transition: background-color 5000s ease-in-out 0s;
 }
+/* 
+The checkboxes were ugly which really bothered me 
+the below code came from: 
+http://jsfiddle.net/dv904vn1/2/
+I changed it after to suit my site
+*/
+.flipswitch
+{
+    position: relative;
+    background: grey;
+    width: 120px;
+    height: 40px;
+    -webkit-appearance: initial;
+    border-radius: 3px;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    font-weight: bold;
+    outline:none;
+    cursor:pointer;
+    border:1px solid #ddd;
+}
+.flipswitch:after
+{
+    position:absolute;
+    top:5%;
+    display:block; 
+    line-height:32px;
+    width:45%;
+    height:90%;
+    background: white;
+    box-sizing:border-box;
+    text-align:center;
+    transition: all 0.3s ease-in 0s; 
+    color:black;
+    border:#888 1px solid;
+    border-radius:3px;
+}
+.flipswitch:after
+{
+    left:2%;
+    content: "Yes";
+}
+.flipswitch:checked:after
+{
+    left:53%;
+    content: "No";  
+}
 /* end of external code */
 @media (max-width: 576px) {
     .small-input{
