@@ -1,0 +1,51 @@
+<h2 class="grey darken-3 col-10 col-md-6 py-3 my-3 text-center">Build and bye: subscription</h2>
+<p class="my-3 mx-3">
+    Use this page to estimate the cost of your website there are a few tools to help you to predict the values for some
+    of the questions using these wont affect the value at the end.
+</p>
+
+<div class="push-down choice-container">
+
+
+    <div class="col-5 flex-container">
+        <label class="mx-1 push-down text-center" for="Pagesbabs">How many individual webpages do you plan on having?</label>
+        <input class="small-input mx-auto" id="Pagesbabs" calc="valuescale, {int,int}, {5,0}, {100,250}, {1000,1500}, {10000,10000}" target="pagesvaluebabs" type="number" maxlength="10" pattern="[0-9]">
+    </div>
+    <div class="col-5 flex-container">
+        <p class="push-down text-center">The total cost of your webpages is:</p>
+        <h3 id="pagesvaluebabs" target="upfronttotalbabs" class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
+    </div>
+
+
+    <div class="choice-container my-3">
+        <h2 class="push-down text-center">Modules</h2>
+        <p class="push-down mx-3">
+            This is the section where you can choose from prebuilt modules these modules will add functionality
+            to your website for example a subscription website should have the direct debit module selected to be able to take
+            recurring payments monthly.
+        </p>
+        <h3 class="text-center push-down">Select the modules you would like to add below</h3>
+        {% for module in modules %} 
+            {% if module.available %}
+            <div class="col-5 flex-container">
+                <label class="text-center unhide" unhide="hide{{module.moduleID}}babs" for="{{module.moduleID}}">{{module.name}}</label>
+                <p id="hide{{module.moduleID}}babs" class="hide">{{module.description}}</p>
+                <input class="flipswitch" type="checkbox" id="{{module.moduleID}}babs" target="upfronttotalbabs" calc="add, {{module.cost}}">
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+<h4 class="push-down text-center">Total monthly cost of Maintenance:</h4>
+<h3 id="monthlytotalbabs"  class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
+<h4 class="push-down text-center">Total upfront cost of building the site:</h4>
+<h3 id="upfronttotalbabs"  class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
+<div class="row choice-container JSJourneyOptions">
+    <button class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" related="Journey1-1" href="#">back</button>
+    {% if user.is_authenticated %}
+    <a class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" href="{% url 'contact' %}">Contact us</a>
+    {% else %}
+    <a class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" href="{% url 'account_login' %}">Login to contact us</a>
+    {% endif %}
+</div>

@@ -25,6 +25,7 @@ function InitialiseJourneys(){
         Journeys.push(DetectJourneys(id))
     }
     if (debugJourneys){
+        console.log("journey.js connected")
         console.log(Journeys)
     }
     AutomaticTests(Journeys)

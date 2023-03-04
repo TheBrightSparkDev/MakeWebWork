@@ -303,19 +303,19 @@ function back(){
 }
 // This corrects any elements that don't look right after a resize event and 
 // makes them all the same size again
-let resizing = false;
+let resizer = false;
 window.addEventListener("resize", function(event){
-    resizing = true;
+    resizer = true;
   });
 setInterval(() => {
-    if (resizing) {
+    if (resizer) {
     var wait = true
     setInterval(() => {
         if (wait){
             wait = false
         }
     },250);
-    resizing = false
+    resizer = false
     if (sizeChecker()){
         uniformSize()
     }

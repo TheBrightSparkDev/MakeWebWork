@@ -46,6 +46,11 @@ label:not(.ignore-label-styles){
 .input-deep{
     width:100%;
 }
+input[type='number']{
+    color:white !important;
+    background-color: #212121 !important;
+    text-align:center;
+}
 input[type='text']{
     color:white !important;
     background-color: #212121 !important;
@@ -130,7 +135,7 @@ I changed it after to suit my site
 .flipswitch
 {
     position: relative;
-    background: grey;
+    background: rgba(66,66,66, 1);
     width: 120px;
     height: 40px;
     -webkit-appearance: initial;
@@ -149,23 +154,23 @@ I changed it after to suit my site
     line-height:32px;
     width:45%;
     height:90%;
-    background: white;
+    background: rgba(33,33,33, 1);
     box-sizing:border-box;
     text-align:center;
     transition: all 0.3s ease-in 0s; 
-    color:black;
+    color:white;
     border:#888 1px solid;
     border-radius:3px;
 }
 .flipswitch:after
 {
     left:2%;
-    content: "Yes";
+    content: "No";
 }
 .flipswitch:checked:after
 {
     left:53%;
-    content: "No";  
+    content: "Yes";  
 }
 /* end of external code */
 @media (max-width: 576px) {

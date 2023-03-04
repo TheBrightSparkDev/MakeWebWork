@@ -1,4 +1,4 @@
-<h2 class="grey darken-3 col-10 col-md-6 py-3 my-3 text-center">Premium: Subscription</h2>
+<h2 class="grey darken-3 col-10 col-md-6 py-3 my-3 text-center">Premium: Retail</h2>
 <p class="my-3 mx-3">
     Use this page to estimate the cost of your website there are a few tools to help you to predict the values for some
     of the questions using these wont affect the value at the end.
@@ -8,32 +8,32 @@
 
 
     <div class="col-5 flex-container">
-        <label class="mx-1 push-down text-center" for="Pagesps">How many individual webpages do you plan on having?</label>
-        <input class="small-input mx-auto" id="Pagesps" calc="valuescale, {int,int}, {5,0}, {100,250}, {1000,1500}, {10000,10000}" target="pagesvalueps" type="number" maxlength="10" pattern="[0-9]">
+        <label class="mx-1 push-down text-center" for="Pagespr">How many individual webpages do you plan on having?</label>
+        <input class="small-input mx-auto" id="Pagespr" calc="valuescale, {int,int}, {5,0}, {100,250}, {1000,1500}, {10000,10000}" target="pagesvaluepr" type="number" maxlength="10" pattern="[0-9]">
     </div>
     <div class="col-5 flex-container">
         <p class="push-down text-center">The total cost of your webpages is:</p>
-        <h3 id="pagesvalueps" target="upfronttotalps" class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
+        <h3 id="pagesvaluepr" target="upfronttotalpr" class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
     </div>
 
 
     <div class="col-5 flex-container">
-        <label class="mx-1 push-down text-center" for="Subscribersps">Tool: How many subscribers do you think you will have</label>
-        <input class="small-input mx-auto" id="Subscribersps" calc="valuescale, {int,int}, {1, 60}" target="subscribertotalps" type="number" maxlength="10" pattern="[0-9]">
+        <label class="mx-1 push-down text-center" for="Subscriberspr">Tool: How many subscribers do you think you will have</label>
+        <input class="small-input mx-auto" id="Subscriberspr" calc="valuescale, {int,int}, {1, 60}" target="subscribertotalpr" type="number" maxlength="10" pattern="[0-9]">
     </div>
     <div class="col-5 flex-container">
         <p class="push-down text-center">This is how much traffic to expect from these subscribers alone</p>
-        <h3 id="subscribertotalps" class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
+        <h3 id="subscribertotapr" class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
     </div>
 
 
     <div class="col-5 flex-container">
-        <label class="mx-1 push-down text-center" for="Computeps">How much traffic do you expect in a month (average)</label>
-        <input class="small-input mx-auto" id="Computeps" calc="valuescale, {int,pound}, {1,10}, {1000,50}, {10000,100}, {100000,500}, {1000000,10000}" target="computetotalps" type="number" maxlength="10" pattern="[0-9]">
+        <label class="mx-1 push-down text-center" for="Computepr">How much traffic do you expect in a month (average)</label>
+        <input class="small-input mx-auto" id="Computepr" calc="valuescale, {int,pound}, {1,10}, {1000,50}, {10000,100}, {100000,500}, {1000000,10000}" target="computetotalpr" type="number" maxlength="10" pattern="[0-9]">
     </div>
     <div class="col-5 flex-container">
         <p class="push-down text-center">We predict the compute costs to be:</p>
-        <h3 id="computetotalps" target="monthlytotalps" class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
+        <h3 id="computetotalpr" target="monthlytotalpr" class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
     </div>
 
 
@@ -41,12 +41,12 @@
     <p class="push-down text-center">Video: 720p = 19mB/min | 1080p = 46mB/min | 4k = 173mB/min</p>
     <p class="push-down text-center">Images: 720p = 4.15mB | 1080p = 8.29mB | 4k = 33.18mB</p>
     <div class="col-5 flex-container">
-        <label class="mx-1 push-down text-center" for="storageps">How much data will be stored to support your website? (GB)</label>
-        <input class="small-input mx-auto" id="storageps" calc="valuescale, {int,int}, {1, 5}, {50, 15}, {100,20}, {10000,1000}" target="storagetotalps" type="number" maxlength="10" pattern="[0-9]">
+        <label class="mx-1 push-down text-center" for="storagepr">How much data will be stored to support your website? (GB)</label>
+        <input class="small-input mx-auto" id="storagepr" calc="valuescale, {int,int}, {1, 5}, {50, 15}, {100,20}, {10000,1000}" target="storagetotalpr" type="number" maxlength="10" pattern="[0-9]">
     </div>
     <div class="col-5 flex-container">
         <p class="push-down text-center">We expect the storage costs to be:</p>
-        <h3 id="storagetotalps" target="monthlytotalps" class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
+        <h3 id="storagetotalpr" target="monthlytotalpr" class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
     </div>
 
     <div class="choice-container my-3">
@@ -60,9 +60,9 @@
         {% for module in modules %} 
             {% if module.available %}
             <div class="col-5 flex-container">
-                <label class="text-center unhide" unhide="hide{{module.moduleID}}ps" for="{{module.moduleID}}">{{module.name}}</label>
-                <p id="hide{{module.moduleID}}ps" class="hide">{{module.description}}</p>
-                <input class="flipswitch" type="checkbox" id="{{module.moduleID}}ps" target="upfronttotalps" calc="add, {{module.cost}}">
+                <label class="text-center unhide" unhide="hide{{module.moduleID}}pr" for="{{module.moduleID}}">{{module.name}}</label>
+                <p id="hide{{module.moduleID}}pr" class="hide">{{module.description}}</p>
+                <input class="flipswitch" type="checkbox" id="{{module.moduleID}}pr" target="upfronttotalpr" calc="add, {{module.cost}}">
             </div>
             {% endif %}
         {% endfor %}
@@ -70,9 +70,9 @@
 </div>
 
 <h4 class="push-down text-center">Total monthly cost of Maintenance:</h4>
-<h3 id="monthlytotalps"  class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
+<h3 id="monthlytotalpr"  class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
 <h4 class="push-down text-center">Total upfront cost of building the site:</h4>
-<h3 id="upfronttotalps"  class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
+<h3 id="upfronttotalpr"  class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
 <div class="row choice-container JSJourneyOptions">
     <button class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" related="Journey1-2" href="#">back</button>
     {% if user.is_authenticated %}
