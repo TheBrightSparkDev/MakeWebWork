@@ -1,10 +1,23 @@
-# [Word VS](http://word-vs.herokuapp.com/)
 
-Link to site [Word VS](http://word-vs.herokuapp.com/)
+None selected
 
-Word Vs is basically wordle with friends you challenge your friends to guess your word very simple lots of fun.
-The inspiration for this mostly came from the idea behind wordle one man wanted to challenge his wife everyday.
-So with the app anyone can challenge anyone everyday or even more than once everyday!
+Skip to content
+Using Gmail with screen readers
+Conversations
+3.74 GB of 15 GB used
+Terms · Privacy · Program Policies
+Last account activity: in 1 minute
+Open in 1 other location · Details
+---
+title: makewebwork readme
+---
+# [MakeWebWork](http://word-vs.herokuapp.com/)
+
+Link to site [MakeWebWork](http://word-vs.herokuapp.com/)
+
+MakeWebWork is a website for me to sell my websites in the future. There is still lots of work to be done before it's completed it needs to be able to take payments and quote prospective customers and allow them to contact me with their requests so I can gage interest for the project.
+
+The website when it is completed should be a group of JS and CSS files that when the designer is created will be able to recognise patterns in html and turn them into interactive webpages enabling unmatched webdevelopment speed. The JS files also need to have built in debugging too so that developing the designer will be much easier. 
 
 <img src="static/images/responsive-readme-3.png" alt="image of the website on various devices to show responsiveness" width="100%">
 
@@ -32,10 +45,32 @@ desktop and background credit: [pixabay](https://pixabay.com/photos/apple-comput
 15. [Notes for assessor](#notes-for-assessor)
 
 # User stories <a name="user_stories">
-input needed
+
+## Story 1 <a name="story_1">
+Me the website owner should be able to use the Django admin site to manage the website  and change prices of modules and the ratios used to calculate the various web development costs on the journey pages. I should also be able to view all requests along with contact details to get back to the user's.
+
+## Story 2 <a name="story_2">
+A user should be able to log in and sign up
+
+## Story 3 <a name="story_3">
+A user should be able to reset their own password and verify their emails
+
+## Story 4 <a name="story_4">
+A user should be able to make a request describing what they would like from MakeWebWork. And I should be able to send them a link via email or text to respond to the user. 
+
+## Story 5<a name="story_5">
+A user should be able to get a rough quote from the site before contacting us if that's what they wish to do. 
+
+ ## Story 6 <a name="story_6"> 
+ A user should be able to use many of the features that will be available in the designer as smart features. Things like journeys, animations, selection form and selection information pages and many more. 
+ 
+ ## Story 7 <a name="story_7">
+A user should be able to gather information about the abilities available in the future website. 
 
 ## Features<a name="Features"></a>
 input needed
+
+
 
 # Wireframes<a name="wireframes"></a>
 
@@ -148,9 +183,7 @@ then match them with the answers using the for on the labels to match to the ans
 Will need to take the label value at the begginning of the page load and then make the links 
 remembering the ids and saving the actual input elements rather than what their IDs were. Why? 
 So that a user cant change the format of the questions and change the labels and submit bad data
-for nefarious reasons or because they want to.. The javascript also needs to do a check to make sure 
-all data is legitmate data aswell avoiding SQL injections With a custom error message stating I know 
-how to handle SQL injections to the front end just to rub it in... 
+for nefarious reasons or because they want to..
 
 This allows me to only validate fields that are not hidden and only submit data of the particular block aswell.
 
@@ -164,13 +197,20 @@ to the form handler.
 
 and have a foreign key to a customer table allowing 
 a multiple to one relationship 
+
+# price calculator
+I wanted to create a unique experience to user allowing them to choose a pricing model and have the page slide off and be replaced by the input screen. There is no need to submit these quotes or save them currently so will have inputs on the left and to the right the answer will show up. The challenge here is to 
+
 # Technology used<a name="technology_used"></a>
+
 ## Wireframes<a name="wireframes"></a>
 - adobe XD
+- 
 ## Frameworks<a name="frameworks"></a>
 - I used the Django framework
 - I used github to store the repository and version management
 - I used gitpod for editing the code and for posting to github 
+- 
 ## Libraries<a name="libraries"></a>
 - bootstrap
 - materialize
@@ -199,7 +239,29 @@ The only way to manually test is to see if you put in good info into the start,e
 
 ## selection.js
 
-If you set debug to true it will run tests to ensure you have set the HTML correctly and it will output it's activity to the page including the connected message.
+The purpose of this JavaScript file is to allow users to make a multiple selection on the page and have more information or a form displayed. Based on their selections of course. Allowing users to only input information that is relevant to what they want. 
+
+If debug is true it outputs a message to say it is connected and it also allows you to press the space bar to display the elements that have been detected in blue and finally checks if there is a submit button present or form button. 
+
+It doesn't also outputs the selection elements separately as well although not very helpful 
+
+## utility.js
+
+This is all about holding general JavaScript functions such as the hide toggler. It also serves another purpose which is looking for general mistakes in the html. For example duplicate id's
+
+The automatic test output to the console if debug is true all of the elements that are duplicated using queryselectorall to output a list of hyperlinked elements so you can click them and it will display the elements in the elements tab.
+
+## calculator.js
+
+This JavaScript is all about taking an input and looking for a target if it finds a target it will use the calc attribute to convert the input into the target. 
+
+The automatic tests run if debug is true. It will check if it is able to parse a value through to you each input and check the output without actually sending a value. This will output any inputs that failed the test to the console. It will also tell you where it went wrong for example the target doesn't exist or the calc is invalid. 
+
+## journey.js
+
+This JavaScript is all about detecting a pattern in the html file and if it discovers a pattern it makes a link between buttons and their targets. It creates a journey object that contains the parent Id and all the links within that id
+
+The automatic tests check the structure of the journey object if debug is true and ensures that the every link points to another parent if it doesn't it outputs the parent html and the option that was pointing towards it. 
 
 # Validator Testing <a name="validator-testing"></a>
 
@@ -248,7 +310,7 @@ input needed
 Below are the sources of all the media and content 
 
 All hero images were created by me in photoshop
-The Logo was made by my in illustrator and photoshop
+The Logo was made by me in illustrator and photoshop
 
 
 ## Websites I copy and pasted from:
@@ -286,3 +348,5 @@ Sorry my readme is so long.
 Assessor only: Please email me for log in details for admin account if required or follow instructions to clone and deploy to heroku and set the ADMIN_REAL key to an account of your choosing to see the admin page.
 thebrightspark1@gmail.com
 I will ask for proof you're an assessor.
+makewebwork readme.md
+Displaying makewebwork readme.md.
