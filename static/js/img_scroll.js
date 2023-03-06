@@ -4,7 +4,7 @@
 - you must add an id of your choosing
 - you must define the start,end,startpos,endpos,direction in an attribute named animationprops in this order
 */
-var debugimgscroll = false // set this to false in production
+var debugimgscroll = true // set this to false in production
 var debuggimgscroll = false// this is here to turn off selected tests by adding a g to the end of the word debugimgscroll in the various debugimgscroll if statements throughout this file
 if (debugimgscroll){
     console.log("connected img scroll");
@@ -24,6 +24,7 @@ var currentPage = []
 var currScrollPos = window.scrollY
 var lastPos = 0
 var scrolled = 0
+var DontReload = false
 /* this forces the script to wait for the page to load */
 window.addEventListener("load", function(event){
     InitialiseImgScroll()
@@ -374,7 +375,7 @@ setInterval(() => {
             wait = false
         }
     },250);
-    if (DontReload){
+    if (!DontReload){
         location.reload();
     }
     resizing = false

@@ -80,6 +80,9 @@ function createcontext(elements, createextracontext){
                             target.inputelements.push(input.id)
                             createnewobject = false
                             break
+                        } else {
+                            createnewobject = false
+                            break
                         }
                     } else {
                         /* no matching target so it must be new */
@@ -148,12 +151,27 @@ function parsecalc(inputelement, value){
         if(debugcalculator){console.log("detected subtract")}
         return subtract(calc, inputelement, "subtract", parseInt(value))
 
-    }else {
+    } else if (calc.toLowerCase().includes("divide")){
+
+        if(debugcalculator){console.log("detected divide")}
+        return divide(calc, inputelement, value, "divide")
+
+    } else {
         /* this means calc is invalid so just pass on the value and send debug message to console */
         console.log("calc didn't contain a recognised function check if this is correct: " + calc)
         console.log("Implemented functions are add and valuescale")
         return value
     }
+}
+
+function sanitizevalue(value){
+    if (isNaN(value)){
+        value = value.replace("£","")
+        value = value.replace("%","")
+        value = value.replace("$","")
+        value = value.replace(" ","")
+    }
+    return Number(value)
 }
 
 function inputintotarget(value , target){
@@ -185,17 +203,22 @@ function inputintotarget(value , target){
         formatfirst = false
     }
     let targethastarget = true
-    while (targethastarget){
-        /* check return true if it finds a target attribute on the target element */
-        updatecontext(targetattribute, inputid, valuetoinput, format, formatfirst)
+    updatecontext(targetattribute, inputid, valuetoinput, format, formatfirst)
         if (document.getElementById(targetattribute).getAttribute("target") != null){
             targethastarget = true
+            console.log("last calculation was run on this")
+            console.log("last calculation was run on this")
+            console.log("last calculation was run on this")
+            console.log(document.getElementById(targetattribute))
+            calculate(document.getElementById(targetattribute))
             targetattribute = document.getElementById(targetattribute).getAttribute("target")
+            console.log("target of target = ")
+            console.log("target of target = ")
+            console.log("target of target = ")
+            console.log(targetattribute)
         } else {
             targethastarget = false
         }
-        
-    }
     updatedom()
 }
 
@@ -224,37 +247,49 @@ function updatedom(){
         }
         document.getElementById(target.name).innerText = valuetoinput
     }
+    console.log(listoftargetobjects)
 }
 
 function createvalidlist(brokenlist, ignore){
     /* theres likely a better way to do this */
     let correctedlist = []
     let save = ""
-    for (item of brokenlist){
-        if (item.includes("{")){
-            save = item.trim()
-            save = save.replace("{","")
-        } else if (item.includes("}")){
-            item = item.replace("}","")
-            correctedlist.push(save + "," + item.trim())
-            save = ""
-        } else if(!item.toLowerCase().includes(ignore)){
-            correctedlist.push(item.trim())
+    console.log("brokenlist: " + brokenlist)
+    if (brokenlist.length != 1){
+        for (item of brokenlist){
+            if (item.includes("{")){
+                save = item.trim()
+                save = save.replace("{","")
+            } else if (item.includes("}")){
+                item = item.replace("}","")
+                correctedlist.push(save + "," + item.trim())
+                save = ""
+            } else if(item.toLowerCase().includes(ignore)){
+                
+            } else {
+                correctedlist.push(item.trim())
+            }
         }
+    } else {
+        return brokenlist
     }
+
     return correctedlist
 }
 
 function getvaluetoinputformat(list, valuetoinput){
-    if (list[0].split(",")[1].toLowerCase() == "int"){
-        return valuetoinput
-    } else if (list[0].split(",")[1].toLowerCase() == "percent"){
-        return [valuetoinput, "%"]
-    } else if (list[0].split(",")[1].toLowerCase() == "pound"){
-        return ["£", valuetoinput]
-    } else if (valuetoinput == NaN){
-        return 0
-    }
+    if(list.length != 1){
+        if (valuetoinput == NaN){
+            valuetoinput = 0
+        }
+        if (list[0].split(",")[1].toLowerCase() == "int"){
+            return valuetoinput
+        } else if (list[0].split(",")[1].toLowerCase() == "percent"){
+            return [valuetoinput, "%"]
+        } else if (list[0].split(",")[1].toLowerCase() == "pound"){
+            return ["£", valuetoinput]
+        }
+    } return valuetoinput
 }
 
 /* below are all the calculation functions */
@@ -289,6 +324,43 @@ function valuescale(calc, value, ignore){
     return getvaluetoinputformat(listtoparse, valuetoinput) 
 }
 
+function divide(calc, inputelement, value, ignore){
+    /* example data "[spreadover, pound, 24]" */
+    let listtoparse = createvalidlist(calc.split(","), ignore)
+    if(debugcalculator){
+        console.log(calc)
+        console.log(calc.split(","))
+        console.log(listtoparse)
+        console.log(inputelement)
+        console.log(value)
+    }
+    if (value > 1){
+        valuetoinput = value
+    } else {
+        valuetoinput = sanitizevalue(inputelement.textContent)
+        valuetoinput = Number(valuetoinput)
+    }
+    for (item of listtoparse){
+        console.log(item)
+        if (!isNaN(item)){
+            console.log(item)
+            console.log("divded")
+            console.log(valuetoinput)
+            valuetoinput = valuetoinput / Number(item)
+        }
+    }
+    /* valuetoinput or value contains the number that needs to be spread */
+    console.log("value is " + valuetoinput)
+    console.log("input element is " + inputelement)
+    /* the calc determines the number to be spread over and the format of the response */
+    if (isNaN(valuetoinput)){
+        console.log(valuetoinput + " this was not a number")
+        return getvaluetoinputformat(listtoparse, 0) 
+    } else {
+        console.log(valuetoinput + " this was a number")
+        return getvaluetoinputformat(listtoparse, valuetoinput) 
+    } 
+}
 
 function smartvaluescale(calc, value, ignore){
     /* "valuescale, {int,int}, {5,0}, {100,250}, {1000,1500}, {10000,10000}" */
@@ -326,48 +398,64 @@ function smartvaluescale(calc, value, ignore){
 }
 
 function add(calc, inputelement, ignore, value){
-    let valuetoadd = createvalidlist(calc.split(","), ignore)
+    let listtoparse = createvalidlist(calc.split(","), ignore)
+    for (item of listtoparse){
+        console.log(item)
+        if (!isNaN(item)){
+            value = item
+        } else if (item == "text"){
+            console.log("text")
+            valuetoadd = sanitizevalue(inputelement.textContent.trim())
+        } else if (item == "value") {
+            console.log("value")
+            valuetoadd = sanitizevalue(value)
+        }
+    }
     if(debugcalculator){
         console.log(calc)
         console.log(calc.split(","))
-        console.log(valuetoadd)
+        console.log(listtoparse)
+        console.log(value)
     }
-    if (valuetoadd == "text"){
-        console.log("text")
-        valuetoadd = parseInt(inputelement.innerText)
-    } else if (valuetoadd == "value") {
-        console.log("value")
-        return value
-    } else {
+    console.log(listtoparse)
+    console.log(value)
+    if (inputelement.getAttribute("type") == "checkbox"){
         if (inputelement.getAttribute("checked") == "true"){
             inputelement.setAttribute("checked", "false")
-            return 0
+            valuetoadd = 0
         } else {
             inputelement.setAttribute("checked", "true")
-            return parseInt(valuetoadd)
+            valuetoadd = sanitizevalue(value)
         }
     }
+
+    return getvaluetoinputformat(listtoparse, valuetoadd)
 }
 
 function subtract(calc, inputelement, ignore, value){
-    let valuetoadd = createvalidlist(calc.split(","), ignore)
+    let list = createvalidlist(calc.split(","), ignore)
     if(debugcalculator){
         console.log(calc)
         console.log(calc.split(","))
-        console.log(valuetoadd)
+        console.log(list)
     }
-    if (valuetoadd == "text"){
-        valuetoadd = parseInt(inputelement.innerText)
-    } else if (valuetoadd == "value") {
-        return -Math.abs(value)
+    if (list == "text"){
+        return getvaluetoinputformat(list, -Math.abs(parseInt(inputelement.textContent.trim())))
+    } else if (list == "value") {
+        return getvaluetoinputformat(list, -Math.abs(value))
     } else {
-        if (inputelement.getAttribute("checked") == "true"){
-            inputelement.setAttribute("checked", "false")
-            return 0
+        if (inputelement.getAttribute("type") == "checkbox"){
+            if (inputelement.getAttribute("checked") == "true"){
+                inputelement.setAttribute("checked", "false")
+                return getvaluetoinputformat(list, 0)
+            } else if (inputelement.getAttribute("checked") == "false"){
+                inputelement.setAttribute("checked", "true")
+                return getvaluetoinputformat(list, -Math.abs(value))
+            }
         } else {
-            inputelement.setAttribute("checked", "true")
-            return parseInt(-Math.abs(valuetoadd))
+            return getvaluetoinputformat(list, -Math.abs(value))
         }
+
     }
 }
 
