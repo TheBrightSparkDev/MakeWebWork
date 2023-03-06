@@ -19,6 +19,7 @@
 let debugcalculator = true
 let listoftargetobjects = []
 let extracontext = []
+let activatehidden = []
 
 calculatorinitialiser()
 function calculatorinitialiser(){
@@ -32,6 +33,9 @@ function calculatorinitialiser(){
             console.log(target)
         }
         checkforinputs()
+    }
+    for (element of activatehidden){
+        calculate(element)
     }
     document.addEventListener("input" , (e) => calculate(e.target))
 }
@@ -103,18 +107,22 @@ function createcontext(elements, createextracontext){
                     extracontext.push(document.getElementById(input.getAttribute("target")))
                 }
             }
+            if (input.classList.contains("hide")){
+                activatehidden.push(input)
+            }
         }
     }
 }
 
 function calculate(inputelement){
     /* this line gets the calculated value */
-    let valuetoinput = parsecalc(inputelement.getAttribute("calc"),inputelement.value)
+    let valuetoinput = parsecalc(inputelement,inputelement.value)
     /* this line inputs the value into the target it also uses context to make sure no input gets added twice */
     inputintotarget(valuetoinput, inputelement) 
 }
 
-function parsecalc(calc, value){
+function parsecalc(inputelement, value){
+    calc = inputelement.getAttribute("calc")
     if (calc.toLowerCase().includes("smartvaluescale")){
 
         if(debugcalculator){console.log("detected smartvaluescale")}
@@ -133,9 +141,14 @@ function parsecalc(calc, value){
     } else if (calc.toLowerCase().includes("add")){
 
         if(debugcalculator){console.log("detected add")}
-        return add(calc, parseInt(value), "add")
+        return add(calc, inputelement, "add", parseInt(value))
 
-    } else {
+    } else if (calc.toLowerCase().includes("subtract")){
+
+        if(debugcalculator){console.log("detected subtract")}
+        return subtract(calc, inputelement, "subtract", parseInt(value))
+
+    }else {
         /* this means calc is invalid so just pass on the value and send debug message to console */
         console.log("calc didn't contain a recognised function check if this is correct: " + calc)
         console.log("Implemented functions are add and valuescale")
@@ -151,26 +164,30 @@ function inputintotarget(value , target){
     if (debugcalculator){
         console.log(value)
         console.log(typeof(value))
+        console.log("following two are undefined if calc is add")
         console.log(value[0])
         console.log(value[1])
     }
 
     if (typeof(value) == "object"){
-        if (typeof(parseInt(value[0])) == "number"){
+        if (isNaN(value[1])){
             valuetoinput = value[0]
             format = value[1]
+            formatfirst = false
         } else {
             valuetoinput = value[1]
             format = value[0]
+            formatfirst = true
         }
     } else {
         valuetoinput = value
         format = ""
+        formatfirst = false
     }
     let targethastarget = true
     while (targethastarget){
         /* check return true if it finds a target attribute on the target element */
-        updatecontext(targetattribute, inputid, valuetoinput, format)
+        updatecontext(targetattribute, inputid, valuetoinput, format, formatfirst)
         if (document.getElementById(targetattribute).getAttribute("target") != null){
             targethastarget = true
             targetattribute = document.getElementById(targetattribute).getAttribute("target")
@@ -182,11 +199,12 @@ function inputintotarget(value , target){
     updatedom()
 }
 
-function updatecontext(targetattribute, inputid, value, format){
+function updatecontext(targetattribute, inputid, value, format, formatfirst){
     for (target of listoftargetobjects){
         if (target.name == targetattribute){
             target[inputid] = value
             target.format = format
+            target.formatfirst = formatfirst
         }
     }
 }
@@ -199,7 +217,11 @@ function updatedom(){
                 valuetoinput = valuetoinput + target[i]
             }
         }
-        valuetoinput = valuetoinput + target.format
+        if (target.formatfirst){
+            valuetoinput = target.format + valuetoinput
+        } else {
+            valuetoinput = valuetoinput + target.format
+        }
         document.getElementById(target.name).innerText = valuetoinput
     }
 }
@@ -252,12 +274,18 @@ function valuescale(calc, value, ignore){
             ratio = parseInt(item.split(",")[1])
             if (base >= value){ 
                 valuetoinput = (value / base * ratio)
-                return getvaluetoinputformat(listtoparse, valuetoinput) 
+                if (isNaN(valuetoinput)){
+                    valuetoinput = 0
+                }
+                return getvaluetoinputformat(listtoparse, parseInt(valuetoinput.toFixed('1'))) 
             } 
         }
     }
     /* this will treat anything higher than the last defined base and scale it as if it were the last ratio in the for loop */
     valuetoinput = (value / base * ratio)
+    if (isNaN(valuetoinput)){
+        valuetoinput = 0
+    }
     return getvaluetoinputformat(listtoparse, valuetoinput) 
 }
 
@@ -283,24 +311,64 @@ function smartvaluescale(calc, value, ignore){
                     valuetoinput = valuetoinput + ratio
                     value = value - base
                 } else if (base > value){
-                    valuetoinput = valuetoinput + (value / base * ratio)
+                    if (isNaN(valuetoinput)){
+                        valuetoinput = 0
+                    } else {
+                        valuetoinput = valuetoinput + (value / base * ratio)
+                    }
                     return getvaluetoinputformat(listtoparse, valuetoinput)  
                 }
             }
         }
     }
     /* this will treat anything higher than the last defined base and scale it as if it were the last ratio in the for loop */
-    return getvaluetoinputformat(listtoparse, (valuetoinput + (value / base * ratio)))      
+    return getvaluetoinputformat(listtoparse, valuetoinput)      
 }
 
-function add(calc, value, ignore){
+function add(calc, inputelement, ignore, value){
     let valuetoadd = createvalidlist(calc.split(","), ignore)
     if(debugcalculator){
         console.log(calc)
         console.log(calc.split(","))
         console.log(valuetoadd)
     }
-    return parseInt(valuetoadd)
+    if (valuetoadd == "text"){
+        console.log("text")
+        valuetoadd = parseInt(inputelement.innerText)
+    } else if (valuetoadd == "value") {
+        console.log("value")
+        return value
+    } else {
+        if (inputelement.getAttribute("checked") == "true"){
+            inputelement.setAttribute("checked", "false")
+            return 0
+        } else {
+            inputelement.setAttribute("checked", "true")
+            return parseInt(valuetoadd)
+        }
+    }
+}
+
+function subtract(calc, inputelement, ignore, value){
+    let valuetoadd = createvalidlist(calc.split(","), ignore)
+    if(debugcalculator){
+        console.log(calc)
+        console.log(calc.split(","))
+        console.log(valuetoadd)
+    }
+    if (valuetoadd == "text"){
+        valuetoadd = parseInt(inputelement.innerText)
+    } else if (valuetoadd == "value") {
+        return -Math.abs(value)
+    } else {
+        if (inputelement.getAttribute("checked") == "true"){
+            inputelement.setAttribute("checked", "false")
+            return 0
+        } else {
+            inputelement.setAttribute("checked", "true")
+            return parseInt(-Math.abs(valuetoadd))
+        }
+    }
 }
 
 function scale(calc, value, ignore){
@@ -312,11 +380,13 @@ function scale(calc, value, ignore){
         console.log(listtoparse)
     }
     /*  example data ['int,percent', '1,35', '1000000,5'] */
-    /* Scale is calculates where you are between the two first numbers as a percentage and then
-    converts the value to the other two */
-    valuetoinput = 0
+    /* Scale is getting the first two and pairing them up and the last tow and pairing them up so putting 
+    1 here equals 35 putting 100000 here equals 5 and the hard part (everything inbetween needs to make sense too)
+    AKA lots of maths and headaches */
+    let valuetoinput = 0
     let scale = new Object()
     i = 0
+    /* build the data */
     for (item of listtoparse){
         i++
         if (i == 2){
@@ -326,9 +396,93 @@ function scale(calc, value, ignore){
             scale.secondbase = parseInt(item.split(",")[0])
             scale.secondratio = parseInt(item.split(",")[1])
         }
-    }
+    }   
+    /* there is probably a more efficient way to do this */
+    let basediff = scale.firstbase - scale.secondbase
+    let ratiodiff = scale.firstratio - scale.secondratio
     console.log(scale)
-    /* this will treat anything higher than the last defined base and scale it as if it were the last ratio in the for loop */
-    return getvaluetoinputformat(listtoparse, (valuetoinput + (value / base * ratio)))      
-    
+
+    if (ratiodiff < 0){
+        /* This means the possible values are linear */
+        console.log("linear base")
+        if (basediff < 0){
+            console.log("linear ratio")
+            /* this means the input value scales linear too */
+            if (value > scale.firstbase){
+                percentageofbase = ((value) / (scale.secondbase)) * 100 
+            } else {
+                percentageofbase = 0
+            }
+            tempvalue = (((scale.secondratio) / 100) * percentageofbase)
+            addon = scale.firstratio - ((scale.firstratio / 100) * percentageofbase)
+            valuetoinput = tempvalue + addon
+        } else {
+            /* this means the input value is inverted */
+            console.log("inverted ratio")
+            if (value > scale.secondbase){
+                percentageofbase = ((value) / (scale.firstbase)) * 100 
+            } else {
+                percentageofbase = 0
+            }
+            tempvalue = (((scale.firstratio) / 100) * percentageofbase)
+            addon = scale.secondratio - ((scale.secondratio / 100) * percentageofbase)
+            valuetoinput = tempvalue + addon
+        } 
+        if (valuetoinput < scale.firstratio){
+            valuetoinput = scale.firstratio
+        } else if(valuetoinput > scale.secondratio){
+            valuetoinput = scale.secondratio
+        }
+        if (basediff < 0){
+            if (isNaN(valuetoinput)){
+                valuetoinput = scale.firstratio
+            }
+        } else {
+            if (isNaN(valuetoinput)){
+                valuetoinput = scale.secondratio
+            }
+        }
+    } else {
+        /* This means the possible values are inverted */
+        console.log("inverted base")
+        if (basediff < 0){
+            /* this means the input value scales linear too */
+            console.log("linear ratio")
+            if (value > scale.firstbase){
+                percentageofbase = ((value) / (scale.secondbase)) * 100 
+            } else {
+                percentageofbase = 0
+            }
+            tempvalue = (((scale.secondratio) / 100) * percentageofbase)
+            addon = scale.firstratio - ((scale.firstratio / 100) * percentageofbase)
+            valuetoinput = tempvalue + addon
+        } else {
+            /* this means the input value is inverted */
+            console.log("inverted ratio")
+            if (value > scale.secondbase){
+                percentageofbase = ((value) / (scale.firstbase)) * 100 
+            } else {
+                percentageofbase = 0
+            }
+            tempvalue = (((scale.firstratio) / 100) * percentageofbase)
+            addon = scale.secondratio - ((scale.secondratio / 100) * percentageofbase)
+            valuetoinput = tempvalue + addon
+        }
+        if (valuetoinput < scale.secondratio){
+            valuetoinput = scale.secondratio
+        } else if (valuetoinput > scale.firstratio){
+            valuetoinput = scale.firstratio
+        } 
+        if (basediff < 0){
+            if (isNaN(valuetoinput)){
+                valuetoinput = scale.firstratio
+            }
+        } else {
+            if (isNaN(valuetoinput)){
+                valuetoinput = scale.secondratio
+            }
+        }
+
+    }
+    return getvaluetoinputformat(listtoparse, (parseInt(valuetoinput.toFixed(2))))      
 }

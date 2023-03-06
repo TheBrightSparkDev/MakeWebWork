@@ -5,35 +5,41 @@
 </p>
 
 <div class="push-down choice-container">
-
+    {% for price in prices %}
+        {% if price.name == 'Defaultwebsitecost' %}
+        <input class="hide" id="{{price.name}}po" type="checkbox" calc="add, {{price.price}}" target="upfronttotalpo">
+        {% elif price.name == 'monthlyupkeep' %}
+        <input class="hide" id="{{price.name}}po" type="checkbox" calc="add, {{price.price}}" target="monthlytotalpo">
+        {% endif %}
+    {% endfor %}
 
     <div class="col-5 flex-container">
         <label class="mx-1 push-down text-center" for="Pagespo">How many individual webpages do you plan on having?</label>
-        <input class="small-input mx-auto" id="Pagespo" calc="valuescale, {int,int}, {5,0}, {100,250}, {1000,1500}, {10000,10000}" target="pagesvaluepo" type="number" maxlength="10" pattern="[0-9]">
+        <input class="small-input mx-auto" id="Pagespo" calc="smartvaluescale, {int,pound}, {100,250}, {1000,1500}, {10000,10000}" target="pagesvaluepo" type="number" maxlength="10" pattern="[0-9]">
     </div>
     <div class="col-5 flex-container">
         <p class="push-down text-center">The total cost of your webpages is:</p>
-        <h3 id="pagesvaluepo" target="upfronttotalpo" class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
+        <p id="pagesvaluepo" target="upfronttotalpo" class="text-center col-3 grey darken-3 text-center my-3 py-3"></p>
     </div>
 
 
     <div class="col-5 flex-container">
         <label class="mx-1 push-down text-center" for="Subscriberspo">Tool: How many subscribers do you think you will have</label>
-        <input class="small-input mx-auto" id="Subscriberspo" calc="valuescale, {int,int}, {1, 60}" target="subscribertotalpo" type="number" maxlength="10" pattern="[0-9]">
+        <input class="small-input mx-auto" id="Subscriberspo" calc="smartvaluescale, {int,int}, {1, 60}" target="subscribertotalpo" type="number" maxlength="10" pattern="[0-9]">
     </div>
     <div class="col-5 flex-container">
         <p class="push-down text-center">This is how much traffic to expect from these subscribers alone</p>
-        <h3 id="subscribertotalpo" class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
+        <p id="subscribertotalpo" class="text-center col-3 grey darken-3 text-center my-3 py-3"></p>
     </div>
 
 
     <div class="col-5 flex-container">
         <label class="mx-1 push-down text-center" for="Pages">How much traffic do you expect in a month (average)</label>
-        <input class="small-input mx-auto" id="Computepo" calc="valuescale, {int,pound}, {1,10}, {1000,50}, {10000,100}, {100000,500}, {1000000,10000}" target="computetotalpo" type="number" maxlength="10" pattern="[0-9]">
+        <input class="small-input mx-auto" id="Computepo" calc="smartvaluescale, {int,pound}, {1,10}, {1000,50}, {10000,100}, {100000,500}, {1000000,10000}" target="computetotalpo" type="number" maxlength="10" pattern="[0-9]">
     </div>
     <div class="col-5 flex-container">
         <p class="push-down text-center">We predict the compute costs to be:</p>
-        <h3 id="computetotalpo" target="monthlytotalpo" class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
+        <p id="computetotalpo" target="monthlytotalpo" class="text-center col-3 grey darken-3 text-center my-3 py-3"></p>
     </div>
 
 
@@ -42,11 +48,11 @@
     <p class="push-down text-center">Images: 720p = 4.15mB | 1080p = 8.29mB | 4k = 33.18mB</p>
     <div class="col-5 flex-container">
         <label class="mx-1 push-down text-center" for="storagepo">How much data will be stored to support your website? (GB)</label>
-        <input class="small-input mx-auto" id="storagepo" calc="valuescale, {int,int}, {1, 5}, {50, 15}, {100,20}, {10000,1000}" target="storagetotalpo" type="number" maxlength="10" pattern="[0-9]">
+        <input class="small-input mx-auto" id="storagepo" calc="smartvaluescale, {int,pound}, {1, 5}, {50, 15}, {100,20}, {10000,1000}" target="storagetotalpo" type="number" maxlength="10" pattern="[0-9]">
     </div>
     <div class="col-5 flex-container">
         <p class="push-down text-center">We expect the storage costs to be:</p>
-        <h3 id="storagetotalpo" target="monthlytotalpo" class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
+        <p id="storagetotalpo" target="monthlytotalpo" class="text-center col-3 grey darken-3 text-center my-3 py-3"></p>
     </div>
 
     <div class="choice-container my-3">

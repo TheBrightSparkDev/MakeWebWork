@@ -21,3 +21,17 @@ class Modules(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Prices(models.Model):
+    '''
+    This class will define the prices model it includes data about price
+    description and development time for things that arent models
+    '''
+    pricesID = models.BigAutoField(primary_key=True)
+    name = models.CharField(max_length=50, null=False, blank=False)
+    description = models.CharField(max_length=1000, null=True, blank=True)
+    price = models.IntegerField(null=False, blank=False, default=True)
+
+    def __str__(self):
+        return self.name

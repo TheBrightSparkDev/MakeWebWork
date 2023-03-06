@@ -5,49 +5,21 @@
 </p>
 
 <div class="push-down choice-container">
-
+    {% for price in prices %}
+        {% if price.name == 'Defaultwebsitecost' %}
+        <input class="hide" id="{{price.name}}babo" type="checkbox" calc="add, {{price.price}}" target="upfronttotalbabo">
+        {% endif %}
+    {% endfor %}
 
     <div class="col-5 flex-container">
         <label class="mx-1 push-down text-center" for="Pagesbabo">How many individual webpages do you plan on having?</label>
-        <input class="small-input mx-auto" id="Pagesbabo" calc="valuescale, {int,int}, {5,0}, {100,250}, {1000,1500}, {10000,10000}" target="pagesvaluebabo" type="number" maxlength="10" pattern="[0-9]">
+        <input class="small-input mx-auto" id="Pagesbabo" calc="smartvaluescale, {int,int}, {100,250}, {1000,1500}, {10000,10000}" target="pagesvaluebabo" type="number" maxlength="10" pattern="[0-9]">
     </div>
     <div class="col-5 flex-container">
         <p class="push-down text-center">The total cost of your webpages is:</p>
-        <h3 id="pagesvaluebabo" target="upfronttotalbabo" class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
+        <p id="pagesvaluebabo" target="upfronttotalbabo" class="text-center col-3 grey darken-3 text-center my-3 py-3"></p>
     </div>
 
-
-    <div class="col-5 flex-container">
-        <label class="mx-1 push-down text-center" for="Subscriberbabo">Tool: How many subscribers do you think you will have</label>
-        <input class="small-input mx-auto" id="Subscribersbabo" calc="valuescale, {int,int}, {1, 60}" target="subscribertotalbabo" type="number" maxlength="10" pattern="[0-9]">
-    </div>
-    <div class="col-5 flex-container">
-        <p class="push-down text-center">This is how much traffic to expect from these subscribers alone</p>
-        <h3 id="subscribertotalbabo" class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
-    </div>
-
-
-    <div class="col-5 flex-container">
-        <label class="mx-1 push-down text-center" for="Computebabo">How much traffic do you expect in a month (average)</label>
-        <input class="small-input mx-auto" id="Computebabo" calc="valuescale, {int,pound}, {1,10}, {1000,50}, {10000,100}, {100000,500}, {1000000,10000}" target="computetotalbabo" type="number" maxlength="10" pattern="[0-9]">
-    </div>
-    <div class="col-5 flex-container">
-        <p class="push-down text-center">We predict the compute costs to be:</p>
-        <h3 id="computetotalbabo" target="monthlytotalbabo" class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
-    </div>
-
-
-    <p class="push-down text-center">A rough idea of file sizes:</p>
-    <p class="push-down text-center">Video: 720p = 19mB/min | 1080p = 46mB/min | 4k = 173mB/min</p>
-    <p class="push-down text-center">Images: 720p = 4.15mB | 1080p = 8.29mB | 4k = 33.18mB</p>
-    <div class="col-5 flex-container">
-        <label class="mx-1 push-down text-center" for="storagebabo">How much data will be stored to support your website? (GB)</label>
-        <input class="small-input mx-auto" id="storagebabo" calc="valuescale, {int,int}, {1, 5}, {50, 15}, {100,20}, {10000,1000}" target="storagetotalbabo" type="number" maxlength="10" pattern="[0-9]">
-    </div>
-    <div class="col-5 flex-container">
-        <p class="push-down text-center">We expect the storage costs to be:</p>
-        <h3 id="storagetotalbabo" target="monthlytotalbabo" class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
-    </div>
 
     <div class="choice-container my-3">
         <h2 class="push-down text-center">Modules</h2>
@@ -69,8 +41,6 @@
     </div>
 </div>
 
-<h4 class="push-down text-center">Total monthly cost of Maintenance:</h4>
-<h3 id="monthlytotalbabo"  class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
 <h4 class="push-down text-center">Total upfront cost of building the site:</h4>
 <h3 id="upfronttotalbabo"  class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
 <div class="row choice-container JSJourneyOptions">

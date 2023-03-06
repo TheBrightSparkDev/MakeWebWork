@@ -5,15 +5,19 @@
 </p>
 
 <div class="push-down choice-container">
-
+    {% for price in prices %}
+        {% if price.name == 'Defaultwebsitecost' %}
+        <input class="hide" id="{{price.name}}babs" type="checkbox" calc="add, {{price.price}}" target="upfronttotalbabs">
+        {% endif %}
+    {% endfor %}
 
     <div class="col-5 flex-container">
         <label class="mx-1 push-down text-center" for="Pagesbabs">How many individual webpages do you plan on having?</label>
-        <input class="small-input mx-auto" id="Pagesbabs" calc="smartvaluescale, {int,int}, {5,0}, {100,250}, {1000,1500}, {10000,10000}" target="pagesvaluebabs" type="number" maxlength="10" pattern="[0-9]">
+        <input class="small-input mx-auto" id="Pagesbabs" calc="smartvaluescale, {int,int}, {100,250}, {1000,1500}, {10000,10000}" target="pagesvaluebabs" type="number" maxlength="10" pattern="[0-9]">
     </div>
     <div class="col-5 flex-container">
         <p class="push-down text-center">The total cost of your webpages is:</p>
-        <h3 id="pagesvaluebabs" target="upfronttotalbabs" class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
+        <p id="pagesvaluebabs" target="upfronttotalbabs" class="text-center col-3 grey darken-3 text-center my-3 py-3"></p>
     </div>
 
 
@@ -37,8 +41,6 @@
     </div>
 </div>
 
-<h4 class="push-down text-center">Total monthly cost of Maintenance:</h4>
-<h3 id="monthlytotalbabs"  class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
 <h4 class="push-down text-center">Total upfront cost of building the site:</h4>
 <h3 id="upfronttotalbabs"  class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
 <div class="row choice-container JSJourneyOptions">
