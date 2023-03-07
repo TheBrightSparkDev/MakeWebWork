@@ -7,6 +7,7 @@ the table once and having it replicated throughout the site.
 '''
 
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 # following classes are exclusive to this website
@@ -99,18 +100,6 @@ class ImportantOptions(models.Model):
         return self.name
 
 
-class Customer(models.Model):
-    '''
-    This class is used to define the customer table
-    '''
-    CustomerID = models.BigAutoField(primary_key=True)
-    Firstname = models.CharField(max_length=40, null=False, blank=False)
-    Lastname = models.CharField(max_length=40, null=False, blank=False)
-    EmailAddress = models.CharField(max_length=100, null=False, blank=False)
-    PhoneNumber = models.CharField(max_length=15, null=False, blank=False)
-    password = models.CharField(max_length=30, null=False, blank=False)
-    
-
 class ContactOptions(models.Model):
     '''
     This class is used to define the various ways you can get in contact
@@ -190,3 +179,21 @@ class Socials(models.Model):
 
     def __str__(self):
         return self.brand
+
+
+class Profile(models.Model):
+    '''
+    Adds the ability to capture additional data about the user for future use 
+    currently most of these are unused 
+    '''
+    CustomerID = models.BigAutoField(primary_key=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    address_line_one = models.CharField(max_length=150, null=True, blank=True)
+    address_line_two = models.CharField(max_length=150, null=True, blank=True)
+    address_line_three = models.CharField(max_length=99, null=True, blank=True)
+    UK = models.BooleanField(default=True,)
+    postcode = models.CharField(max_length=30, null=True, blank=True)
+    birthdate = models.DateField(null=True, blank=True)
+    Firstname = models.CharField(max_length=40, null=True, blank=True)
+    Lastname = models.CharField(max_length=40, null=True, blank=True)
+    PhoneNumber = models.CharField(max_length=15, null=True, blank=True)
