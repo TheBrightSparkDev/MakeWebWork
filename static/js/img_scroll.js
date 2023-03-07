@@ -25,11 +25,12 @@ var currScrollPos = window.scrollY
 var lastPos = 0
 var scrolled = 0
 var DontReload = false
+
 /* this forces the script to wait for the page to load */
 window.addEventListener("load", function(event){
     InitialiseImgScroll()
     DontReload = CheckForSelectionJSOrJourneyJS()
-  });
+});
 
 function CheckForSelectionJSOrJourneyJS(){
     /**
@@ -40,15 +41,11 @@ function CheckForSelectionJSOrJourneyJS(){
      * when I correctly implement a way of recalculating the position of animated elements without
      * refreshing but that sounds like a future me problem...
      */
-    if (document.getElementsByTagName("head")[0].getAttribute("id") == "SelectionJS" || document.getElementsByTagName("head")[0].getAttribute("id") == "JourneyJS" ){
-        if (debugimgscroll){
-        console.log("Detected" + document.getElementsByTagName("head")[0].getAttribute("id"))
-        }
+    if (document.getElementsByTagName("head")[0].getAttribute("id") == "SelectionJS" || document.getElementsByTagName("head")[0].getAttribute("id") == "journeyJS" ){
+        if (debugimgscroll){console.log("Detected: " + document.getElementsByTagName("head")[0].getAttribute("id"))}
         return true
     } else {
-        if (debugimgscroll){
-            console.log("No SelectionJS or JourneyJS Detected")
-        }
+        if (debugimgscroll){console.log("No SelectionJS or JourneyJS Detected")}
         return false
     }
 }

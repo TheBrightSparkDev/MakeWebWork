@@ -35,7 +35,7 @@
 
     <div class="col-5 flex-container">
         <label class="mx-1 push-down text-center" for="Computepr">How much traffic do you expect in a month (average)</label>
-        <input class="small-input mx-auto" id="Computepr" calc="smartvaluescale, {int,pound}, {1,10}, {1000,50}, {10000,100}, {100000,500}, {1000000,10000}" target="computetotalpr" type="number" maxlength="10" pattern="[0-9]">
+        <input class="small-input mx-auto" id="Computepr" calc="smartvaluescale, {int,pound}, {1,10}, {1000,30}, {10000,60}, {100000,300}, {1000000,1000}" target="computetotalpr" type="number" maxlength="10" pattern="[0-9]">
     </div>
     <div class="col-5 flex-container">
         <p class="push-down text-center">We predict the compute costs to be:</p>
@@ -66,8 +66,9 @@
         {% for module in modules %} 
             {% if module.available %}
             <div class="col-5 flex-container">
-                <label class="text-center unhide" unhide="hide{{module.moduleID}}pr" for="{{module.moduleID}}">{{module.name}}</label>
-                <p id="hide{{module.moduleID}}pr" class="hide">{{module.description}}</p>
+                <i class="fa-solid fa-circle-info unhide" unhide="hide{{module.moduleID}}pr"></i>
+                <label class="text-center"  for="{{module.moduleID}}pr">{{module.name}}</label>
+                <p id="hide{{module.moduleID}}pr" class="black text-center hide">{{module.description}}</p>
                 <input class="flipswitch" type="checkbox" id="{{module.moduleID}}pr" target="upfronttotalpr" calc="add, {{module.cost}}">
             </div>
             {% endif %}
@@ -76,9 +77,20 @@
 </div>
 
 <h4 class="push-down text-center">Total monthly cost of Maintenance:</h4>
-<h3 id="monthlytotalpr"  class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
+<h3 id="monthlytotalpr" target="monthlyspreadpr" calc="add, {int, pound}, text" class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
+
 <h4 class="push-down text-center">Total upfront cost of building the site:</h4>
-<h3 id="upfronttotalpr"  class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
+<h3 id="upfronttotalpr" target="remainingupfrontpr" calc="add, {int, pound}, text" class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
+
+<h4 class="push-down text-center">How much of the upfront would you like to pay as a deposit?</h4>
+<input class="small-input mx-auto" id="depositpr" calc="subtract, {int, pound} ,value" target="remainingupfrontps" type="number" maxlength="10" pattern="[0-9]">
+
+<h4 class="push-down text-center">The remaining will be spread over 2 years interest free</h4>
+<h3 id="remainingupfrontpr" target="monthlyspreadpr"  calc="divide, {int, pound}, 24" class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
+
+<h4 class="push-down text-center">This would be the total monthly cost</h4>
+<h3 id="monthlyspreadpr"  class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
+
 <div class="row choice-container JSJourneyOptions">
     <button class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" related="Journey1-2" href="#">back</button>
     {% if user.is_authenticated %}

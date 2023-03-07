@@ -3,7 +3,7 @@ Adding an if to the animation time to check if there is some element with an ani
 */
 
 /* Set this to true if you want to see debug  */
-let debugJourneys = true;
+let debugJourneys = false;
 /* This is the length of the animations in ms */
 let animationLength = 500;
 /* This variable will eventually hold all the journey data */
@@ -29,14 +29,14 @@ function InitialiseJourneys(){
         console.log(Journeys)
     }
     AutomaticTests(Journeys)
-    console.log(Journeys)
+    if(debugJourneys){ console.log(Journeys)}
     ActivateJourneys(Journeys)
 }
 
 function ResizePushContentUnder(){
     Elements = document.getElementsByClassName("push-content-under")
     for (element of Elements){
-        console.log(element.children[0].clientHeight)
+        if(debugJourneys){console.log(element.children[0].clientHeight)}
         element.style.height = element.children[0].clientHeight + "px"
     }
 }
@@ -129,13 +129,13 @@ function Navigation(target){
     let IdToHide = GetParent(target)
     if (id < IdToHide){
         /* invert the animation as the ID its calling is a previous step */
-        console.log("inverted = true ")
+        if(debugJourneys){ console.log("inverted = true ")}
         ShowNew(0, id, true)
         let Height = document.getElementById(id).clientHeight + "px"
         HideCurrent(Height, IdToHide, true)
     } else{
         let Height = document.getElementById(IdToHide).clientHeight + "px"
-        console.log("inverted = false ")
+        if(debugJourneys){ console.log("inverted = false ")}
         HideCurrent(Height, IdToHide, false)
         ShowNew(Height, id, false)
     }

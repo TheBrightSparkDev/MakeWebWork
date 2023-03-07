@@ -16,7 +16,7 @@
  * 
  */
 
-let debugcalculator = true
+let debugcalculator = false
 let listoftargetobjects = []
 let extracontext = []
 let activatehidden = []
@@ -62,6 +62,7 @@ function checkforinputs(){
     }
 }
 /* end of automatic tests */
+/* Initially run code */
 
 function createcontext(elements, createextracontext){
     /* This iterates through the list */
@@ -117,6 +118,9 @@ function createcontext(elements, createextracontext){
     }
 }
 
+/* End of intially run code */
+
+/* calculate calls parsecalc */
 function calculate(inputelement){
     /* this line gets the calculated value */
     let valuetoinput = parsecalc(inputelement,inputelement.value)
@@ -163,137 +167,11 @@ function parsecalc(inputelement, value){
         return value
     }
 }
-
-function sanitizevalue(value){
-    if (isNaN(value)){
-        value = value.replace("£","")
-        value = value.replace("%","")
-        value = value.replace("$","")
-        value = value.replace(" ","")
-    }
-    return Number(value)
-}
-
-function inputintotarget(value , target){
-    let targetattribute = target.getAttribute('target')
-    let inputid = target.id
-    let valuetoinput = 0
-    let format = ""
-    if (debugcalculator){
-        console.log(value)
-        console.log(typeof(value))
-        console.log("following two are undefined if calc is add")
-        console.log(value[0])
-        console.log(value[1])
-    }
-
-    if (typeof(value) == "object"){
-        if (isNaN(value[1])){
-            valuetoinput = value[0]
-            format = value[1]
-            formatfirst = false
-        } else {
-            valuetoinput = value[1]
-            format = value[0]
-            formatfirst = true
-        }
-    } else {
-        valuetoinput = value
-        format = ""
-        formatfirst = false
-    }
-    let targethastarget = true
-    updatecontext(targetattribute, inputid, valuetoinput, format, formatfirst)
-        if (document.getElementById(targetattribute).getAttribute("target") != null){
-            targethastarget = true
-            console.log("last calculation was run on this")
-            console.log("last calculation was run on this")
-            console.log("last calculation was run on this")
-            console.log(document.getElementById(targetattribute))
-            calculate(document.getElementById(targetattribute))
-            targetattribute = document.getElementById(targetattribute).getAttribute("target")
-            console.log("target of target = ")
-            console.log("target of target = ")
-            console.log("target of target = ")
-            console.log(targetattribute)
-        } else {
-            targethastarget = false
-        }
-    updatedom()
-}
-
-function updatecontext(targetattribute, inputid, value, format, formatfirst){
-    for (target of listoftargetobjects){
-        if (target.name == targetattribute){
-            target[inputid] = value
-            target.format = format
-            target.formatfirst = formatfirst
-        }
-    }
-}
-
-function updatedom(){
-    for (target of listoftargetobjects){
-        valuetoinput = 0
-        for (i in target){
-            if (typeof(target[i]) == "number"){
-                valuetoinput = valuetoinput + target[i]
-            }
-        }
-        if (target.formatfirst){
-            valuetoinput = target.format + valuetoinput
-        } else {
-            valuetoinput = valuetoinput + target.format
-        }
-        document.getElementById(target.name).innerText = valuetoinput
-    }
-    console.log(listoftargetobjects)
-}
-
-function createvalidlist(brokenlist, ignore){
-    /* theres likely a better way to do this */
-    let correctedlist = []
-    let save = ""
-    console.log("brokenlist: " + brokenlist)
-    if (brokenlist.length != 1){
-        for (item of brokenlist){
-            if (item.includes("{")){
-                save = item.trim()
-                save = save.replace("{","")
-            } else if (item.includes("}")){
-                item = item.replace("}","")
-                correctedlist.push(save + "," + item.trim())
-                save = ""
-            } else if(item.toLowerCase().includes(ignore)){
-                
-            } else {
-                correctedlist.push(item.trim())
-            }
-        }
-    } else {
-        return brokenlist
-    }
-
-    return correctedlist
-}
-
-function getvaluetoinputformat(list, valuetoinput){
-    if(list.length != 1){
-        if (valuetoinput == NaN){
-            valuetoinput = 0
-        }
-        if (list[0].split(",")[1].toLowerCase() == "int"){
-            return valuetoinput
-        } else if (list[0].split(",")[1].toLowerCase() == "percent"){
-            return [valuetoinput, "%"]
-        } else if (list[0].split(",")[1].toLowerCase() == "pound"){
-            return ["£", valuetoinput]
-        }
-    } return valuetoinput
-}
+/* parsecalc pushes the value to one of the calculation functions below */
 
 /* below are all the calculation functions */
 
+/* Valuescale takes a value and converts it to a specified ratio based on the parameters passed */
 function valuescale(calc, value, ignore){
 /* example data "valuescale, {int,int}, {5,0}, {100,250}, {1000,1500}, {10000,10000}" */
     let listtoparse = createvalidlist(calc.split(","), ignore)
@@ -323,45 +201,7 @@ function valuescale(calc, value, ignore){
     }
     return getvaluetoinputformat(listtoparse, valuetoinput) 
 }
-
-function divide(calc, inputelement, value, ignore){
-    /* example data "[spreadover, pound, 24]" */
-    let listtoparse = createvalidlist(calc.split(","), ignore)
-    if(debugcalculator){
-        console.log(calc)
-        console.log(calc.split(","))
-        console.log(listtoparse)
-        console.log(inputelement)
-        console.log(value)
-    }
-    if (value > 1){
-        valuetoinput = value
-    } else {
-        valuetoinput = sanitizevalue(inputelement.textContent)
-        valuetoinput = Number(valuetoinput)
-    }
-    for (item of listtoparse){
-        console.log(item)
-        if (!isNaN(item)){
-            console.log(item)
-            console.log("divded")
-            console.log(valuetoinput)
-            valuetoinput = valuetoinput / Number(item)
-        }
-    }
-    /* valuetoinput or value contains the number that needs to be spread */
-    console.log("value is " + valuetoinput)
-    console.log("input element is " + inputelement)
-    /* the calc determines the number to be spread over and the format of the response */
-    if (isNaN(valuetoinput)){
-        console.log(valuetoinput + " this was not a number")
-        return getvaluetoinputformat(listtoparse, 0) 
-    } else {
-        console.log(valuetoinput + " this was a number")
-        return getvaluetoinputformat(listtoparse, valuetoinput) 
-    } 
-}
-
+/* same as Valuescale except it used every scale so 5,100 10,50 put 10 into the valuescale you get 50 however smart makes the first 5 equal 100 and the last 5 equal 25 */
 function smartvaluescale(calc, value, ignore){
     /* "valuescale, {int,int}, {5,0}, {100,250}, {1000,1500}, {10000,10000}" */
     let listtoparse = createvalidlist(calc.split(","), ignore)
@@ -396,18 +236,46 @@ function smartvaluescale(calc, value, ignore){
     /* this will treat anything higher than the last defined base and scale it as if it were the last ratio in the for loop */
     return getvaluetoinputformat(listtoparse, valuetoinput)      
 }
-
+/* checks if the value is in the inputelement or the value then divides the number by the number specified in the calc attribute */
+function divide(calc, inputelement, value, ignore){
+    /* example data "[spreadover, pound, 24]" */
+    let listtoparse = createvalidlist(calc.split(","), ignore)
+    if(debugcalculator){
+        console.log(calc)
+        console.log(calc.split(","))
+        console.log(listtoparse)
+        console.log(inputelement)
+        console.log(value)
+    }
+    if (value > 1){
+        valuetoinput = value
+    } else {
+        valuetoinput = sanitizevalue(inputelement.textContent)
+        valuetoinput = Number(valuetoinput)
+    }
+    for (item of listtoparse){
+        if (!isNaN(item)){
+            valuetoinput = valuetoinput / Number(item)
+        }
+    }
+    /* valuetoinput or value contains the number that needs to be spread */
+    /* the calc determines the number to be spread over and the format of the response */
+    if (isNaN(valuetoinput)){
+        return getvaluetoinputformat(listtoparse, 0) 
+    } else {
+        return getvaluetoinputformat(listtoparse, valuetoinput) 
+    } 
+}
+/* add checks if the value is in the calc string the value or the inputelement.text content and then passes it on */
 function add(calc, inputelement, ignore, value){
     let listtoparse = createvalidlist(calc.split(","), ignore)
     for (item of listtoparse){
-        console.log(item)
         if (!isNaN(item)){
             value = item
         } else if (item == "text"){
-            console.log("text")
-            valuetoadd = sanitizevalue(inputelement.textContent.trim())
+            valuetoadd = inputelement.textContent
+            valuetoadd = sanitizevalue(valuetoadd)
         } else if (item == "value") {
-            console.log("value")
             valuetoadd = sanitizevalue(value)
         }
     }
@@ -417,8 +285,6 @@ function add(calc, inputelement, ignore, value){
         console.log(listtoparse)
         console.log(value)
     }
-    console.log(listtoparse)
-    console.log(value)
     if (inputelement.getAttribute("type") == "checkbox"){
         if (inputelement.getAttribute("checked") == "true"){
             inputelement.setAttribute("checked", "false")
@@ -428,37 +294,42 @@ function add(calc, inputelement, ignore, value){
             valuetoadd = sanitizevalue(value)
         }
     }
-
     return getvaluetoinputformat(listtoparse, valuetoadd)
 }
-
+/* same as add uses -Math.abs() */
 function subtract(calc, inputelement, ignore, value){
-    let list = createvalidlist(calc.split(","), ignore)
+    let listtoparse = createvalidlist(calc.split(","), ignore)
+    for (item of listtoparse){
+        if (!isNaN(item)){
+            value = item
+        } else if (item == "text"){
+            valuetoadd = inputelement.textContent
+            valuetoadd = sanitizevalue(valuetoadd)
+        } else if (item == "value") {
+            valuetoadd = sanitizevalue(value)
+        }
+    }
     if(debugcalculator){
         console.log(calc)
         console.log(calc.split(","))
-        console.log(list)
+        console.log(listtoparse)
+        console.log(value)
     }
-    if (list == "text"){
-        return getvaluetoinputformat(list, -Math.abs(parseInt(inputelement.textContent.trim())))
-    } else if (list == "value") {
-        return getvaluetoinputformat(list, -Math.abs(value))
-    } else {
-        if (inputelement.getAttribute("type") == "checkbox"){
-            if (inputelement.getAttribute("checked") == "true"){
-                inputelement.setAttribute("checked", "false")
-                return getvaluetoinputformat(list, 0)
-            } else if (inputelement.getAttribute("checked") == "false"){
-                inputelement.setAttribute("checked", "true")
-                return getvaluetoinputformat(list, -Math.abs(value))
-            }
+    if (inputelement.getAttribute("type") == "checkbox"){
+        if (inputelement.getAttribute("checked") == "true"){
+            inputelement.setAttribute("checked", "false")
+            valuetoadd = 0
         } else {
-            return getvaluetoinputformat(list, -Math.abs(value))
+            inputelement.setAttribute("checked", "true")
+            -Math.abs(value)
+            valuetoadd = sanitizevalue(value)
         }
-
     }
+    valuetoadd = -Math.abs(valuetoadd)
+    return getvaluetoinputformat(listtoparse, valuetoadd)
 }
-
+/* Absolute nightmare: takes a scale linear or inverted and converts it to the respective ratio so 1000 can equal 5 and 1 can equal 35 etc. implementing this 
+was the closest thing to development hell I have ever experienced learned alot about percentages and ratios though!  */
 function scale(calc, value, ignore){
     /* "scale, {int, percent}, {1,35}, {1000000,5}" */
     let listtoparse = createvalidlist(calc.split(","), ignore)
@@ -488,13 +359,12 @@ function scale(calc, value, ignore){
     /* there is probably a more efficient way to do this */
     let basediff = scale.firstbase - scale.secondbase
     let ratiodiff = scale.firstratio - scale.secondratio
-    console.log(scale)
-
+    if (debugcalculator){ console.log(scale)}
     if (ratiodiff < 0){
         /* This means the possible values are linear */
-        console.log("linear base")
+        if (debugcalculator){console.log("linear base")}
         if (basediff < 0){
-            console.log("linear ratio")
+            if (debugcalculator){console.log("linear ratio")}
             /* this means the input value scales linear too */
             if (value > scale.firstbase){
                 percentageofbase = ((value) / (scale.secondbase)) * 100 
@@ -506,7 +376,7 @@ function scale(calc, value, ignore){
             valuetoinput = tempvalue + addon
         } else {
             /* this means the input value is inverted */
-            console.log("inverted ratio")
+            if (debugcalculator){console.log("inverted ratio")}
             if (value > scale.secondbase){
                 percentageofbase = ((value) / (scale.firstbase)) * 100 
             } else {
@@ -532,10 +402,10 @@ function scale(calc, value, ignore){
         }
     } else {
         /* This means the possible values are inverted */
-        console.log("inverted base")
+        if (debugcalculator){console.log("inverted base")}
         if (basediff < 0){
             /* this means the input value scales linear too */
-            console.log("linear ratio")
+            if (debugcalculator){console.log("linear ratio")}
             if (value > scale.firstbase){
                 percentageofbase = ((value) / (scale.secondbase)) * 100 
             } else {
@@ -546,7 +416,7 @@ function scale(calc, value, ignore){
             valuetoinput = tempvalue + addon
         } else {
             /* this means the input value is inverted */
-            console.log("inverted ratio")
+            if (debugcalculator){console.log("inverted ratio")}
             if (value > scale.secondbase){
                 percentageofbase = ((value) / (scale.firstbase)) * 100 
             } else {
@@ -570,7 +440,153 @@ function scale(calc, value, ignore){
                 valuetoinput = scale.secondratio
             }
         }
-
     }
     return getvaluetoinputformat(listtoparse, (parseInt(valuetoinput.toFixed(2))))      
 }
+
+/* end of all calculation functions */
+
+/* end of parsecalc options */
+
+/* This function is badly named it gets rid of used information from the calc and also corrects the unintended issues caused by split since
+I used commas where I didn't need them example being in {100, 1 } couldve used : but it is what it is */
+function createvalidlist(brokenlist, ignore){
+    /* theres likely a better way to do this */
+    let correctedlist = []
+    let save = ""
+    if (brokenlist.length != 1){
+        for (item of brokenlist){
+            if (item.includes("{")){
+                save = item.trim()
+                save = save.replace("{","")
+            } else if (item.includes("}")){
+                item = item.replace("}","")
+                correctedlist.push(save + "," + item.trim())
+                save = ""
+            } else if(item.toLowerCase().includes(ignore)){
+            } else {
+                correctedlist.push(item.trim())
+            }
+        }
+    } else {
+        return brokenlist
+    }
+    return correctedlist
+}
+
+/* This function fixes the value variable as sometimes it can come through as a string with a character like £ or % etc */
+function sanitizevalue(value){
+    /* if value is a number don't need to do anything to it */
+    if (isNaN(value)){
+        /* this means its a string undefined or an empty string */
+        if(value.length > 1){
+            /* value is a string could have spaces or other characters that may make 
+            using the number in equations difficult or turning it into an int impossible */
+            value = value.replace("£","")
+            value = value.replace("%","")
+            value = value.replace("$","")
+            value = value.replace(" ","")
+        } else {
+            /* value is empty string or 0 */
+            value = 0
+        }
+    }
+    return Number(value)
+}
+
+/* This function puts the extra character on the end or beginning of the input ( it actually creates an array in the correct order ) */
+function getvaluetoinputformat(list, valuetoinput){
+    if(list.length != 1){
+        if (valuetoinput == NaN){
+            valuetoinput = 0
+        }
+        if (list[0].split(",")[1].toLowerCase() == "int"){
+            return valuetoinput
+        } else if (list[0].split(",")[1].toLowerCase() == "percent"){
+            return [valuetoinput, "%"]
+        } else if (list[0].split(",")[1].toLowerCase() == "pound"){
+            return ["£", valuetoinput]
+        }
+    } return valuetoinput
+}
+
+/* This function is called by the calculation function as the second function after everything above has run it takes the calculated
+value and the target and prepares the data for update context and checks for target chains (targets that have targets) */
+function inputintotarget(value , target){
+    let targetattribute = target.getAttribute('target')
+    let inputid = target.id
+    let valuetoinput = 0
+    let format = ""
+    if (debugcalculator){
+        console.log(value)
+        console.log(typeof(value))
+        console.log("following two are undefined if calc is add")
+        console.log(value[0])
+        console.log(value[1])
+    }
+    if (typeof(value) == "object"){
+        if (isNaN(value[1])){
+            valuetoinput = value[0]
+            format = value[1]
+            formatfirst = false
+        } else {
+            valuetoinput = value[1]
+            format = value[0]
+            formatfirst = true
+        }
+    } else {
+        valuetoinput = value
+        format = ""
+        formatfirst = false
+    }
+    let targethastarget = true
+    updatecontext(targetattribute, inputid, valuetoinput, format, formatfirst)
+    if (document.getElementById(targetattribute).getAttribute("target") != null){
+        updatedom()
+        targethastarget = true
+        if(debugcalculator){
+            console.log(document.getElementById(targetattribute))
+        }
+        calculate(document.getElementById(targetattribute))
+        targetattribute = document.getElementById(targetattribute).getAttribute("target")
+        if(debugcalculator){console.log(targetattribute)}
+    } else {
+        targethastarget = false
+    }
+    updatedom()
+}
+
+/* This function is called he input into target it updates the various objects that were created by create context */
+function updatecontext(targetattribute, inputid, value, format, formatfirst){
+    for (target of listoftargetobjects){
+        if (target.name == targetattribute){
+            target[inputid] = value
+            target.format = format
+            target.formatfirst = formatfirst
+        }
+    }
+}
+
+/* This function is the only function that updates the DOM it loops through the context objects using the various values and the format
+to update the DOM this was the only way to track multiple inputs without having them input multiple times */
+function updatedom(){
+    for (target of listoftargetobjects){
+        valuetoinput = 0
+        for (i in target){
+            if (typeof(target[i]) == "number"){
+                valuetoinput = valuetoinput + target[i]
+            }
+        }
+        if (target.formatfirst){
+            valuetoinput = target.format + valuetoinput.toFixed(2)
+        } else {
+            valuetoinput = valuetoinput.toFixed(2) + target.format
+        }
+        document.getElementById(target.name).innerText = valuetoinput
+    }
+    if (debugcalculator){
+        console.log(listoftargetobjects)
+    }
+}
+
+

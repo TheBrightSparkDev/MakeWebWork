@@ -35,7 +35,7 @@
 
     <div class="col-5 flex-container">
         <label class="mx-1 push-down text-center" for="Computeps">How much traffic do you expect in a month (average)</label>
-        <input class="small-input mx-auto" id="Computeps" calc="smartvaluescale, {int,pound}, {1,10}, {1000,50}, {10000,100}, {100000,500}, {1000000,10000}" target="computetotalps" type="number" maxlength="10" pattern="[0-9]">
+        <input class="small-input mx-auto" id="Computeps" calc="smartvaluescale, {int,pound}, {1,10}, {1000,30}, {10000,60}, {100000,300}, {1000000,1000}" target="computetotalps" type="number" maxlength="10" pattern="[0-9]">
     </div>
     <div class="col-5 flex-container">
         <p class="push-down text-center">We predict the compute costs to be:</p>
@@ -66,9 +66,10 @@
         {% for module in modules %} 
             {% if module.available %}
             <div class="col-5 flex-container">
-                <label class="text-center unhide" unhide="hide{{module.moduleID}}ps" for="{{module.moduleID}}">{{module.name}}</label>
-                <p id="hide{{module.moduleID}}ps" class="hide">{{module.description}}</p>
-                <input class="flipswitch" type="checkbox" id="{{module.moduleID}}ps" target="upfronttotalps" calc="add, {int, pound}, {{module.cost}}">
+                <i class="fa-solid fa-circle-info unhide" unhide="hide{{module.moduleID}}ps"></i>
+                <label class="text-center"  for="{{module.moduleID}}ps">{{module.name}}</label>
+                <p id="hide{{module.moduleID}}ps" class="black text-center hide">{{module.description}}</p>
+                <input class="flipswitch" type="checkbox" id="{{module.moduleID}}ps" target="upfronttotalps" calc="add, {{module.cost}}">
             </div>
             {% endif %}
         {% endfor %}
