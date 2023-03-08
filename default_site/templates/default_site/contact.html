@@ -8,16 +8,21 @@
 <div id="initial" class="col-12">
     <h2 class="grey darken-4 mx-3 my-3 text-center py-3">Select the options that apply to you</h2>
     <div class="selection-container">
-        {% for option in options %}
-            {% if option.display %}
-                    <div id="{{option.id}}" class="col-12 col-lg-6 col-xl-4 col-xxl-2 grey darken-4 text-center my-2 selectable">
-                        <h3 class="pt-3">{{option.name}}</h3>
-                        <p class="mx-2 py-3">
-                            {{option.description}}
-                        </p>
-                    </div>
-            {% endif %}
-        {% endfor %}
+    {% for option in options %}
+
+    {% if option.display %}
+
+        <div id="{{option.id}}" class="col-12 col-lg-6 col-xl-4 col-xxl-2 grey darken-4 text-center my-2 selectable">
+            <h3 class="pt-3">{{option.name}}</h3>
+            <p class="mx-2 py-3">
+                {{option.description}}
+            </p>
+        </div>
+
+    {% endif %}
+
+    {% endfor %}
+
     </div>
     <div id="form" class="grey darken-4 my-3 text-center py-3 col-md-2 offset-md-5 col-8 offset-2">
         <h2>Submit</h2>
@@ -29,45 +34,70 @@
         <h2>Back</h2>
     </div>
     <div class="selection-container">
-        {% for option in options %}
-            {% if option.display %}
-                <div id="{{option.id}}hide" class="form-area grey darken-4 text-center my-2 hide">
-                    <div class="col-4 col-md-2">
-                        <h3 class="pt-3">{{option.name}}</h3>
-                    </div>
-                    <div class="form-area">
-                        {% for q in questions %}
-                        <!-- insert form element and method when I remember how.. -->
-                        <form action="{% url 'contact' %}" method="POST" id="FormQAndA">
-                            {% csrf_token %}
-                            {% if q.contactoption.id == option.id %}
-                                <div class="{{q.blockclass}}">
-                                    <label class="{{q.labelclass}}" for="{{q.ID}}">{{q.question}}</label>
-                                    {% if q.type == "select" %}
-                                    <select name="{{q.ID}}" id="{{q.ID}}">
-                                        {% for op in selectoptions %}
-                                            {% if op.formquestion.ID == q.ID %}
-                                                <option value="{{op.optionname}}">{{op.optionname}}</option>
-                                            {% endif %}    
-                                        {% endfor %}
-                                    </select>
-                                    {% elif q.type == "textarea" %}
-                                        <textarea class="{{q.inputclass}}" id="{{q.ID}}" name="{{q.ID}}" placeholder="{% if q.placeholdertext != None %}{{q.placeholdertext}}{% endif %}"
-                                        rows="{% if q.charlimit >= 1000 %}10{% else %}{% widthratio q.charlimit 100 1 %}{% endif %}" maxlength="{{q.charlimit}}" ></textarea>
-                                    {% else %}
-                                    <input class="{{q.inputclass}}" type="{{q.type}}" name="{{q.ID}}" id="{{q.ID}}"
-                                    placeholder='{% if q.placeholdertext != None %}{{q.placeholdertext}}{% endif %}' maxlength="{{q.charlimit}}" {% if q.required %} required {% endif %}>
-                                    {% endif %}
-                                </div>
-                            {% endif %}
-                        {% endfor %}
-                        <input class="hide" hidden value="{{option.name}}">
-                        </form>
-                        <!-- end of the form  -->
-                    </div>
-                </div>
-            {% endif %}
-        {% endfor %}
+    {% for option in options %}
+
+    {% if option.display %}
+
+        <div id="{{option.id}}hide" class="form-area grey darken-4 text-center my-2 hide">
+            <div class="col-4 col-md-2">
+                <h3 class="pt-3">{{option.name}}</h3>
+            </div>
+            <div class="form-area">
+                {% for q in questions %}
+
+                {% if q.contactoption.id == option.id %}
+
+                <form class="{{q.blockclass}}" action="{% url 'contact' %}" method="POST" id="{{option.name|cut:' '}}">
+                    {% csrf_token %}
+                    
+                    <label class="{{q.labelclass}}" for="{{q.ID}}{{q.question|cut:' '}}">{{q.question}}</label>
+                    <!-- hidden inputs -->
+                    <!-- Editing these will make submitting the form impossible -->
+                    <!-- input Check
+                        UserID <populated by javascript>
+                        answer
+                        question
+                        contactoption ID 
+                        date submitted <populated in python>
+                    -->
+                    <input type="hidden" name="question" value="{{q.question}}">
+                    <input type="hidden" name="contactoptionID" value="{{q.contactoption.id}}">
+                    <input type="hidden" name="question" value="{{q.question}}">
+                    <!-- end of hidden inputs -->
+                    {% if q.type == "select" %}
+
+                    <select name="answer" id="{{q.ID}}{{q.question|cut:' '}}">
+                    {% for op in selectoptions %}
+
+                    {% if op.formquestion.ID == q.ID %}
+
+                        <option value="{{op.optionname}}">{{op.optionname}}</option>
+                    {% endif %}    
+
+                    {% endfor %}
+
+                    </select>
+                    {% elif q.type == "textarea" %}
+
+                    <textarea class="{{q.inputclass}}" id="{{q.ID}}{{q.question|cut:' '}}" name="answer" placeholder="{% if q.placeholdertext != None %}{{q.placeholdertext}}{% endif %}"
+                    rows="{% if q.charlimit >= 1000 %}10{% else %}{% widthratio q.charlimit 100 1 %}{% endif %}" maxlength="{{q.charlimit}}" ></textarea>
+                    {% else %}
+
+                    <input class="{{q.inputclass}}" type="{{q.type}}" name="answer" id="{{q.ID}}{{q.question|cut:' '}}"
+                    placeholder='{% if q.placeholdertext != None %}{{q.placeholdertext}}{% endif %}' maxlength="{{q.charlimit}}" {% if q.required %} required {% endif %}>
+                    {% endif %}
+
+                </form>
+                {% endif %}
+
+                {% endfor %}
+
+            </div>
+        </div>
+    {% endif %}
+
+    {% endfor %}
+
     </div>
 </div>
 

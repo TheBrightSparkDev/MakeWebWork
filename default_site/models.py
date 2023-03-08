@@ -196,16 +196,6 @@ class UserProfile(models.Model):
     Phone_number = models.CharField(max_length=15, null=True, blank=True)
 
 
-class Request(models.Model):
-    '''
-    Simple table that contains a pk and a fk contains data about the
-    date of first contact
-    '''
-    RequestID = models.BigAutoField(primary_key=True)
-    CustomerID = models.OneToOneField(User, on_delete=models.CASCADE)
-    first_contact = models.DateField(blank=False, null=False)
-
-
 class QAndA(models.Model):
     '''
     A table that contains the data for the various question and answers
@@ -213,9 +203,9 @@ class QAndA(models.Model):
     purposes and context and linked to a request for retrieving it from
     the customer entity
     '''
+    customerID = models.ForeignKey(UserProfile, on_delete=models.RESTRICT)
     question = models.CharField(max_length=200, null=False, blank=False)
     answer = models.CharField(max_length=2000, null=False, blank=False)
     contactoption = models.ForeignKey(ContactOptions, on_delete=models.PROTECT)
-    requestID = models.ForeignKey(Request, on_delete=models.CASCADE)
     date_of_contact = models.DateField(blank=False, null=False)
 
