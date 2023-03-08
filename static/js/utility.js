@@ -10,13 +10,13 @@ function showhide(target){
     document.getElementById(target.getAttribute("unhide")).classList.toggle("hide")
 }
 
-    window.addEventListener("load", function(event){
-        if (debugutiliy = true){
-            console.log("utility.js connected")
-            let duplicates = checkforduplicateids()
-            logduplicates(duplicates)
-        }
-      });
+window.addEventListener("load", function(event){
+    if (debugutiliy = true){
+        console.log("utility.js connected")
+        let duplicates = checkforduplicateids()
+        logduplicates(duplicates)
+    }
+});
 
 function checkforduplicateids(){
     /* creates and returns a list of every ID on the page */

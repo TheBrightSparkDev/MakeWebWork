@@ -79,7 +79,27 @@ def contact(request):
     model you change the variable numberofquestionsperblock here
     '''
     if request.method == "POST":
-        print("hello world")
+        # need a javascript function to handle this and get
+        # additional data from the front end I need the form to handle
+        # a small amount of data multiple times and I also need for the
+        # form to hold all the metadata like the question time and the 
+        # contactoption it related to not 100% sure on how and cant guarantee
+        # it will be clean or pretty but its the choices I have made in order to
+        # make the form as flexible as possible so it can be reused in many 
+        # scenarios
+        form_data = {
+            'full_name': request.POST['full_name'],
+            'email': request.POST['email'],
+            'phone_number': request.POST['phone_number'],
+            'country': request.POST['country'],
+            'postcode': request.POST['postcode'],
+            'town_or_city': request.POST['town_or_city'],
+            'street_address1': request.POST['street_address1'],
+            'street_address2': request.POST['street_address2'],
+            'county': request.POST['county'],
+        }
+
+        order_form = OrderForm(form_data)
 
     context = {
         "selectoptions": Selectoptions.objects.all(),

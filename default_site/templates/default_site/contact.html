@@ -37,11 +37,14 @@
                     </div>
                     <div class="form-area">
                         {% for q in questions %}
+                        <!-- insert form element and method when I remember how.. -->
+                        <form action="{% url 'contact' %}" method="POST" id="FormQAndA">
+                            {% csrf_token %}
                             {% if q.contactoption.id == option.id %}
                                 <div class="{{q.blockclass}}">
-                                    <label class="{{q.labelclass}}" for="{{q.id}}">{{q.question}}</label>
+                                    <label class="{{q.labelclass}}" for="{{q.ID}}">{{q.question}}</label>
                                     {% if q.type == "select" %}
-                                    <select name="{{q.id}}" id="{{q.id}}">
+                                    <select name="{{q.ID}}" id="{{q.ID}}">
                                         {% for op in selectoptions %}
                                             {% if op.formquestion.ID == q.ID %}
                                                 <option value="{{op.optionname}}">{{op.optionname}}</option>
@@ -49,15 +52,18 @@
                                         {% endfor %}
                                     </select>
                                     {% elif q.type == "textarea" %}
-                                        <textarea class="{{q.inputclass}}" id="{{q.id}}" name="{{q.id}}" placeholder="{% if q.placeholdertext != None %}{{q.placeholdertext}}{% endif %}"
-                                        rows="{% if q.charlimit >= 1000 %}10{% else %}{% widthratio q.charlimit 100 1 %}{% endif %}"></textarea>
+                                        <textarea class="{{q.inputclass}}" id="{{q.ID}}" name="{{q.ID}}" placeholder="{% if q.placeholdertext != None %}{{q.placeholdertext}}{% endif %}"
+                                        rows="{% if q.charlimit >= 1000 %}10{% else %}{% widthratio q.charlimit 100 1 %}{% endif %}" maxlength="{{q.charlimit}}" ></textarea>
                                     {% else %}
-                                    <input class="{{q.inputclass}}" type="{{q.type}}" name="{{q.id}}" id="{{q.id}}"
+                                    <input class="{{q.inputclass}}" type="{{q.type}}" name="{{q.ID}}" id="{{q.ID}}"
                                     placeholder='{% if q.placeholdertext != None %}{{q.placeholdertext}}{% endif %}' maxlength="{{q.charlimit}}" {% if q.required %} required {% endif %}>
                                     {% endif %}
                                 </div>
                             {% endif %}
                         {% endfor %}
+                        <input class="hide" hidden value="{{option.name}}">
+                        </form>
+                        <!-- end of the form  -->
                     </div>
                 </div>
             {% endif %}

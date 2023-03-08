@@ -6,6 +6,9 @@ site that is subject to change. Allowing me to change the data in
 the table once and having it replicated throughout the site.
 '''
 
+# to do list make sure an admin user cant put a number higher
+# than 2000 in the charlimit field on the FormQuestions model
+
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -17,9 +20,8 @@ from django.contrib.auth.models import User
 
 class AdminFunctions(models.Model):
     '''
-    This class is used to define the table that is used to
-    populate the homepage complete admin functionality horizontal
-    scroll section
+    This class is used to define the table that is used to populate the
+    homepage complete admin functionality horizontal scroll section
     '''
 
     name = models.CharField(max_length=50, null=False, blank=False)
@@ -34,9 +36,8 @@ class AdminFunctions(models.Model):
 
 class SecurityFunctions(models.Model):
     '''
-    This class is used to define the table that is used to
-    populate the homepage a secure website horizontal
-    scroll section
+    This class is used to define the table that is used to populate the 
+    homepage a secure website horizontal scroll section
     '''
 
     name = models.CharField(max_length=50, null=False, blank=False)
@@ -51,9 +52,8 @@ class SecurityFunctions(models.Model):
 
 class ComplianceFunctions(models.Model):
     '''
-    This class is used to define the table that is used to
-    populate the homepage a compliant website horizontal
-    scroll section
+    This class is used to define the table that is used to populate the 
+    homepage a compliant website horizontal scroll section
     '''
 
     name = models.CharField(max_length=50, null=False, blank=False)
@@ -68,9 +68,8 @@ class ComplianceFunctions(models.Model):
 
 class EvolvingFunctions(models.Model):
     '''
-    This class is used to define the table that is used to
-    populate the homepage an evolving website horizontal
-    scroll section
+    This class is used to define the table that is used to populate the 
+    homepage an evolving website horizontal scroll section
     '''
 
     name = models.CharField(max_length=50, null=False, blank=False)
@@ -85,9 +84,8 @@ class EvolvingFunctions(models.Model):
 
 class ImportantOptions(models.Model):
     '''
-    This class is used to define the various options customers
-    might deem important to them allowing me to show them a
-    personalised answer to them
+    This class is used to define the various options customers might deem
+    important to them allowing me to show them a personalised answer to them
     '''
 
     name = models.CharField(max_length=30, null=False, blank=False)
@@ -168,9 +166,8 @@ class Selectoptions(models.Model):
 
 class Socials(models.Model):
     '''
-    This class is used to define the various social media links
-    this table will be the same for every website owner apart from
-    the links
+    This class is used to define the various social media links this table
+    will be the same for every website owner apart from the links
     '''
     brand = models.CharField(max_length=30, null=False, blank=False)
     fontawesome = models.CharField(max_length=50, null=False, blank=False)
@@ -181,19 +178,44 @@ class Socials(models.Model):
         return self.brand
 
 
-class Profile(models.Model):
+class UserProfile(models.Model):
     '''
-    Adds the ability to capture additional data about the user for future use 
-    currently most of these are unused 
+    Adds the ability to capture additional data about the user for future use
+    currently most of these are unused
     '''
     CustomerID = models.BigAutoField(primary_key=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     address_line_one = models.CharField(max_length=150, null=True, blank=True)
     address_line_two = models.CharField(max_length=150, null=True, blank=True)
     address_line_three = models.CharField(max_length=99, null=True, blank=True)
-    UK = models.BooleanField(default=True,)
+    uk_resident = models.BooleanField(default=True,)
     postcode = models.CharField(max_length=30, null=True, blank=True)
-    birthdate = models.DateField(null=True, blank=True)
-    Firstname = models.CharField(max_length=40, null=True, blank=True)
-    Lastname = models.CharField(max_length=40, null=True, blank=True)
-    PhoneNumber = models.CharField(max_length=15, null=True, blank=True)
+    birth_date = models.DateField(null=True, blank=True)
+    First_name = models.CharField(max_length=40, null=True, blank=True)
+    Last_name = models.CharField(max_length=40, null=True, blank=True)
+    Phone_number = models.CharField(max_length=15, null=True, blank=True)
+
+
+class Request(models.Model):
+    '''
+    Simple table that contains a pk and a fk contains data about the
+    date of first contact
+    '''
+    RequestID = models.BigAutoField(primary_key=True)
+    CustomerID = models.OneToOneField(User, on_delete=models.CASCADE)
+    first_contact = models.DateField(blank=False, null=False)
+
+
+class QAndA(models.Model):
+    '''
+    A table that contains the data for the various question and answers
+    inputted on the input page. Linked by a contactoption for grouping
+    purposes and context and linked to a request for retrieving it from
+    the customer entity
+    '''
+    question = models.CharField(max_length=200, null=False, blank=False)
+    answer = models.CharField(max_length=2000, null=False, blank=False)
+    contactoption = models.ForeignKey(ContactOptions, on_delete=models.PROTECT)
+    requestID = models.ForeignKey(Request, on_delete=models.CASCADE)
+    date_of_contact = models.DateField(blank=False, null=False)
+
