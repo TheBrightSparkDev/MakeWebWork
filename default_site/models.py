@@ -196,6 +196,17 @@ class UserProfile(models.Model):
     Phone_number = models.CharField(max_length=15, null=True, blank=True)
 
 
+class RequestTickets(models.Model):
+    '''
+    This table is the link between a customer entity and a QandA entity
+    This is mainly used to group QandA answer to a single request 
+    '''
+    requestID = models.BigAutoField(primary_key=True)
+    customerID = models.ForeignKey(UserProfile, on_delete=models.RESTRICT)
+    created_on = models.DateField(blank=False, null=False)
+
+
+
 class QAndA(models.Model):
     '''
     A table that contains the data for the various question and answers
@@ -203,9 +214,9 @@ class QAndA(models.Model):
     purposes and context and linked to a request for retrieving it from
     the customer entity
     '''
-    customerID = models.ForeignKey(UserProfile, on_delete=models.RESTRICT)
+    requestID = models.ForeignKey(UserProfile, on_delete=models.RESTRICT)
     question = models.CharField(max_length=200, null=False, blank=False)
     answer = models.CharField(max_length=2000, null=False, blank=False)
     contactoption = models.ForeignKey(ContactOptions, on_delete=models.PROTECT)
-    date_of_contact = models.DateField(blank=False, null=False)
+    date_created = models.DateField(blank=False, null=False)
 

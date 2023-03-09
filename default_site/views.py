@@ -5,11 +5,12 @@ Default site is basically all the main pages of the website
 it starts to diverge into other apps when we get into signing
 in forms and placing orders
 '''
-
+import datetime
 from django.shortcuts import render, HttpResponse
 from .models import (AdminFunctions, SecurityFunctions, ComplianceFunctions,
                      EvolvingFunctions, Socials, ImportantOptions,
-                     ContactOptions, FormQuestions, Selectoptions)
+                     ContactOptions, FormQuestions, Selectoptions,
+                     UserProfile, RequestTickets, QAndA)
 from django.contrib.auth.decorators import login_required
 
 # for my own sanity
@@ -79,27 +80,16 @@ def contact(request):
     model you change the variable numberofquestionsperblock here
     '''
     if request.method == "POST":
-        # need a javascript function to handle this and get
-        # additional data from the front end I need the form to handle
-        # a small amount of data multiple times and I also need for the
-        # form to hold all the metadata like the question time and the 
-        # contactoption it related to not 100% sure on how and cant guarantee
-        # it will be clean or pretty but its the choices I have made in order to
-        # make the form as flexible as possible so it can be reused in many 
-        # scenarios
-        form_data = {
-            'full_name': request.POST['full_name'],
-            'email': request.POST['email'],
-            'phone_number': request.POST['phone_number'],
-            'country': request.POST['country'],
-            'postcode': request.POST['postcode'],
-            'town_or_city': request.POST['town_or_city'],
-            'street_address1': request.POST['street_address1'],
-            'street_address2': request.POST['street_address2'],
-            'county': request.POST['county'],
+        profile = UserProfile.objects.get(user=request.user)
+        request_id = GetOrCreateRequest(profile)
+        q_and_a_item = {
+            'question': request.POST['question'],
+            'answer': request.POST['answer'],
+            'contactoption': request.POST['contactOptionID'],
+            'date_created': datetime.now(),
+            'requestID': request_id,
         }
-
-        order_form = OrderForm(form_data)
+        QAndA(q_and_a_item).save()
 
     context = {
         "selectoptions": Selectoptions.objects.all(),
@@ -108,6 +98,33 @@ def contact(request):
         "options": ContactOptions.objects.all().order_by("displayorder").values() # noqa
     }
     return render(request, 'default_site/contact.html', context)
+
+
+def GetOrCreateRequest(profile):
+    requests = RequestTickets.objects.all(customerID=profile.user)
+    createnew = False
+    if requests.length > 0:
+        for request in requests:
+            now = datetime.now()
+            requesttime = request.created_on
+            timesincerequest = now - requesttime
+            if timesincerequest > datetime.timedelta(hours=4):
+                # create new request
+                createnew = True
+            else:
+                # this is a request that is less than 4 hours old
+                return request.requestID
+    else:
+        # create new request
+        createnew = True
+    if createnew is True:
+        request = {
+                'created_on': datetime.now(),
+                'customerID': profile.CustomerID,
+            }
+        RequestTickets(request).save()
+        request = RequestTickets.objects.get(request)
+        return request.requestID
 
 
 def important_to_me(request):

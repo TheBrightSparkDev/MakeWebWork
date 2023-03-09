@@ -56,3 +56,69 @@ function logduplicates(duplicates){
         }
     }
 }
+
+
+function oneclickmanysubmits(element){
+    console.log(element)
+    search = element.getAttribute("optionname")
+    elements = document.getElementsByClassName(search)
+    let valid = true
+    let ignorehiddeninputedit = false
+    let ignoreemptyfield = false
+    let broken = false
+    let empty = false
+    for (el of elements){
+        /* check if valid */
+        childnodes = el.children
+        for (childnode of childnodes){
+            if (childnode.tagName == "INPUT"){
+                if (childnode.hasAttribute('required')){
+                    if (childnode.value.length < 1){
+                        empty = true
+                    }
+                }
+                if (childnode.getAttribute("name") == "question"){
+                    if (childnode.value.length < 1){
+                        console.log(childnode)
+                        console.log("this is broken")
+                        broken = true
+                    } 
+                }
+                if (childnode.getAttribute("name") == "contactoptionID"){
+                    if (childnode.value != element.getAttribute("contactoption")){
+                        console.log(childnode)
+                        console.log("this is broken")
+                        broken = true
+                    }
+                }
+            } else if (childnode.tagName == "LABEL"){
+                label = childnode.textContent
+                console.log(label)
+            }
+            if (empty){
+                childnode.style.border = "thick solid #FF0000"
+                console.log("this submit is invalid due to an empty input")
+                valid = false
+                empty = false
+            } 
+            
+        }
+        if (!broken){
+            if (valid){
+                /*el.submit()*/
+            } else {
+                if (!ignoreemptyfield){
+                    alert("please answer all required questions")
+                    ignoreemptyfield = true
+                }
+            }
+            
+        } else {
+            if (!ignorehiddeninputedit){
+                alert("please dont edit any hidden form elements")
+            }
+            ignorehiddeninputedit = true
+        }
+    }   
+
+}
