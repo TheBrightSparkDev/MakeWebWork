@@ -5,12 +5,12 @@ Default site is basically all the main pages of the website
 it starts to diverge into other apps when we get into signing
 in forms and placing orders
 '''
-import datetime
+from datetime import timezone, timedelta, datetime as dt
 from django.shortcuts import render, HttpResponse
 from .models import (AdminFunctions, SecurityFunctions, ComplianceFunctions,
                      EvolvingFunctions, Socials, ImportantOptions,
                      ContactOptions, FormQuestions, Selectoptions,
-                     UserProfile, RequestTickets, QAndA)
+                     UserProfile, RequestTickets, QAndA, User)
 from django.contrib.auth.decorators import login_required
 
 # for my own sanity
@@ -82,14 +82,15 @@ def contact(request):
     if request.method == "POST":
         profile = UserProfile.objects.get(user=request.user)
         request_id = GetOrCreateRequest(profile)
-        q_and_a_item = {
-            'question': request.POST['question'],
-            'answer': request.POST['answer'],
-            'contactoption': request.POST['contactOptionID'],
-            'date_created': datetime.now(),
-            'requestID': request_id,
-        }
-        QAndA(q_and_a_item).save()
+        contactoptionID = ContactOptions.objects.get(id=request.POST['contactoptionID'])
+        q_and_a_item = QAndA(
+            question=request.POST['question'],
+            answer=request.POST['answer'],
+            contactoption=contactoptionID,
+            date_created=dt.now(),
+            requestID_id=request_id,
+        )
+        q_and_a_item.save()
 
     context = {
         "selectoptions": Selectoptions.objects.all(),
@@ -101,14 +102,15 @@ def contact(request):
 
 
 def GetOrCreateRequest(profile):
-    requests = RequestTickets.objects.all(customerID=profile.user)
+    requests = list(RequestTickets.objects.filter(customerID=profile))
+    print(requests)
     createnew = False
-    if requests.length > 0:
+    if requests:
         for request in requests:
-            now = datetime.now()
-            requesttime = request.created_on
-            timesincerequest = now - requesttime
-            if timesincerequest > datetime.timedelta(hours=4):
+            print(request)
+            now = dt.now(timezone.utc) - timedelta(hours=4)
+            requesttime = request.created_on 
+            if now > requesttime:
                 # create new request
                 createnew = True
             else:
@@ -118,12 +120,12 @@ def GetOrCreateRequest(profile):
         # create new request
         createnew = True
     if createnew is True:
-        request = {
-                'created_on': datetime.now(),
-                'customerID': profile.CustomerID,
-            }
-        RequestTickets(request).save()
-        request = RequestTickets.objects.get(request)
+        print("creating new request")
+        request = RequestTickets(
+                created_on=dt.now(),
+                customerID=profile,
+                )
+        request.save()
         return request.requestID
 
 

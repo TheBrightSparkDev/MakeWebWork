@@ -76,7 +76,7 @@
                         <input class="{{q.inputclass}}" type="{{q.type}}" name="answer" id="{{q.ID}}{{q.question|cut:' '}}"
                         placeholder='{% if q.placeholdertext != None %}{{q.placeholdertext}}{% endif %}' maxlength="{{q.charlimit}}" {% if q.required %} required {% endif %}>
                         {% endif %}
-
+                        <button type="submit" disabled style="display: none" aria-hidden="true"></button>
                     </form>
                     {% endif %}
 

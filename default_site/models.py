@@ -203,7 +203,7 @@ class RequestTickets(models.Model):
     '''
     requestID = models.BigAutoField(primary_key=True)
     customerID = models.ForeignKey(UserProfile, on_delete=models.RESTRICT)
-    created_on = models.DateField(blank=False, null=False)
+    created_on = models.DateTimeField(blank=False, null=False)
 
 
 
@@ -218,5 +218,5 @@ class QAndA(models.Model):
     question = models.CharField(max_length=200, null=False, blank=False)
     answer = models.CharField(max_length=2000, null=False, blank=False)
     contactoption = models.ForeignKey(ContactOptions, on_delete=models.PROTECT)
-    date_created = models.DateField(blank=False, null=False)
+    date_created = models.DateTimeField(blank=False, null=False)
 
