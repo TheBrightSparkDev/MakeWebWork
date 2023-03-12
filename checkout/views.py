@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.conf import settings
-
+import stripe
 # Create your views here.
 
 
@@ -14,6 +14,13 @@ def checkout(request):
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
 
+    if request.method == 'POST':
+        
+        stripe.api_key = stripe_secret_key
+        intent = stripe.PaymentIntent.create(
+            amount=stripe_total,
+            currency=settings.STRIPE_CURRENCY,
+        )
     context = {
         "invoice": invoice.objects.get(user),
         "stripe_public_key": stripe_public_key,
