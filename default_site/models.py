@@ -214,9 +214,8 @@ class QAndA(models.Model):
     purposes and context and linked to a request for retrieving it from
     the customer entity
     '''
-    requestID = models.ForeignKey(UserProfile, on_delete=models.RESTRICT)
+    requestID = models.ForeignKey(RequestTickets, on_delete=models.RESTRICT)
     question = models.CharField(max_length=200, null=False, blank=False)
     answer = models.CharField(max_length=2000, null=False, blank=False)
-    contactoption = models.ForeignKey(ContactOptions, on_delete=models.PROTECT)
+    relatedcontactoption = models.ForeignKey(ContactOptions, on_delete=models.CASCADE)
     date_created = models.DateTimeField(blank=False, null=False)
-

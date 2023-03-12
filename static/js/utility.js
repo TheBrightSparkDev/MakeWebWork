@@ -62,6 +62,7 @@ function oneclickmanysubmits(element){
     console.log(element)
     search = element.getAttribute("optionname")
     elements = document.getElementsByClassName(search)
+    console.log(elements)
     let ignorehiddeninputedit = false
     let broken = false
     let submit = true
@@ -134,11 +135,42 @@ function oneclickmanysubmits(element){
     }
     // this block only runs if no errors were found above
     if (submit){
+        let first = true
         if (debugutiliy){console.log("successfully submitted")}
+        // build data for AJAX request
         for (el of elements){
-            el.submit()
+            el.classList.add("hide")
+            console.log(el)
+            childnodes = el.children
+            ajaxdata = new Object 
+            url = el.getAttribute("action")
+            for (node of childnodes){
+                if (node.tagName == "INPUT" || node.tagName == "TEXTAREA" || node.tagName == "SELECT" ){
+                    ajaxdata[node.name] = node.value 
+                }
+            }
+            if (first){
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: ajaxdata,
+                });
+                first = false
+            } else {
+                setTimeout(() => {
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: ajaxdata,
+                    });
+                },500);
+            }
+
         }
+        element.textContent = "Thank you"
+        element.setAttribute("onclick","")
     }
+    
 }
 /* the following regex forms were created using https://regexr.com/ brilliant tool community patterns is where these came from */
 function validphonenumber(element){

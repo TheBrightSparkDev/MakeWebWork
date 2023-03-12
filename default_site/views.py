@@ -86,8 +86,8 @@ def contact(request):
         q_and_a_item = QAndA(
             question=request.POST['question'],
             answer=request.POST['answer'],
-            contactoption=contactoptionID,
-            date_created=dt.now(),
+            relatedcontactoption=contactoptionID,
+            date_created=dt.now(timezone.utc),
             requestID_id=request_id,
         )
         q_and_a_item.save()
@@ -103,18 +103,17 @@ def contact(request):
 
 def GetOrCreateRequest(profile):
     requests = list(RequestTickets.objects.filter(customerID=profile))
-    print(requests)
     createnew = False
     if requests:
         for request in requests:
-            print(request)
             now = dt.now(timezone.utc) - timedelta(hours=4)
-            requesttime = request.created_on 
+            requesttime = request.created_on
             if now > requesttime:
                 # create new request
                 createnew = True
             else:
                 # this is a request that is less than 4 hours old
+                print("user old request")
                 return request.requestID
     else:
         # create new request
@@ -122,7 +121,7 @@ def GetOrCreateRequest(profile):
     if createnew is True:
         print("creating new request")
         request = RequestTickets(
-                created_on=dt.now(),
+                created_on=dt.now(timezone.utc),
                 customerID=profile,
                 )
         request.save()
