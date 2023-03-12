@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'default_site',
     'home',
     'price_calculator',
+    'checkout',
     # for allauth
     'django.contrib.sites',
     'allauth',

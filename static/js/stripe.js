@@ -1,13 +1,17 @@
-// This is your test publishable API key.
-const stripe = Stripe("pk_test_51KwssBDYXTxCQePm1w7HixF9CR4K4lOUaVVSdoC2MPhfICyqRuwDJcdwTlGRZ0evKXxxIBQPXcM2IL42RQrsE1G900ij3NT7z3");
-
+var stripePublicKey = $('#id_stripe_public_key').text().slice(1, -1);
+var clientSecret = $('#id_client_secret').text().slice(1, -1);
+var stripe = Stripe(stripePublicKey);
 // The items the customer wants to buy
-const items = [{ id: "xl-tshirt" }];
+const items = [{ id: "website" }];
 
 let elements;
 
-initialize();
-checkStatus();
+window.addEventListener("load", function(event){
+  var tokenelement = document.getElementsByTagName("FORM")[0].firstElementChild;
+  var CSRFtokenvalue = tokenelement.value
+  initialize();
+  checkStatus();
+})
 
 document
   .querySelector("#payment-form")
@@ -16,7 +20,7 @@ document
 let emailAddress = '';
 // Fetches a payment intent and captures the client secret
 async function initialize() {
-  const response = await fetch("/create-payment-intent", {
+  const response = await fetch("/createintent", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ items }),
@@ -51,7 +55,7 @@ async function handleSubmit(e) {
     elements,
     confirmParams: {
       // Make sure to change this to your payment completion page
-      return_url: "http://localhost:4242/checkout.html",
+      return_url: "https://8000-thebrightsp-makewebwork-5rb4si4zk2y.ws-eu90.gitpod.io/checkout",
       receipt_email: emailAddress,
     },
   });
