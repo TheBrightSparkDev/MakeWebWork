@@ -12,7 +12,7 @@
 
     {% if option.display %}
 
-        <div id="{{option.id}}" class="col-12 col-lg-6 col-xl-4 col-xxl-2 grey darken-4 text-center my-2 selectable">
+        <div id="{{option.id}}" class="col-12 col-lg-6 col-xl-4 col-xxl-2 grey darken-4 text-center my-2 selectable" tabIndex = '0'>
             <h3 class="pt-3">{{option.name}}</h3>
             <p class="mx-2 py-3">
                 {{option.description}}
@@ -24,13 +24,13 @@
     {% endfor %}
 
     </div>
-    <div id="form" class="grey darken-4 my-3 text-center py-3 col-md-2 offset-md-5 col-8 offset-2">
+    <div id="form" class="grey darken-4 my-3 text-center py-3 col-md-2 offset-md-5 col-8 offset-2" tabIndex = '0'>
         <h2>Submit</h2>
     </div>
 </div>
 <!-- This is what displays after the submit button -->
 <div id="afterSubmit">
-    <div id="back" class="grey darken-4 my-3 text-center py-3 col-4 col-md-2">
+    <div id="back" class="grey darken-4 my-3 text-center py-3 col-4 col-md-2" tabIndex = '0'>
         <h2>Back</h2>
     </div>
     <div class="selection-container">

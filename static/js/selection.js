@@ -34,6 +34,18 @@ if (debugselection){
     console.log(selectionList)
     console.log("thats a total of " + selectionList.length)
 }
+document.addEventListener("keydown", e => {
+    if (e.key === " " || e.key === "Enter" || e.key === "Spacebar") {
+        if (e.target.id == "submit" || e.target.id == "form"){
+            submit()
+        } else if (e.target.id == "back"){
+            back()
+        }
+        else {
+            toggle(e);
+        }
+    }
+});
 // essentially the main function 
 window.addEventListener("load", function(event){
     // this is true if required elements are active on the html page
