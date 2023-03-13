@@ -1,21 +1,17 @@
 var stripePublicKey = $('#id_stripe_public_key').text().slice(1, -1);
-var clientSecret = $('#id_client_secret').text().slice(1, -1);
 var stripe = Stripe(stripePublicKey);
 // The items the customer wants to buy
-const items = [{ id: "website" }];
+id = document.getElementById('website').getAttribute('InvoiceID')
+const websiteitem = id;
 
 let elements;
 
-window.addEventListener("load", function(event){
-  var tokenelement = document.getElementsByTagName("FORM")[0].firstElementChild;
-  var CSRFtokenvalue = tokenelement.value
-  initialize();
-  checkStatus();
-})
 
-document
-  .querySelector("#payment-form")
-  .addEventListener("submit", handleSubmit);
+initialize();
+checkStatus();
+
+document.querySelector("#payment-form")
+document.addEventListener("submit", handleSubmit);
 
 let emailAddress = '';
 // Fetches a payment intent and captures the client secret
@@ -23,7 +19,7 @@ async function initialize() {
   const response = await fetch("/createintent", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ items }),
+    body: websiteitem,
   });
   const { clientSecret } = await response.json();
 
@@ -79,7 +75,6 @@ async function checkStatus() {
   const clientSecret = new URLSearchParams(window.location.search).get(
     "payment_intent_client_secret"
   );
-
   if (!clientSecret) {
     return;
   }
@@ -88,7 +83,14 @@ async function checkStatus() {
 
   switch (paymentIntent.status) {
     case "succeeded":
+      paymentdata = new Object 
       showMessage("Payment succeeded!");
+      paymentdata.id = websiteitem
+      $.ajax({
+        type: "POST",
+        url: "https://8000-thebrightsp-makewebwork-5rb4si4zk2y.ws-eu90.gitpod.io/updateInvoice",
+        data: paymentdata,
+    });
       break;
     case "processing":
       showMessage("Your payment is processing.");
@@ -120,11 +122,11 @@ function showMessage(messageText) {
 function setLoading(isLoading) {
   if (isLoading) {
     // Disable the button and show a spinner
-    document.querySelector("#submit").disabled = true;
+    document.querySelector("#payment-button").disabled = true;
     document.querySelector("#spinner").classList.remove("hidden");
     document.querySelector("#button-text").classList.add("hidden");
   } else {
-    document.querySelector("#submit").disabled = false;
+    document.querySelector("#payment-button").disabled = false;
     document.querySelector("#spinner").classList.add("hidden");
     document.querySelector("#button-text").classList.remove("hidden");
   }

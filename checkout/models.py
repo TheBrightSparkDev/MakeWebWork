@@ -12,8 +12,8 @@ class Invoice(models.Model):
     purposes and context and linked to a request for retrieving it from
     the customer entity
     '''
-    InvoiceID = models.BigAutoField(primary_key=True),
-    amounttopay = models.IntegerField(null=False, blank=False),
-    
-
+    userprofile = models.ForeignKey(UserProfile, on_delete=models.RESTRICT)
+    amounttopay = models.IntegerField(null=False, blank=False)
+    paid = models.BooleanField(default=False)
+    created_on = models.DateTimeField()
 

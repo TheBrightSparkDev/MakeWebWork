@@ -18,7 +18,7 @@ from django.urls import path, include
 from default_site.views import (home, important_to_me, design,
                                 development, data, contact)
 from price_calculator.views import (journey)
-from checkout.views import checkout, createintent
+from checkout.views import checkout, createintent, updateInvoice
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -34,5 +34,6 @@ urlpatterns = [
     path('price_calculator', journey, name="journey"),
     # checkout paths
     path('checkout', checkout, name="checkout"),
-    path('createintent', createintent, name="createintent")
+    path('createintent', createintent, name="createintent"),
+    path('updateInvoice', updateInvoice, name="updateInvoice")
 ]

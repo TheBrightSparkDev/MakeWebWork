@@ -70,14 +70,13 @@ def development(request):
 @login_required
 def contact(request):
     '''
-    This is the development page there are no forms on this page just
-    links to pages that contain forms the reason I avoided forms on this
-    is to keep all forms in another app so that troubleshooting forms in
-    the future will be easier
-    the tabs are created using data gathered from the database
-    the footer depends upon data retrieved from the database
-    Make sure if you update the amount of questions available in the contact
-    model you change the variable numberofquestionsperblock here
+    This is possibly the most complex way of asking a few questions
+    I could possibly think of why you ask? so that I 
+    can have any amount of questions with any value
+    and any answer. You could literally go to the 
+    database add a new question to the question model
+    and bam it is displayed and handled as long as you 
+    set the answers charlimit under 2000
     '''
     if request.method == "POST":
         profile = UserProfile.objects.get(user=request.user)
