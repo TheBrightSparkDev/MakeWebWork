@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'home',
     'price_calculator',
     'checkout',
+    # admin page
+    'customadmin',
     # for allauth
     'django.contrib.sites',
     'allauth',

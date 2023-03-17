@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static '/css/webformstyles.css' %}">
+{% endblock %}
+{% for option in options %}
+
+{% if option.display %}
+
+    <div id="{{option.id}}" class="form-area grey darken-4 text-center my-2">
+        <div class="col-4 col-md-2">
+            <h3 class="pt-3">{{option.name}}</h3>
+        </div>
+        <div class="form-area">
+            {% for q in questions %}
+
+                {% if q.contactoption.id == option.id %}
+
+                <form class="{{q.blockclass}} {{option.name|cut:' '}}{{option.id}}" action="{% url 'contact' %}" method="POST" id="{{option.name|cut:' '}}{{q.ID}}">
+                    {% csrf_token %}
+                    
+                    <label class="{{q.labelclass}}" for="{{q.ID}}{{q.question|cut:' '}}">{{q.question}}</label>
+                    <input type="hidden" name="question" value="{{q.question}}" required>
+                    <input type="hidden" name="contactoptionID" value="{{q.contactoption.id}}" required>
+                    <!-- end of hidden inputs -->
+                    {% if q.type == "select" %}
+
+                    <select name="answer" id="{{q.ID}}{{q.question|cut:' '}}">
+                    {% for op in selectoptions %}
+
+                        {% if op.formquestion.ID == q.ID %}
+
+                            <option value="{{op.optionname}}">{{op.optionname}}</option>
+                        {% endif %}    
+
+                    {% endfor %}
+
+                    </select>
+                    {% elif q.type == "textarea" %}
+
+                    <textarea class="{{q.inputclass}}" id="{{q.ID}}{{q.question|cut:' '}}" name="answer" placeholder="{% if q.placeholdertext != None %}{{q.placeholdertext}}{% endif %}"
+                    rows="{% if q.charlimit >= 1000 %}10{% else %}{% widthratio q.charlimit 100 1 %}{% endif %}" maxlength="{{q.charlimit}}"></textarea>
+                    {% else %}
+
+                    <input class="{{q.inputclass}}" type="{{q.type}}" name="answer" id="{{q.ID}}{{q.question|cut:' '}}"
+                    placeholder='{% if q.placeholdertext != None %}{{q.placeholdertext}}{% endif %}' maxlength="{{q.charlimit}}" {% if q.required %} required {% endif %}>
+                    {% endif %}
+                    <button type="submit" disabled style="display: none" aria-hidden="true"></button>
+                </form>
+                {% endif %}
+
+            {% endfor %}
+
+        </div>
+        <div class="col-12">
+            <button class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" contactoption="{{option.id}}" optionname="{{option.name|cut:' '}}{{option.id}}" onclick="oneclickmanysubmits(this)">Submit</button>
+        </div>
+    </div>
+{% endif %}
+
+{% endfor %}
+{% endblock %}

@@ -61,7 +61,7 @@ function logduplicates(duplicates){
 function oneclickmanysubmits(element){
     console.log(element)
     search = element.getAttribute("optionname")
-    elements = document.getElementsByClassName(search)
+    let elements = document.getElementsByClassName(search)
     console.log(elements)
     let ignorehiddeninputedit = false
     let broken = false
@@ -139,16 +139,16 @@ function oneclickmanysubmits(element){
         if (debugutiliy){console.log("successfully submitted")}
         // build data for AJAX request
         for (el of elements){
-            el.classList.add("hide")
             console.log(el)
             childnodes = el.children
             ajaxdata = new Object 
-            url = el.getAttribute("action")
             for (node of childnodes){
                 if (node.tagName == "INPUT" || node.tagName == "TEXTAREA" || node.tagName == "SELECT" ){
                     ajaxdata[node.name] = node.value 
                 }
             }
+            el.classList.add("hide")
+            url = el.getAttribute("action")
             if (first){
                 $.ajax({
                     type: "POST",

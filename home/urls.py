@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
 from default_site.views import (home, important_to_me, design,
                                 development, data, contact)
 from price_calculator.views import (journey)
@@ -35,5 +36,7 @@ urlpatterns = [
     # checkout paths
     path('checkout', checkout, name="checkout"),
     path('createintent', createintent, name="createintent"),
-    path('updateInvoice', updateInvoice, name="updateInvoice")
+    path('updateInvoice', updateInvoice, name="updateInvoice"),
+    # admin paths 
+    path('admin_dashboard/', include('customadmin.urls'))
 ]

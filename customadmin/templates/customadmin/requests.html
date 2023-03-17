@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<h1>connected</h1>
+{% for request in Requests %}
+
+    <h1>{{request.requestID}}</h1>
+    <h1>{{request.customerID}}</h1>
+    <h1>{{request.created_on}}</h1>
+
+    {% for QandA in QandAs %}
+
+    {% if request.requestID == QandA.requestID.requestID  %}
+
+    <h1>{{ QandA.question }}</h1>
+    <h1>{{ QandA.answer }}</h1>
+    <h1>{{ QandA.requestID.requestID  }}</h1>
+    <h1>{{ QandA.relatedcontactoption.name }}</h1>
+    <h1>{{ QandA.date_created }}</h1>
+
+    
+    {% endif %}
+
+    {% endfor %}
+
+{% endfor %}
+
+{% endblock %}

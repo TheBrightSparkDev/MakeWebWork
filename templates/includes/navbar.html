@@ -28,6 +28,11 @@
                 <a class="nav-link blue-text text-darken-4 blue-link" href="{% url 'account_login' %}">Login</a>
                 {% endif %}
             </li>
+            <li class="nav-item mx-2">
+                {% if user.is_superuser %}
+                <a class="nav-link red-text text-darken-4 pink-link" href="{% url 'admin_dashboard' %}">Admin</a>
+                {% endif %}
+            </li>
             </ul>
         </div>
     </div>
