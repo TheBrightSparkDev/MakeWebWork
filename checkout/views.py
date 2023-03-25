@@ -66,7 +66,7 @@ def createintent(request):
 @csrf_exempt
 def updateInvoice(request):
     """
-    updates the invoice model 
+    updates the invoice model
     """
     invoice = Invoice.objects.get(id=request.POST['id'])
     invoice.paid = True

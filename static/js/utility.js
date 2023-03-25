@@ -136,6 +136,7 @@ function oneclickmanysubmits(element){
     // this block only runs if no errors were found above
     if (submit){
         let first = true
+        let ajaxdatalist = []
         if (debugutiliy){console.log("successfully submitted")}
         // build data for AJAX request
         for (el of elements){
@@ -148,7 +149,10 @@ function oneclickmanysubmits(element){
                 }
             }
             el.classList.add("hide")
+            ajaxdatalist.add(ajaxdata)
             url = el.getAttribute("action")
+        }
+        for (ajaxdata of ajaxdatalist){
             if (first){
                 $.ajax({
                     type: "POST",
@@ -165,8 +169,8 @@ function oneclickmanysubmits(element){
                     });
                 },500);
             }
-
         }
+
         element.textContent = "Thank you"
         element.setAttribute("onclick","")
     }
