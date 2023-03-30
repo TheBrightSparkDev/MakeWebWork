@@ -149,27 +149,28 @@ function oneclickmanysubmits(element){
                 }
             }
             el.classList.add("hide")
-            ajaxdatalist.add(ajaxdata)
+            ajaxdatalist.push(ajaxdata)
             url = el.getAttribute("action")
         }
-        for (ajaxdata of ajaxdatalist){
-            if (first){
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: ajaxdata,
-                });
-                first = false
-            } else {
-                setTimeout(() => {
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: ajaxdatalist[0],
+        });
+        
+        setTimeout(() => {
+            for (ajaxdata of ajaxdatalist){
+                if (first){
+                    first = false
+                } else {
                     $.ajax({
                         type: "POST",
                         url: url,
                         data: ajaxdata,
                     });
-                },500);
+                }
             }
-        }
+        },500);
 
         element.textContent = "Thank you"
         element.setAttribute("onclick","")

@@ -1,28 +1,27 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<h1>connected</h1>
-{% for request in Requests %}
-
-    <h1>{{request.requestID}}</h1>
-    <h1>{{request.customerID}}</h1>
-    <h1>{{request.created_on}}</h1>
-
-    {% for QandA in QandAs %}
-
-    {% if request.requestID == QandA.requestID.requestID  %}
-
-    <h1>{{ QandA.question }}</h1>
-    <h1>{{ QandA.answer }}</h1>
-    <h1>{{ QandA.requestID.requestID  }}</h1>
-    <h1>{{ QandA.relatedcontactoption.name }}</h1>
-    <h1>{{ QandA.date_created }}</h1>
-
-    
-    {% endif %}
-
-    {% endfor %}
-
+{% for request in Requests %}      
+    <!-- Request -->       
+    <div class="grey darken-4">
+        <h4>requestor account: {{ request.customerID.user }}</h4>
+        <h4> Request came in on: {{request.created_on}}</h4>
+    </div>
+    {% for option in options %}
+            <div class="form-area grey darken-4 text-center my-2">
+                <div class="col-4 col-md-2">
+                    <h3 class="pt-3">{{option.name}}</h3>
+                </div>
+                <div class="form-area">
+                    {% for QandA in QandAs %}
+                        {% if QandA.relatedcontactoption.name == option.name and QandA.requestID == request %}
+                            <h3>{{QandA.question}}</h3>
+                            <p>{{QandA.answer}}</p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+    {% endfor %} 
 {% endfor %}
 
 {% endblock %}

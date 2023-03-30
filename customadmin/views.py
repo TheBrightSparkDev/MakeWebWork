@@ -39,7 +39,10 @@ def requests(request):
         context = {
             "Users": UserProfile.objects.all(),
             "Requests": RequestTickets.objects.all(),
-            "QandAs": QAndA.objects.all()
+            "QandAs": QAndA.objects.all(),
+            "selectoptions": Selectoptions.objects.all(),
+            "questions": FormQuestions.objects.all(),
+            "options": ContactOptions.objects.all().order_by("displayorder").values() # noqa
         }
         return render(request, 'customadmin/requests.html', context)
     return redirect(home)
