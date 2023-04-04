@@ -46,13 +46,14 @@
                 {% for q in questions %}
 
                     {% if q.contactoption.id == option.id %}
-
+                    
                     <form class="{{q.blockclass}} {{option.name|cut:' '}}{{option.id}}" action="{% url 'contact' %}" method="POST" id="{{option.name|cut:' '}}{{q.ID}}">
                         {% csrf_token %}
                         
                         <label class="{{q.labelclass}}" for="{{q.ID}}{{q.question|cut:' '}}">{{q.question}}</label>
                         <input type="hidden" name="question" value="{{q.question}}" required>
                         <input type="hidden" name="contactoptionID" value="{{q.contactoption.id}}" required>
+                        <input type="hidden" name="order" value="{{q.order}}" required>
                         <!-- end of hidden inputs -->
                         {% if q.type == "select" %}
 

@@ -1,18 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-{% for request in Requests %}      
-    <!-- Request -->       
+{% for request in Requests %}
+    <!-- Request -->
     <div class="grey darken-4">
-        <h4>requestor account: {{ request.customerID.user }}</h4>
-        <h4> Request came in on: {{request.created_on}}</h4>
-    </div>
-    {% for option in options %}
-            <div class="form-area grey darken-4 text-center my-2">
-                <div class="col-4 col-md-2">
-                    <h3 class="pt-3">{{option.name}}</h3>
-                </div>
-                <div class="form-area">
+        <h4 class="unhide" unhide="{{request.requestID}}">requestor account: {{request.customerID.user}}</h4>
+        <h4 class="unhide" unhide="{{request.requestID}}"> Request came in on: {{request.created_on}}</h4>
+        <div id="{{request.requestID}}" class="ms-3 py-2 hide">
+            {% for option in options %}
+            <div class="my-2">
+                <h3 class="pt-3 unhide" unhide="{{request.requestID}}{{option.name|cut:' '}}">{{option.name}}</h3>
+                <div id="{{request.requestID}}{{option.name|cut:' '}}" class="form-area text-center hide">
                     {% for QandA in QandAs %}
                         {% if QandA.relatedcontactoption.name == option.name and QandA.requestID == request %}
                             <h3>{{QandA.question}}</h3>
@@ -21,7 +19,8 @@
                     {% endfor %}
                 </div>
             </div>
-    {% endfor %} 
+            {% endfor %}
+        </div>
+    </div>
 {% endfor %}
-
 {% endblock %}

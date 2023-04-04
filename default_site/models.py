@@ -219,3 +219,4 @@ class QAndA(models.Model):
     answer = models.CharField(max_length=2000, null=False, blank=False)
     relatedcontactoption = models.ForeignKey(ContactOptions, on_delete=models.CASCADE)
     date_created = models.DateTimeField(blank=False, null=False)
+    order = models.IntegerField(null=False, blank=False)

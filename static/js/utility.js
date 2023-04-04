@@ -10,11 +10,24 @@ function showhide(target){
     document.getElementById(target.getAttribute("unhide")).classList.toggle("hide")
 }
 
+function deleteempty(){
+    for (element of $(".form-area")){
+        if (element.children.length < 1){
+            if (debugutiliy){
+                console.log("deleting this element from the request because it is unanswered")
+                console.log(element)
+            }
+            element.parentElement.remove()
+        }
+    }
+}
+
 window.addEventListener("load", function(event){
     if (debugutiliy = true){
         console.log("utility.js connected")
         let duplicates = checkforduplicateids()
         logduplicates(duplicates)
+        deleteempty()
     }
 });
 

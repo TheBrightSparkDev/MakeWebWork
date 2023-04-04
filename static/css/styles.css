@@ -44,6 +44,9 @@
     position:relative;
 }
 /* General styles */
+.unhide{
+    cursor:pointer;
+}
 .push-down{
     width:100%;
 }

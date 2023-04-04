@@ -81,9 +81,13 @@ def contact(request):
     if request.method == "POST":
         profile = UserProfile.objects.get(user=request.user)
         request_id = GetOrCreateRequest(profile)
-        contactoptionID = ContactOptions.objects.get(id=request.POST['contactoptionID'])
+        
+        contactoptionID = ContactOptions.objects.get(
+            id=request.POST['contactoptionID'])
+
         q_and_a_item = QAndA(
             question=request.POST['question'],
+            order=request.POST['order'],
             answer=request.POST['answer'],
             relatedcontactoption=contactoptionID,
             date_created=dt.now(timezone.utc),
