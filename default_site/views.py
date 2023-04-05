@@ -71,11 +71,11 @@ def development(request):
 def contact(request):
     '''
     This is possibly the most complex way of asking a few questions
-    I could possibly think of why you ask? so that I 
+    I could possibly think of why you ask? so that I
     can have any amount of questions with any value
-    and any answer. You could literally go to the 
+    and any answer. You could literally go to the
     database add a new question to the question model
-    and bam it is displayed and handled as long as you 
+    and bam it is displayed and handled as long as you
     set the answers charlimit under 2000
     '''
     if request.method == "POST":

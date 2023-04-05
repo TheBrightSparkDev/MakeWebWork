@@ -70,7 +70,6 @@ function logduplicates(duplicates){
     }
 }
 
-
 function oneclickmanysubmits(element){
     console.log(element)
     search = element.getAttribute("optionname")
@@ -187,9 +186,9 @@ function oneclickmanysubmits(element){
 
         element.textContent = "Thank you"
         element.setAttribute("onclick","")
-    }
-    
+    } 
 }
+
 /* the following regex forms were created using https://regexr.com/ brilliant tool community patterns is where these came from */
 function validphonenumber(element){
     console.log(element.value)

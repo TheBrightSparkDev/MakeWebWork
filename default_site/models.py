@@ -102,11 +102,12 @@ class ContactOptions(models.Model):
     '''
     This class is used to define the various ways you can get in contact
     '''
+
     name = models.CharField(max_length=30, null=False, blank=False)
     description = models.CharField(max_length=500, null=False, blank=False)
     displayorder = models.IntegerField()
     display = models.BooleanField(default=True)
-    
+
     def __str__(self):
         return self.name
 
@@ -117,6 +118,7 @@ class FormQuestions(models.Model):
     relationship to contactOptions where a contactOptionID will link
     to multiple FormQuestions
     '''
+
     ID = models.BigAutoField(primary_key=True)
     contactoption = models.ForeignKey(ContactOptions, on_delete=models.CASCADE)
     order = models.IntegerField(null=False, blank=False)
@@ -152,6 +154,7 @@ class Selectoptions(models.Model):
     This class serves as a way to add mulitple options in a selectbox
     for the form question if the form question has the type of select
     '''
+
     ID = models.BigAutoField(primary_key=True)
     formquestion = models.ForeignKey(FormQuestions, on_delete=models.CASCADE)
     optionname = models.CharField(max_length=100, null=False, blank=False)
@@ -169,6 +172,7 @@ class Socials(models.Model):
     This class is used to define the various social media links this table
     will be the same for every website owner apart from the links
     '''
+
     brand = models.CharField(max_length=30, null=False, blank=False)
     fontawesome = models.CharField(max_length=50, null=False, blank=False)
     link = models.CharField(max_length=150, null="true", blank="true")
@@ -183,12 +187,13 @@ class UserProfile(models.Model):
     Adds the ability to capture additional data about the user for future use
     currently most of these are unused
     '''
+
     CustomerID = models.BigAutoField(primary_key=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     address_line_one = models.CharField(max_length=150, null=True, blank=True)
     address_line_two = models.CharField(max_length=150, null=True, blank=True)
     address_line_three = models.CharField(max_length=99, null=True, blank=True)
-    uk_resident = models.BooleanField(default=True,)
+    uk_resident = models.BooleanField(default=True)
     postcode = models.CharField(max_length=30, null=True, blank=True)
     birth_date = models.DateField(null=True, blank=True)
     First_name = models.CharField(max_length=40, null=True, blank=True)
@@ -199,12 +204,19 @@ class UserProfile(models.Model):
 class RequestTickets(models.Model):
     '''
     This table is the link between a customer entity and a QandA entity
-    This is mainly used to group QandA answer to a single request 
+    This is mainly used to group QandA answer to a single request
     '''
+
     requestID = models.BigAutoField(primary_key=True)
     customerID = models.ForeignKey(UserProfile, on_delete=models.RESTRICT)
     created_on = models.DateTimeField(blank=False, null=False)
-
+    statuschoices = [
+        ('new', 'new'), ('in-progress', 'in-progress'),
+        ('archived', 'archived'), ('priority_1', 'priority_1'),
+        ('priority_2', 'priority_2'), ('priority_3', 'priority_3')
+    ]
+    status = models.CharField(max_length=50, null=True, blank=True,
+                              choices=statuschoices)
 
 
 class QAndA(models.Model):
@@ -214,9 +226,12 @@ class QAndA(models.Model):
     purposes and context and linked to a request for retrieving it from
     the customer entity
     '''
+
     requestID = models.ForeignKey(RequestTickets, on_delete=models.RESTRICT)
     question = models.CharField(max_length=200, null=False, blank=False)
     answer = models.CharField(max_length=2000, null=False, blank=False)
-    relatedcontactoption = models.ForeignKey(ContactOptions, on_delete=models.CASCADE)
+    relatedcontactoption = models.ForeignKey(ContactOptions,
+                                             on_delete=models.CASCADE)
     date_created = models.DateTimeField(blank=False, null=False)
     order = models.IntegerField(null=False, blank=False)
+
