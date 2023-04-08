@@ -11,12 +11,12 @@
             <div class="my-2">
                 <h3 class="pt-3 unhide" unhide="{{request.requestID}}{{option.name|cut:' '}}">{{option.name}}</h3>
                 <div id="{{request.requestID}}{{option.name|cut:' '}}" class="form-area text-center hide">
-                    {% for QandA in QandAs %}
-                        {% if QandA.relatedcontactoption.name == option.name and QandA.requestID == request %}
-                            <h3>{{QandA.question}}</h3>
-                            <p>{{QandA.answer}}</p>
-                        {% endif %}
-                    {% endfor %}
+                {% for QandA in QandAs %}
+                {% if QandA.relatedcontactoption.name == option.name and QandA.requestID == request %}
+                    <h3>{{QandA.question}}</h3>
+                    <p>{{QandA.answer}}</p>
+                {% endif %}
+                {% endfor %}
                 </div>
             </div>
             {% endfor %}
