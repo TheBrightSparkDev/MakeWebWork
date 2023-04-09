@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-mor2j7g3xb1m^*l0il&_=f9s2ftlxv*@b+8m%0r0x+zpkb!7i4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['http://localhost:8000/', 'localhost', '']
+ALLOWED_HOSTS = ['http://localhost:8000/', 'localhost', 'makewebwork.azurewebsites.net']
 
 
 # Application definition
