@@ -69,7 +69,7 @@
                 <i class="fa-solid fa-circle-info unhide" unhide="hide{{module.moduleID}}ps"></i>
                 <label class="text-center"  for="{{module.moduleID}}ps">{{module.name}}</label>
                 <p id="hide{{module.moduleID}}ps" class="black text-center hide">{{module.description}}</p>
-                <input class="flipswitch" type="checkbox" id="{{module.moduleID}}ps" target="upfronttotalps" calc="add, {{module.cost}}">
+                <input class="flipswitch" type="checkbox" id="{{module.moduleID}}ps" target="upfronttotalps" calc="add, {int, pound}, {{module.cost}}">
             </div>
             {% endif %}
         {% endfor %}

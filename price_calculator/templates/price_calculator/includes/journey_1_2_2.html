@@ -7,9 +7,9 @@
 <div class="push-down choice-container">
     {% for price in prices %}
         {% if price.name == 'Defaultwebsitecost' %}
-        <input class="hide" id="{{price.name}}pr" type="checkbox" calc="add, {{price.price}}" target="upfronttotalpr">
+        <input class="hide" id="{{price.name}}pr" type="checkbox" calc="add, {int, pound}, {{price.price}}" target="upfronttotalpr">
         {% elif price.name == 'monthlyupkeep' %}
-        <input class="hide" id="{{price.name}}pr" type="checkbox" calc="add, {{price.price}}" target="monthlytotalpr">
+        <input class="hide" id="{{price.name}}pr" type="checkbox" calc="add, {int, pound}, {{price.price}}" target="monthlytotalpr">
         {% endif %}
     {% endfor %}
 
@@ -19,7 +19,7 @@
     </div>
     <div class="col-5 flex-container">
         <p class="push-down text-center">The total cost of your webpages is:</p>
-        <p id="pagesvaluepr" target="upfronttotalpr" class="text-center col-3 grey darken-3 text-center my-3 py-3"></p>
+        <p id="pagesvaluepr" target="upfronttotalpr" calc="add, {int, pound}, text" class="text-center col-3 grey darken-3 text-center my-3 py-3"></p>
     </div>
 
 

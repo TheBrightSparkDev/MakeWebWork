@@ -7,7 +7,7 @@
 <div class="push-down choice-container">
     {% for price in prices %}
         {% if price.name == 'Defaultwebsitecost' %}
-        <input class="hide" id="{{price.name}}babs" type="checkbox" calc="add, {{price.price}}" target="upfronttotalbabs">
+        <input class="hide" id="{{price.name}}babs" type="checkbox" calc="add, {int, pound}, {{price.price}}" target="upfronttotalbabs">
         {% endif %}
     {% endfor %}
 
@@ -34,7 +34,7 @@
             <div class="col-5 flex-container">
                 <label class="text-center unhide" unhide="hide{{module.moduleID}}babs" for="{{module.moduleID}}">{{module.name}}</label>
                 <p id="hide{{module.moduleID}}babs" class="hide">{{module.description}}</p>
-                <input class="flipswitch" type="checkbox" id="{{module.moduleID}}babs" target="upfronttotalbabs" calc="add, {{module.cost}}">
+                <input class="flipswitch" type="checkbox" id="{{module.moduleID}}babs" target="upfronttotalbabs" calc="add, {int, pound}, {{module.cost}}">
             </div>
             {% endif %}
         {% endfor %}

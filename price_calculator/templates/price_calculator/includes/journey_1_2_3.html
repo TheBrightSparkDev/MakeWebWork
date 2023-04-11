@@ -7,9 +7,9 @@
 <div class="push-down choice-container">
     {% for price in prices %}
         {% if price.name == 'Defaultwebsitecost' %}
-        <input class="hide" id="{{price.name}}po" type="checkbox" calc="add, {{price.price}}" target="upfronttotalpo">
+        <input class="hide" id="{{price.name}}po" type="checkbox" calc="add, {int, pound}, {{price.price}}" target="upfronttotalpo">
         {% elif price.name == 'monthlyupkeep' %}
-        <input class="hide" id="{{price.name}}po" type="checkbox" calc="add, {{price.price}}" target="monthlytotalpo">
+        <input class="hide" id="{{price.name}}po" type="checkbox" calc="add, {int, pound}, {{price.price}}" target="monthlytotalpo">
         {% endif %}
     {% endfor %}
 
@@ -19,7 +19,7 @@
     </div>
     <div class="col-5 flex-container">
         <p class="push-down text-center">The total cost of your webpages is:</p>
-        <p id="pagesvaluepo" target="upfronttotalpo" class="text-center col-3 grey darken-3 text-center my-3 py-3"></p>
+        <p id="pagesvaluepo" target="upfronttotalpo" calc="add, {int, pound}, text" class="text-center col-3 grey darken-3 text-center my-3 py-3"></p>
     </div>
 
 
@@ -69,7 +69,7 @@
                 <i class="fa-solid fa-circle-info unhide" unhide="hide{{module.moduleID}}po"></i>
                 <label class="text-center"  for="{{module.moduleID}}po">{{module.name}}</label>
                 <p id="hide{{module.moduleID}}po" class="black text-center hide">{{module.description}}</p>
-                <input class="flipswitch" type="checkbox" id="{{module.moduleID}}po" target="upfronttotalpo" calc="add, {{module.cost}}">
+                <input class="flipswitch" type="checkbox" id="{{module.moduleID}}po" target="upfronttotalpo" calc="add, {int, pound}, {{module.cost}}">
             </div>
             {% endif %}
         {% endfor %}
@@ -89,7 +89,7 @@
 <h3 id="remainingupfrontpo" target="monthlyspreadpo"  calc="divide, {int, pound}, 24" class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
 
 <h4 class="push-down text-center">This would be the total monthly cost</h4>
-<h3 id="monthlyspreadpo"  class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
+<h3 id="monthlyspreadpo" class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
 
 <div class="row choice-container JSJourneyOptions">
     <button class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" related="Journey1-2" href="#">back</button>
