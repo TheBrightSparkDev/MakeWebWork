@@ -64,7 +64,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'home.urls'
 
-CSRF_TRUSTED_ORIGINS = ['https://8000-thebrightsp-makewebwork-5rb4si4zk2y.ws-eu93.gitpod.io/*']
+CSRF_TRUSTED_ORIGINS = ['https://8000-thebrightsp-makewebwork-5rb4si4zk2y.ws-eu93.gitpod.io/*',
+    'https://makewebwork.azurewebsites.net/*']
 
 TEMPLATES = [
     {
@@ -178,3 +179,13 @@ STRIPE_CURRENCY = 'gbp'
 STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', '')
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')
 STRIPE_WH_SECRET = os.getenv('STRIPE_WH_SECRET', '')
+
+# azure 
+DEFAULT_FILE_STORAGE = 'custom_azure.AzureMediaStorage'
+STATICFILES_STORAGE = 'custom_azure.AzureStaticStorage'
+STATIC_LOCATION = "static"
+MEDIA_LOCATION = "media"
+AZURE_ACCOUNT_NAME = "makewebworkstatic"
+AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
+STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
+MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
