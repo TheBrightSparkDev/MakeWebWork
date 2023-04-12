@@ -16,7 +16,7 @@
  * 
  */
 
-let debugcalculator = true
+let debugcalculator = false
 let listoftargetobjects = []
 let extracontext = []
 let activatehidden = []

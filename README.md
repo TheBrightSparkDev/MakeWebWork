@@ -1,16 +1,3 @@
-
-None selected
-
-Skip to content
-Using Gmail with screen readers
-Conversations
-3.74 GB of 15 GB used
-Terms · Privacy · Program Policies
-Last account activity: in 1 minute
-Open in 1 other location · Details
----
-title: makewebwork readme
----
 # [MakeWebWork](http://word-vs.herokuapp.com/)
 
 Link to site [MakeWebWork](http://word-vs.herokuapp.com/)

@@ -4,7 +4,7 @@
 - you must add an id of your choosing
 - you must define the start,end,startpos,endpos,direction in an attribute named animationprops in this order
 */
-var debugimgscroll = true // set this to false in production
+var debugimgscroll = false // set this to false in production
 var debuggimgscroll = false// this is here to turn off selected tests by adding a g to the end of the word debugimgscroll in the various debugimgscroll if statements throughout this file
 if (debugimgscroll){
     console.log("connected img scroll");

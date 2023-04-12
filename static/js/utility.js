@@ -1,19 +1,19 @@
 /* This is a JS file with logic that is used over many files and doesnt break functionality */
-let debugutiliy = true
+let debugutility = false
 
 for (element of $(".unhide")){
     element.addEventListener("click", (e) => showhide(e.target))
 }
 
 function showhide(target){
-    if (debugutiliy){console.log("toggling: " + target.getAttribute("unhide"))}
+    if (debugutility){console.log("toggling: " + target.getAttribute("unhide"))}
     document.getElementById(target.getAttribute("unhide")).classList.toggle("hide")
 }
 
 function deleteempty(){
     for (element of $(".form-area")){
         if (element.children.length < 1){
-            if (debugutiliy){
+            if (debugutility){
                 console.log("deleting this element from the request because it is unanswered")
                 console.log(element)
             }
@@ -23,7 +23,7 @@ function deleteempty(){
 }
 
 window.addEventListener("load", function(event){
-    if (debugutiliy = true){
+    if (debugutility){
         console.log("utility.js connected")
         let duplicates = checkforduplicateids()
         logduplicates(duplicates)
@@ -71,10 +71,8 @@ function logduplicates(duplicates){
 }
 
 function oneclickmanysubmits(element){
-    console.log(element)
     search = element.getAttribute("optionname")
     let elements = document.getElementsByClassName(search)
-    console.log(elements)
     let ignorehiddeninputedit = false
     let broken = false
     let submit = true
@@ -121,7 +119,7 @@ function oneclickmanysubmits(element){
             // solely for logging if debug is true of course
             } else if (childnode.tagName == "LABEL"){
                 label = childnode.textContent
-                if(debugutiliy){
+                if(debugutility){
                     console.log(label)
                 }
             }
@@ -149,10 +147,9 @@ function oneclickmanysubmits(element){
     if (submit){
         let first = true
         let ajaxdatalist = []
-        if (debugutiliy){console.log("successfully submitted")}
+        if (debugutility){console.log("successfully submitted")}
         // build data for AJAX request
         for (el of elements){
-            console.log(el)
             childnodes = el.children
             ajaxdata = new Object 
             for (node of childnodes){
@@ -191,10 +188,9 @@ function oneclickmanysubmits(element){
 
 /* the following regex forms were created using https://regexr.com/ brilliant tool community patterns is where these came from */
 function validphonenumber(element){
-    console.log(element.value)
     var phonenoregex = new RegExp(/\s*(?:\+?(\d{1,3}))?([-. (]*(\d{3})[-. )]*)?((\d{3})[-. ]*(\d{2,4})(?:[-.x ]*(\d+))?)\s*/g);
     if(phonenoregex.test(element.value)) {
-        if(debugutiliy){ console.log("valid number")}
+        if(debugutility){ console.log("valid number")}
       return true;
     }  
     else {  
@@ -203,10 +199,9 @@ function validphonenumber(element){
 }
 
 function validemailaddress(element){
-    console.log(element.value)
     var emailREGEX = new RegExp(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g);
     if(emailREGEX.test(element.value)) {
-        if(debugutiliy){console.log("valid email")}
+        if(debugutility){console.log("valid email")}
       return true;
     }  
     else {  

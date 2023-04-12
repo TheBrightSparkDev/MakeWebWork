@@ -19,7 +19,7 @@ if (document.getElementById("submit")){
     var elJquery = $("#form")
     var elVanilla = document.getElementById("form")
 }
-var debugselection = true // Set to true to debug page
+var debugselection = false // Set to true to debug page
 var submitted = false // true after submit 
 var submitActivated = false // true after at least one element selected
 var beforeSelectionList = $(".selectable") // this gets a list of elements
@@ -193,7 +193,9 @@ function AddEvents(){
     }
     if (document.getElementById("back")){
         document.getElementById("back").addEventListener('click',() => {back()})
-        console.log("back activated")
+        if (debugselection){
+            console.log("back activated")
+        }
     }
 }
 function toggle(e){
