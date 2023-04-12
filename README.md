@@ -1,6 +1,6 @@
-# [MakeWebWork](http://word-vs.herokuapp.com/)
+# [MakeWebWork](http://makewebwork.azurewebsites.net)
 
-Link to site [MakeWebWork](http://word-vs.herokuapp.com/)
+Link to site [MakeWebWork](http://makewebwork.azurewebsites.net)
 
 MakeWebWork is a website for me to sell my websites in the future. There is still lots of work to be done before it's completed it needs to be able to take payments and quote prospective customers and allow them to contact me with their requests so I can gage interest for the project.
 
@@ -12,15 +12,28 @@ desktop and background credit: [pixabay](https://pixabay.com/photos/apple-comput
 
 # Table of contents
 1.  [User stories](#user_stories)
+  - [story 1](#story_1)
+  - [story 2](#story_2)
+  - [story 3](#story_3)
+  - [story 4](#story_4)
+  - [story 5](#story_5)
+  - [story 6](#story_6)
+  - [story 7](#story_7)
 2.  [Features](#Features)
 3.  [Wireframes](#wireframes)
   - [Interactive](#interactive)
 4.  [Challenges](#challenges)
+  - [centering big images](#centering_big_imgs)
+  - [Navbar](#Navbar)
+  - [Transparency](#transparency_without_inherit)
+  - [Funky form handler](#I_make_life_hard_4_me)
+  - [Journeys](#Favourite_part)
 5.  [Technology used](#technology_used)
   - [Wireframes](#wireframes)
   - [Frameworks](#frameworks)
   - [Libraries](#libraries)
 6.  [Features left to implement](#features-left-to-implement)
+  - [designer](#I_am_way_too_ambitious)
 7.  [Manual testing](#testing)
 8.  [Manual public testing](#manual-public-testing)
 9.  [Automatic testing with jest](#I-despise-JSdom)
@@ -31,31 +44,50 @@ desktop and background credit: [pixabay](https://pixabay.com/photos/apple-comput
 14. [My to do list](#todolist)
 15. [Notes for assessor](#notes-for-assessor)
 
-# User stories <a name="user_stories">
+# User stories <a name="user_stories"></a>
 
-## Story 1 <a name="story_1">
+## business owners
+
+Business owners should be able to look at the website and see what my websites have to offer them and get a rough quote and contact me
+
+## large companies
+
+Large companies should be able to purchase a website directly from me where they would be able to support the site themselves using the designer I will build in the future
+
+## potential companies
+
+Potential companies can put in a request to tell me about their ideas for their businesses and I would be able to choose any that seem promising investing in them with a website and benefitting form their growth
+
+## website owner
+
+See users requests and contact details to be able to reply to the user
+
+## general use 
+
+The html and javascript and css should follow a reusability standard to allow me to create predictable behaviour in the designer when it is completed.
+
+## Story 1 <a name="story_1"></a>
 Me the website owner should be able to use the Django admin site to manage the website  and change prices of modules and the ratios used to calculate the various web development costs on the journey pages. I should also be able to view all requests along with contact details to get back to the user's.
 
-## Story 2 <a name="story_2">
+## Story 2 <a name="story_2"></a>
 A user should be able to log in and sign up
 
-## Story 3 <a name="story_3">
+## Story 3 <a name="story_3"></a>
 A user should be able to reset their own password and verify their emails
 
-## Story 4 <a name="story_4">
+## Story 4 <a name="story_4"></a>
 A user should be able to make a request describing what they would like from MakeWebWork. And I should be able to send them a link via email or text to respond to the user. 
 
-## Story 5<a name="story_5">
+## Story 5<a name="story_5"></a>
 A user should be able to get a rough quote from the site before contacting us if that's what they wish to do. 
 
- ## Story 6 <a name="story_6"> 
- A user should be able to use many of the features that will be available in the designer as smart features. Things like journeys, animations, selection form and selection information pages and many more. 
+## Story 6 <a name="story_6"></a>
+A user should be able to use many of the features that will be available in the designer as smart features. Things like journeys, animations, selection form and selection information pages and many more. 
  
- ## Story 7 <a name="story_7">
+## Story 7 <a name="story_7"></a>
 A user should be able to gather information about the abilities available in the future website. 
 
 ## Features<a name="Features"></a>
-input needed
 
 
 
@@ -63,13 +95,13 @@ input needed
 
 ### Adobe XD<a name="interactive"></a>
 
-[interactive wireframe]()
+[interactive wireframe](https://xd.adobe.com/view/5aa4db6e-c5ca-4e7f-98bf-da8ac5b93b1f-0ff7/?fullscreen)
 
-This is the best way other than using the site to get an idea of how everything works. There are no other wireframes created for this app as I went straight to a digital wireframe.
+This is the best way other than using the site to get an idea of how everything works. There are no other wireframes created for this app as I went straight to a digital wireframe. The wireframe was also only followed loosely the final product ended up being alot more complex with things that cant be recreated in adobe XD
 
 # Challenges overcome <a name="challenges"></a>
 
-# centering image
+# centering image <a name="centering_big_imgs"></a>
 
 This may seem like an easy task but no matter what I was doing I couldn't center the image as according to a google search you can only center align something smaller than 100% 
 
@@ -92,7 +124,7 @@ Another benefit of this is my animation became easier by just scaling the vh aga
 
 I actually ended up having to create this in javascript afterwards the javascript code is a little cleaner though.
 
-# navbar not working 
+# navbar not working <a name="Navbar"></a>
 
 This was a really frustrating issue early in development the navbar kept breaking.
 
@@ -101,7 +133,7 @@ that it's something to do with the load times where the system is loading the js
 
 Turns out I was misusing blocks in Django I was actually overwriting postloadJS whereas I thought calling block tag was actually extending I understand that a little better to avoid the issue again I added an empty block called extrapostjs where I will add extra js files for specific pages.
 
-# colors unable to easily add transparency
+# colors unable to easily add transparency <a name="transparency_without_inherit"></a>
 
 This was really me thinking about me in the future really the easy way to get round this is to add opacity and set that to a value but that means that the element below inherits the opacity... This was a slight problem not a big one really but due to me wanting to make a designer eventually. I quickly looked into how to not inherit opacity. Turns out it's relatively simple just use RGBA to set color easy!
 
@@ -113,7 +145,7 @@ So max value is 15 * 16 + 15 which is 255. so all I had to do is create a script
 
 Then I created a quick and dirty python script and set it to print out the values I wanted. then > the output to another file called newcolors took a few attempts and then I sorted it. The script takes less than a second to run creating a 5k line css file. Next challenge is to create a quick and dirty python file to slap those into a database so I can add the indiviual colors in style tags in the designer allowing me to very efficiently serve user created HTML later but I can imagine that will show up in a later challenge
 
-# Form handler for my contact options page
+# Form handler for my contact options page <a name="I_make_life_hard_4_me"></a>
 
 The page that accepts the input is a single form split into multiple chunks each chunk can have 10 questions each 
 there is one part that always displays which is I am a human. so the answers to that need to map to the customer 
@@ -185,7 +217,7 @@ to the form handler.
 and have a foreign key to a customer table allowing 
 a multiple to one relationship 
 
-# price calculator
+# price calculator <a name="Favourite_part"></a>
 I wanted to create a unique experience to user allowing them to choose a pricing model and have the page slide off and be replaced by the input screen. There is no need to submit these quotes or save them currently so will have inputs on the left and to the right the answer will show up. The challenge here is to 
 
 # Technology used<a name="technology_used"></a>
@@ -203,14 +235,27 @@ I wanted to create a unique experience to user allowing them to choose a pricing
 - materialize
 
 ### Features Left to Implement<a name="features-left-to-implement"></a>
-input needed
 
+## designer<a name="I_am_way_too_ambitious"></a>
+
+The designer was meant to be the standout feature on this website guaranteeing my a distinction but turns out a content management system is a very complicated piece of work.
+So scrapped it and just focused on reusable code setting the foundations for the CMS in the future.
 
 ## Manual testing <a name="testing"></a>
-input needed
 
-# Manual public testing <a name="manual-public-testing"></a>
-input needed
+Go to contact page 
+
+submit a request
+
+log in as a superuser
+
+click admin link 
+
+check requests
+
+only the questions filled out should be displayed 
+
+they should also be in date order clicking on a request expands the options 
 
 # Automatic testing <a name="I-despise-jsdom"></a>
 
@@ -253,44 +298,98 @@ The automatic tests check the structure of the journey object if debug is true a
 # Validator Testing <a name="validator-testing"></a>
 
 ## HTML
-input needed
+type attributes, attribute errors are ignored as they are required by javascript
+lang errors are ignored due to lack of time to resolve
+info was also ignored due to lack of time to resolve
+price calculator page has alot of errors due to the custom attributes I used and I used A LOT of them...
+testing was done using:
+[W3C validator](https://validator.w3.org/)
 # CSS
-input needed
+No errors found using:
+[CSS validator](https://jigsaw.w3.org/css-validator/)
 # JS
-input needed
+ignored es6 warnings due to lack of development time 
+
 
 # Unfixed Bugs <a name="unfixed-bugs"></a>
-input needed
+
 
 # Deployment <a name="deployment"></a>
-input needed
 
 I was using github as the repository for the whole project so when I wanted to create a live page it was very easy to do.
-
-- The site was deployed to the Azure platform. The steps to deploy are as follows:
-input needed
 
 ## How to clone repository:
  - Go to my github repository
  - Click the code option and then copy the link
  - If you have git installed on your pc you can use git clone followed by the URL 
 
-## How to deploy to heroku:
-- To deploy to heroku you need to do the following 
-1. Go to heroku create an account or sign in 
-2. Create an app
-3. Go to the deploy tab
-4. Choose your preferred method
-5. Choose the repository and deploy.
-6. Things you'll need to do to ensure your system deploys correctly is: 
-7. Create a procfile containing the following text: 
-   - web: python app.py
-8. Create a requirements.txt with the following content:
-input needed
+## How to deploy to Azure:
 
+- The site was deployed to the Azure platform. The steps to deploy are as follows:
 
-## The live link can be found here - input needed
+- fork repository
 
+- i used gitpod to develop this application so instructions are easier to follow using that
+
+- The arm template is found on this repo its in the file called armtemplate.json
+
+- create an azure account I recommend using github to sign up 
+
+- log out of azure wait 15 mins then log back in or you'll get a really annoying error later on saying it cant set up CI because it cant find your account. no guarantee it wont happen anyways if it does delete the resource group and start again from here.
+
+- go to create a resource near top of homepage
+
+- type this into search bar Template deployment (deploy using custom templates)
+
+- choose the purple box icon
+
+- click create
+
+- click the link: Build your own template in the editor
+
+- replace all text with the contents of the armtemplate.json 
+
+- click save
+
+- choose a name for the resource group I recommend makewebworktest
+
+- click review and create
+
+- click create
+
+- takes a few mins the makewebworkstatictest/default always fails dont know why or what it even is...
+
+- go to the file custom_azure.py
+
+- add test to the end of account_name_os value
+
+- uncomment the second account_key_os replace account_key_os variable with the value of your blob storage access key how to do this is in brackets > (go to resource group > click makewebworkstatictest > access keys (left sidebar) > show (key1) > copy to clipboard)
+
+- run command python3 manage.py collectstatic in the terminal 
+
+- remove the account key
+
+- go to the app service resource
+
+- go to the deployment center (takes a while to load)
+
+- set source to github
+
+- sign in 
+
+- choose repo
+
+- press save 
+
+- go to home django app > settings.py scroll to very bottom 
+
+- edit the variable called AZURE_ACCOUNT_NAME to add test to the end of it
+
+- git add . commit -m and push 
+
+- wait a few minutes and the application should automatically be deployed to azure 
+
+- All done!
 
 # Credits <a name="credits"></a>
 
@@ -314,26 +413,6 @@ The Logo was made by me in illustrator and photoshop
 - I was concerned about performance issues as I am using the scroll event alot on the homepage so I looked up how to throttle events
 this is where I found some code on javascript tutorials site that did exactly what I was looking to do. I user this multiple times throughout my code.
 
-## Media
-
-- input needed
-
 # More coming soon! 
  
 ## Follow me on github to stay upto date and message me for project ideas/pitches always ready to work with someone.
- 
-# To do <a name="Todolist"></a>
- only started noting things when I noticed I started forgetting things
-## Completed
-
-## Not done yet
-
-# Notes for assessor <a name="notes-for-assessor"></a>
-
-Sorry my readme is so long.
-
-Assessor only: Please email me for log in details for admin account if required or follow instructions to clone and deploy to heroku and set the ADMIN_REAL key to an account of your choosing to see the admin page.
-thebrightspark1@gmail.com
-I will ask for proof you're an assessor.
-makewebwork readme.md
-Displaying makewebwork readme.md.

@@ -7,42 +7,42 @@ let debugJourneys = false;
 /* This is the length of the animations in ms */
 let animationLength = 500;
 /* This variable will eventually hold all the journey data */
-let Journeys = []
+let Journeys = [];
 /* This ensures all dom elements are loaded before running the initialiser */
 window.addEventListener("load", function(event){
-    InitialiseJourneys()
-    ResizePushContentUnder()
+    InitialiseJourneys();
+    ResizePushContentUnder();
   });
 
 function InitialiseJourneys(){
     /* This is the main driver of this Javascript file 
     gets all the relevant data needed and does some 
     checking to ensure it is valid data */
-    announceJourneyPresence()
-    let allIds = GetAllIds()
-    for (id of allIds){
+    announceJourneyPresence();
+    let allIds = GetAllIds();
+    for (var id of allIds){
         /* This gets the options for that journey */
-        Journeys.push(DetectJourneys(id))
+        Journeys.push(DetectJourneys(id));
     }
     if (debugJourneys){
-        console.log("journey.js connected")
-        console.log(Journeys)
+        console.log("journey.js connected");
+        console.log(Journeys);
     }
-    AutomaticTests(Journeys)
-    if(debugJourneys){ console.log(Journeys)}
-    ActivateJourneys(Journeys)
+    AutomaticTests(Journeys);
+    if(debugJourneys){ console.log(Journeys);}
+    ActivateJourneys(Journeys);
 }
 
 function ResizePushContentUnder(){
-    Elements = document.getElementsByClassName("push-content-under")
-    for (element of Elements){
-        if(debugJourneys){console.log(element.children[0].clientHeight)}
-        element.style.height = element.children[0].clientHeight + "px"
+    var Elements = document.getElementsByClassName("push-content-under");
+    for (var element of Elements){
+        if(debugJourneys){console.log(element.children[0].clientHeight);}
+        element.style.height = element.children[0].clientHeight + "px";
     }
 }
 
 function announceJourneyPresence(){
-    document.getElementsByTagName("head")[0].setAttribute("id","journeyJS") 
+    document.getElementsByTagName("head")[0].setAttribute("id","journeyJS");
 }
 
 function GetAllIds(){
@@ -64,43 +64,43 @@ function GetAllIds(){
         /* end edit */
     }
     /* end of copy pasted code */
-    return allIds
+    return allIds;
 }
 
 function DetectJourneys(id){
     /* This recieves the ID and makes a note of the ID and links it to the children elements */
-    let journeyOptions = new Object()
+    let journeyOptions = new Object();
     let parentElement = document.getElementById(id);
     if (parentElement.getElementsByClassName("JSJourneyOptions").length > 0){
-        let optionParent = parentElement.getElementsByClassName("JSJourneyOptions")[0]
-        let options = optionParent.children
-        let optionIds = []
-        for (option of options){
+        let optionParent = parentElement.getElementsByClassName("JSJourneyOptions")[0];
+        let options = optionParent.children;
+        let optionIds = [];
+        for (var option of options){
             if (option.getAttribute("related")){
-                related = option.getAttribute("related")
-                optionIds.push(related)
+                var related = option.getAttribute("related");
+                optionIds.push(related);
             }
         }
-        journeyOptions.parent = id
-        journeyOptions.optionElements = options
-        journeyOptions.options = optionIds
+        journeyOptions.parent = id;
+        journeyOptions.optionElements = options;
+        journeyOptions.options = optionIds;
     }
-    return journeyOptions
+    return journeyOptions;
 }
 
 function AutomaticTests(Journeys){
     /* This is all about understanding the data retrieved and making sure all related have a 
     target also outputs errors in an easy to understand way letting the user know where their
     dead ends are */
-    for (Journey of Journeys){
-        Journey.validOptions = []
-        for (option of Journey.options){
+    for (var Journey of Journeys){
+        Journey.validOptions = [];
+        for (var option of Journey.options){
             if (document.getElementById(option) == null){
                 if (debugJourneys){
-                    console.log(Journey.parent + " refers to an id: " + option + " which couldn't be found")
+                    console.log(Journey.parent + " refers to an id: " + option + " which couldn't be found");
                 }
             } else {
-                Journey.validOptions.push(option)
+                Journey.validOptions.push(option);
             }
         }
     }
@@ -108,12 +108,12 @@ function AutomaticTests(Journeys){
 
 function ActivateJourneys(Journeys){
     /* This adds the event listeners to all the journey options */
-    for (Journey of Journeys){
-        for (element of Journey.optionElements){
+    for (var Journey of Journeys){
+        for (var element of Journey.optionElements){
             if (element.getAttribute("related")){
-                related = element.getAttribute("related")
-                id = related
-                element.addEventListener('click', (e) => {Navigation(e.target)})
+                var related = element.getAttribute("related");
+                id = related;
+                element.addEventListener('click', (e) => {Navigation(e.target);});
             }
         }
     }
@@ -125,41 +125,41 @@ or by other means */
 function Navigation(target){
     /* This will be the process of firstly hiding the current one and then 
     displaying the correct one using the call from the Click event handler */
-    let id = target.getAttribute("related")
-    let IdToHide = GetParent(target)
+    let id = target.getAttribute("related");
+    let IdToHide = GetParent(target);
     if (id < IdToHide){
         /* invert the animation as the ID its calling is a previous step */
-        if(debugJourneys){ console.log("inverted = true ")}
-        ShowNew(0, id, true)
-        let Height = document.getElementById(id).clientHeight + "px"
-        HideCurrent(Height, IdToHide, true)
+        if(debugJourneys){ console.log("inverted = true ");}
+        ShowNew(0, id, true);
+        let Height = document.getElementById(id).clientHeight + "px";
+        HideCurrent(Height, IdToHide, true);
     } else{
-        let Height = document.getElementById(IdToHide).clientHeight + "px"
-        if(debugJourneys){ console.log("inverted = false ")}
-        HideCurrent(Height, IdToHide, false)
-        ShowNew(Height, id, false)
+        let Height = document.getElementById(IdToHide).clientHeight + "px";
+        if(debugJourneys){ console.log("inverted = false ");}
+        HideCurrent(Height, IdToHide, false);
+        ShowNew(Height, id, false);
     }
     /* works kinda not happy with the results would be much nicer if the Resize was called and was able to detect the height on the showNew... */
     setTimeout(() => {
-        ResizePushContentUnder()
+        ResizePushContentUnder();
     },animationLength + 30);
 }
 
 function GetParent(target){
     /* gets the parent ID to check pass to the hide function */
-    for (journey of Journeys){
-        for (element of journey.optionElements)
+    for (var journey of Journeys){
+        for (var element of journey.optionElements)
         if (element == target){
-            return journey.parent
+            return journey.parent;
         }
     }
 }
 
 function HideCurrent(Height, id, invert){
 /* animate the current displayed journey out direction depends on invert*/
-    screenWidth = window.innerWidth + 100
+    var screenWidth = window.innerWidth + 100;
     if (invert){
-        $("#" + id).css({"bottom":Height})
+        $("#" + id).css({"bottom":Height});
         $("#" + id).animate({left:screenWidth},animationLength, () => {
             document.getElementById(id).classList.toggle("hide");
             $("#" + id).css({"bottom":0});
@@ -176,18 +176,18 @@ function HideCurrent(Height, id, invert){
 
 function ShowNew(Height, id, invert){
 /* animate the selected displayed journey in direction depends on invert*/
-    screenWidth = window.innerWidth + 100
+    var screenWidth = window.innerWidth + 100;
     if (invert){
-        $("#" + id).css({"left":-screenWidth})
-        document.getElementById(id).classList.toggle("hide")
+        $("#" + id).css({"left":-screenWidth});
+        document.getElementById(id).classList.toggle("hide");
         $("#" + id).animate({left:0},animationLength, () => {
             document.getElementById(id).style.removeProperty("bottom");
             $("#" + id).css({"left":0});
         });
     } else {
-        $("#" + id).css({"bottom":Height})
-        $("#" + id).css({"left":screenWidth})
-        document.getElementById(id).classList.toggle("hide")
+        $("#" + id).css({"bottom":Height});
+        $("#" + id).css({"left":screenWidth});
+        document.getElementById(id).classList.toggle("hide");
         $("#" + id).animate({left:0},animationLength, () => {
             document.getElementById(id).style.removeProperty("bottom");
             $("#" + id).css({"left":0});

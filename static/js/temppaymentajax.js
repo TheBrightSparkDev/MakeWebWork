@@ -2,18 +2,18 @@
 // so reusability is not accounted for neither is testing
 
 function gettotal(){
-    data = new Object 
-    let total = document.getElementById("upfronttotalbabs").textContent
+    var data = new Object();
+    let total = document.getElementById("upfronttotalbabs").textContent;
     if (total.includes("£")){
-        total = total.replace("£","")
+        total = total.replace("£","");
     }
-    data.amount = Number(total)
+    data.amount = Number(total);
     $.ajax({
         type: "POST",
         url: window.location.href,
         data: data,
         success: function redirect(){
-            window.location.assign("checkout")
+            window.location.assign("checkout");
         }
     });
 

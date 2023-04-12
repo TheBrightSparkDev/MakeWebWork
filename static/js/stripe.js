@@ -1,7 +1,7 @@
 var stripePublicKey = $('#id_stripe_public_key').text().slice(1, -1);
 var stripe = Stripe(stripePublicKey);
 // The items the customer wants to buy
-id = document.getElementById('website').getAttribute('InvoiceID')
+var id = document.getElementById('website').getAttribute('InvoiceID');
 const websiteitem = id;
 
 let elements;
@@ -10,7 +10,7 @@ let elements;
 initialize();
 checkStatus();
 
-document.querySelector("#payment-form")
+document.querySelector("#payment-form");
 document.addEventListener("submit", handleSubmit);
 
 let emailAddress = '';
@@ -83,9 +83,9 @@ async function checkStatus() {
 
   switch (paymentIntent.status) {
     case "succeeded":
-      paymentdata = new Object 
+      var paymentdata = new Object();
       showMessage("Payment succeeded!");
-      paymentdata.id = websiteitem
+      paymentdata.id = websiteitem;
       $.ajax({
         type: "POST",
         url: "https://8000-thebrightsp-makewebwork-5rb4si4zk2y.ws-eu90.gitpod.io/updateInvoice",
