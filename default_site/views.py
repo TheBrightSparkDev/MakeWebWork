@@ -104,6 +104,21 @@ def contact(request):
     return render(request, 'default_site/contact.html', context)
 
 
+@login_required
+def account(request):
+    '''
+    This displays the profile page and gives the user the ability 
+    to sign out and manage their contact preferances. It also allows them
+    to edit their previous requests and contains messages from the admin.
+    '''
+    profile = UserProfile.objects.get(user=request.user)
+
+    context = {
+        "profile": profile
+    }
+    return render(request, 'default_site/profile.html', context)
+
+
 def GetOrCreateRequest(profile):
     requests = list(RequestTickets.objects.filter(customerID=profile))
     createnew = False
@@ -116,13 +131,11 @@ def GetOrCreateRequest(profile):
                 createnew = True
             else:
                 # this is a request that is less than 4 hours old
-                print("user old request")
                 return request.requestID
     else:
         # create new request
         createnew = True
     if createnew is True:
-        print("creating new request")
         request = RequestTickets(
                 created_on=dt.now(timezone.utc),
                 customerID=profile,

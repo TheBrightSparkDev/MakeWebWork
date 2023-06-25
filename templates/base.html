@@ -114,7 +114,7 @@
         {% for icon in socials %}
             {% if icon.display and icon.link|length > 1 %}
             <div class="col-2">
-                <a class="footer-icon" href="{{ icon.link }}">
+                <a class="footer-icon" target="_blank" href="{{ icon.link }}">
                     <i class="{{icon.fontawesome}}"></i>
                 </a>
             </div> 
