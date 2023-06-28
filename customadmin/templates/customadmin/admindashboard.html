@@ -2,22 +2,25 @@
 {% load static %}
 {% block content %}
 {% if user.is_superuser %}
-<h1>Welcome back what would you like to do today?</h1>
+<h1>Welcome back {{profile.user}} what would you like to do today?</h1>
 <div class="row choice-container">
     <a class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" href="{% url 'admin:index' %}">Standard admin</a>
     <a class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" href="{% url 'requests' %}">View requests</a>
     <a class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" href="{% url 'update_contact' %}">Change questions on contact page</a>
+    <a class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" href="{% url 'account' %}">Profile</a>
+    <a class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" href="{% url 'account_logout' %}">Log Out</a>
 </div>
 {% elif user.is_authenticated %}
-<h1>Oops! how did you get here!</h1>
+<h1>Oops! How did you get here!</h1>
 <div class="row choice-container">
-    <a class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" href="{% url 'requests' %}">back to safety</a>
+    <a class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" href="{% url 'requests' %}">Back to safety</a>
+    <a class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" href="{% url 'account_logout' %}">Log out</a> 
 </div>
 {% else %}
 <h1>Oops! login timed out please log in again!</h1>
 <div class="row choice-container">
-    <a class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" href="{% url 'admin:index' %}">login</a>
-    <a class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" href="{% url 'requests' %}">back to safety</a>
+    <a class="col-6 grey darken-4 selectable text-center py-3 my-1" href="{% url 'account_login' %}">Log in</a>
+    <a class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" href="{% url 'requests' %}">Back to safety</a>
 </div>
 {% endif %}
 {% endblock %}

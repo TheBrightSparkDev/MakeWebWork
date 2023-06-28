@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% if user.is_authenticated %}
+<h1>Welcome back {{profile.user}} what would you like to do today?</h1>
+<div class="row choice-container">
+    <a class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" href="{% url 'account_logout' %}">Log out</a>
+</div>
+<h2>Details</h2>
+<p>userID: {{profile.user_id}}</p>
+<p>Username: {{profile.user}}</p>
+<p>CustomerID: {{profile.CustomerID}}</p>
+<p>First Name: {{profile.First_name}}</p>
+<p>Last Name: {{profile.Last_name}}</p>
+<p>Phone Number: {{profile.Phone_number}}</p>
+<p>Street Name 1: {{profile.address_line_one}}</p>
+<p>Town: {{profile.address_line_two}}</p>
+<p>City: {{profile.address_line_three}}</p>
+<p>postcode: {{profile.postcode}}</p>
+<p>Uk resident: {{profile.uk_resident}}</p>
+<p>Date of Birth: {{profile.birth_date}}</p>
+<p>Invoices: {{profile.invoice}}</p>
+<p>Requests: {{profile.requesttickets}}</p>
+
+{% else %}
+<h1>Oops! login timed out please log in again!</h1>
+<div class="row choice-container">
+    <a class="col-6 grey darken-4 selectable text-center py-3 my-1" href="{% url 'account_login' %}">Log in</a>
+    <a class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" href="{% url 'requests' %}">Back to safety</a>
+</div>
+{% endif %}
+{% endblock %}

@@ -21,8 +21,12 @@ def admin_dashboard(request):
     of the site.
     '''
     if request.user.is_superuser:
+        
+        profile = UserProfile.objects.get(user=request.user)
+
         context = {
-            "Requests": RequestTickets.objects.all()
+            "Requests": RequestTickets.objects.all(),
+            "profile": profile
         }
         return render(request, 'customadmin/admindashboard.html', context)
     return redirect(home)
