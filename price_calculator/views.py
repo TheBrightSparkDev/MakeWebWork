@@ -3,12 +3,13 @@ from .models import Modules, Prices
 from checkout.models import Invoice
 from default_site.models import UserProfile, User
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 from datetime import timezone, timedelta, datetime as dt
 # for my own sanity
 # pylint: disable=locally-disabled, multiple-statements, fixme, no-member
 
 # Create your views here.
-
+@login_required
 @csrf_exempt
 def journey(request):
     '''

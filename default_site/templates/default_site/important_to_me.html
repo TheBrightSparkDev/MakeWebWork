@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 <div id="initial" class="col-12">
-    <h2 class="grey darken-4 mx-3 my-3 text-center py-3">Select the options that apply to you</h2>
+    <h2 class="grey darken-4 mx-3 my-3 text-center py-3">Select the options that are important to you</h2>
     <div class="selection-container">
         {% for option in options %}
             {% if option.display %}
@@ -42,7 +42,11 @@
         <h3 class="mx-3 my-3 py-3 text-center">What next?</h3>
     </div>
     <div class="row choice-container">
-        <a class="text-center col-12 col-md-3 grey darken-4 text-center my-3 py-3 grey-link" href="{% url 'journey' %}">Price calculator</a>
+        {% if user.is_authenticated %}
+        <a class="text-center col-12 col-md-3 grey darken-4 text-center my-3 py-3 grey-link" href="{% url 'journey' %}">Get a quote</a>
+        {% else %}
+        <a class="text-center col-12 col-md-3 grey darken-4 text-center my-3 py-3 grey-link" href="{% url 'account_login' %}">Login for quotes</a>
+        {% endif %}
         <a class="text-center col-12 col-md-3 grey darken-4 text-center my-3 py-3 grey-link" href="{% url 'home' %}">Discover more</a>
         {% if user.is_authenticated %}
         <a class="text-center col-12 col-md-3 grey darken-4 text-center my-3 py-3 grey-link" href="{% url 'contact' %}">Contact us</a>

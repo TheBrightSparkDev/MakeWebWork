@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-mor2j7g3xb1m^*l0il&_=f9s2ftlxv*@b+8m%0r0x+zpkb!7i4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['8000-thebrightsp-makewebwork-koz1am9bseh.ws-eu100.gitpod.io', 'localhost', 'makewebwork.azurewebsites.net']
+ALLOWED_HOSTS = ['8000-thebrightsp-makewebwork-koz1am9bseh.ws-eu101.gitpod.io', 'localhost', 'makewebwork.azurewebsites.net']
 
 
 # Application definition
@@ -64,7 +64,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'home.urls'
 
-CSRF_TRUSTED_ORIGINS = ['https://8000-thebrightsp-makewebwork-koz1am9bseh.ws-eu100.gitpod.io/*',
+CSRF_TRUSTED_ORIGINS = ['https://8000-thebrightsp-makewebwork-koz1am9bseh.ws-eu101.gitpod.io//*',
     'https://makewebwork.azurewebsites.net/*']
 
 TEMPLATES = [
