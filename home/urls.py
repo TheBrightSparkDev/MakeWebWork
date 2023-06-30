@@ -33,7 +33,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('account', account, name="account"),
     # price calculator paths
-    path('price_calculator', journey, name="journey"),
+    path('price_calculator/<journey_page>', journey, name="journey"),
     # checkout paths
     path('checkout', checkout, name="checkout"),
     path('createintent', createintent, name="createintent"),

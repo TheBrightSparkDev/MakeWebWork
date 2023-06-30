@@ -9,11 +9,14 @@ from datetime import timezone, timedelta, datetime as dt
 # pylint: disable=locally-disabled, multiple-statements, fixme, no-member
 
 # Create your views here.
+
+
 @login_required
 @csrf_exempt
-def journey(request):
+def journey(request, journey_page):
     '''
-    This displays the page for the price calculator
+    This displays the page for the price calculator also takes an
+    arguement to tell the system what page to start on.
     '''
     if request.method == "POST":
         profile = UserProfile.objects.get(user=request.user)
@@ -26,10 +29,11 @@ def journey(request):
             created_on=dt.now(timezone.utc)
         )
         invoice_item.save()
-
+    
     context = {
         "modules": Modules.objects.all(),
-        "prices": Prices.objects.all()
+        "prices": Prices.objects.all(),
+        "journeypage": journey_page
     }
     return render(request, 'price_calculator/price_calculator.html', context)
 
