@@ -17,7 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from default_site.views import (home, important_to_me, design,
-                                development, data, contact, account)
+                                development, data, contact, account,
+                                edit_profile)
 from price_calculator.views import (journey)
 from checkout.views import checkout, createintent, updateInvoice
 
@@ -32,6 +33,7 @@ urlpatterns = [
     path('important', important_to_me, name="important"),
     path('accounts/', include('allauth.urls')),
     path('account', account, name="account"),
+    path('editAccount', edit_profile, name="editAccount"),
     # price calculator paths
     path('price_calculator/<journey_page>', journey, name="journey"),
     # checkout paths

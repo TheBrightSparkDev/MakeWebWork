@@ -119,6 +119,22 @@ def account(request):
     return render(request, 'default_site/profile.html', context)
 
 
+@login_required
+def edit_profile(request):
+    '''
+    This displays the profile page and gives the user the ability 
+    to sign out and manage their contact preferances. It also allows them
+    to edit their previous requests and contains messages from the admin.
+    '''
+    profile = UserProfile.objects.get(user=request.user)
+
+    context = {
+        "profile": profile
+    }
+    return render(request, 'default_site/edit_profile.html', context)
+
+
+
 def GetOrCreateRequest(profile):
     requests = list(RequestTickets.objects.filter(customerID=profile))
     createnew = False
