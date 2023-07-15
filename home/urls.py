@@ -40,6 +40,6 @@ urlpatterns = [
     path('checkout', checkout, name="checkout"),
     path('createintent', createintent, name="createintent"),
     path('updateInvoice', updateInvoice, name="updateInvoice"),
-    # admin paths 
+    # admin paths
     path('admin_dashboard/', include('customadmin.urls'))
 ]

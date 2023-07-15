@@ -36,7 +36,7 @@ class AdminFunctions(models.Model):
 
 class SecurityFunctions(models.Model):
     '''
-    This class is used to define the table that is used to populate the 
+    This class is used to define the table that is used to populate the
     homepage a secure website horizontal scroll section
     '''
 
@@ -52,7 +52,7 @@ class SecurityFunctions(models.Model):
 
 class ComplianceFunctions(models.Model):
     '''
-    This class is used to define the table that is used to populate the 
+    This class is used to define the table that is used to populate the
     homepage a compliant website horizontal scroll section
     '''
 
@@ -68,7 +68,7 @@ class ComplianceFunctions(models.Model):
 
 class EvolvingFunctions(models.Model):
     '''
-    This class is used to define the table that is used to populate the 
+    This class is used to define the table that is used to populate the
     homepage an evolving website horizontal scroll section
     '''
 
@@ -201,7 +201,7 @@ class UserProfile(models.Model):
     Phone_number = models.CharField(max_length=15, null=True, blank=True)
     ContactViaEmail = models.BooleanField(default=False)
     ContactViaPhone = models.BooleanField(default=False)
-    
+
     def __str__(self):
         return self.user
 
@@ -239,4 +239,3 @@ class QAndA(models.Model):
                                              on_delete=models.CASCADE)
     date_created = models.DateTimeField(blank=False, null=False)
     order = models.IntegerField(null=False, blank=False)
-

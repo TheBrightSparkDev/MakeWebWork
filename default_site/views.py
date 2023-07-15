@@ -81,7 +81,7 @@ def contact(request):
     if request.method == "POST":
         profile = UserProfile.objects.get(user=request.user)
         request_id = GetOrCreateRequest(profile)
-        
+
         contactoptionID = ContactOptions.objects.get(
             id=request.POST['contactoptionID'])
 
@@ -107,7 +107,7 @@ def contact(request):
 @login_required
 def account(request):
     '''
-    This displays the profile page and gives the user the ability 
+    This displays the profile page and gives the user the ability
     to sign out and manage their contact preferances. It also allows them
     to edit their previous requests and contains messages from the admin.
     '''
@@ -116,13 +116,14 @@ def account(request):
     context = {
         "profile": profile
     }
+    
     return render(request, 'default_site/profile.html', context)
 
 
 @login_required
 def edit_profile(request):
     '''
-    This displays the profile page and gives the user the ability 
+    This displays the profile page and gives the user the ability
     to sign out and manage their contact preferances. It also allows them
     to edit their previous requests and contains messages from the admin.
     '''
@@ -134,8 +135,12 @@ def edit_profile(request):
     return render(request, 'default_site/edit_profile.html', context)
 
 
-
 def GetOrCreateRequest(profile):
+    '''
+    This method checks if the user has created a request recently if a
+    request was made in the last 4 hours the system will use that
+    request instead of creating a new one.
+    '''
     requests = list(RequestTickets.objects.filter(customerID=profile))
     createnew = False
     if requests:
