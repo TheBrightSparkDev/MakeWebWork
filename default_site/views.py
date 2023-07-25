@@ -128,6 +128,47 @@ def edit_profile(request):
     to edit their previous requests and contains messages from the admin.
     '''
     profile = UserProfile.objects.get(user=request.user)
+    if request.method == "POST":
+        print(request.POST)
+        # This is to correct the values that are returned from the html
+        # since it returns "on" if checkbox is ticked nothing if checkbox
+        # is empty. I could use value on the html but this seems a more
+        # secure way to do the same
+
+        con_via_phone = False
+        con_via_email = False
+        con_via_text = False
+        uk_resident_value = False
+        if request.POST['Contact_via_phone'] == "on":
+            print("con_via_phone = True")
+            con_via_phone = True
+        if request.POST['Contact_via_email'] == "on":
+            print("con_via_email = True")
+            con_via_email = True
+        if request.POST['UK_resident'] == "on":
+            print("uk_resident_value = True")
+            uk_resident_value = True
+        if request.POST['Contact_via_text'] == "on":
+            print("con_via_text = True")
+            con_via_text = True
+
+        profile_item = UserProfile(
+            First_name=request.POST['First_Name'],
+            Last_name=request.POST['Last_Name'],
+            Phone_number=request.POST['Phone_number'],
+            House_number_or_name=request.POST['House_number'],
+            Address_line_one=request.POST['Street_Name'],
+            Town=request.POST['Town'],
+            Uk_resident=uk_resident_value,
+            Postcode=request.POST['Postcode'],
+            County=request.POST['County'],
+            Contact_via_email=con_via_email,
+            Contact_via_phone=con_via_phone,
+            Contact_via_text=con_via_text,
+            Birth_date=request.POST['DOB'],
+        )
+        print(profile_item)
+        profile_item.save()
 
     context = {
         "profile": profile

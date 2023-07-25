@@ -190,17 +190,19 @@ class UserProfile(models.Model):
 
     CustomerID = models.BigAutoField(primary_key=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    address_line_one = models.CharField(max_length=150, null=True, blank=True)
+    House_number_or_name = models.CharField(max_length=150, null=True, blank=True)
+    Address_line_one = models.CharField(max_length=150, null=True, blank=True)
     Town = models.CharField(max_length=150, null=True, blank=True)
     County = models.CharField(max_length=99, null=True, blank=True)
-    uk_resident = models.BooleanField(default=True)
-    postcode = models.CharField(max_length=30, null=True, blank=True)
-    birth_date = models.DateField(null=True, blank=True)
+    Uk_resident = models.BooleanField(default=True)
+    Postcode = models.CharField(max_length=30, null=True, blank=True)
+    Birth_date = models.DateField(null=True, blank=True)
     First_name = models.CharField(max_length=40, null=True, blank=True)
     Last_name = models.CharField(max_length=40, null=True, blank=True)
     Phone_number = models.CharField(max_length=15, null=True, blank=True)
-    ContactViaEmail = models.BooleanField(default=False)
-    ContactViaPhone = models.BooleanField(default=False)
+    Contact_via_email = models.BooleanField(default=False)
+    Contact_via_phone = models.BooleanField(default=False)
+    Contact_via_text = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user

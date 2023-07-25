@@ -14,60 +14,90 @@
 <p>userID: {{profile.user_id}}</p>
 <p>Username: {{profile.user}}</p>
 <p>CustomerID: {{profile.CustomerID}}</p>
-<p>First Name: {{profile.First_name}}</p>
-<p>Last Name: {{profile.Last_name}}</p>
 <p>Phone Number: {{profile.Phone_number}}</p>
+<p>House Number: {{profile.House_number}}</p>
 <p>Street Name 1: {{profile.address_line_one}}</p>
-<p>Town: {{profile.address_line_two}}</p>
-<p>City: {{profile.address_line_three}}</p>
+<p>Town: {{profile.Town}}</p>
+<p>County: {{profile.County}}</p>
 <p>postcode: {{profile.postcode}}</p>
 <p>Uk resident: {{profile.uk_resident}}</p>
 <p>Date of Birth: {{profile.birth_date}}</p>
 <p>Invoices: {{profile.invoice}}</p>
 <p>Requests: {{profile.requesttickets}}</p>
+<p>Contact via text:{{Contact_via_phone}}</p>
+<p>Contact via email:{{Contact_via_email}}</p>
 <div class="form-area grey darken-4 text-center my-2">
     <h2>Edit or update your profile</h2>
     <form class="form-area" action="{% url 'editAccount' %}" method="POST" id="profiledata">
         {% csrf_token %}
         <div class="small-input">
             <label class="" for="First_Name">First Name: </label>
-            <input class="input-fill" name="First_Name" type="text">
+            <input id="First_Name" class="input-fill" name="First_Name" 
+            type="text" value="{{profile.First_name}}" required>
         </div>
         <div class="small-input">
             <label class="" for="Last_Name">Last Name: </label>
-            <input class="input-fill" name="Last_Name" type="text">
+            <input id="Last_Name" class="input-fill" name="Last_Name" 
+            type="text" value="{{profile.Last_name}}" required>
         </div>
         <div class="small-input">
-        <label class="" for="Phone_number">Phone Number: </label>
-        <input class="input-fill" name="Phone_number" type="tel">
+            <label class="" for="Phone_number">Phone Number: </label>
+            <input id="Phone_number" class="input-fill" name="Phone_number" 
+            type="tel" value="{{profile.Phone_number}}" required>
         </div>
         <div class="small-input">
             <label class="" for="House_number">House Number: </label>
-            <input class="input-fill" name="House_number" type="text">
+            <input id="House_number" class="input-fill" name="House_number" 
+            type="text" value="{{profile.House_number}}" required>
         </div>
         <div class="small-input">
             <label class="" for="Street_Name">Street Name: </label>
-            <input class="input-fill" name="Street_Name" type="text">
+            <input id="Street_Name" class="input-fill" name="Street_Name" 
+            type="text" value="{{profile.address_line_one}}" required>
         </div>
         <div class="small-input">
             <label class="" for="Town">Town: </label>
-            <input class="input-fill" name="Town" type="text">
+            <input id="Town" class="input-fill" name="Town" 
+            type="text" value="{{profile.Town}}" required>
         </div>
         <div class="small-input">
             <label class="" for="County">County: </label>
-            <input class="input-fill" name="County" type="text">
+            <input id="County" class="input-fill" name="County" 
+            type="text" value="{{profile.County}}" required>
         </div>
         <div class="small-input">
             <label class="" for="Postcode">Postcode: </label>
-            <input class="input-fill" name="Postcode" type="text">
+            <input id="Postcode" class="input-fill" name="Postcode" 
+            type="text" value="{{profile.postcode}}" required>
         </div>
         <div class="small-input">
             <label class="" for="UK_resident">Are you a UK Resident? </label>
-            <input class="input-fill" name="UK_resident" type="checkbox">
+            <input id="UK_resident" class="input-fill" name="UK_resident" 
+            type="checkbox" >
+        </div>
+        <div class="small-input">
+            <label class="" for="Contact_via_phone">Are you happy to be contacted via phone? </label>
+            <input id="Contact_via_phone" class="input-fill" name="Contact_via_phone" 
+            type="checkbox" >
+        </div>
+        <div class="small-input">
+            <label class="" for="Contact_via_email">Are you happy to be contacted via email? </label>
+            <input id="Contact_via_email" class="input-fill" name="Contact_via_email" 
+            type="checkbox" >
+        </div>
+        <div class="small-input">
+            <label class="" for="Contact_via_text">Are you happy to be contacted via text? </label>
+            <input id="Contact_via_text" class="input-fill" name="Contact_via_text" 
+            type="checkbox" >
         </div>
         <div class="small-input">
             <label class="" for="DOB">Date Of Birth: </label>
-            <input class="input-fill" name="DOB" type="date">
+            <input id="DOB" class="input-fill" name="DOB" 
+            type="date" value="{{profile.birth_date}}" required>
+        </div>
+        <div class="medium-input">
+            <input class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" 
+            type="submit">
         </div>
     </form>
 </div>
