@@ -11,21 +11,8 @@
     <a class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" href="{% url 'account' %}">Back</a>
 </div>
 <h2>Details</h2>
-<p>userID: {{profile.user_id}}</p>
-<p>Username: {{profile.user}}</p>
-<p>CustomerID: {{profile.CustomerID}}</p>
-<p>Phone Number: {{profile.Phone_number}}</p>
-<p>House Number: {{profile.House_number}}</p>
-<p>Street Name 1: {{profile.address_line_one}}</p>
-<p>Town: {{profile.Town}}</p>
-<p>County: {{profile.County}}</p>
-<p>postcode: {{profile.postcode}}</p>
-<p>Uk resident: {{profile.uk_resident}}</p>
-<p>Date of Birth: {{profile.birth_date}}</p>
 <p>Invoices: {{profile.invoice}}</p>
 <p>Requests: {{profile.requesttickets}}</p>
-<p>Contact via text:{{Contact_via_phone}}</p>
-<p>Contact via email:{{Contact_via_email}}</p>
 <div class="form-area grey darken-4 text-center my-2">
     <h2>Edit or update your profile</h2>
     <form class="form-area" action="{% url 'editAccount' %}" method="POST" id="profiledata">
@@ -48,12 +35,12 @@
         <div class="small-input">
             <label class="" for="House_number">House Number: </label>
             <input id="House_number" class="input-fill" name="House_number" 
-            type="text" value="{{profile.House_number}}" required>
+            type="text" value="{{profile.House_number_or_name}}" required>
         </div>
         <div class="small-input">
             <label class="" for="Street_Name">Street Name: </label>
             <input id="Street_Name" class="input-fill" name="Street_Name" 
-            type="text" value="{{profile.address_line_one}}" required>
+            type="text" value="{{profile.Address_line_one}}" required>
         </div>
         <div class="small-input">
             <label class="" for="Town">Town: </label>
@@ -68,33 +55,36 @@
         <div class="small-input">
             <label class="" for="Postcode">Postcode: </label>
             <input id="Postcode" class="input-fill" name="Postcode" 
-            type="text" value="{{profile.postcode}}" required>
+            type="text" value="{{profile.Postcode}}" required>
         </div>
         <div class="small-input">
             <label class="" for="UK_resident">Are you a UK Resident? </label>
             <input id="UK_resident" class="input-fill" name="UK_resident" 
-            type="checkbox" >
+            type="checkbox" {% if profile.Uk_resident %} checked {% endif %}>
         </div>
         <div class="small-input">
             <label class="" for="Contact_via_phone">Are you happy to be contacted via phone? </label>
             <input id="Contact_via_phone" class="input-fill" name="Contact_via_phone" 
-            type="checkbox" >
+            type="checkbox" {% if profile.Contact_via_phone %} checked {% endif %}>
         </div>
         <div class="small-input">
             <label class="" for="Contact_via_email">Are you happy to be contacted via email? </label>
             <input id="Contact_via_email" class="input-fill" name="Contact_via_email" 
-            type="checkbox" >
+            type="checkbox" {% if profile.Contact_via_email %} checked {% endif %}>
         </div>
         <div class="small-input">
             <label class="" for="Contact_via_text">Are you happy to be contacted via text? </label>
             <input id="Contact_via_text" class="input-fill" name="Contact_via_text" 
-            type="checkbox" >
+            type="checkbox" {% if profile.Contact_via_text %} checked {% endif %}>
         </div>
         <div class="small-input">
             <label class="" for="DOB">Date Of Birth: </label>
             <input id="DOB" class="input-fill" name="DOB" 
-            type="date" value="{{profile.birth_date}}" required>
+            type="date" value="{{profile.Birth_date|date:'Y-m-d'}}" required>
         </div>
+        <script>
+            var hi = document.getElementById("DOB").value = "{{profile.Birth_date|date:'Y-m-d'}}";
+        </script>
         <div class="medium-input">
             <input class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" 
             type="submit">

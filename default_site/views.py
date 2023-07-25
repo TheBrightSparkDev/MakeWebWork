@@ -139,20 +139,34 @@ def edit_profile(request):
         con_via_email = False
         con_via_text = False
         uk_resident_value = False
-        if request.POST['Contact_via_phone'] == "on":
-            print("con_via_phone = True")
-            con_via_phone = True
-        if request.POST['Contact_via_email'] == "on":
-            print("con_via_email = True")
-            con_via_email = True
-        if request.POST['UK_resident'] == "on":
-            print("uk_resident_value = True")
-            uk_resident_value = True
-        if request.POST['Contact_via_text'] == "on":
-            print("con_via_text = True")
-            con_via_text = True
+        try:
+            if request.POST['Contact_via_phone']:
+                print("con_via_phone = True")
+                con_via_phone = True
+        except KeyError:
+            print("NameError on phone")
+        try:
+            if request.POST['Contact_via_email']:
+                print("con_via_email = True")
+                con_via_email = True
+        except KeyError:
+            print("NameError on email")    
+        try:           
+            if request.POST['UK_resident']:
+                print("uk_resident_value = True")
+                uk_resident_value = True
+        except KeyError:
+            print("KeyError on uk resident")  
+        try:
+            if request.POST['Contact_via_text']:
+                print("con_via_text = True")
+                con_via_text = True
+        except KeyError:
+            print("KeyError on text")
 
         profile_item = UserProfile(
+            CustomerID=profile.user_id,
+            user=profile.user,
             First_name=request.POST['First_Name'],
             Last_name=request.POST['Last_Name'],
             Phone_number=request.POST['Phone_number'],
@@ -167,9 +181,7 @@ def edit_profile(request):
             Contact_via_text=con_via_text,
             Birth_date=request.POST['DOB'],
         )
-        print(profile_item)
         profile_item.save()
-
     context = {
         "profile": profile
     }
