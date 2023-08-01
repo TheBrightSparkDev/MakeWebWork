@@ -36,6 +36,9 @@
     {% endblock %}
     <!-- End extra CSS -->
 
+    {{ stripe_public_key|json_script:"id_stripe_public_key" }}
+    {{ client_secret|json_script:"id_client_secret" }}
+
     <!-- Start coreJS -->
     {% block corejs %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" 
@@ -43,7 +46,6 @@
     crossorigin="anonymous" referrerpolicy="no-referrer">
     </script>
     <script src="https://kit.fontawesome.com/ef4cf8777f.js" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="{% static 'js/stripe.js' %}"></script>
     {% endblock %}
     <!-- End coreJS -->
 

@@ -26,6 +26,7 @@ def checkout(request):
     profile_id = str(profile.CustomerID)
     Invoices = list(Invoice.objects.filter(
         userprofile=profile_id).order_by('-created_on').values())
+    print("checkout page touched")
     invoice = Invoices[0]
     context = {
         "invoice": invoice,

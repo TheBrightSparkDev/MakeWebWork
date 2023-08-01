@@ -21,7 +21,9 @@ def journey(request, journey_page):
     if request.method == "POST":
         profile = UserProfile.objects.get(user=request.user)
         amount = request.POST['amount']
+        url = request.POST['newurl']
         print(amount)
+        print(url)
         # create an invoiceitem
         invoice_item = Invoice(
             userprofile=profile,
@@ -29,7 +31,8 @@ def journey(request, journey_page):
             created_on=dt.now(timezone.utc)
         )
         invoice_item.save()
-    
+        return render(request, 'checkout/checkout.html')
+
     context = {
         "modules": Modules.objects.all(),
         "prices": Prices.objects.all(),
