@@ -7,7 +7,7 @@ for (element of $(".unhide")){
 
 function showhide(target){
     if (debugutility){console.log("toggling: " + target.getAttribute("unhide"))}
-    document.getElementById(target.getAttribute("unhide")).classList.toggle("hide")
+    document.getElementById(target.getAttribute("unhide")).classList.toggle("hide");
 }
 
 function deleteempty(){
@@ -183,6 +183,10 @@ function oneclickmanysubmits(element){
 
         element.textContent = "Thank you"
         element.setAttribute("onclick","")
+        element.addEventListener('click', function () {
+            this.parentElement.parentElement.classList.toggle("hide")
+            }
+        )
     } 
 }
 
