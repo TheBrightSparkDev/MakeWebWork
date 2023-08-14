@@ -35,14 +35,11 @@ Desktop and background credit: [pixabay](https://pixabay.com/photos/apple-comput
 6.  [Features left to implement](#features-left-to-implement)
   - [designer](#I_am_way_too_ambitious)
 7.  [Manual testing](#testing)
-8.  [Manual public testing](#manual-public-testing)
-9.  [Automatic testing with jest](#I-despise-JSdom)
-10. [Validator testing](#validator-testing)
-11. [Unfixed-bugs](#unfixed-bugs)
-12. [Deployment](#deployment)
-13. [Credits](#credits)
-14. [My to-do list](#todolist)
-15. [Notes for assessor](#notes-for-assessor)
+8. [Validator testing](#validator-testing)
+9. [Unfixed-bugs](#unfixed-bugs)
+10. [Deployment](#deployment)
+11. [Credits](#credits)
+12. [Notes for assessor](#notes-for-assessor)
 
 # User stories <a name="user_stories"></a>
 
@@ -101,7 +98,7 @@ This is the best way other than using the site to get an idea of how everything 
 
 # Challenges overcome <a name="challenges"></a>
 
-# centering image <a name="centering_big_imgs"></a>
+# Centering image <a name="centering_big_imgs"></a>
 
 This may seem like an easy task but no matter what I was doing I couldn't center the image as according to a Google search you can only center align something smaller than 100% 
 
@@ -124,7 +121,7 @@ Another benefit of this is my animation became easier by just scaling the vh aga
 
 I ended up having to create this in javascript afterwards the javascript code is a little cleaner though.
 
-# navbar not working <a name="Navbar"></a>
+# Navbar not working <a name="Navbar"></a>
 
 This was a frustrating issue early in development the navbar kept breaking.
 
@@ -133,7 +130,7 @@ that it's something to do with the load times where the system is loading the js
 
 Turns out I was misusing blocks in Django I was overwriting postloadJS whereas I thought calling block tag was extending I understand that a little better to avoid the issue again I added an empty block called "extrapostjs" where I will add extra JS files for specific pages.
 
-# colors unable to easily add transparency <a name="transparency_without_inherit"></a>
+# Colors unable to easily add transparency <a name="transparency_without_inherit"></a>
 
 This was me thinking about me in the future the easy way to get around this is to add opacity and set that to a value but that means that the element below inherits the opacity... This was a slight problem, not a big one really but due to me wanting to make a designer eventually. I quickly looked into how to not inherit opacity. Turns out it's relatively simple just use RGBA to set color easily!
 
@@ -217,26 +214,26 @@ to the form handler.
 and have a foreign key to a customer table allowing 
 a multiple-to-one relationship 
 
-# price calculator <a name="Favourite_part"></a>
+# Price calculator <a name="Favourite_part"></a>
 I wanted to create a unique experience for the user allowing them to choose a pricing model and have the page slide off and be replaced by the input screen. There is no need to submit these quotes or save them currently so will have inputs on the left and to the right, and the answer will show up. The challenge here is to 
 
 # Technology used<a name="technology_used"></a>
 
 ## Wireframes<a name="wireframes"></a>
 - adobe XD
-- 
+
 ## Frameworks<a name="frameworks"></a>
 - I used the Django framework
 - I used GitHub to store the repository and version management
 - I used Gitpod for editing the code and for posting to GitHub 
-- 
+
 ## Libraries<a name="libraries"></a>
 - bootstrap
 - materialize
 
 ### Features Left to Implement<a name="features-left-to-implement"></a>
 
-## designer<a name="I_am_way_too_ambitious"></a>
+## Designer<a name="I_am_way_too_ambitious"></a>
 
 The designer was meant to be the standout feature on this website guaranteeing me a distinction but turns out that a content management system is a very complicated piece of work.
 So scrapped it and just focused on reusable code setting the foundations for the CMS in the future.
@@ -259,7 +256,7 @@ they should also be in date order clicking on a request expands the options
 
 # Automatic testing <a name="I-despise-jsdom"></a>
 
-## img_scroll.js
+## Img_scroll.js
 
 If you set debug to true it will run automatic tests to determine whether you've made a mistake in your animationprops or if you're missing any properties such as an ID or animationprops. The debugger will also continuously spit out each update and the variables it uses to do its calculations which can lead to an overdose of information.
 
@@ -269,7 +266,7 @@ Jest while it's likely capable of what I am doing here would be extremely diffic
 
 The only way to manually test is to see if you put in good info into the start, end, startpos, endpos, and direction properties if so it'll do what you want if not it won't. It can be a little difficult to understand initially but it becomes intuitive after a while.
 
-## selection.js
+## Selection.js
 
 The purpose of this JavaScript file is to allow users to make multiple selections on the page and have more information or a form displayed. Based on their selections of course. Allowing users to only input information that is relevant to what they want. 
 
@@ -277,19 +274,19 @@ If debug is true it outputs a message to say it is connected and it also allows 
 
 It doesn't also output the selection elements separately as well although not very helpful 
 
-## utility.js
+## Utility.js
 
 This is all about holding general JavaScript functions such as the hide toggler. It also serves another purpose which is looking for general mistakes in the HTML. For example duplicate IDs
 
 The automatic test output to the console if debug is true all of the elements that are duplicated using queryselectorall to output a list of hyperlinked elements so you can click them and it will display the elements in the elements tab.
 
-## calculator.js
+## Calculator.js
 
 This JavaScript is all about taking an input and looking for a target if it finds a target it will use the calc attribute to convert the input into the target. 
 
 The automatic tests run if debug is true. It will check if it can parse a value through to you each input and check the output without actually sending a value. This will output any inputs that failed the test to the console. It will also tell you where it went wrong for example the target doesn't exist or the calc is invalid. 
 
-## journey.js
+## Journey.js
 
 This JavaScript is all about detecting a pattern in the html file and if it discovers a pattern it links buttons and their targets. It creates a journey object that contains the parent ID and all the links within that ID
 
@@ -416,3 +413,10 @@ This is where I found some code on a javascript tutorial site that did exactly w
 # More coming soon! 
  
 ## Follow me on Git Hub to stay up to date and message me for project ideas/pitches always ready to work with someone.
+
+# Notes for assessor <a name="notes-for-assessor"></a>
+
+Here is a temporary admin account so you can assess the functionality behind the site.
+
+User: Assessor 
+Password: Passmeplease

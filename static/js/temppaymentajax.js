@@ -8,16 +8,17 @@ function gettotal(){
         total = total.replace("£","");
     }
     data.amount = Number(total);
-    var currenturl = window.location.href;
-    var newurl = currenturl.replace("price_calculator", "checkout");
-
+    
+    var finalurl = '/checkout';
+    console.log(finalurl);
+    
     data.newurl = "newurl";
     $.ajax({
         type: "POST",
         url: window.location.href,
         data: data,
         success: function redirect(){
-            window.location.assign(newurl);
+            window.location.assign(finalurl);
         }
     });
 
