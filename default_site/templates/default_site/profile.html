@@ -8,20 +8,40 @@
     <a class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" href="{% url 'editAccount' %}">Edit profile</a>
 </div>
 <h2>Details</h2>
-<p>userID: {{profile.user_id}}</p>
-<p>Username: {{profile.user}}</p>
-<p>CustomerID: {{profile.CustomerID}}</p>
-<p>First Name: {{profile.First_name}}</p>
-<p>Last Name: {{profile.Last_name}}</p>
-<p>Phone Number: {{profile.Phone_number}}</p>
-<p>Street Name 1: {{profile.address_line_one}}</p>
-<p>Town: {{profile.address_line_two}}</p>
-<p>City: {{profile.address_line_three}}</p>
-<p>postcode: {{profile.postcode}}</p>
-<p>Uk resident: {{profile.uk_resident}}</p>
-<p>Date of Birth: {{profile.birth_date}}</p>
-<p>Invoices: {{profile.invoice}}</p>
-<p>Requests: {{profile.requesttickets}}</p>
+<div class="choice-container">
+    <div class="col-12 grey darken-4 text-center my-2 py-2">
+        <h3>These are your identifiable information and cannot be changed</h3>
+        <p>userID: {{profile.user_id}}</p>
+        <p>CustomerID: {{profile.CustomerID}}</p>
+        <p>Username: {{profile.user}}</p>
+    </div>
+    <div class="col-12 grey darken-4 text-center my-2 py-2">
+        <h3>This is your contact details and preferances</h3>
+        <p>Phone Number: {{profile.Phone_number}}</p>
+        <p>Email Address: {{profile.user.email}}</p>
+        <p>Contact via text: {{profile.Contact_via_text}}</p>
+        <p>Contact via email: {{profile.Contact_via_email}}</p>
+        <p>Contact via phone: {{profile.Contact_via_phone}}</p>
+    </div>
+</div>
+<div class="col-12 grey darken-4 text-center my-2 py-2">
+    <h3>This is your personal info we hold you can change this at anytime by clicking edit profile</h3>
+    <p>First Name: {{profile.First_name}}</p>
+    <p>Last Name: {{profile.Last_name}}</p>
+    <p>House number/name: {{profile.House_number_or_name}}</p>
+    <p>Street Name 1: {{profile.Address_line_one}}</p>
+    <p>Town: {{profile.Town}}</p>
+    <p>County: {{profile.County}}</p>
+    <p>postcode: {{profile.Postcode}}</p>
+    <p>Uk resident: {{profile.Uk_resident}}</p>
+    <p>Date of Birth: {{profile.Birth_date}}</p>
+</div>
+<div class="col-12 grey darken-4 text-center my-2 py-2">
+    <h3>This is where you see your historical requests and invoices</h3>
+    <p>Invoices: {{profile.Invoice}}</p>
+    <p>Requests: {{profile.Requesttickets}}</p>
+</div>
+
 
 {% else %}
 <h1>Oops! login timed out please log in again!</h1>

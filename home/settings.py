@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-mor2j7g3xb1m^*l0il&_=f9s2ftlxv*@b+8m%0r0x+zpkb!7i4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['8000-thebrightsp-makewebwork-koz1am9bseh.ws-eu103.gitpod.io']
+ALLOWED_HOSTS = ['8000-thebrightsp-makewebwork-koz1am9bseh.ws-eu104.gitpod.io']
 
 
 # Application definition
@@ -64,7 +64,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'home.urls'
 
-CSRF_TRUSTED_ORIGINS = ['https://8000-thebrightsp-makewebwork-koz1am9bseh.ws-eu103.gitpod.io//*',
+CSRF_TRUSTED_ORIGINS = ['https://8000-thebrightsp-makewebwork-koz1am9bseh.ws-eu104.gitpod.io///*',
                         'https://makewebwork.azurewebsites.net/*']
 
 TEMPLATES = [
@@ -106,6 +106,10 @@ WSGI_APPLICATION = 'home.wsgi.application'
 # copy and pasted from boutique ado tutorial
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
+EMAIL_HOST_USER = 'b0753b1a466494'
+EMAIL_HOST_PASSWORD = 'bf62acbb01282e'
+EMAIL_PORT = '2525'
 
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_REQUIRED = True
