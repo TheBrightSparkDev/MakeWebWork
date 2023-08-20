@@ -280,27 +280,68 @@ A user should be able to reset their password and verify their emails
 To test email verification
 
 - After signing in you should receive an email with a link that you can use to verify your email address.
-- Email will be sent to the console
+- Email will be sent to the email address
 - After confirming the email the user should then be verified
 
 To test password rest
 
 - Go to the login screen click on forgotten password and request an email the email will contain a link for you to be able to reset your password
+- Clicking the link will allow you to change your password 
+- After changing the password you should be able to use the new password to log in.
 
 
 ## Story 4 <a name="story_4_testing"></a>
 A user should be able to make a request describing what they would like from MakeWebWork. And I should be able to send them a link via email or text to respond to the user. 
 
+- From the homepage navigate to contact us
+- Select a relevant form to fill out
+- Pressing submit sends the request.
+- To access the request you need to login as an admin account (user and password at bottom of the readme)
+- Once logged in as an admin go to the admin tab
+- Select the requests option 
+- You will now see a list of recent requests expanding them will give more details.
+
 ## Story 5<a name="story_5_testing"></a>
 A user should be able to get a rough quote from the site before contacting us if that's what they wish to do. 
 
+In order to test this functionality
+
+- From the homepage go to contact us 
+- At the top of the page there is a button to get a quote
+- Select the build and buy option 
+- Select the subscription option
+- Changing any of the amount on this page will increase the total cost
+
 ## Story 6 <a name="story_6_testing"></a>
 A user should be able to use many of the features that will be available in the designer as smart features. Things like journeys, animations, selection forms, selection information pages, and many more. 
- 
+
+Journeys is testable by accessing the get a quote section of the website. This is a javascript file that handles the transitions cleverly
+- From the homepage go to the contact us tab
+- Then choose the get a quote link
+- Clicking the various options is how you identify if the system is working it should either animate left or right depending on the direction of travel.
+
+Selection forms is testable by accessing the personalised information section of the website its a javascript file that handles the size of the selection and displaying the relevant information
+- From the homepage go to the contact us tab
+- Then choose the personalised information link
+- Clicking the various options and then submitting will display more detailed info about the various options and if relevant for example price will display a get a quote link
+
+ Animations is testable by scrolling on any of the main homepages. The easiest one to identify is the homepage.
+ - Navigate to the homepage and scroll down
+ - If the circles move onto the screen then the animation javacript file is working correctly.
+
+ Selection forms is another smart feature accessible via the Contact Us page 
+ - From the homepage select the Contact Us tab
+ - Click on relevant options press submit and you will be presented with relevant questions based on your selection.
+
 ## Story 7 <a name="story_7_testing"></a>
 A user should be able to gather information about the abilities available on the future website. 
 
+- This information is available on the homepage, design, data, and development tabs you can also get more info on the personalized info link on the contact us page.
+- If there is useful information on these pages then the test is a pass
+
 # Automatic testing <a name="I-despise-jsdom"></a>
+
+So my "automatic testing" is logged on the console if the value of debug is set to true on the various javascript files. Therefore doesn't qualify as true automatic testing
 
 ## Img_scroll.js
 
