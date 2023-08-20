@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+from django.core.mail import send_mail
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -105,11 +107,14 @@ WSGI_APPLICATION = 'home.wsgi.application'
 
 # copy and pasted from boutique ado tutorial
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
-EMAIL_HOST_USER = 'b0753b1a466494'
-EMAIL_HOST_PASSWORD = 'bf62acbb01282e'
-EMAIL_PORT = '2525'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_PORT = 2525
+EMAIL_HOST = 'smtp-relay.brevo.com'
+EMAIL_HOST_USER = "makewebwork@outlook.com"
+# This isn't actually the main password. This password only works
+# via this paritcular smtp service therefore this is technically safe
+# to have in my code hardcoded. 
+EMAIL_HOST_PASSWORD = "a64KqBXW19AwcYjM"
 
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_REQUIRED = True
