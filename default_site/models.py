@@ -205,7 +205,7 @@ class UserProfile(models.Model):
     Contact_via_text = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.user
+        return self.user.username
 
 
 class RequestTickets(models.Model):

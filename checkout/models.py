@@ -17,3 +17,6 @@ class Invoice(models.Model):
     paid = models.BooleanField(default=False)
     created_on = models.DateTimeField()
 
+    def __str__(self):
+        return self.userprofile.user.username
+
