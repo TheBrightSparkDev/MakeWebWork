@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, reverse, get_object_or_404, HttpResponse
 from django.conf import settings
 import stripe
 import json
@@ -8,7 +8,6 @@ from django.http import JsonResponse
 from .models import Invoice
 from default_site.models import UserProfile
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse
 # Create your views here.
 
 @login_required
@@ -20,14 +19,14 @@ def checkout(request):
     '''
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
-    
+
     stripe.api_key = stripe_secret_key
     profile = UserProfile.objects.get(user=request.user)
     profile_id = str(profile.CustomerID)
     Invoices = list(Invoice.objects.filter(
         userprofile=profile_id).order_by('-created_on').values())
-    print("checkout page touched")
     invoice = Invoices[0]
+    print(invoice)
     context = {
         "invoice": invoice,
         "stripe_public_key": stripe_public_key,
@@ -39,6 +38,8 @@ def checkout(request):
 def calculate_order_amount(request):
     # extract an element in the response
     invoice = Invoice.objects.get(id=request.body)
+    # because stripe does it in pennies
+    invoice.amounttopay = invoice.amounttopay * 100
     return invoice.amounttopay
 
 @require_POST
@@ -71,5 +72,15 @@ def updateInvoice(request):
     """
     invoice = Invoice.objects.get(id=request.POST['id'])
     invoice.paid = True
+    print(invoice)
     invoice.save()
+    print("touched update invoice")
     return HttpResponse(200)
+
+
+def checkoutSuccess(request):
+    print("touched checkout success")
+    context = {
+
+    }
+    return render(request, 'checkout/checkout_success.html', context)

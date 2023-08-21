@@ -20,7 +20,8 @@ from default_site.views import (home, important_to_me, design,
                                 development, data, contact, account,
                                 edit_profile)
 from price_calculator.views import (journey)
-from checkout.views import checkout, createintent, updateInvoice
+from checkout.views import (checkout, createintent, updateInvoice,
+                            checkoutSuccess)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -40,6 +41,7 @@ urlpatterns = [
     path('checkout', checkout, name="checkout"),
     path('createintent', createintent, name="createintent"),
     path('updateInvoice', updateInvoice, name="updateInvoice"),
+    path('checkout_success', checkoutSuccess, name="checkout_success"),
     # admin paths
     path('admin_dashboard/', include('customadmin.urls'))
 ]

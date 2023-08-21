@@ -51,7 +51,7 @@ async function handleSubmit(e) {
     elements,
     confirmParams: {
       // Make sure to change this to your payment completion page
-      return_url: "https://8000-thebrightsp-makewebwork-5rb4si4zk2y.ws-eu90.gitpod.io/checkout",
+      return_url: "https://makewebwork.azurewebsites.net/checkout_success",
       receipt_email: emailAddress,
     },
   });
@@ -88,7 +88,7 @@ async function checkStatus() {
       paymentdata.id = websiteitem;
       $.ajax({
         type: "POST",
-        url: "https://8000-thebrightsp-makewebwork-5rb4si4zk2y.ws-eu90.gitpod.io/updateInvoice",
+        url: "https://makewebwork.azurewebsites.net/updateInvoice",
         data: paymentdata,
     });
       break;
