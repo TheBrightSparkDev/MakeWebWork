@@ -502,8 +502,3 @@ This is where I found some code on a javascript tutorial site that did exactly w
 ## Follow me on Git Hub to stay up to date and message me for project ideas/pitches always ready to work with someone.
 
 # Notes for assessor <a name="notes-for-assessor"></a>
-
-Here is a temporary admin account so you can assess the functionality behind the site.
-
-User: Assessor 
-Password: Passmeplease
