@@ -165,7 +165,7 @@ def edit_profile(request):
             print("KeyError on text")
 
         profile_item = UserProfile(
-            CustomerID=profile.user_id,
+            CustomerID=profile.CustomerID,
             user=profile.user,
             First_name=request.POST['First_Name'],
             Last_name=request.POST['Last_Name'],
