@@ -8,6 +8,22 @@
     <a class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" href="{% url 'editAccount' %}">Edit profile</a>
 </div>
 <h2>Details</h2>
+<p>Invoices:</p>
+<div class="scroll-X">
+{% if invoices.count == 0 %}
+<p>Looks like you don't have any invoices yet!</p>
+{% else %}    
+{% for invoice in invoices %}
+    <div class="col-2 grey darken-4 my-2 py-3 mx-2 px-3">
+        <p>Invoiceid: {{invoice.id}}</p>
+        <p>Price: {{invoice.amounttopay}}</p>
+        <p>Paid: {{invoice.paid}}</p>
+        <p>Date: {{invoice.created_on}}</p>
+    </div>
+{% endfor %}
+{% endif %}
+</div>
+
 <div class="choice-container">
     <div class="col-12 grey darken-4 text-center my-2 py-2">
         <h3>These are your identifiable information and cannot be changed</h3>

@@ -6,6 +6,7 @@ it starts to diverge into other apps when we get into signing
 in forms and placing orders
 '''
 from datetime import timezone, timedelta, datetime as dt
+from checkout.models import Invoice
 from django.shortcuts import render, HttpResponse
 from .models import (AdminFunctions, SecurityFunctions, ComplianceFunctions,
                      EvolvingFunctions, Socials, ImportantOptions,
@@ -112,9 +113,10 @@ def account(request):
     to edit their previous requests and contains messages from the admin.
     '''
     profile = UserProfile.objects.get(user=request.user)
-
+    invoice = Invoice.objects.filter(userprofile=profile)
     context = {
-        "profile": profile
+        "profile": profile,
+        "invoices": invoice
     }
     
     return render(request, 'default_site/profile.html', context)
@@ -128,6 +130,7 @@ def edit_profile(request):
     to edit their previous requests and contains messages from the admin.
     '''
     profile = UserProfile.objects.get(user=request.user)
+    invoice = Invoice.objects.filter(userprofile=profile)
     if request.method == "POST":
         print(request.POST)
         # This is to correct the values that are returned from the html
@@ -156,7 +159,7 @@ def edit_profile(request):
                 print("uk_resident_value = True")
                 uk_resident_value = True
         except KeyError:
-            print("KeyError on uk resident")  
+            print("KeyError on uk resident")
         try:
             if request.POST['Contact_via_text']:
                 print("con_via_text = True")

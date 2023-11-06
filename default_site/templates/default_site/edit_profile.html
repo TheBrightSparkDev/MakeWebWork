@@ -10,9 +10,6 @@
     <a class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" href="{% url 'account_logout' %}">Log out</a>
     <a class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" href="{% url 'account' %}">Back</a>
 </div>
-<h2>Details</h2>
-<p>Invoices: {{profile.invoice}}</p>
-<p>Requests: {{profile.requesttickets}}</p>
 <div class="form-area grey darken-4 text-center my-2">
     <h2>Edit or update your profile</h2>
     <form class="form-area" action="{% url 'editAccount' %}" method="POST" id="profiledata">

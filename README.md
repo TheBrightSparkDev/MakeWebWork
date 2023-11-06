@@ -6,7 +6,7 @@ MakeWebWork is a website for me to sell my websites in the future. There is stil
 
 The website when it is completed should be a group of JS and CSS files that when the designer is created will be able to recognize patterns in HTML and turn them into interactive webpages enabling unmatched web development speed. The JS files also need to have built-in debugging so that developing the designer will be much easier. 
 
-<img src="static/images/responsive-readme-3.png" alt="image of the website on various devices to show responsiveness" width="100%">
+<img src="static/Readme/Design.PNG" alt="Image showing the design tab of the website" width="100%">
 
 Desktop and background credit: [pixabay](https://pixabay.com/photos/apple-computer-desk-workspace-1868496/)
 
@@ -257,6 +257,8 @@ In order to test this functionality
 - Click standard admin
 - This will be a link to django backend where models will be changeable.
 
+<img src="static/Readme/Adminsite.PNG" alt="image showing the user after they have successfully logged in" width="100%">
+
 ## Story 2 <a name="story_2_testing"></a>
 A user should be able to log in and sign up
 
@@ -267,6 +269,8 @@ In order to test sign up functionality
 - Enter details 
 - An account should be created on the database and the user will now be able to login or logout
 
+<img src="static/Readme/Signedin.PNG" alt="image showing the user after they have successfully logged in" width="100%">
+
 In order to test login functionality
 
 - Click login at the top of the home page 
@@ -274,16 +278,26 @@ In order to test login functionality
 - Enter details 
 - To see whether you have successfully logged in a profile link should now be present for a regular user and for a super user an admin link should be present
 
+<img src="static/Readme/Loggedinuser.PNG" alt="Image showing the user homepage after they have successfully logged in" width="100%">
+<img src="static/Readme/Loggedinadmin.PNG" alt="Image showing the admin homepage after they have successfully logged in" width="100%">
+
 ## Story 3 <a name="story_3_testing"></a>
 A user should be able to reset their password and verify their emails
 
 To test email verification
 
-- After signing in you should receive an email with a link that you can use to verify your email address.
-- Email will be sent to the email address
-- After confirming the email the user should then be verified
+- After signing up you will be able to verify your email. (this isnt required however). In order to verify your email click the profile link.
+- click the option to log out.
+- On the new naviagtion bar you'll see the option to change e-mail.
+- When you are on this page it will allow you to resend verification link.
+- Clicking this will send an email to your inbox.
+<img src="static/Readme/Emailverificationsendemail.PNG" alt="Image showing the button to press to send an email verification link" width="100%">
+- Navigate to your mailbox click the link and youll be lead to a page that asks if you would like to confirm.
+- Selecting confirm verifies your email.
+- After confirming the email the user should then be able to see on the change email page that their email is verified.
+<img src="static/Readme/Emailverificationconfirmation.PNG" alt="Image showing the email has been verified" width="100%">
 
-To test password rest
+To test password reset
 
 - Go to the login screen click on forgotten password and request an email the email will contain a link for you to be able to reset your password
 - Clicking the link will allow you to change your password 
@@ -291,15 +305,18 @@ To test password rest
 
 
 ## Story 4 <a name="story_4_testing"></a>
-A user should be able to make a request describing what they would like from MakeWebWork. And I should be able to send them a link via email or text to respond to the user. 
+A user should be able to make a request describing what they would like from MakeWebWork. And I should be able to send them a link via email or text to respond to the user.
 
 - From the homepage navigate to contact us
-- Select a relevant form to fill out
+- Select a relevant form to fill out.
+<img src="static/Readme/Contactus.PNG" alt="Image showing the contact us options" width="100%">
 - Pressing submit sends the request.
+<img src="static/Readme/Presubmit.PNG" alt="Image showing the contact us submit button" width="100%">
 - To access the request you need to login as an admin account (user and password at bottom of the readme)
 - Once logged in as an admin go to the admin tab
 - Select the requests option 
 - You will now see a list of recent requests expanding them will give more details.
+<img src="static/Readme/Postsubmit.PNG" alt="Image showing the contact us submitted requests" width="100%">
 
 ## Story 5<a name="story_5_testing"></a>
 A user should be able to get a rough quote from the site before contacting us if that's what they wish to do. 
@@ -308,9 +325,13 @@ In order to test this functionality
 
 - From the homepage go to contact us 
 - At the top of the page there is a button to get a quote
+<img src="static/Readme/Quotelink.PNG" alt="Image showing the get a quote link" width="100%">
 - Select the build and buy option 
+<img src="static/Readme/Quoteoptions.PNG" alt="Image showing the build and bye link" width="100%">
 - Select the subscription option
+<img src="static/Readme/Quotebuildandbyeoptions.PNG" alt="Image showing the subscription link" width="100%">
 - Changing any of the amount on this page will increase the total cost
+<img src="static/Readme/Quotebuildandbyesubpricecalculator.PNG" alt="Image showing the price calculator page" width="100%">
 
 ## Story 6 <a name="story_6_testing"></a>
 A user should be able to use many of the features that will be available in the designer as smart features. Things like journeys, animations, selection forms, selection information pages, and many more. 
@@ -318,12 +339,15 @@ A user should be able to use many of the features that will be available in the 
 Journeys is testable by accessing the get a quote section of the website. This is a javascript file that handles the transitions cleverly
 - From the homepage go to the contact us tab
 - Then choose the get a quote link
+<img src="static/Readme/Quotelink.PNG" alt="Image showing the get a quote link" width="100%">
 - Clicking the various options is how you identify if the system is working it should either animate left or right depending on the direction of travel.
+<img src="static/Readme/Quoteoptions.PNG" alt="Image showing the build and bye link" width="100%">
 
 Selection forms is testable by accessing the personalised information section of the website its a javascript file that handles the size of the selection and displaying the relevant information
 - From the homepage go to the contact us tab
 - Then choose the personalised information link
 - Clicking the various options and then submitting will display more detailed info about the various options and if relevant for example price will display a get a quote link
+<img src="static/Readme/Selection.PNG" alt="Image showing the selection.js file in action on a webpage" width="100%">
 
  Animations is testable by scrolling on any of the main homepages. The easiest one to identify is the homepage.
  - Navigate to the homepage and scroll down
@@ -332,6 +356,7 @@ Selection forms is testable by accessing the personalised information section of
  Selection forms is another smart feature accessible via the Contact Us page 
  - From the homepage select the Contact Us tab
  - Click on relevant options press submit and you will be presented with relevant questions based on your selection.
+ <img src="static/Readme/Contactus.PNG" alt="Image showing the contact us options" width="100%">
 
 ## Story 7 <a name="story_7_testing"></a>
 A user should be able to gather information about the abilities available on the future website. 
@@ -397,6 +422,7 @@ ignored es6 warnings due to lack of development time
 
 # Unfixed Bugs <a name="unfixed-bugs"></a>
 
+No unfixed bugs that I am currently aware of!
 
 # Deployment <a name="deployment"></a>
 
