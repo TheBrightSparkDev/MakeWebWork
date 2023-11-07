@@ -113,7 +113,7 @@ def account(request):
     to edit their previous requests and contains messages from the admin.
     '''
     profile = UserProfile.objects.get(user=request.user)
-    invoice = Invoice.objects.filter(userprofile=profile)
+    invoice = Invoice.objects.filter(userprofile=profile).order_by("-id")
     context = {
         "profile": profile,
         "invoices": invoice

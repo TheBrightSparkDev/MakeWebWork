@@ -1,5 +1,7 @@
 var stripePublicKey = $('#id_stripe_public_key').text().slice(1, -1);
 var stripe = Stripe(stripePublicKey);
+// live site "https://makewebwork.azurewebsites.net/"
+var baseURL = "https://8000-thebrightsp-makewebwork-n0jobipcsa5.ws-eu105.gitpod.io/"
 // The items the customer wants to buy
 var id = document.getElementById('website').getAttribute('InvoiceID');
 const websiteitem = id;
@@ -51,7 +53,7 @@ async function handleSubmit(e) {
     elements,
     confirmParams: {
       // Make sure to change this to your payment completion page
-      return_url: "https://makewebwork.azurewebsites.net/checkout_success",
+      return_url: baseURL + "checkout_success",
       receipt_email: emailAddress,
     },
   });
@@ -88,7 +90,7 @@ async function checkStatus() {
       paymentdata.id = websiteitem;
       $.ajax({
         type: "POST",
-        url: "https://makewebwork.azurewebsites.net/updateInvoice",
+        url: baseURL + "updateInvoice",
         data: paymentdata,
     });
       break;

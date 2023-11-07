@@ -19,22 +19,22 @@ Desktop and background credit: [pixabay](https://pixabay.com/photos/apple-comput
   - [story 5](#story_5)
   - [story 6](#story_6)
   - [story 7](#story_7)
-2.  [Features](#Features)
-3.  [Wireframes](#wireframes)
+  - [story 8](#story_8)
+2.  [Wireframes](#wireframes)
   - [Interactive](#interactive)
-4.  [Challenges](#challenges)
+3.  [Challenges](#challenges)
   - [centering big images](#centering_big_imgs)
   - [Navbar](#Navbar)
   - [Transparency](#transparency_without_inherit)
   - [Funky form handler](#I_make_life_hard_4_me)
   - [Journeys](#Favourite_part)
-5.  [Technology used](#technology_used)
+4.  [Technology used](#technology_used)
   - [Wireframes](#wireframes)
   - [Frameworks](#frameworks)
   - [Libraries](#libraries)
-6.  [Features left to implement](#features-left-to-implement)
+5.  [Features left to implement](#features-left-to-implement)
   - [designer](#I_am_way_too_ambitious)
-7.  [Manual testing](#testing)
+6.  [Manual testing](#testing)
   - [story 1](#story_1_testing)
   - [story 2](#story_2_testing)
   - [story 3](#story_3_testing)
@@ -42,11 +42,12 @@ Desktop and background credit: [pixabay](https://pixabay.com/photos/apple-comput
   - [story 5](#story_5_testing)
   - [story 6](#story_6_testing)
   - [story 7](#story_7_testing)
-8. [Validator testing](#validator-testing)
-9. [Unfixed-bugs](#unfixed-bugs)
-10. [Deployment](#deployment)
-11. [Credits](#credits)
-12. [Notes for assessor](#notes-for-assessor)
+  - [story 8](#story_8_testing)
+7. [Validator testing](#validator-testing)
+8. [Unfixed-bugs](#unfixed-bugs)
+9. [Deployment](#deployment)
+10. [Credits](#credits)
+11. [Notes for assessor](#notes-for-assessor)
 
 # User stories <a name="user_stories"></a>
 
@@ -91,9 +92,8 @@ A user should be able to use many of the features that will be available in the 
 ## Story 7 <a name="story_7"></a>
 A user should be able to gather information about the abilities available on the future website. 
 
-## Features<a name="Features"></a>
-
-
+## Story 8 <a name="story_8"></a>
+A user should be able to make a purchase on the website
 
 # Wireframes<a name="wireframes"></a>
 
@@ -257,7 +257,7 @@ In order to test this functionality
 - Click standard admin
 - This will be a link to django backend where models will be changeable.
 
-<img src="static/Readme/Adminsite.PNG" alt="image showing the user after they have successfully logged in" width="100%">
+<img src="static/Readme/Adminsite.PNG" alt="image showing the django default admin page" width="100%">
 
 ## Story 2 <a name="story_2_testing"></a>
 A user should be able to log in and sign up
@@ -363,6 +363,13 @@ A user should be able to gather information about the abilities available on the
 
 - This information is available on the homepage, design, data, and development tabs you can also get more info on the personalized info link on the contact us page.
 - If there is useful information on these pages then the test is a pass
+
+## Story 8 <a name="story_8_testing"></a>
+A user should be able to make a purchase on the website
+
+
+
+
 
 # Automatic testing <a name="I-despise-jsdom"></a>
 

@@ -69,16 +69,21 @@ def createintent(request):
 def updateInvoice(request):
     """
     updates the invoice model
-    """
-    invoice = Invoice.objects.get(id=request.POST['id'])
-    invoice.paid = True
-    print(invoice)
-    invoice.save()
+    """    
     print("touched update invoice")
     return HttpResponse(200)
 
 
 def checkoutSuccess(request):
+    profile = UserProfile.objects.get(user=request.user)
+    print(profile)
+    profile_id = str(profile.CustomerID)
+    print(profile_id)
+    invoice = Invoice.objects.latest('created_on')
+    print(invoice)
+    invoice.paid = True
+    print(invoice)
+    invoice.save()
     print("touched checkout success")
     context = {
 
