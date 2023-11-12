@@ -93,7 +93,7 @@ A user should be able to use many of the features that will be available in the 
 A user should be able to gather information about the abilities available on the future website. 
 
 ## Story 8 <a name="story_8"></a>
-A user should be able to make a purchase on the website
+A user should be able to purchase on the website
 
 # Wireframes<a name="wireframes"></a>
 
@@ -126,7 +126,7 @@ left:calc(calc(calc(calc(50vh / 9) * 16) - calc(calc(100vh / 9) * 16)) + 50vw);
 
 Another benefit of this is my animation became easier by just scaling the vh against the scroll position 
 
-I ended up having to create this in javascript afterwards the javascript code is a little cleaner though.
+I ended up having to create this in javascript afterward the javascript code is a little cleaner though.
 
 # Navbar not working <a name="Navbar"></a>
 
@@ -145,7 +145,7 @@ The only issue is that materialize is sert using hex values. Yuck makes sense as
 
 Hex uses the first value and multiplies it by 16 a b c d e f mean 10 11 12 13 14 15 respectively 15*16 is 240 the second letter is taken at face value. 
 
-So the max value is 15 * 16 + 15 which is 255. So all I had to do was create a script to look at Materialize's code and edit it. To be lazy I took the entire css file into Word and used replace on paragraphs to make each rule sit on its line I didn't want it to happen for the } though as they would all be on the same line and I wanted to do a line at a time to for loop through. So I did another replacement to add a paragraph after }. 
+So the max value is 15 * 16 + 15 which is 255. So all I had to do was create a script to look at Materialize's code and edit it. To be lazy I took the entire CSS file into Word and used replace on paragraphs to make each rule sit on its line I didn't want it to happen for the } though as they would all be on the same line and I wanted to do a line at a time to for loop through. So I did another replacement to add a paragraph after }. 
 
 Then I created a quick and dirty Python script and set it to print out the values I wanted. then > the output to another file called newcolors took a few attempts and then I sorted it. The script takes less than a second to run creating a 5k line css file. The next challenge is to create a quick and dirty Python file to slap those into a database so I can add the individual colors in style tags in the designer allowing me to very efficiently serve user-created HTML later but I can imagine that will show up in a later challenge
 
@@ -250,28 +250,28 @@ So scrapped it and just focused on reusable code setting the foundations for the
 ## Story 1 <a name="story_1_testing"></a>
 Me the website owner should be able to use the Django admin site to manage the website and change prices of modules and the ratios used to calculate the various web development costs on the journey pages. I should also be able to view all requests along with contact details to get back to the users.
 
-In order to test this functionality
+To test this functionality
 
 - Log into the website as an admin account 
 - Click the red admin link on the top right of the page
 - Click standard admin
-- This will be a link to django backend where models will be changeable.
+- This will be a link to the Django backend where models will be changeable.
 
 <img src="static/Readme/Adminsite.PNG" alt="image showing the django default admin page" width="100%">
 
 ## Story 2 <a name="story_2_testing"></a>
 A user should be able to log in and sign up
 
-In order to test sign up functionality 
+To test the sign-up functionality 
 
 - Click login at the top of the home page 
 - Click sign up
 - Enter details 
-- An account should be created on the database and the user will now be able to login or logout
+- An account should be created on the database and the user will now be able to log in or log out
 
 <img src="static/Readme/Signedin.PNG" alt="image showing the user after they have successfully logged in" width="100%">
 
-In order to test login functionality
+To test login functionality
 
 - Click login at the top of the home page 
 - Click login 
@@ -286,13 +286,13 @@ A user should be able to reset their password and verify their emails
 
 To test email verification
 
-- After signing up you will be able to verify your email. (this isnt required however). In order to verify your email click the profile link.
+- After signing up you will be able to verify your email. (this isn't required, however). To verify your email click the profile link.
 - click the option to log out.
-- On the new naviagtion bar you'll see the option to change e-mail.
-- When you are on this page it will allow you to resend verification link.
+- On the new navigation bar you'll see the option to change e-mail.
+- When you are on this page it will allow you to resend the verification link.
 - Clicking this will send an email to your inbox.
 <img src="static/Readme/Emailverificationsendemail.PNG" alt="Image showing the button to press to send an email verification link" width="100%">
-- Navigate to your mailbox click the link and youll be lead to a page that asks if you would like to confirm.
+- Navigate to your mailbox click the link and you'll be led to a page that asks if you would like to confirm.
 - Selecting confirm verifies your email.
 - After confirming the email the user should then be able to see on the change email page that their email is verified.
 <img src="static/Readme/Emailverificationconfirmation.PNG" alt="Image showing the email has been verified" width="100%">
@@ -312,7 +312,7 @@ A user should be able to make a request describing what they would like from Mak
 <img src="static/Readme/Contactus.PNG" alt="Image showing the contact us options" width="100%">
 - Pressing submit sends the request.
 <img src="static/Readme/Presubmit.PNG" alt="Image showing the contact us submit button" width="100%">
-- To access the request you need to login as an admin account (user and password at bottom of the readme)
+- To access the request you need to log in as an admin account (user and password at bottom of the readme)
 - Once logged in as an admin go to the admin tab
 - Select the requests option 
 - You will now see a list of recent requests expanding them will give more details.
@@ -321,39 +321,39 @@ A user should be able to make a request describing what they would like from Mak
 ## Story 5<a name="story_5_testing"></a>
 A user should be able to get a rough quote from the site before contacting us if that's what they wish to do. 
 
-In order to test this functionality
+To test this functionality
 
-- From the homepage go to contact us 
+- From the homepage go to Contact us 
 - At the top of the page there is a button to get a quote
 <img src="static/Readme/Quotelink.PNG" alt="Image showing the get a quote link" width="100%">
 - Select the build and buy option 
 <img src="static/Readme/Quoteoptions.PNG" alt="Image showing the build and bye link" width="100%">
 - Select the subscription option
 <img src="static/Readme/Quotebuildandbyeoptions.PNG" alt="Image showing the subscription link" width="100%">
-- Changing any of the amount on this page will increase the total cost
+- Changing any of the amounts on this page will increase the total cost
 <img src="static/Readme/Quotebuildandbyesubpricecalculator.PNG" alt="Image showing the price calculator page" width="100%">
 
 ## Story 6 <a name="story_6_testing"></a>
 A user should be able to use many of the features that will be available in the designer as smart features. Things like journeys, animations, selection forms, selection information pages, and many more. 
 
-Journeys is testable by accessing the get a quote section of the website. This is a javascript file that handles the transitions cleverly
-- From the homepage go to the contact us tab
-- Then choose the get a quote link
+Journeys are testable by accessing the get a quote section of the website. This is a javascript file that handles the transitions cleverly
+- From the homepage go to the Contact Us tab
+- Then choose the Get a Quote link
 <img src="static/Readme/Quotelink.PNG" alt="Image showing the get a quote link" width="100%">
 - Clicking the various options is how you identify if the system is working it should either animate left or right depending on the direction of travel.
 <img src="static/Readme/Quoteoptions.PNG" alt="Image showing the build and bye link" width="100%">
 
-Selection forms is testable by accessing the personalised information section of the website its a javascript file that handles the size of the selection and displaying the relevant information
-- From the homepage go to the contact us tab
-- Then choose the personalised information link
+Selection forms are testable by accessing the personalized information section of the website is a javascript file that handles the size of the selection and displays the relevant information
+- From the homepage go to the Contact Us tab
+- Then choose the personalized information link
 - Clicking the various options and then submitting will display more detailed info about the various options and if relevant for example price will display a get a quote link
 <img src="static/Readme/Selection.PNG" alt="Image showing the selection.js file in action on a webpage" width="100%">
 
- Animations is testable by scrolling on any of the main homepages. The easiest one to identify is the homepage.
+ Animations are testable by scrolling on any of the main home pages. The easiest one to identify is the homepage.
  - Navigate to the homepage and scroll down
  - If the circles move onto the screen then the animation javacript file is working correctly.
 
- Selection forms is another smart feature accessible via the Contact Us page 
+ Selection forms are another smart feature accessible via the Contact Us page 
  - From the homepage select the Contact Us tab
  - Click on relevant options press submit and you will be presented with relevant questions based on your selection.
  <img src="static/Readme/Contactus.PNG" alt="Image showing the contact us options" width="100%">
@@ -361,14 +361,26 @@ Selection forms is testable by accessing the personalised information section of
 ## Story 7 <a name="story_7_testing"></a>
 A user should be able to gather information about the abilities available on the future website. 
 
-- This information is available on the homepage, design, data, and development tabs you can also get more info on the personalized info link on the contact us page.
+- This information is available on the homepage, design, data, and development tabs you can also get more info on the personalized info link on the Contact Us page.
 - If there is useful information on these pages then the test is a pass
 
 ## Story 8 <a name="story_8_testing"></a>
-A user should be able to make a purchase on the website
+A user should be able to purchase on the website
 
-
-
+- There is only one journey route that accepts payment this is on purpose.
+- There are many links to the calculator page you can either go to the Contact Us section or at the bottom of the homepage, design, data, or development pages
+ <img src="static/Readme/Getaquotelink.PNG" alt="Image showing the get a quote link" width="100%">
+- Next, choose the build and bye link
+ <img src="static/Readme/Getaquotebuildandbuylink.PNG" alt="Image showing the build and bye link" width="100%">
+- Next, choose subscription based
+  <img src="static/Readme/Getaquotesubscriptionbasedlink.PNG" alt="Image showing the subscription-based link" width="100%">
+- Next, choose the Buy Now link
+ <img src="static/Readme/Getaquotebuynowlink.PNG" alt="Image showing the buy now link" width="100%">
+ - On this screen, there are multiple options for inputting card details. Here are a few examples 4242 4242 4242 4242 normal payment 4000000000000002 general decline 4000000000009995 insufficient funds decline, all will function with no issues. a more extensive list can be found at https://stripe.com/docs/testing?locale=en-GB
+- After choosing a test case above click pay now
+ <img src="static/Readme/Getaquotepaynowlink.PNG" alt="Image showing the pay now link" width="100%">
+- Depending on the card number you have entered you will be either redirected to the confirmation page or an error message will appear on the payment screen. The example below is a successful payment
+<img src="static/Readme/Getaquotepaymentcompletepage.PNG" alt="Image showing the payment complete page" width="100%">
 
 
 # Automatic testing <a name="I-despise-jsdom"></a>
@@ -448,19 +460,19 @@ I was using GitHub as the repository for the whole project so when I wanted to c
 
 - I used Gitpod to develop this application so instructions are easier to follow using that
 
-- The arm template is found on this repo its in the file called armtemplate.json
+- The arm template is found on this repo it's in the file called armtemplate.json
 
 - Create an Azure account I recommend using GitHub to sign up 
 
-- Log out of Azure wait 15 minutes then log back in or you'll get an annoying error later on saying it can't set up CI because it can't find your account. no guarantee it won't happen anyways if it does delete the resource group and start again from here.
+- Log out of Azure wait 15 minutes then log back in or you'll get an annoying error later on saying it can't set up CI because it can't find your account. no guarantee it won't happen anyway if it does delete the resource group and start again from here.
 
-- Go to create a resource near the top of homepage
+- Go to create a resource near the top of the homepage
 
 - Type this into the search bar Template deployment (deploy using custom templates)
 
 - Choose the purple box icon
 
-- Click create
+- Click Create
 
 - Click the link: Build your own template in the editor
 
@@ -472,9 +484,9 @@ I was using GitHub as the repository for the whole project so when I wanted to c
 
 - Click review and create
 
-- Click create
+- Click Create
 
-- Takes a few mins The Makewebworkstatictest/default always fails don't know why or what it even is...
+- Takes a few minutes The Makewebworkstatictest/default always fails don't know why or what it even is...
 
 - Go to the file custom_azure.py
 
@@ -526,9 +538,9 @@ The Logo was made by me in Illustrator and Photoshop
 
 ## Content 
 
-- I used a collapsible navbar from Bootstrap the generic one. Edited it to fit my sites theme.
+- I used a collapsible navbar from Bootstrap the generic one. Edited it to fit my site theme.
 - I was concerned about performance issues as I am using the scroll event a lot on the homepage so I looked up how to throttle events
-This is where I found some code on a javascript tutorial site that did exactly what I was looking to do. I used this multiple times throughout my code.
+This is where I found some code on a JavaScript tutorial site that did exactly what I was looking to do. I used this multiple times throughout my code.
 
 # More coming soon! 
  

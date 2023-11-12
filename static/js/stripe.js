@@ -1,7 +1,7 @@
 var stripePublicKey = $('#id_stripe_public_key').text().slice(1, -1);
 var stripe = Stripe(stripePublicKey);
 // live site "https://makewebwork.azurewebsites.net/"
-var baseURL = "https://8000-thebrightsp-makewebwork-n0jobipcsa5.ws-eu105.gitpod.io/"
+var baseURL = "https://8000-thebrightsp-makewebwork-n0jobipcsa5.ws-eu106.gitpod.io//"
 // The items the customer wants to buy
 var id = document.getElementById('website').getAttribute('InvoiceID');
 const websiteitem = id;
