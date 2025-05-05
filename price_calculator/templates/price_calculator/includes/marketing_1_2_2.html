@@ -1,0 +1,101 @@
+<h2 class="grey darken-3 col-10 col-md-6 py-3 my-3 text-center">Premium: Retail</h2>
+<p class="my-3 mx-3">
+    Use this page to estimate the cost of your website there are a few tools to help you to predict the values for some
+    of the questions using these wont affect the value at the end.
+</p>
+
+<div class="push-down choice-container">
+    {% for price in prices %}
+        {% if price.name == 'Defaultwebsitecost' %}
+        <input class="hide" id="{{price.name}}pr" type="checkbox" calc="add, {int, pound}, {{price.price}}" target="upfronttotalpr">
+        {% elif price.name == 'monthlyupkeep' %}
+        <input class="hide" id="{{price.name}}pr" type="checkbox" calc="add, {int, pound}, {{price.price}}" target="monthlytotalpr">
+        {% endif %}
+    {% endfor %}
+
+    <div class="col-5 flex-container">
+        <label class="mx-1 push-down text-center" for="Pagespr">How many individual webpages do you plan on having?</label>
+        <input class="small-input mx-auto" id="Pagespr" calc="smartvaluescale, {int,pound}, {100,250}, {1000,1500}, {10000,10000}" target="pagesvaluepr" type="number" maxlength="10" pattern="[0-9]">
+    </div>
+    <div class="col-5 flex-container">
+        <p class="push-down text-center">The total cost of your webpages is:</p>
+        <p id="pagesvaluepr" target="upfronttotalpr" calc="add, {int, pound}, text" class="text-center col-3 grey darken-3 text-center my-3 py-3"></p>
+    </div>
+
+
+    <div class="col-5 flex-container">
+        <label class="mx-1 push-down text-center" for="Subscriberspr">Tool: How many subscribers do you think you will have</label>
+        <input class="small-input mx-auto" id="Subscriberspr" calc="valuescale, {int,int}, {1, 60}" target="subscribertotalpr" type="number" maxlength="10" pattern="[0-9]">
+    </div>
+    <div class="col-5 flex-container">
+        <p class="push-down text-center">This is how much traffic to expect from these subscribers alone</p>
+        <p id="subscribertotalpr" class="text-center col-3 grey darken-3 text-center my-3 py-3"></p>
+    </div>
+
+
+    <div class="col-5 flex-container">
+        <label class="mx-1 push-down text-center" for="Computepr">How much traffic do you expect in a month (average)</label>
+        <input class="small-input mx-auto" id="Computepr" calc="smartvaluescale, {int,pound}, {1,10}, {1000,30}, {10000,60}, {100000,300}, {1000000,1000}" target="computetotalpr" type="number" maxlength="10" pattern="[0-9]">
+    </div>
+    <div class="col-5 flex-container">
+        <p class="push-down text-center">We predict the compute costs to be:</p>
+        <p id="computetotalpr" target="monthlytotalpr" class="text-center col-3 grey darken-3 text-center my-3 py-3"></p>
+    </div>
+
+
+    <p class="push-down text-center">A rough idea of file sizes:</p>
+    <p class="push-down text-center">Video: 720p = 19mB/min | 1080p = 46mB/min | 4k = 173mB/min</p>
+    <p class="push-down text-center">Images: 720p = 4.15mB | 1080p = 8.29mB | 4k = 33.18mB</p>
+    <div class="col-5 flex-container">
+        <label class="mx-1 push-down text-center" for="storagepr">How much data will be stored to support your website? (GB)</label>
+        <input class="small-input mx-auto" id="storagepr" calc="smartvaluescale, {int,pound}, {1, 5}, {50, 15}, {100,20}, {10000,1000}" target="storagetotalpr" type="number" maxlength="10" pattern="[0-9]">
+    </div>
+    <div class="col-5 flex-container">
+        <p class="push-down text-center">We expect the storage costs to be:</p>
+        <p id="storagetotalpr" target="monthlytotalpr" class="text-center col-3 grey darken-3 text-center my-3 py-3"></p>
+    </div>
+
+    <div class="choice-container my-3">
+        <h2 class="push-down text-center">Modules</h2>
+        <p class="push-down mx-3">
+            This is the section where you can choose from prebuilt modules these modules will add functionality
+            to your website for example a subscription website should have the direct debit module selected to be able to take
+            recurring payments monthly.
+        </p>
+        <h3 class="text-center push-down">Select the modules you would like to add below</h3>
+        {% for module in modules %} 
+            {% if module.available %}
+            <div class="col-5 flex-container">
+                <i class="fa-solid fa-circle-info unhide" unhide="hide{{module.moduleID}}pr"></i>
+                <label class="text-center"  for="{{module.moduleID}}pr">{{module.name}}</label>
+                <p id="hide{{module.moduleID}}pr" class="black text-center hide">{{module.description}}</p>
+                <input class="flipswitch" type="checkbox" id="{{module.moduleID}}pr" target="upfronttotalpr" calc="add, {{module.cost}}">
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+<h4 class="push-down text-center">Total monthly cost of Maintenance:</h4>
+<h3 id="monthlytotalpr" target="monthlyspreadpr" calc="add, {int, pound}, text" class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
+
+<h4 class="push-down text-center">Total upfront cost of building the site:</h4>
+<h3 id="upfronttotalpr" target="remainingupfrontpr" calc="add, {int, pound}, text" class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
+
+<h4 class="push-down text-center">How much of the upfront would you like to pay as a deposit?</h4>
+<input class="small-input mx-auto" id="depositpr" calc="subtract, {int, pound} ,value" target="remainingupfrontps" type="number" maxlength="10" pattern="[0-9]">
+
+<h4 class="push-down text-center">The remaining will be spread over 2 years interest free</h4>
+<h3 id="remainingupfrontpr" target="monthlyspreadpr"  calc="divide, {int, pound}, 24" class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
+
+<h4 class="push-down text-center">This would be the total monthly cost</h4>
+<h3 id="monthlyspreadpr"  class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
+
+<div class="row choice-container JSJourneyOptions">
+    <button class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" related="Journey1-2" href="#">back</button>
+    {% if user.is_authenticated %}
+    <a class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" href="{% url 'contact' %}">Contact us</a>
+    {% else %}
+    <a class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" href="{% url 'account_login' %}">Login to contact us</a>
+    {% endif %}
+</div>

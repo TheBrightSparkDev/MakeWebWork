@@ -11,7 +11,7 @@ from django.shortcuts import render, HttpResponse
 from .models import (AdminFunctions, SecurityFunctions, ComplianceFunctions,
                      EvolvingFunctions, Socials, ImportantOptions,
                      ContactOptions, FormQuestions, Selectoptions,
-                     UserProfile, RequestTickets, QAndA, User)
+                     UserProfile, RequestTickets, QAndA, User, ImportantOptionsMarketing)
 from django.contrib.auth.decorators import login_required
 
 # for my own sanity
@@ -24,7 +24,7 @@ def home(request):
     '''
     This is the home page there are no forms on this page just
     sections that depend upon data retrieved from the database
-    '''
+    '''    
     context = {
         "CAF": AdminFunctions.objects.all(),
         "SW": SecurityFunctions.objects.all(),
@@ -32,6 +32,7 @@ def home(request):
         "EW": EvolvingFunctions.objects.all(),
         "socials": Socials.objects.all()
     }
+    
     return render(request, 'default_site/homepage.html', context)
 
 
@@ -41,8 +42,8 @@ def design(request):
     the footer depends upon data retrieved from the database
     '''
     context = {
-        "socials": Socials.objects.all()
-    }
+            "socials": Socials.objects.all()
+        }
     return render(request, 'default_site/design.html', context)
 
 
@@ -230,3 +231,13 @@ def important_to_me(request):
         "options": ImportantOptions.objects.all()
     }
     return render(request, 'default_site/important_to_me.html', context)
+
+def important_to_me_marketing(request):
+    '''
+    This is what the horizontal scroll section is populated with
+    '''
+    context = {
+        "socials": Socials.objects.all(),
+        "options": ImportantOptionsMarketing.objects.all()
+    }
+    return render(request, 'default_site/important_to_me_marketing.html', context)

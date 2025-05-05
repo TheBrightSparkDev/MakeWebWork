@@ -1,0 +1,67 @@
+<h2 class="pink darken-3 col-10 col-md-6 py-3 my-3 text-center">Service focused</h2>
+<p class="my-3 mx-3">
+    Use this page to estimate the cost of your video there are a few tools to help you to predict the values for some
+    of the questions using these wont affect the value at the end.
+</p>
+
+<div class="push-down choice-container">
+    {% for price in prices %}
+        {% if price.name == 'Defaultdronecost' %}
+        <input class="hide" id="{{price.name}}babs" type="checkbox" calc="add, {int, pound}, {{price.price}}" target="upfronttotalbabs">
+        {% endif %}
+    {% endfor %}
+
+    <div class="col-5 flex-container">
+        <label class="mx-1 push-down text-center" for="videobabs">How long would you like your video to be?(minutes)</label>
+        <input class="small-input pink darken-3 mx-auto" id="videobabs" calc="smartvaluescale, {int,int}, {1,250}, {5,1000}, {100,15000}" target="videovaluebabs" type="number" maxlength="2" pattern="[0-9]">
+    </div>
+    <div class="col-5 flex-container">
+        <p class="push-down text-center">That length of video will cost:</p>
+        <p id="videovaluebabs" target="upfronttotalbabs" calc="add, {int, pound}, text" class="text-center col-3 pink darken-3 text-center my-3 py-3"></p>
+    </div>
+
+    <div class="col-5 flex-container">
+        <label class="mx-1 push-down text-center" for="Pagesbabs">Would you like graphics to go alonside your video to post and share?</label>
+        <input class="small-input pink darken-3 mx-auto" id="Pagesbabs" calc="smartvaluescale, {int,int}, {10,100}, {20,150}, {1000,5000}" target="graphicsvaluebabs" type="number" maxlength="3" pattern="[0-9]">
+    </div>
+    <div class="col-5 flex-container">
+        <p class="push-down text-center">That length of video will cost:</p>
+        <p id="graphicsvaluebabs" target="upfronttotalbabs" calc="add, {int, pound}, text" class="text-center col-3 pink darken-3 text-center my-3 py-3"></p>
+    </div>
+
+
+    <div class="choice-container my-3">
+        <h2 class="push-down text-center">Extras</h2>
+        <p class="push-down mx-3">
+            This is the section where you can add some optional extras to compliment or
+            enhance your videos
+        </p>
+        <h3 class="text-center push-down">Select the extras you would like to add below</h3>
+        {% for module in modules %} 
+            {% if module.available %}
+            <div class="col-5 flex-container">
+                <label class="text-center unhide" unhide="hide{{module.moduleID}}babs" for="{{module.moduleID}}">{{module.name}}</label>
+                <p id="hide{{module.moduleID}}babs" class="hide">{{module.description}}</p>
+                <input class="flipswitch" type="checkbox" id="{{module.moduleID}}babs" target="upfronttotalbabs" calc="add, {int, pound}, {{module.cost}}">
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+<h4 class="push-down text-center">Total upfront cost of creating the video comes to:</h4>
+<h3 id="upfronttotalbabs" class="text-center col-3 pink darken-3 text-center my-3 py-3"></h3>
+<div class="row choice-container JSJourneyOptions">
+    <button class="text-center col-12 col-md-3 pink darken-3 text-center my-3 py-3 grey-link btn-dark" related="Journey1-1" href="#">back</button>
+    {% if user.is_authenticated %}
+    <button class="text-center col-12 col-md-3 pink darken-3 text-center my-3 py-3 grey-link btn-dark" onclick="gettotal()" >Buy Now</button>
+    {% else %}
+    <a class="text-center col-12 col-md-3 pink darken-3 text-center my-3 py-3 grey-link btn-dark" href="{% url 'account_login' %}">Login to make payment</a>
+    {% endif %}
+    {% if user.is_authenticated %}
+    <a class="text-center col-12 col-md-3 pink darken-3 text-center my-3 py-3 grey-link btn-dark" href="{% url 'contact' %}">Contact us</a>
+    {% else %}
+    <a class="text-center col-12 col-md-3 pink darken-3 text-center my-3 py-3 grey-link btn-dark" href="{% url 'account_login' %}">Login to contact us</a>
+    {% endif %}
+</div>
+

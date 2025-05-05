@@ -98,6 +98,22 @@ class ImportantOptions(models.Model):
         return self.name
 
 
+class ImportantOptionsMarketing(models.Model):
+    '''
+    This class is used to define the various options customers might deem
+    important to them allowing me to show them a personalised answer to them
+    '''
+
+    name = models.CharField(max_length=30, null=False, blank=False)
+    icon = models.CharField(max_length=100, null=False, blank=False)
+    description = models.CharField(max_length=250, null=False, blank=False)
+    longdescription = models.CharField(max_length=5000, null=False, blank=False) # noqa
+    display = models.BooleanField(null=False, blank=False, default=True)
+
+    def __str__(self):
+        return self.name
+
+
 class ContactOptions(models.Model):
     '''
     This class is used to define the various ways you can get in contact

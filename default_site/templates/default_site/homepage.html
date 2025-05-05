@@ -48,9 +48,9 @@ animationProps="100,screenHeight/2,0,-screenHeight/1.5,down">
     </div>
 </div>
 <div class="circle-overlap">
-    <div id="data" class="text-center circle green op-2 custom-scroll" 
+    <div id="data" class="text-center circle green op-3 custom-scroll" 
     animationProps="screenHeight/4,screenHeight/2,screenwidth,screenwidth/12*6,left">
-        <h3 class="green-text">We create a data model to support your site</h3>
+        <h3 class="green-text">We create the website</h3>
     </div>
 </div>
 <div class="circle-overlap mb-3">
@@ -59,7 +59,46 @@ animationProps="100,screenHeight/2,0,-screenHeight/1.5,down">
         <h3 class="cyan-text">Finally we <br>create a development plan</h3>
     </div>
 </div>
-<!-- This section are the horizontal scroll bars -->
+
+<div class="mx-3 py-3 grey darken-4 text-center">
+    <h3 class="mx-3"> But wait surely the development plan comes first? </h3>
+</div>
+<div class="bg-image">
+    <img class="behind right" src="{% static 'images/multicolor_paint_explosion.png' %}" 
+        alt="A large splash image of a muliticolor paint explosion">
+</div>
+<div class="bg-image">
+    <img class="behind left" src="{% static 'images/multicolor_paint_explosion.png' %}" 
+        alt="A large splash image of a muliticolor paint explosion">
+</div>
+<div class="row my-3">
+    <div id="fromtheCrowd" class="col-3 custom-scroll row"
+        animationProps="screenHeight/4,screenHeight/2,screenwidth,screenwidth/12*3,left">
+        <div class="col-12" >
+            <img class="img-fluid" src="{% static 'images/crowd_blue_text.png' %}" 
+            alt="A single character standing out from the crowd">
+        </div>
+    </div>
+</div>
+<div class="row mb-3">
+    <div id="furtherchanges" class="col-3 custom-scroll row"
+        animationProps="screenHeight/4,screenHeight/2,screenwidth,screenwidth/12*6,right">
+        <div class="col-12" >
+            <img class="img-fluid" src="{% static 'images/further_changes_stress_text.png' %}" 
+            alt="A single character standing out from the crowd">
+        </div>
+    </div>
+</div>
+<div class="row mb-3">
+    <div id="customersjourneys" class="col-3 custom-scroll row"
+        animationProps="screenHeight/4,screenHeight/2,screenwidth,screenwidth/12*9,left">
+        <div class="col-12" >
+            <img class="img-fluid" src="{% static 'images/making_web_work_text_pointing.png' %}" 
+            alt="A single character standing out from the crowd">
+        </div>
+    </div>
+</div>
+<!-- This section is the horizontal scroll bars -->
 <div class="mx-3 py-3 grey darken-4 text-center">
     <h3 class="mx-3"> What comes as standard? </h3>
     <p class="my-3">(This is quite the list)</p>
@@ -78,7 +117,6 @@ animationProps="100,screenHeight/2,0,-screenHeight/1.5,down">
         <p class="mx-2">
             {{Function.basic}}
         </p>
-        <!-- bootstrap collapsible component -->
         <button class="btn btn-toggle mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#{{Function.id_for_html}}" aria-expanded="false" aria-controls="{{Function.id_for_html}}">
             More
         </button>
@@ -107,7 +145,6 @@ animationProps="100,screenHeight/2,0,-screenHeight/1.5,down">
         <p class="mx-2">
             {{Function.basic}}
         </p>
-        <!-- bootstrap collapsible component -->
         <button class="btn btn-toggle mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#{{Function.id_for_html}}" aria-expanded="false" aria-controls="{{Function.id_for_html}}">
             More
         </button>
@@ -122,6 +159,7 @@ animationProps="100,screenHeight/2,0,-screenHeight/1.5,down">
     {% endif %}
     {% endfor %}
 </div>
+<!--
 <div class="my-3 col-12 offset-md-2 col-md-8 offset-lg-3 col-lg-6 py-3 grey darken-4 text-center">
     <h3>A compliant website</h3>
     <img class="col-10" src="{% static 'images/Complete_admin_functionality.PNG' %}" 
@@ -136,7 +174,6 @@ animationProps="100,screenHeight/2,0,-screenHeight/1.5,down">
         <p class="mx-2">
             {{Function.basic}}
         </p>
-        <!-- bootstrap collapsible component -->
         <button class="btn btn-toggle mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#{{Function.id_for_html}}" aria-expanded="false" aria-controls="{{Function.id_for_html}}">
             More
         </button>
@@ -151,6 +188,7 @@ animationProps="100,screenHeight/2,0,-screenHeight/1.5,down">
     {% endif %}
     {% endfor %}
 </div>
+-->
 <div class="my-3 col-12 offset-md-2 col-md-8 offset-lg-3 col-lg-6 py-3 grey darken-4 text-center">
     <h3>An evolving website</h3>
     <img class="col-10" src="{% static 'images/Complete_admin_functionality.PNG' %}" 
@@ -165,7 +203,6 @@ animationProps="100,screenHeight/2,0,-screenHeight/1.5,down">
         <p class="mx-2">
             {{Function.basic}}
         </p>
-        <!-- bootstrap collapsible component -->
         <button class="btn btn-toggle mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#{{Function.id_for_html}}" aria-expanded="false" aria-controls="{{Function.id_for_html}}">
             More
         </button>

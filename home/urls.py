@@ -18,8 +18,8 @@ from django.urls import path, include
 from django.conf import settings
 from default_site.views import (home, important_to_me, design,
                                 development, data, contact, account,
-                                edit_profile)
-from price_calculator.views import (journey)
+                                edit_profile, important_to_me_marketing)
+from price_calculator.views import (journey, journeyMarketing)
 from checkout.views import (checkout, createintent, updateInvoice,
                             checkoutSuccess)
 
@@ -32,11 +32,13 @@ urlpatterns = [
     path('development', development, name="development"),
     path('contact', contact, name="contact"),
     path('important', important_to_me, name="important"),
+    path('important_marketing', important_to_me_marketing, name="important_marketing"),
     path('accounts/', include('allauth.urls')),
     path('account', account, name="account"),
     path('editAccount', edit_profile, name="editAccount"),
     # price calculator paths
     path('price_calculator/<journey_page>', journey, name="journey"),
+    path('price_calculator_marketing/<journey_page>', journeyMarketing, name="marketing"),
     # checkout paths
     path('checkout', checkout, name="checkout"),
     path('createintent', createintent, name="createintent"),

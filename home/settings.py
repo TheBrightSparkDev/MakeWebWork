@@ -26,9 +26,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-mor2j7g3xb1m^*l0il&_=f9s2ftlxv*@b+8m%0r0x+zpkb!7i4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['8000-thebrightsp-makewebwork-n0jobipcsa5.ws-eu106.gitpod.io','makewebwork.azurewebsites.net']
+ALLOWED_HOSTS = ['8000-thebrightsp-makewebwork-s2cd4pfok8p.ws-eu118.gitpod.io','makewebwork.azurewebsites.net']
 
 
 # Application definition
@@ -70,7 +70,7 @@ ACCOUNT_FORMS = {'signup': 'default_site.forms.MyCustomSignupForm'}
 
 ROOT_URLCONF = 'home.urls'
 
-CSRF_TRUSTED_ORIGINS = ['https://8000-thebrightsp-makewebwork-n0jobipcsa5.ws-eu106.gitpod.io/*',
+CSRF_TRUSTED_ORIGINS = ['https://8000-thebrightsp-makewebwork-s2cd4pfok8p.ws-eu118.gitpod.io/*',
                         'https://makewebwork.azurewebsites.net/*']
 
 TEMPLATES = [
@@ -198,11 +198,11 @@ else:
     STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
     STRIPE_WH_SECRET = os.environ.get('STRIPE_WH_SECRET')
 # azure
-DEFAULT_FILE_STORAGE = 'custom_azure.AzureMediaStorage'
-STATICFILES_STORAGE = 'custom_azure.AzureStaticStorage'
-STATIC_LOCATION = "static"
-MEDIA_LOCATION = "media"
-AZURE_ACCOUNT_NAME = "makewebworkstatic"
-AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
-STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
-MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
+# DEFAULT_FILE_STORAGE = 'custom_azure.AzureMediaStorage'
+# STATICFILES_STORAGE = 'custom_azure.AzureStaticStorage'
+# STATIC_LOCATION = "static"
+# MEDIA_LOCATION = "media"
+# AZURE_ACCOUNT_NAME = "makewebworkstatic"
+# AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
+# STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
+# MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'

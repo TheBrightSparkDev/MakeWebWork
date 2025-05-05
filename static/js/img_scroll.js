@@ -4,10 +4,11 @@
 - you must add an id of your choosing
 - you must define the start,end,startpos,endpos,direction in an attribute named animationprops in this order
 */
-var debugimgscroll = false; // set this to false in production
+var debugimgscroll = true; // set this to false in production
 if (debugimgscroll){
     console.log("connected img scroll");
 }
+console.log("Hithere")
 var SelectionJS = false;
 /* these are predefined variables you can use when defining animation properties */
 var screenHeight = window.innerHeight;
