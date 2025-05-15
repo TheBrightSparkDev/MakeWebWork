@@ -7,11 +7,12 @@ in forms and placing orders
 '''
 from datetime import timezone, timedelta, datetime as dt
 from checkout.models import Invoice
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, get_object_or_404
 from .models import (AdminFunctions, SecurityFunctions, ComplianceFunctions,
                      EvolvingFunctions, Socials, ImportantOptions,
                      ContactOptions, FormQuestions, Selectoptions,
-                     UserProfile, RequestTickets, QAndA, User, ImportantOptionsMarketing)
+                     UserProfile, RequestTickets, QAndA, User, ImportantOptionsMarketing,
+                     ClientGalleryPage, ClientsAndGroups)
 from django.contrib.auth.decorators import login_required
 
 # for my own sanity
@@ -241,3 +242,37 @@ def important_to_me_marketing(request):
         "options": ImportantOptionsMarketing.objects.all()
     }
     return render(request, 'default_site/important_to_me_marketing.html', context)
+
+def gallerybackup(request, service):
+    '''
+    This is what the horizontal scroll section is populated with
+    '''
+    context = {
+        "socials": Socials.objects.all(),
+        "services": Socials.objects.all(),
+    }
+    return render(request, 'default_site/MarketingShowcase.html', context)
+
+def galleryPage(request, service_name):
+    # Retrieve the service based on the service_name
+    sections = ClientGalleryPage.objects.filter(clientID__clientName=service_name)
+    service = get_object_or_404(ClientsAndGroups, clientName=service_name)
+    socials = Socials.objects.all()
+    context = {
+        "socials": socials,
+        "sections": sections,
+        "service":service
+    }
+    # Render the productPage template with the service data
+    return render(request, 'default_site/galleryPage.html', context)
+
+
+def gallery(request):
+    # Render the homepage template
+    socials = Socials.objects.all()
+    services = ClientsAndGroups.objects.filter(active=True)
+    context = {
+        "socials": socials,
+        "services": services
+    }
+    return render(request, 'default_site/gallery.html', context)

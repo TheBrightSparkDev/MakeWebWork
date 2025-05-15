@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="col-12 hero-img-holder">
+    <img class="hero-img" src="{% static 'images/Pink_paint_explosion.png' %}" 
+    alt="A large splash image of a pink paint explosion">
+</div>
+<div id="hero-cover" class="custom-scroll black" 
+animationProps="100,screenHeight/2,0,-screenHeight/1.5,down">
+    <div class="mx-3 black op-8">
+        <div class="mx-3 text-center py-3 pink-text darken-4">
+            <h1>Gallery</h1>
+            <p>
+                Click the logos below to see how we supported these companies grow
+            </p>
+        </div>
+    </div>
+</div>
+<div class="my-3">
+    <div class="bg-image">
+        <img class="behind left" src="{% static 'images/Pink_paint_explosion.png' %}" 
+            alt="A large splash image of a pink paint explosion">
+    </div>
+    <div class="bg-image">
+        <img class="behind right" src="{% static 'images/Pink_paint_explosion.png' %}" 
+            alt="A large splash image of a pink paint explosion">
+    </div>
+    <div class="mt-3">
+        
+        <div id="FSDLogo" class="text-center custom-scroll circle"
+            animationProps="screenHeight/4,screenHeight/2,screenwidth,screenwidth/12*3,left"
+            style="position: relative; display: inline-block; min-height: 220px;">
+            <a>
+                <!--Background circle-->
+                <div class="pink darken-4 op-2 background-circle"></div>
+        
+                <!-- Image on top -->
+                <img class="img-fluid inside-circle-small margin-circle vw5" 
+                src="{% static 'images/marketing_gallery/FSD_unsplits.png' %}"
+                alt="A logo of our FSD client">
+
+            </a>
+        </div>
+        
+    </div>
+    <div class="mt-3">
+        <div id="DarksideLogo" class="text-center custom-scroll circle"
+            animationProps="screenHeight/4,screenHeight/2,screenwidth,screenwidth/12*6,left"
+            style="position: relative; display: inline-block; min-height: 220px;">
+            <a>
+                <!--Background circle-->
+                <div class="pink darken-4 op-2 background-circle"></div>
+        
+                <!-- Image on top -->
+                <img class="img-fluid inside-circle-small margin-circle vw5" src="{% static 'images/marketing_gallery/DarksideLogo.png' %}"
+                alt="A logo of our Darkside cafe client">
+            </a>
+        </div>
+    </div>
+    <div class="mt-3">
+        <div id="RJLogo" class="text-center custom-scroll circle"
+            animationProps="screenHeight/4,screenHeight/2,screenwidth,screenwidth/12*9,left"
+            style="position: relative; display: inline-block;">
+            <a>
+                <!--Background circle-->
+                <div class="pink darken-4 op-2 background-circle"></div>
+        
+                <!-- Image on top -->
+                <img class="img-fluid inside-circle-small margin-circle vw5" src="{% static 'images/marketing_gallery/RJ_BrickworkLogo.png' %}"
+                alt="A logo of our RJ Brickwork client">
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="my-3 pink darken-4 op-2 col-12 col-md-6 col-lg-4 offset-md-3 offset-lg-4">
+    <h3 class="mx-3 my-3 py-3 text-center">So far so good?</h3>
+</div>
+
+<a href="{% url 'important_marketing' %}">
+    <h3 class="pink darken-2 op-2 col-10 offset-1 col-xl-6 offset-xl-3 text-center py-3 grey-link">Click here to find out more!</h3>
+</a>
+
+{% if user.is_authenticated %}
+<a href="{% url 'marketing' 'home' %}">
+    <h3 class="pink darken-2 op-2 col-10 offset-1 col-xl-6 offset-xl-3 text-center py-3 grey-link">Get a quote</h3>
+</a>
+{% else %}
+<a href="{% url 'account_login' %}">
+    <h3 class="pink darken-2 op-2 col-10 offset-1 col-xl-6 offset-xl-3 text-center py-3 grey-link">Login for quotes</h3>
+</a>
+{% endif %}
+{% endblock %}

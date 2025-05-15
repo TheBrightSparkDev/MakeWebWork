@@ -1,0 +1,28 @@
+<!-- video section wrapper -->
+<div class="col-12 mt-5">
+    <div class="section-container">
+        <div class="seperator-title pink darken-4 white-text top-left">
+            <h2 class="title-text">{{ section.sectionTitle }}</h2>
+        </div>
+        <div class="section-wrapper primary-border sep-top sep-left"></div>
+        <div class="section-wrapper black-border sep-bottom sep-right"></div>
+    
+        <div class="content row py-3">
+            {% if section.videoURL|length > 1 %}
+                <div class="col-12">
+                    <div class="responsive-video-wrapper">
+                        <iframe 
+                            src="https://www.youtube.com/embed/{{ section.videoURL }}" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+            {% else %}
+                <h3>Coming Soon</h3>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<!-- video section wrapper -->

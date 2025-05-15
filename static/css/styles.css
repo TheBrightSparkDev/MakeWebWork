@@ -4,7 +4,250 @@
     font-size: 3.2vw;
     padding:0px;
 }
+/* start of clientGallery styles */
 
+.service-container {
+    width: 100%;
+    height: 60vh; /* Full screen height */
+    position: relative;
+    overflow: hidden;
+}
+
+.image-content {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.image-content img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.trapezium {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    clip-path: polygon(0% 0%, 100% 0%, 80% 100%, 0% 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    box-sizing: border-box;
+    color: #fff;
+    width: 80%; /* Adjust as needed */
+    transition: left 0.9s ease; /* Ensures smooth animation */
+}
+
+.bottom-layer {
+    left: -55%; /* Starts outside the left edge */
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.middle-layer {
+    left: -60%; /* Starts outside the left edge */
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.top-layer {
+    left: -62%; /* Starts outside the left edge */
+    background-color: rgba(0, 0, 255, 0.7);
+}
+
+.title-logo{
+    display:flex;
+    justify-content: space-around;
+    align-items: center
+}
+
+.additional-text {
+    margin-top:20px;
+    font-size: 18px;
+    border-top:5px solid rgba(0, 0, 0, 1)
+}
+
+.dissappearing-text{
+    opacity: 0;
+}
+
+.show-text .additional-text {
+    opacity: 1; /* Show text on hover */
+}
+
+.trapezium-title{
+    text-align: center;
+
+}
+
+.trapezium-text {
+    position: absolute;
+    top: 100%;
+    left: 75%;
+    transform-origin: left top; /* Rotate around the top left corner */
+    font-size: calc(10px + 1vw); /* Responsive font size */
+    white-space: nowrap; /* Prevents wrapping */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Adds '...' if text is too long */
+    color: #fff; /* Text color */
+    padding-left: 10px; /* Add some padding to the left to avoid text getting cut off */
+}
+
+.white-triangle{
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 20px solid white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-40%, -50%);
+}
+
+.logo-trapezium {
+    width: 90%; /* Scale image to fit the container's width */
+    height: 90%; /* Scale image to fit the container's height */
+    object-fit: cover; /* Cover the container while preserving aspect ratio */
+}
+
+/* end of clientGallery styles */
+/* section wrapper */
+.responsive-video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    width: 100%;
+}
+
+.responsive-video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+.section-container {
+    position: relative;
+    width: 90%;
+    max-width: 90%;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    margin-left:5%;
+    margin-right:5%;
+    display:flex;
+}
+
+.section-wrapper {
+    position: absolute;
+    height: 95%;
+    width: 95%;
+    z-index: 1; /* behind content */
+}
+
+.seperator-title{
+    position: absolute;
+    box-shadow: 3px 3px black;
+}
+
+.top-left{
+    top:0px;
+    left:0px;
+    transform: translate(-5%,-50%);
+    z-index: 3;
+}
+
+.top-right{
+    top:0px;
+    right:0px;
+    transform: translate(5%,-50%);
+    z-index: 3;
+}
+
+.title-text{
+    padding:5px 10px;
+    margin-bottom:0px;
+}
+
+.content {
+    margin: 30px 15px 15px 15px;
+    z-index: 5;
+    width: 100%;
+    box-sizing: border-box;
+    height: auto;
+}
+
+/* end of section wrapper */
+
+/* seperator styles */
+.seperator {
+    position: relative;
+    width: 90%;
+    max-width: 90%;
+    height: 60px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left:5%;
+    margin-right:5%;
+}
+
+.seporatorrectangle {
+    position: absolute;
+    width: 60%;
+    height: 75%;
+}
+
+.top-left{
+    top:0px;
+    left:0px;
+    transform: translate(-5%,-50%);
+    z-index: 3;
+}
+
+.top-right{
+    top:0px;
+    right:0px;
+    transform: translate(5%,-50%);
+    z-index: 3;
+}
+
+.primary-border{
+    border: 2.5px solid rgba(136,14,79, 1);
+}
+
+.black-border{
+    border: 2.5px solid #333;
+}
+
+.sep-top {
+    top: 0;
+}
+
+.sep-left{
+    left:0;
+}
+
+.sep-right{
+    right:0;
+}
+
+.sep-bottom{
+    bottom:0;
+}
+/* section styles */
+.title-text{
+    padding:5px 10px;
+    margin-bottom:0px;
+}
+
+.content{
+    margin-top:30px;
+    margin-left:15px;
+    margin-right: 15px;
+    margin-bottom:15px;
+    z-index:5
+}
 /* button styles */
 .btn-toggle{
     border-color:rgba(0, 188, 212, 1);
@@ -44,6 +287,47 @@
     position:relative;
 }
 /* General styles */
+/* Media Qs @  992px */
+.background-circle{
+    position: absolute; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    width: 90%; 
+    height: 90%; 
+    border-radius: 50%; 
+    z-index: 0;
+}
+/* Media Qs @  992px */
+.inside-circle{
+    height: 45vw; 
+    position: relative; 
+    z-index: 1;
+}
+/* Media Qs @  992px */
+.inside-circle-small{
+    height: 40vw; 
+    position: relative; 
+    z-index: 1;
+}
+/* Media Qs @  992px */
+.inside-circle-wide{
+    width: 35vw; 
+    position: relative; 
+    z-index: 1;
+}
+/* Media Qs @  992px */
+.margin-circle.vw5{
+    margin-top:5vw;
+}
+/* Media Qs @  992px */
+.margin-circle.vw2-5{
+    margin-top:2.5vw;
+}
+/* Media Qs @  992px */
+.margin-circle.vw12-5{
+    margin-top:12.5vw;
+}
 .unhide{
     cursor:pointer;
 }
@@ -223,6 +507,40 @@ body {
     .circle{
         height:30vw;
         width:30vw;
+    }
+    .background-circle{
+        position: absolute; 
+        top: 50%; 
+        left: 50%; 
+        transform: translate(-50%, -50%);
+        width: 90%; 
+        height: 90%; 
+        border-radius: 50%; 
+        z-index: 0;
+    }
+    .inside-circle{
+        height: 27.5vw; 
+        position: relative; 
+        z-index: 1;
+    }
+    .inside-circle-small{
+        height: 25vw; 
+        position: relative; 
+        z-index: 1;
+    }
+    .inside-circle-wide{
+        width: 25vw; 
+        position: relative; 
+        z-index: 1;
+    }
+    .margin-circle.vw5{
+        margin-top:2.5vw;
+    }
+    .margin-circle.vw2-5{
+        margin-top:1.25vw;
+    }
+    .margin-circle.vw12-5{
+        margin-top:6.75vw;
     }
     .bg-image{
         height:70vw;

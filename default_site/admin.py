@@ -2,7 +2,8 @@ from django.contrib import admin
 from .models import (AdminFunctions, SecurityFunctions, ComplianceFunctions,
                      EvolvingFunctions, Socials, ImportantOptions,
                      ContactOptions, FormQuestions, UserProfile, Selectoptions,
-                     RequestTickets, QAndA, ImportantOptionsMarketing)
+                     RequestTickets, QAndA, ImportantOptionsMarketing, ClientsAndGroups,
+                     ClientGalleryPage)
 
 # Register your models here.
 admin.site.register(AdminFunctions)
@@ -18,3 +19,5 @@ admin.site.register(Selectoptions)
 admin.site.register(RequestTickets)
 admin.site.register(QAndA)
 admin.site.register(ImportantOptionsMarketing)
+admin.site.register(ClientsAndGroups)
+admin.site.register(ClientGalleryPage)

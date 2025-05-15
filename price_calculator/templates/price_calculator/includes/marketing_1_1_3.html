@@ -1,53 +1,54 @@
-<h2 class="grey darken-3 col-10 col-md-6 py-3 my-3 text-center">Build and bye: Other</h2>
+<h2 class="pink darken-3 col-10 col-md-6 py-3 my-3 text-center">Events</h2>
 <p class="my-3 mx-3">
-    Use this page to estimate the cost of your website there are a few tools to help you to predict the values for some
+    Use this page to estimate the cost of your video there are a few tools to help you to predict the values for some
     of the questions using these wont affect the value at the end.
 </p>
 
 <div class="push-down choice-container">
     {% for price in prices %}
-        {% if price.name == 'Defaultwebsitecost' %}
+        {% if price.name == 'Defaultdroneeventcost' %}
         <input class="hide" id="{{price.name}}babo" type="checkbox" calc="add, {int, pound}, {{price.price}}" target="upfronttotalbabo">
         {% endif %}
     {% endfor %}
 
+
     <div class="col-5 flex-container">
-        <label class="mx-1 push-down text-center" for="Pagesbabo">How many individual webpages do you plan on having?</label>
-        <input class="small-input mx-auto" id="Pagesbabo" calc="smartvaluescale, {int,int}, {100,250}, {1000,1500}, {10000,10000}" target="pagesvaluebabo" type="number" maxlength="10" pattern="[0-9]">
+        <label class="mx-1 push-down text-center" for="Pagesbabo">How many days of the event do you want us to capture footage on</label>
+        <input class="small-input mx-auto pink darken-3" id="Pagesbabo" calc="smartvaluescale, {int,int}, {1,500}, {2,800}, {3,900}, {8,1600}" target="pagesvaluebabo" type="number" maxlength="10" pattern="[0-9]">
     </div>
     <div class="col-5 flex-container">
-        <p class="push-down text-center">The total cost of your webpages is:</p>
-        <p id="pagesvaluebabo" target="upfronttotalbabo" calc="add, {int, pound}, text" class="text-center col-3 grey darken-3 text-center my-3 py-3"></p>
+        <p class="push-down text-center">The total cost of filming and editing those days is:</p>
+        <p id="pagesvaluebabo" target="upfronttotalbabo" calc="add, {int, pound}, text" class="text-center col-6 col-md-3 pink darken-3 text-center my-3 py-3"></p>
     </div>
 
 
     <div class="choice-container my-3">
-        <h2 class="push-down text-center">Modules</h2>
+        <h2 class="push-down text-center">Extras</h2>
         <p class="push-down mx-3">
-            This is the section where you can choose from prebuilt modules these modules will add functionality
-            to your website for example a subscription website should have the direct debit module selected to be able to take
-            recurring payments monthly.
+            This is the section where you can add some optional extras to compliment or
+            enhance your videos
         </p>
-        <h3 class="text-center push-down">Select the modules you would like to add below</h3>
+        <h3 class="text-center push-down">Select the extras you would like to add below</h3>
         {% for module in modules %} 
             {% if module.available %}
             <div class="col-5 flex-container">
                 <label class="text-center unhide" unhide="hide{{module.moduleID}}babo" for="{{module.moduleID}}">{{module.name}}</label>
                 <p id="hide{{module.moduleID}}babo" class="hide">{{module.description}}</p>
-                <input class="flipswitch" type="checkbox" id="{{module.moduleID}}babo" target="upfronttotalbabo" calc="add, {int, pound}, {{module.cost}}">
+                <input class="flipswitch pink darken-3" type="checkbox" id="{{module.moduleID}}babo" target="upfronttotalbabo" calc="add, {int, pound}, {{module.cost}}">
             </div>
             {% endif %}
         {% endfor %}
     </div>
 </div>
 
-<h4 class="push-down text-center">Total upfront cost of building the site:</h4>
-<h3 id="upfronttotalbabo"  class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
+<h4 class="push-down text-center">Total upfront cost of creating the video comes to:</h4>
+<h3 id="upfronttotalbabo"  class="text-center col-3 pink darken-3 text-center my-3 py-3"></h3>
+
 <div class="row choice-container JSJourneyOptions">
-    <button class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" related="Journey1-1" href="#">back</button>
+    <button class="text-center col-12 col-md-3 pink darken-3 text-center my-3 py-3 grey-link btn-dark" related="Journey1-1" href="#">back</button>
     {% if user.is_authenticated %}
-    <a class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" href="{% url 'contact' %}">Contact us</a>
+    <a class="text-center col-12 col-md-3 pink darken-3 text-center my-3 py-3 grey-link btn-dark" href="{% url 'contact' %}">Contact us</a>
     {% else %}
-    <a class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" href="{% url 'account_login' %}">Login to contact us</a>
+    <a class="text-center col-12 col-md-3 pink darken-3 text-center my-3 py-3 grey-link btn-dark" href="{% url 'account_login' %}">Login to contact us</a>
     {% endif %}
 </div>

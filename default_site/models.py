@@ -11,6 +11,7 @@ the table once and having it replicated throughout the site.
 
 from django.db import models
 from django.contrib.auth.models import User
+import os
 
 # Create your models here.
 # following classes are exclusive to this website
@@ -257,3 +258,71 @@ class QAndA(models.Model):
                                              on_delete=models.CASCADE)
     date_created = models.DateTimeField(blank=False, null=False)
     order = models.IntegerField(null=False, blank=False)
+
+
+def get_upload_path(instance, filename, field_name):
+    """
+    Generates the upload path for different media types based on the client name.
+    """
+    # Sanitize the client name for use in file paths
+    service_name = instance.clientName.replace(" ", "_").lower() if instance.clientName else instance.clientID.clientName
+    service_name = service_name.replace("info", "")
+    service_name = service_name[:40]
+
+    # Sanitize the filename
+    filename = filename.replace(" ", "_").lower()
+    filename = filename[:40]
+
+    # Return the path
+    return os.path.join(f'static/uploadedmedia/services/{service_name}/{field_name}', filename)
+
+def upload_to_image_link_logo(self, filename):
+    return get_upload_path(self, filename, 'Logo')
+
+def upload_to_image_link_graphic(self, filename):
+    return get_upload_path(self, filename, 'Graphic')
+
+def upload_to_image_link_Other(self, filename):
+    return get_upload_path(self, filename, 'Other')
+
+def upload_to_video_link(self, filename):
+    return get_upload_path(self, filename, 'video') 
+
+
+class ClientsAndGroups(models.Model):
+    '''
+    a table that contains the data for each of the clients we have worked
+    with this is purely for advertising our service we provide to acquire 
+    more customers and contains zero personal information or cost details
+    '''
+
+    clientName = models.CharField(max_length=300, null=True, blank=True)
+    clientLogoURL = models.ImageField(upload_to=upload_to_image_link_logo, height_field=None, 
+                                        width_field=None, max_length=150, blank=True)
+    clientHeroURL = models.ImageField(upload_to=upload_to_image_link_logo, height_field=None, 
+                                        width_field=None, max_length=150, blank=True)
+    clientLongDescription = models.CharField(max_length=3000, null=True, blank=True)
+    clientShortDescription = models.CharField(max_length=500, null=True, blank=True)
+    group= models.BooleanField(default=False)
+    active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.clientName
+    
+
+class ClientGalleryPage(models.Model):
+    '''
+    A table that contains data for the clients gallery page.
+    '''
+    clientID = models.ForeignKey(ClientsAndGroups, on_delete=models.CASCADE)
+    imageURL = models.ImageField(upload_to=upload_to_image_link_graphic, height_field=None, 
+                                        width_field=None, max_length=150, blank=True)
+    videoURL = models.CharField(max_length=300, null=True, blank=True)
+    sectionTitle = models.CharField(max_length=300, null=True, blank=True)
+    sectionType = models.CharField(max_length=300, null=True, blank=True)
+    shortDescription = models.CharField(max_length=500, null=True, blank=True)
+    longDescription = models.CharField(max_length=3000, null=True, blank=True)
+    order = models.IntegerField(null=False, blank=False)
+    display = models.BooleanField(default=True)
+    def __str__(self):
+        return self.clientID.clientName + " " + self.sectionTitle

@@ -18,7 +18,8 @@ from django.urls import path, include
 from django.conf import settings
 from default_site.views import (home, important_to_me, design,
                                 development, data, contact, account,
-                                edit_profile, important_to_me_marketing)
+                                edit_profile, important_to_me_marketing,
+                                galleryPage, gallery)
 from price_calculator.views import (journey, journeyMarketing)
 from checkout.views import (checkout, createintent, updateInvoice,
                             checkoutSuccess)
@@ -28,6 +29,8 @@ urlpatterns = [
     # default site paths
     path('', home, name="home"),
     path('design', design, name="design"),
+    path('gallery', gallery, name="gallery"),
+    path('galleryPage/<slug:service_name>/', galleryPage, name='galleryPage'),
     path('data', data, name="data"),
     path('development', development, name="development"),
     path('contact', contact, name="contact"),

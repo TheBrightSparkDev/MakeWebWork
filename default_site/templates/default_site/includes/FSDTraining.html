@@ -1,0 +1,25 @@
+{% for section in sections %}
+
+    {% include 'includes/seperator.html' %}
+
+    {% if section.sectionType == "video" %}
+
+        {% include 'includes/productPageIncludes/videoSection.html' %}
+
+    {% elif section.sectionType == "text" %}
+
+
+
+    {% elif section.sectionType == "image" %}
+
+
+
+    {% elif section.sectionType == "other" %}
+
+    
+
+    {% endif %}
+
+    {% include 'includes/seperatorReversed.html' %}
+
+{% endfor %}

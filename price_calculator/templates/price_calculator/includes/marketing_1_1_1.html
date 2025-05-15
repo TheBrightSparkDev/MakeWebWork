@@ -17,7 +17,7 @@
     </div>
     <div class="col-5 flex-container">
         <p class="push-down text-center">That length of video will cost:</p>
-        <p id="videovaluebabs" target="upfronttotalbabs" calc="add, {int, pound}, text" class="text-center col-3 pink darken-3 text-center my-3 py-3"></p>
+        <p id="videovaluebabs" target="upfronttotalbabs" calc="add, {int, pound}, text" class="text-center col-6 col-md-3 pink darken-3 text-center my-3 py-3"></p>
     </div>
 
     <div class="col-5 flex-container">
@@ -26,7 +26,7 @@
     </div>
     <div class="col-5 flex-container">
         <p class="push-down text-center">That length of video will cost:</p>
-        <p id="graphicsvaluebabs" target="upfronttotalbabs" calc="add, {int, pound}, text" class="text-center col-3 pink darken-3 text-center my-3 py-3"></p>
+        <p id="graphicsvaluebabs" target="upfronttotalbabs" calc="add, {int, pound}, text" class="text-center col-6 col-md-3 pink darken-3 text-center my-3 py-3"></p>
     </div>
 
 
@@ -42,7 +42,7 @@
             <div class="col-5 flex-container">
                 <label class="text-center unhide" unhide="hide{{module.moduleID}}babs" for="{{module.moduleID}}">{{module.name}}</label>
                 <p id="hide{{module.moduleID}}babs" class="hide">{{module.description}}</p>
-                <input class="flipswitch" type="checkbox" id="{{module.moduleID}}babs" target="upfronttotalbabs" calc="add, {int, pound}, {{module.cost}}">
+                <input class="flipswitch pink darken-3" type="checkbox" id="{{module.moduleID}}babs" target="upfronttotalbabs" calc="add, {int, pound}, {{module.cost}}">
             </div>
             {% endif %}
         {% endfor %}
@@ -50,7 +50,7 @@
 </div>
 
 <h4 class="push-down text-center">Total upfront cost of creating the video comes to:</h4>
-<h3 id="upfronttotalbabs" class="text-center col-3 pink darken-3 text-center my-3 py-3"></h3>
+<h3 id="upfronttotalbabs" class="text-center col-6 col-md-3 pink darken-3 text-center my-3 py-3"></h3>
 <div class="row choice-container JSJourneyOptions">
     <button class="text-center col-12 col-md-3 pink darken-3 text-center my-3 py-3 grey-link btn-dark" related="Journey1-1" href="#">back</button>
     {% if user.is_authenticated %}
