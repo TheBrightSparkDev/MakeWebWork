@@ -14,7 +14,8 @@ from pathlib import Path
 import os
 from django.core.mail import send_mail
 
-
+if os.path.exists("env.py"):
+    import env
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -28,7 +29,7 @@ SECRET_KEY = 'django-insecure-mor2j7g3xb1m^*l0il&_=f9s2ftlxv*@b+8m%0r0x+zpkb!7i4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['8000-thebrightsp-makewebwork-s2cd4pfok8p.ws-eu119.gitpod.io','makewebwork.azurewebsites.net']
+ALLOWED_HOSTS = ['8000-thebrightsp-makewebwork-s2cd4pfok8p.ws-eu120.gitpod.io','makewebwork.azurewebsites.net']
 
 
 # Application definition
@@ -70,7 +71,7 @@ ACCOUNT_FORMS = {'signup': 'default_site.forms.MyCustomSignupForm'}
 
 ROOT_URLCONF = 'home.urls'
 
-CSRF_TRUSTED_ORIGINS = ['https://8000-thebrightsp-makewebwork-s2cd4pfok8p.ws-eu119.gitpod.io/*',
+CSRF_TRUSTED_ORIGINS = ['https://8000-thebrightsp-makewebwork-s2cd4pfok8p.ws-eu120.gitpod.io/*',
                         'https://makewebwork.azurewebsites.net/*']
 
 TEMPLATES = [
@@ -110,15 +111,18 @@ SITE_ID = 1
 WSGI_APPLICATION = 'home.wsgi.application'
 
 # copy and pasted from boutique ado tutorial
-
+DEFAULT_FROM_EMAIL = "no-reply@makewebwork.co.uk"
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_PORT = 2525
 EMAIL_HOST = 'smtp-relay.brevo.com'
-EMAIL_HOST_USER = "makewebwork@outlook.com"
+EMAIL_HOST_USER = "8e378d001@smtp-brevo.com"
 # This isn't actually the main password. This password only works
 # via this paritcular smtp service therefore this is technically safe
 # to have in my code hardcoded. 
-EMAIL_HOST_PASSWORD = "a64KqBXW19AwcYjM"
+EMAIL_HOST_PASSWORD = "7RwLd9aGsSfT1g8D"
+
+BREVO_API_KEY = os.getenv("BREVO_API_KEY")
+BREVO_WELCOME_TEMPLATE_ID = 1
 
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_REQUIRED = True
