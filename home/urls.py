@@ -23,6 +23,7 @@ from default_site.views import (home, important_to_me, design,
 from price_calculator.views import (journey, journeyMarketing)
 from checkout.views import (checkout, createintent, updateInvoice,
                             checkoutSuccess)
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -49,4 +50,4 @@ urlpatterns = [
     path('checkout_success', checkoutSuccess, name="checkout_success"),
     # admin paths
     path('admin_dashboard/', include('customadmin.urls'))
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

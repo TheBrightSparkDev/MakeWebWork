@@ -7,21 +7,21 @@
 <!-- This is what displays before the submit button-->
 <div id="initial" class="col-12">
     <div class="row choice-container">
-        <a class="text-center col-12 col-md-3 grey darken-4 text-center my-3 py-3 grey-link" href="{% url 'home' %}">Discover more</a>
+        <a class="text-center col-12 col-md-3 rainbow-element text-center my-3 py-3 " href="{% url 'home' %}">Discover more</a>
         {% if user.is_authenticated %}
-        <a class="text-center col-12 col-md-3 grey darken-4 text-center my-3 py-3 grey-link" href="{% url 'journey' 'home' %}">Get a quote</a>
+        <a class="text-center col-12 col-md-3 rainbow-element text-center my-3 py-3 " href="{% url 'journey' 'home' %}">Get a quote</a>
         {% else %}
-        <a class="text-center col-12 col-md-3 grey darken-4 text-center my-3 py-3 grey-link" href="{% url 'account_login' %}">Login for quotes</a>
+        <a class="text-center col-12 col-md-3 rainbow-element text-center my-3 py-3 " href="{% url 'account_login' %}">Login for quotes</a>
         {% endif %}
-        <a class="text-center col-12 col-md-3 grey darken-4 text-center my-3 py-3 grey-link" href="{% url 'important' %}">Personalised Information</a>
+        <a class="text-center col-12 col-md-3 rainbow-element text-center my-3 py-3 " href="{% url 'important' %}">Personalised Information</a>
     </div>
-    <h2 class="grey darken-4 mx-3 my-3 text-center py-3">Select the options that apply to you</h2>
+    <h2 class="rainbow-element mx-3 my-3 text-center py-3">Select the options that apply to you</h2>
     <div class="selection-container">
     {% for option in options %}
 
     {% if option.display %}
 
-        <div id="{{option.id}}" class="col-12 col-lg-6 col-xl-4 col-xxl-2 grey darken-4 text-center my-2 selectable" tabIndex = '0'>
+        <div id="{{option.id}}" class="col-12 col-lg-6 col-xl-4 col-xxl-2 rainbow-element-vert text-center my-2 selectable" tabIndex = '0'>
             <h3 class="pt-3">{{option.name}}</h3>
             <p class="mx-2 py-3">
                 {{option.description}}
@@ -33,13 +33,13 @@
     {% endfor %}
 
     </div>
-    <div id="form" class="grey darken-4 my-3 text-center py-3 col-md-2 offset-md-5 col-8 offset-2" tabIndex = '0'>
+    <div id="form" class="rainbow-element my-3 text-center py-3 col-md-2 offset-md-5 col-8 offset-2" tabIndex = '0'>
         <h2>Submit</h2>
     </div>
 </div>
 <!-- This is what displays after the submit button -->
 <div id="afterSubmit">
-    <div id="back" class="grey darken-4 my-3 text-center py-3 col-4 col-md-2" tabIndex = '0'>
+    <div id="back" class="rainbow-element my-3 text-center py-3 col-4 col-md-2" tabIndex = '0'>
         <h2>Back</h2>
     </div>
     <div class="selection-container">
@@ -47,7 +47,7 @@
 
     {% if option.display %}
 
-        <div id="{{option.id}}hide" class="form-area grey darken-4 text-center my-2 hide">
+        <div id="{{option.id}}hide" class="form-area rainbow-element text-center my-2 hide">
             <div class="col-4 col-md-2">
                 <h3 class="pt-3">{{option.name}}</h3>
             </div>
@@ -66,7 +66,7 @@
                         <!-- end of hidden inputs -->
                         {% if q.type == "select" %}
 
-                        <select name="answer" id="{{q.ID}}{{q.question|cut:' '}}">
+                        <select class="{{q.inputclass}} black"name="answer" id="{{q.ID}}{{q.question|cut:' '}}">
                         {% for op in selectoptions %}
 
                             {% if op.formquestion.ID == q.ID %}
@@ -79,11 +79,11 @@
                         </select>
                         {% elif q.type == "textarea" %}
 
-                        <textarea class="{{q.inputclass}}" id="{{q.ID}}{{q.question|cut:' '}}" name="answer" placeholder="{% if q.placeholdertext != None %}{{q.placeholdertext}}{% endif %}"
+                        <textarea class="{{q.inputclass}} black" id="{{q.ID}}{{q.question|cut:' '}}" name="answer" placeholder="{% if q.placeholdertext != None %}{{q.placeholdertext}}{% endif %}"
                         rows="{% if q.charlimit >= 1000 %}10{% else %}{% widthratio q.charlimit 100 1 %}{% endif %}" maxlength="{{q.charlimit}}"></textarea>
                         {% else %}
 
-                        <input class="{{q.inputclass}}" type="{{q.type}}" name="answer" id="{{q.ID}}{{q.question|cut:' '}}"
+                        <input class="{{q.inputclass}} black" type="{{q.type}}" name="answer" id="{{q.ID}}{{q.question|cut:' '}}"
                         placeholder='{% if q.placeholdertext != None %}{{q.placeholdertext}}{% endif %}' maxlength="{{q.charlimit}}" {% if q.required %} required {% endif %}>
                         {% endif %}
                         <button type="submit" disabled style="display: none" aria-hidden="true"></button>
@@ -94,7 +94,7 @@
 
             </div>
             <div class="col-12">
-                <button class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" contactoption="{{option.id}}" optionname="{{option.name|cut:' '}}{{option.id}}" onclick="oneclickmanysubmits(this)">Submit</button>
+                <button class="text-center col-12 col-md-3 black text-center my-3 py-3 grey-link btn-dark" contactoption="{{option.id}}" optionname="{{option.name|cut:' '}}{{option.id}}" onclick="oneclickmanysubmits(this)">Submit</button>
             </div>
         </div>
     {% endif %}

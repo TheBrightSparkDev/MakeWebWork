@@ -1,0 +1,28 @@
+<!-- rebrand section wrapper -->
+<div class="col-12 mt-5">
+    <div class="section-container">
+        <div class="seperator-title {{ service.color }} {{ service.colorModifier }}  white-text top-left">
+            <h2 class="title-text">{{ section.sectionTitle }}</h2>
+        </div>
+        <div class="section-wrapper primary-border match-border sep-top sep-left"></div>
+        <div class="section-wrapper black-border sep-bottom sep-right"></div>
+    
+        <div class="content row py-3 px-3">
+            <div class="col-12 mx-auto {{ service.color }}-text {{ service.colorModifier }}" >
+                <img class="img-fluid col-12 my-2 match-border" src="{{ section.imageURL.url }}">
+            </div>
+            <div class="col-12 ms-auto my-auto">
+                <div class="section-container">
+                    <div class="section-wrapper sep-top sep-left {{ service.color }} {{ service.colorModifier }} op-3"></div>
+                    <div class="section-wrapper sep-bottom sep-right grey darken-4 op-3"></div>
+                    <div class="content">
+                        <h3>Purpose?</h3>
+                        <p>{{section.shortDescription}}</p>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<!-- rebrand section wrapper -->

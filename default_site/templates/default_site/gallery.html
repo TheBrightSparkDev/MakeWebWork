@@ -10,9 +10,11 @@
 animationProps="100,screenHeight/2,0,-screenHeight/1.5,down">
     <div class="mx-3 black op-8">
         <div class="mx-3 text-center py-3 pink-text darken-4">
-            <h1>Company Name</h1>
+            <h1>Companies We Have worked with!</h1>
             <p>
-                Short Description
+                We pride ourselves on showcasing all the work we do for our clients, 
+                big and small so please feel free to take a look at the various companies 
+                we have worked with over the years
             </p>
         </div>
     </div>
@@ -22,68 +24,67 @@ animationProps="100,screenHeight/2,0,-screenHeight/1.5,down">
  
 {% for service in services %}
     {% if service.active %}
+        {% if service.group == False %}
 
-    <div class="d-block d-md-none product-container">
-        <div class="product-link-container-large">
-            <div class="revealed-section primary darken-2 black-border">
-                <img class="img-fluid" src="{{service.imageLinkMini}}" alt="M and J Air Support hero image">
-                <div class="animated-overlay primary black-border white-text">
-                    <img class="img-fluid" src="{{service.imageLinkMini}}" alt="M and J Air Support hero image">
-                    <p class="animated-overlay-title">{{service.name}}</p>
-                </div>
-                <div class="animated-overlay-background black">
-                </div>
-                <a href="{% url 'galleryPage' service_name=service.clientName %}">
-                    <span class="triangle-link"></span> 
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="service-container d-none d-md-block">
-        <div class="image-content">
-            <img src="{{service.clientHeroURL}}" alt="M and J Air Support hero image">
-            <div class="trapezium bottom-layer black">
-                <div class="trapezium-text">{{service.clientName}}</div>
-            </div>
-            <div class="trapezium middle-layer white"></div>
-            <div class="trapezium top-layer orange darken-4">
-                <div class="row col-12 title-logo mt-3">
-                    <div class="col-11 title-logo px-5">
-                        <div class="col-10 col-xl-11 white-text title-logo">
-                            <h2 class="">{{service.clientName}}</h2>
-                        </div>
-                        <div class="col-2 col-xl-1">
-                            <img class="logo-trapezium" src="{{service.clientLogoURL}}"
-                                alt="M and J Air Support logo">
-                        </div>
+        <div class="d-block d-md-none product-container">
+            <div class="product-link-container-large">
+                <div class="revealed-section primary darken-2 black-border">
+                    <img class="img-fluid" src="{{service.imageLinkMini}}" alt="This is a logo for {{service.name}}">
+                    <div class="animated-overlay primary black-border white-text">
+                        <img class="img-fluid" src="{{service.imageLinkMini}}" alt="This is a large hero image for {{service.name}}">
+                        <p class="animated-overlay-title">{{service.name}}</p>
                     </div>
-                </div>
-                <div class="additional-text col-12 ">
-                    <div class="col-11">
-                        <p class="ps-3 mt-4 pe-5 me-5 white-text dissappearing-text">
-                        {{service.clientShortDescription}}
-                        </p>                   
-                        <h2 class="ps-3 ">
-                            See More
-                            <a href="{% url 'galleryPage' service_name=service.clientName %}">  
-                            <span class="shapes-wrapper">
-                                <span class="circle"></span>
-                                <span class="white-triangle"></span>
-                            </span>
-                            </a>
-                        </h2>
-
+                    <div class="animated-overlay-background black">
                     </div>
+                    <a href="{% url 'galleryPage' service_name=service.clientName %}">
+                        <span class="triangle-link"></span> 
+                    </a>
                 </div>
             </div>
         </div>
-    </div>
+
+        <div class="service-container d-none d-md-block">
+            <div class="image-content">
+                <img src="{{service.clientHeroURL}}" alt="M and J Air Support hero image">
+                <div class="trapezium bottom-layer {% if service.color == 'white' %} white {% else %} black {% endif %}">
+                    <div class="trapezium-text {% if service.color == 'white' %} black-text {% else %} white-text {% endif %}">{{service.clientName}}</div>
+                </div>
+                <div class="trapezium middle-layer {% if service.color == 'white' %} black {% else %} white {% endif %}"></div>
+                <div class="trapezium top-layer {{service.color}} {{service.colorModifier}}">
+                    <div class="row col-12 title-logo mt-3">
+                        <div class="col-11 title-logo px-5">
+                            <div class="col-10 col-xl-11 {% if service.color == 'white' %} black-text {% else %}white-text {% endif %} title-logo">
+                                <h2 class="">{{service.clientName}}</h2>
+                            </div>
+                            <div class="col-2 col-xl-1">
+                                <img class="logo-trapezium" src="{{service.clientLogoURL}}"
+                                    alt="M and J Air Support logo">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="additional-text col-12 ">
+                        <div class="col-11">
+                            <p class="ps-3 mt-4 pe-5 me-5 {% if service.color == 'white' %} black-text {% else %}white-text {% endif %} dissappearing-text">
+                            {{service.clientShortDescription}}
+                            </p>                   
+                            <h2 class="ps-3 {% if service.color == 'white' %} black-text {% else %} white-text {% endif %}">
+                                See More
+                                <a href="{% url 'galleryPage' service_name=service.clientName %}">  
+                                <span class="shapes-wrapper">
+                                    <span class="circle"></span>
+                                    <span class="{% if service.color == 'white' %} black-triangle {% else %} white-triangle {% endif %}"></span>
+                                </span>
+                                </a>
+                            </h2>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
     {% endif %}
 {% endfor %}
-
-<!-- Services -->
-
 
 <div class="my-3 pink darken-4 op-2 col-12 col-md-6 col-lg-4 offset-md-3 offset-lg-4">
     <h3 class="mx-3 my-3 py-3 text-center">So far so good?</h3>

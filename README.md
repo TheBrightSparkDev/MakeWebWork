@@ -48,6 +48,7 @@ Desktop and background credit: [pixabay](https://pixabay.com/photos/apple-comput
 9. [Deployment](#deployment)
 10. [Credits](#credits)
 11. [Notes for assessor](#notes-for-assessor)
+12. [To Do List](#to-do-list)
 
 # User stories <a name="user_stories"></a>
 
@@ -547,3 +548,27 @@ This is where I found some code on a JavaScript tutorial site that did exactly w
 ## Follow me on Git Hub to stay up to date and message me for project ideas/pitches always ready to work with someone.
 
 # Notes for assessor <a name="notes-for-assessor"></a>
+
+# To Do List <a name="to-do-list"></a>
+
+1. Create payment page (this needs to be sent via email and live so it will accept real payments)
+2. Create an email connection (this is likely done via brevo since I have experience with it)
+3. Create an few email templates
+-- welcome to MakeWebWork
+-- password reset
+-- thank you for contacting us (marketing, website)
+-- thank you for your payment 
+-- quote with payment link 
+4. Create a contact us form for marketing 
+5. Create a file drop page where me and the clients can log in and share ideas
+-- page needs to be locked to only certain users 
+-- page needs a link from profile page
+-- page needs to allow user and admin upload 
+-- page needs to display uploaded content and comments 
+6. Create a review section 
+-- user needs to be able to recieve an email asking to review 
+7. Increase social media presence 
+8. Understand from James what direction to go in for the security section of the site.
+-- What services will be offered etc. 
+9. Continue work on the calendar API 
+10. Document the API and work on the calendar creator.

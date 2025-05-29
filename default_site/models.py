@@ -265,7 +265,25 @@ def get_upload_path(instance, filename, field_name):
     Generates the upload path for different media types based on the client name.
     """
     # Sanitize the client name for use in file paths
-    service_name = instance.clientName.replace(" ", "_").lower() if instance.clientName else instance.clientID.clientName
+
+    service_name = instance.clientID.clientName.replace(" ", "_").lower() 
+    service_name = service_name.replace("info", "")
+    service_name = service_name[:40]
+
+    # Sanitize the filename
+    filename = filename.replace(" ", "_").lower()
+    filename = filename[:40]
+
+    # Return the path
+    return os.path.join(f'static/uploadedmedia/services/{service_name}/{field_name}', filename)
+
+def get_upload_path_clients_groups(instance, filename, field_name):
+    """
+    Generates the upload path for different media types based on the client name.
+    """
+    # Sanitize the client name for use in file paths
+
+    service_name = instance.clientName.replace(" ", "_").lower() 
     service_name = service_name.replace("info", "")
     service_name = service_name[:40]
 
@@ -277,7 +295,7 @@ def get_upload_path(instance, filename, field_name):
     return os.path.join(f'static/uploadedmedia/services/{service_name}/{field_name}', filename)
 
 def upload_to_image_link_logo(self, filename):
-    return get_upload_path(self, filename, 'Logo')
+    return get_upload_path_clients_groups(self, filename, 'Logo')
 
 def upload_to_image_link_graphic(self, filename):
     return get_upload_path(self, filename, 'Graphic')
@@ -305,6 +323,8 @@ class ClientsAndGroups(models.Model):
     clientShortDescription = models.CharField(max_length=500, null=True, blank=True)
     group= models.BooleanField(default=False)
     active = models.BooleanField(default=True)
+    color = models.CharField(max_length=200, null=True, blank=True)
+    colorModifier = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
         return self.clientName
@@ -317,6 +337,8 @@ class ClientGalleryPage(models.Model):
     clientID = models.ForeignKey(ClientsAndGroups, on_delete=models.CASCADE)
     imageURL = models.ImageField(upload_to=upload_to_image_link_graphic, height_field=None, 
                                         width_field=None, max_length=150, blank=True)
+    imageTwoURL = models.ImageField(upload_to=upload_to_image_link_graphic, height_field=None, 
+        width_field=None, max_length=150, blank=True)   
     videoURL = models.CharField(max_length=300, null=True, blank=True)
     sectionTitle = models.CharField(max_length=300, null=True, blank=True)
     sectionType = models.CharField(max_length=300, null=True, blank=True)
@@ -324,5 +346,6 @@ class ClientGalleryPage(models.Model):
     longDescription = models.CharField(max_length=3000, null=True, blank=True)
     order = models.IntegerField(null=False, blank=False)
     display = models.BooleanField(default=True)
+
     def __str__(self):
         return self.clientID.clientName + " " + self.sectionTitle

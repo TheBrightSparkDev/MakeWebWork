@@ -1,0 +1,28 @@
+{% for section in sections %}
+
+    {% include 'includes/seperator.html' %}
+
+    {% if section.sectionType == "video" %}
+
+        {% include 'includes/productPageIncludes/videoSection.html' %}
+
+    {% elif section.sectionType == "text" %}
+
+        {% include 'includes/productPageIncludes/textSection.html' %}
+
+    {% elif section.sectionType == "image" %}
+
+        {% include 'includes/productPageIncludes/imageSection.html' %}
+
+    {% elif section.sectionType == "rebrand" %}
+
+        {% include 'includes/productPageIncludes/rebrandSection.html' %}
+
+    {% elif section.sectionType == "businessCards" %}  
+
+        {% include 'includes/productPageIncludes/businessCardSection.html' %}
+
+    {% endif %}
+
+
+{% endfor %}

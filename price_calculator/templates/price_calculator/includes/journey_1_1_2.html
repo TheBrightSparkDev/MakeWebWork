@@ -1,4 +1,4 @@
-<h2 class="grey darken-3 col-10 col-md-6 py-3 my-3 text-center">Build and bye: Retail</h2>
+<h2 class="black col-10 col-md-6 py-3 my-3 text-center">Build and bye: Retail</h2>
 <p class="my-3 mx-3">
     Use this page to estimate the cost of your website there are a few tools to help you to predict the values for some
     of the questions using these wont affect the value at the end.
@@ -17,7 +17,7 @@
     </div>
     <div class="col-5 flex-container">
         <p class="push-down text-center">We recommend the products should have this many pages dedicated to them alone:</p>
-        <p id="productsvaluebabr" class="text-center col-3 grey darken-3 text-center my-3 py-3"></p>
+        <p id="productsvaluebabr" class="text-center col-3 black text-center my-3 py-3"></p>
     </div>
 
 
@@ -27,7 +27,7 @@
     </div>
     <div class="col-5 flex-container">
         <p class="push-down text-center">The total cost of your webpages is:</p>
-        <p id="pagesvaluebabr" target="upfronttotalbabr" calc="add, {int, pound}, text" class="text-center col-3 grey darken-3 text-center my-3 py-3"></p>
+        <p id="pagesvaluebabr" target="upfronttotalbabr" calc="add, {int, pound}, text" class="text-center col-3 black text-center my-3 py-3"></p>
     </div>
 
 
@@ -44,7 +44,7 @@
             <div class="col-5 flex-container">
                 <label class="text-center unhide" unhide="hide{{module.moduleID}}babr" for="{{module.moduleID}}">{{module.name}}</label>
                 <p id="hide{{module.moduleID}}babr" class="hide">{{module.description}}</p>
-                <input class="flipswitch" type="checkbox" id="{{module.moduleID}}babr" target="upfronttotalbabr" calc="add, {int, pound}, {{module.cost}}">
+                <input class="flipswitch black" type="checkbox" id="{{module.moduleID}}babr" target="upfronttotalbabr" calc="add, {int, pound}, {{module.cost}}">
             </div>
             {% endif %}
         {% endfor %}
@@ -52,12 +52,12 @@
 </div>
 
 <h4 class="push-down text-center">Total upfront cost of building the site:</h4>
-<h3 id="upfronttotalbabr"  class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
+<h3 id="upfronttotalbabr"  class="text-center col-3 black text-center my-3 py-3"></h3>
 <div class="row choice-container JSJourneyOptions">
-    <button class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" related="Journey1-1" href="#">back</button>
+    <button class="text-center col-12 col-md-3 black text-center my-3 py-3 grey-link btn-dark" related="Journey1-1" href="#">back</button>
     {% if user.is_authenticated %}
-    <a class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" href="{% url 'contact' %}">Contact us</a>
+    <a class="text-center col-12 col-md-3 black text-center my-3 py-3 grey-link btn-dark" href="{% url 'contact' %}">Contact us</a>
     {% else %}
-    <a class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" href="{% url 'account_login' %}">Login to contact us</a>
+    <a class="text-center col-12 col-md-3 black text-center my-3 py-3 grey-link btn-dark" href="{% url 'account_login' %}">Login to contact us</a>
     {% endif %}
 </div>

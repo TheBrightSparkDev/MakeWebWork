@@ -1,6 +1,28 @@
 /* This is a JS file with logic that is used over many files and doesnt break functionality */
 let debugutility = false
 
+console.log("Utility connected")
+
+// client colors
+function MatchBorders(color) {
+    const elements = document.querySelectorAll('.match-border');
+    elements.forEach(el => {
+      el.style.borderColor = color;
+    });
+}
+
+function clientColor(){
+    if (document.getElementById("clientColor")){
+        const color = window.getComputedStyle(document.getElementById("clientColor")).color;
+        console.log(color); // e.g., "rgb(0, 0, 0)"
+        MatchBorders(color); 
+    } else {
+        if(debugutility){
+            console.log("no client color detected")
+        }
+    }
+}
+
 for (element of $(".unhide")){
     element.addEventListener("click", (e) => showhide(e.target))
 }
@@ -24,11 +46,12 @@ function deleteempty(){
 
 window.addEventListener("load", function(event){
     if (debugutility){
-        console.log("utility.js connected")
-        let duplicates = checkforduplicateids()
-        logduplicates(duplicates)
-        deleteempty()
+        console.log("utility.js connected");
+        let duplicates = checkforduplicateids();
+        logduplicates(duplicates);
+        deleteempty();
     }
+    clientColor();
 });
 
 function checkforduplicateids(){

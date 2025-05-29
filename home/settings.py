@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-mor2j7g3xb1m^*l0il&_=f9s2ftlxv*@b+8m%0r0x+zpkb!7i4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['8000-thebrightsp-makewebwork-s2cd4pfok8p.ws-eu118.gitpod.io','makewebwork.azurewebsites.net']
+ALLOWED_HOSTS = ['8000-thebrightsp-makewebwork-s2cd4pfok8p.ws-eu119.gitpod.io','makewebwork.azurewebsites.net']
 
 
 # Application definition
@@ -70,7 +70,7 @@ ACCOUNT_FORMS = {'signup': 'default_site.forms.MyCustomSignupForm'}
 
 ROOT_URLCONF = 'home.urls'
 
-CSRF_TRUSTED_ORIGINS = ['https://8000-thebrightsp-makewebwork-s2cd4pfok8p.ws-eu118.gitpod.io/*',
+CSRF_TRUSTED_ORIGINS = ['https://8000-thebrightsp-makewebwork-s2cd4pfok8p.ws-eu119.gitpod.io/*',
                         'https://makewebwork.azurewebsites.net/*']
 
 TEMPLATES = [

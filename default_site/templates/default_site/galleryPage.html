@@ -8,27 +8,18 @@
 <div id="hero-cover" class="custom-scroll black" 
 animationProps="100,screenHeight/2,0,-screenHeight/1.5,down">
     <div class="mx-3 black op-8">
-        <div class="mx-3 text-center py-3 pink-text darken-4">
-            <h1>{{Service.clientName}}</h1>
+        <div  class="mx-3 text-center py-3  {% if service.color == 'black' %} white-text {% else %} {{ service.color }}-text {% endif %} {{ service.colorModifier }}">
+            <h1 id="clientColor">{{service.clientName}}</h1>
             <p>
-                {{Service.clientShortDescription}}
+                {{service.clientShortDescription}}
             </p>
         </div>
     </div>
 </div>
 {% if service.active %}
-    {% if service.ClientName == FSDTraining %}
-        {% include 'default_site/includes/FSDTraining.html' %}
-    {% elif service.ClientName == 2 %}
-        {% include 'default_site/includes/DarksideCafe.html' %}
-    {% elif service.ClientName == 3 %}
-        {% include 'default_site/includes/RJBrickwork.html' %}
-    {% elif service.ClientName == 4 %}
-        {% include 'default_site/includes/template4.html' %}
-    {% else %}
-        <!-- Fallback content if templateID doesn't match any cases -->
-        <p>Template not found for the given templateID.</p>
-    {% endif %}
+
+    {% include 'default_site/includes/galleryPageTemplate.html' %}
+
 {% endif %}
 
 {% include 'includes/seperator.html' %}

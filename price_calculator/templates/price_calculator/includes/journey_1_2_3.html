@@ -1,4 +1,4 @@
-<h2 class="grey darken-3 col-10 col-md-6 py-3 my-3 text-center">Premium: Other</h2>
+<h2 class="black col-10 col-md-6 py-3 my-3 text-center">Premium: Other</h2>
 <p class="my-3 mx-3">
     Use this page to estimate the cost of your website there are a few tools to help you to predict the values for some
     of the questions using these wont affect the value at the end.
@@ -19,7 +19,7 @@
     </div>
     <div class="col-5 flex-container">
         <p class="push-down text-center">The total cost of your webpages is:</p>
-        <p id="pagesvaluepo" target="upfronttotalpo" calc="add, {int, pound}, text" class="text-center col-3 grey darken-3 text-center my-3 py-3"></p>
+        <p id="pagesvaluepo" target="upfronttotalpo" calc="add, {int, pound}, text" class="text-center col-3 black text-center my-3 py-3"></p>
     </div>
 
 
@@ -29,7 +29,7 @@
     </div>
     <div class="col-5 flex-container">
         <p class="push-down text-center">This is how much traffic to expect from these subscribers alone</p>
-        <p id="subscribertotalpo" class="text-center col-3 grey darken-3 text-center my-3 py-3"></p>
+        <p id="subscribertotalpo" class="text-center col-3 black text-center my-3 py-3"></p>
     </div>
 
 
@@ -39,7 +39,7 @@
     </div>
     <div class="col-5 flex-container">
         <p class="push-down text-center">We predict the compute costs to be:</p>
-        <p id="computetotalpo" target="monthlytotalpo" class="text-center col-3 grey darken-3 text-center my-3 py-3"></p>
+        <p id="computetotalpo" target="monthlytotalpo" class="text-center col-3 black text-center my-3 py-3"></p>
     </div>
 
 
@@ -52,7 +52,7 @@
     </div>
     <div class="col-5 flex-container">
         <p class="push-down text-center">We expect the storage costs to be:</p>
-        <p id="storagetotalpo" target="monthlytotalpo" class="text-center col-3 grey darken-3 text-center my-3 py-3"></p>
+        <p id="storagetotalpo" target="monthlytotalpo" class="text-center col-3 black text-center my-3 py-3"></p>
     </div>
 
     <div class="choice-container my-3">
@@ -69,7 +69,7 @@
                 <i class="fa-solid fa-circle-info unhide" unhide="hide{{module.moduleID}}po"></i>
                 <label class="text-center"  for="{{module.moduleID}}po">{{module.name}}</label>
                 <p id="hide{{module.moduleID}}po" class="black text-center hide">{{module.description}}</p>
-                <input class="flipswitch" type="checkbox" id="{{module.moduleID}}po" target="upfronttotalpo" calc="add, {int, pound}, {{module.cost}}">
+                <input class="flipswitch black" type="checkbox" id="{{module.moduleID}}po" target="upfronttotalpo" calc="add, {int, pound}, {{module.cost}}">
             </div>
             {% endif %}
         {% endfor %}
@@ -77,25 +77,25 @@
 </div>
 
 <h4 class="push-down text-center">Total monthly cost of Maintenance:</h4>
-<h3 id="monthlytotalpo" target="monthlyspreadpo" calc="add, {int, pound}, text" class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
+<h3 id="monthlytotalpo" target="monthlyspreadpo" calc="add, {int, pound}, text" class="text-center col-3 black text-center my-3 py-3"></h3>
 
 <h4 class="push-down text-center">Total upfront cost of building the site:</h4>
-<h3 id="upfronttotalpo" target="remainingupfrontpo" calc="add, {int, pound}, text" class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
+<h3 id="upfronttotalpo" target="remainingupfrontpo" calc="add, {int, pound}, text" class="text-center col-3 black text-center my-3 py-3"></h3>
 
 <h4 class="push-down text-center">How much of the upfront would you like to pay as a deposit?</h4>
 <input class="small-input mx-auto" id="depositpo" calc="subtract, {int, pound} ,value" target="remainingupfrontps" type="number" maxlength="10" pattern="[0-9]">
 
 <h4 class="push-down text-center">The remaining will be spread over 2 years interest free</h4>
-<h3 id="remainingupfrontpo" target="monthlyspreadpo"  calc="divide, {int, pound}, 24" class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
+<h3 id="remainingupfrontpo" target="monthlyspreadpo"  calc="divide, {int, pound}, 24" class="text-center col-3 black text-center my-3 py-3"></h3>
 
 <h4 class="push-down text-center">This would be the total monthly cost</h4>
-<h3 id="monthlyspreadpo" class="text-center col-3 grey darken-3 text-center my-3 py-3"></h3>
+<h3 id="monthlyspreadpo" class="text-center col-3 black text-center my-3 py-3"></h3>
 
 <div class="row choice-container JSJourneyOptions">
-    <button class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" related="Journey1-2" href="#">back</button>
+    <button class="text-center col-12 col-md-3 black text-center my-3 py-3 grey-link btn-dark" related="Journey1-2" href="#">back</button>
     {% if user.is_authenticated %}
-    <a class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" href="{% url 'contact' %}">Contact us</a>
+    <a class="text-center col-12 col-md-3 black text-center my-3 py-3 grey-link btn-dark" href="{% url 'contact' %}">Contact us</a>
     {% else %}
-    <a class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" href="{% url 'account_login' %}">Login to contact us</a>
+    <a class="text-center col-12 col-md-3 black text-center my-3 py-3 grey-link btn-dark" href="{% url 'account_login' %}">Login to contact us</a>
     {% endif %}
 </div>
