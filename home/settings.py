@@ -119,7 +119,7 @@ EMAIL_HOST_USER = "8e378d001@smtp-brevo.com"
 # This isn't actually the main password. This password only works
 # via this paritcular smtp service therefore this is technically safe
 # to have in my code hardcoded. 
-EMAIL_HOST_PASSWORD = "7RwLd9aGsSfT1g8D"
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 
 BREVO_API_KEY = os.getenv("BREVO_API_KEY")
 BREVO_WELCOME_TEMPLATE_ID = 1
