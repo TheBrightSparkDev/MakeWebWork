@@ -26,7 +26,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Upload artifact for deployment
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@3bc41a4d2d333c7834fe53e4d6b7cb0f96cbe6c8
         with:
           name: python-app
           path: |
@@ -42,7 +42,7 @@ jobs:
 
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@fd6a2a7c198c480db3d2e232c7f765409c2e6f6d
         with:
           name: python-app
           path: .
