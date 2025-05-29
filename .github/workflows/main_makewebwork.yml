@@ -1,5 +1,5 @@
 name: Build and deploy Python app to Azure Web App - MakeWebWork
-
+# Trigger re-download of actions
 on:
   push:
     branches:
