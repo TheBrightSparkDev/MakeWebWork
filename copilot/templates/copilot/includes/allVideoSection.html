@@ -1,0 +1,47 @@
+<div class="col-12 mb-4">
+  <button class="btn {{ project.colorTwo }}-text {{ project.colorModifierTwo }} w-100 text-start"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#allVideos"
+          aria-expanded="false"
+          aria-controls="allVideos">
+    All Uploaded Videos
+  </button>
+
+  <div class="collapse mt-2" id="allVideos">
+    <div class="row g-3">
+      {% for media in project.uploadedmedia_set.all %}
+        {% if media.videoURL %}
+          <div class="col-12 col-md-6">
+            <div id="media-card-{{ media.id }}"
+                 class="card h-100 {{ media.backgroundColor }} {{ media.backgroundColorModifier }} {{ media.textColor }} {{ media.textColorModifier }}">
+              <video class="card-img-top" controls>
+                <source src="{{ media.videoURL.url }}" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+              <div class="card-body">
+                <h6 class="card-title">{{ media.fileName|default:"Unnamed Video" }}</h6>
+                <p class="card-text text-muted small">{{ media.dateUploaded }}</p>
+                <div class="d-flex gap-2 flex-wrap">
+                  <button class="btn btn-sm btn-outline-secondary cycle-background-btn"
+                          data-media-id="{{ media.id }}"
+                          data-project-id="{{ project.id }}">
+                    Change Background
+                  </button>
+                  <button class="btn btn-sm btn-outline-primary cycle-text-btn"
+                          data-media-id="{{ media.id }}"
+                          data-project-id="{{ project.id }}">
+                    Change Text
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<input type="hidden" id="csrf-token" value="{{ csrf_token }}">
+

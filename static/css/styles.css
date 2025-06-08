@@ -4,6 +4,14 @@
     font-size: 3.2vw;
     padding:0px;
 }
+/* start of copilot Styles */
+.comment-section .form-control {
+  font-size: 0.9rem;
+}
+
+.comment-section textarea {
+  resize: vertical;
+}
 /* start of clientGallery styles */
 
 .service-container {
@@ -184,6 +192,14 @@
     height: 100%;
     object-fit: cover;
     display: block;
+}
+
+/* Copilot Styles */
+.media-item.selected {
+  border: 3px solid #2196f3;
+  box-shadow: 0 0 10px rgba(33, 150, 243, 0.7);
+  transform: scale(1);
+  transition: all 0.2s ease;
 }
 
 /* Back side is rotated */
@@ -453,6 +469,9 @@ a:hover{
 }
 .pink-link:hover{
     color: rgba(244,143,177, 1) !important;
+}
+.red-link:hover{
+    color: rgb(243, 94, 94) !important;
 }
 .cyan-link:hover{
     color: rgba(128,222,234, 1) !important;

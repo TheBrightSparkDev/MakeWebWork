@@ -1,0 +1,33 @@
+{% extends 'copilot/partials/edit/editableSectionContainer.html' %}
+{% load static %}
+
+{% block section_content %}
+<div class="row col-12 py-3">
+  <!-- Defines media limits for this section -->
+  <data maxMedia="2" minMedia="2"></data>
+
+  <div class="offset-md-2 col-md-8 col-12">
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <img src="{% static 'images/Makewebwork_logo.png' %}" alt="Front" class="img-fluid">
+        </div>
+        <div class="flip-card-back">
+          <img src="{% static 'images/Makewebwork_logo.png' %}" alt="Back" class="img-fluid">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="offset-md-2 col-md-8 col-12 mt-4">
+    <div class="section-container">
+      <div class="section-wrapper sep-top sep-left {{ section.backgroundColor }} {{ section.backgroundColorModifier }} op-3"></div>
+      <div class="section-wrapper sep-bottom sep-right grey darken-4 op-3"></div>
+      <div class="content {{ section.textColor }} {{ section.textColorModifier }}">
+        <h3 class="{{ section.titleColor }} {{ section.titleTextColorModifier }}">Purpose?</h3>
+        <textarea name="shortDescription" class="form-control" rows="3" placeholder="Write a short description...">{{ section.shortDescription }}</textarea>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

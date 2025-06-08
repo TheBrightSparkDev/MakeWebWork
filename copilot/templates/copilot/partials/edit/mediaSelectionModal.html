@@ -1,0 +1,52 @@
+<div class="modal fade" id="mediaSelectorModal" tabindex="-1" aria-labelledby="mediaSelectorModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="mediaSelectorModalLabel">Select Media</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+
+        <!-- ✅ Tabs -->
+        <ul class="nav nav-tabs" id="mediaTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="images-tab" data-bs-toggle="tab" data-bs-target="#imagesTabPane" type="button" role="tab">
+              Images
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="videos-tab" data-bs-toggle="tab" data-bs-target="#videosTabPane" type="button" role="tab">
+              Videos
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="upload-tab" data-bs-toggle="tab" data-bs-target="#uploadTabPane" type="button" role="tab">
+              Upload New
+            </button>
+          </li>
+        </ul>
+        <div class="tab-content pt-3">
+          <!-- Images -->
+          <div class="tab-pane fade show active" id="imagesTabPane" role="tabpanel">
+            <div id="mediaLimitMsg" class="mb-3 small text-muted"></div>
+            <div class="row" id="mediaGrid"></div>
+          </div>
+
+          <!-- Videos -->
+          <div class="tab-pane fade" id="videosTabPane" role="tabpanel">
+            <div class="row" id="videoGrid"></div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" id="confirmMediaSelection" class="btn btn-success">Confirm Selection</button>
+      </div>
+
+    </div>
+  </div>
+</div>

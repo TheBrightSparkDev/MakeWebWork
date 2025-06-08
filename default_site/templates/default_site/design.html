@@ -193,4 +193,15 @@ animationProps="100,screenHeight/2,0,-screenHeight/1.5,down">
 <a href="{% url 'gallery' %}">
     <h3 class="pink darken-2 op-2 col-10 offset-1 col-xl-6 offset-xl-3 text-center py-3 grey-link">Gallery</h3>
 </a>
+
+{% if user.is_authenticated %}
+<a href="{% url 'contact' %}">
+    <h3 class="blue darken-2 op-2 col-12 col-md-6 col-lg-4 offset-md-3 offset-lg-4 text-center py-3 grey-link">contact us!</h3>
+</a>
+{% else %}
+<a href="{% url 'account_login' %}">
+    <h3 class="blue darken-2 op-2 col-12 col-md-6 col-lg-4 offset-md-3 offset-lg-4 text-center py-3 grey-link">Login to contact us</h3>
+</a>
+{% endif %}
+
 {% endblock %}

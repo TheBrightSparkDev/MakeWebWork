@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+  <h2 class="mt-4">Marketing Projects</h2>
+  <div class="row">
+    {% for project in marketing_projects %}
+      <div class="col-md-4 mb-3">
+        <div class="card p-3 rainbow-element">
+          <h5>{{ project.projectName }}</h5>
+          <p>{{ project.projectShortDescription }}</p>
+          <a href="{% url 'marketing-copilot' project.projectName %}" class="btn btn-sm btn-primary">View</a>
+        </div>
+      </div>
+    {% empty %}
+      <p>No marketing projects found.</p>
+    {% endfor %}
+  </div>
+
+  <h2 class="mt-5">Website Projects</h2>
+  <div class="row">
+    {% for project in website_projects %}
+      <div class="col-md-4 mb-3">
+        <div class="card p-3 rainbow-element">
+          <h5>{{ project.projectName }}</h5>
+          <p>{{ project.projectShortDescription }}</p>
+          <a href="{% url 'web-copilot' project.projectName %}" class="btn btn-sm btn-secondary">View</a>
+        </div>
+      </div>
+    {% empty %}
+      <p>No website projects found.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

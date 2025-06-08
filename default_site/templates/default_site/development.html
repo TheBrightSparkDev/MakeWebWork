@@ -36,20 +36,20 @@ animationProps="100,screenHeight/2,0,-screenHeight/1.5,down">
     <h3 class="mx-3 my-3 py-3 green-text text-center">In the meantime however please check out the rest of our website!</h3>
 </div>
 
-<div class="my-3 grey darken-4 col-12 col-md-6 col-lg-4 offset-md-3 offset-lg-4">
+<div class="my-3 rainbow-element col-12 col-md-6 col-lg-4 offset-md-3 offset-lg-4">
     <h3 class="mx-3 my-3 py-3 text-center">Website related content</h3>
 </div>
 
 <a href="{% url 'important' %}">
-    <h3 class="grey darken-4 col-10 offset-1 col-xl-6 offset-xl-3 text-center py-3 grey-link">Click here to find out more!</h3>
+    <h3 class="rainbow-element col-10 offset-1 col-xl-6 offset-xl-3 text-center py-3 grey-link">Click here to find out more!</h3>
 </a>
 {% if user.is_authenticated %}
 <a href="{% url 'journey' 'home' %}">
-    <h3 class="grey darken-4 col-10 offset-1 col-xl-6 offset-xl-3 text-center py-3 grey-link">Get a quote</h3>
+    <h3 class="rainbow-element col-10 offset-1 col-xl-6 offset-xl-3 text-center py-3 grey-link">Get a quote</h3>
 </a>
 {% else %}
 <a href="{% url 'account_login' %}">
-    <h3 class="grey darken-4 col-10 offset-1 col-xl-6 offset-xl-3 text-center py-3 grey-link">Login for quotes</h3>
+    <h3 class="rainbow-element col-10 offset-1 col-xl-6 offset-xl-3 text-center py-3 grey-link">Login for quotes</h3>
 </a>
 {% endif %}
 
@@ -73,4 +73,13 @@ animationProps="100,screenHeight/2,0,-screenHeight/1.5,down">
     <h3 class="pink darken-2 op-2 col-10 offset-1 col-xl-6 offset-xl-3 text-center py-3 grey-link">Gallery</h3>
 </a>
 
+{% if user.is_authenticated %}
+<a href="{% url 'contact' %}">
+    <h3 class="blue darken-2 op-2 col-12 col-md-6 col-lg-4 offset-md-3 offset-lg-4 text-center py-3 grey-link">contact us!</h3>
+</a>
+{% else %}
+<a href="{% url 'account_login' %}">
+    <h3 class="blue darken-2 op-2 col-12 col-md-6 col-lg-4 offset-md-3 offset-lg-4 text-center py-3 grey-link">Login to contact us</h3>
+</a>
+{% endif %}
 {% endblock %}

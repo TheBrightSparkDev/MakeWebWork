@@ -2,62 +2,123 @@
 {% load static %}
 {% block content %}
 {% if user.is_authenticated %}
-<h1>Welcome back {{profile.user}} what would you like to do today?</h1>
+<h1 class="text-center">Welcome back {{profile.user}} what would you like to do today?</h1>
 <div class="row choice-container">
-    <a class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" href="{% url 'account_logout' %}">Log out</a>
-    <a class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" href="{% url 'editAccount' %}">Edit profile</a>
-</div>
-<h2>Details</h2>
-<p>Invoices:</p>
-<div class="scroll-X">
-{% if invoices.count == 0 %}
-<p>Looks like you don't have any invoices yet!</p>
-{% else %}    
-{% for invoice in invoices %}
-    <div class="col-2 grey darken-4 my-2 py-3 mx-2 px-3">
-        <p>Invoiceid: {{invoice.id}}</p>
-        <p>Price: {{invoice.amounttopay}}</p>
-        <p>Paid: {{invoice.paid}}</p>
-        <p>Date: {{invoice.created_on}}</p>
-    </div>
-{% endfor %}
-{% endif %}
+    <a class="text-center col-12 col-md-3 rainbow-element text-center my-3 py-3 grey-link btn-dark" href="{% url 'account_logout' %}">Log out</a>
+    <a class="text-center col-12 col-md-3 rainbow-element text-center my-3 py-3 grey-link btn-dark" href="{% url 'copilot-home' %}">MakeWebWork Copilot</a>
 </div>
 
-<div class="choice-container">
-    <div class="col-12 grey darken-4 text-center my-2 py-2">
-        <h3>These are your identifiable information and cannot be changed</h3>
-        <p>userID: {{profile.user_id}}</p>
-        <p>CustomerID: {{profile.CustomerID}}</p>
-        <p>Username: {{profile.user}}</p>
+
+<div class="container">
+  <div class="d-flex flex-wrap"> <!-- Ensures horizontal layout -->
+    <!-- LEFT LANE (col-4) -->
+    <div class="col-12 col-lg-4 px-2">
+      <button class="btn btn-outline-primary rainbow-element w-100 my-3" type="button" data-bs-toggle="collapse" data-bs-target="#fullProfileSection" aria-expanded="false" aria-controls="fullProfileSection">
+        View All Profile Information
+      </button>
+
+      <div class="collapse" id="fullProfileSection">
+        <div class="choice-container">
+
+          <!-- Unique IDs -->
+          <div class="rainbow-element text-center my-2 py-2">
+            <button class="btn btn-link text-decoration-none white-text" type="button" data-bs-toggle="collapse" data-bs-target="#uniqueIDs" aria-expanded="false">
+              <span class="d-inline-flex align-items-center">
+                <h3 class="mb-0">Unique IDs</h3>
+                <span class="ms-2" id="chevronIcon">&#9660;</span>
+              </span>
+            </button>
+            <div class="collapse" id="uniqueIDs">
+              <div class="card card-body mt-2 transparent">
+                <p>userID: {{profile.user_id}}</p>
+                <p>CustomerID: {{profile.CustomerID}}</p>
+                <p>Username: {{profile.user}}</p>
+              </div>
+            </div>
+          </div>
+
+            <!-- Contact Details Section -->
+            <div class="col-12 rainbow-element text-center my-2 py-2">
+                <button class="btn btn-link text-decoration-none white-text" type="button" data-bs-toggle="collapse" data-bs-target="#contactDetails" aria-expanded="false" aria-controls="contactDetails">
+                    <span class="d-inline-flex align-items-center">
+                        <h3>Contact details and preferences</h3>
+                        <span class="ms-2" id="chevronIcon2">&#9660;</span>
+                    </span>
+                </button>
+                <div class="collapse" id="contactDetails">
+                    <div class="card card-body mt-2 transparent">                
+                        <p>Phone Number: {{profile.Phone_number}}</p>
+                        <p>Email Address: {{profile.user.email}}</p>
+                        <p>Contact via text: {{profile.Contact_via_text}}</p>
+                        <p>Contact via email: {{profile.Contact_via_email}}</p>
+                        <p>Contact via phone: {{profile.Contact_via_phone}}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Personal Info Section -->
+            <div class="col-12 rainbow-element text-center my-2 py-2">
+                <button class="btn btn-link text-decoration-none white-text" type="button" data-bs-toggle="collapse" data-bs-target="#personalInfo" aria-expanded="false" aria-controls="personalInfo">
+                    <span class="d-inline-flex align-items-center">
+                        <h3>Personal info</h3>
+                        <span class="ms-2" id="chevronIcon3">&#9660;</span>
+                    </span>
+                </button>
+                <div class="collapse" id="personalInfo">
+                    <div class="card card-body mt-2 transparent">
+                        <p>First Name: {{profile.First_name}}</p>
+                        <p>Last Name: {{profile.Last_name}}</p>
+                        <p>House number/name: {{profile.House_number_or_name}}</p>
+                        <p>Street Name 1: {{profile.Address_line_one}}</p>
+                        <p>Town: {{profile.Town}}</p>
+                        <p>County: {{profile.County}}</p>
+                        <p>Postcode: {{profile.Postcode}}</p>
+                        <p>UK Resident: {{profile.Uk_resident}}</p>
+                        <p>Date of Birth: {{profile.Birth_date}}</p>
+                    </div>
+                    <a class="text-center text-decoration-none btn btn-link col-12 black white-text blue-link" href="{% url 'editAccount' %}">
+                        Edit profile
+                    </a>
+                </div>
+            </div>
+
+        </div>
+      </div>
     </div>
-    <div class="col-12 grey darken-4 text-center my-2 py-2">
-        <h3>This is your contact details and preferances</h3>
-        <p>Phone Number: {{profile.Phone_number}}</p>
-        <p>Email Address: {{profile.user.email}}</p>
-        <p>Contact via text: {{profile.Contact_via_text}}</p>
-        <p>Contact via email: {{profile.Contact_via_email}}</p>
-        <p>Contact via phone: {{profile.Contact_via_phone}}</p>
+
+    <!-- RIGHT LANE (col-8) -->
+    <div class="col-12 col-lg-8 px-2">
+      <button class="btn btn-outline-primary rainbow-element w-100 my-3" type="button" data-bs-toggle="collapse" data-bs-target="#invoiceSection" aria-expanded="false">
+        Invoices
+      </button>
+
+      <div class="collapse" id="invoiceSection">
+        <div class="scroll-X">
+          {% if invoices.count == 0 %}
+            <p>Looks like you don't have any invoices yet!</p>
+          {% else %}
+            <div class="d-flex flex-row flex-nowrap">
+              {% for invoice in invoices %}
+                <div class="col-2 rainbow-element my-2 py-3 mx-2 px-3">
+                  <p>Invoice ID: {{invoice.id}}</p>
+                  <p>Price: {{invoice.amounttopay}}</p>
+                  <p>Paid: {{invoice.paid}}</p>
+                  <p>Date: {{invoice.created_on}}</p>
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
     </div>
-</div>
-<div class="col-12 grey darken-4 text-center my-2 py-2">
-    <h3>This is your personal info we hold you can change this at anytime by clicking edit profile</h3>
-    <p>First Name: {{profile.First_name}}</p>
-    <p>Last Name: {{profile.Last_name}}</p>
-    <p>House number/name: {{profile.House_number_or_name}}</p>
-    <p>Street Name 1: {{profile.Address_line_one}}</p>
-    <p>Town: {{profile.Town}}</p>
-    <p>County: {{profile.County}}</p>
-    <p>postcode: {{profile.Postcode}}</p>
-    <p>Uk resident: {{profile.Uk_resident}}</p>
-    <p>Date of Birth: {{profile.Birth_date}}</p>
+  </div> <!-- End of d-flex -->
 </div>
 
 
 {% else %}
 <h1>Oops! login timed out please log in again!</h1>
 <div class="row choice-container">
-    <a class="col-6 grey darken-4 selectable text-center py-3 my-1" href="{% url 'account_login' %}">Log in</a>
+    <a class="col-6 rainbow-element selectable text-center py-3 my-1" href="{% url 'account_login' %}">Log in</a>
     <a class="text-center col-12 col-md-3 grey darken-3 text-center my-3 py-3 grey-link btn-dark" href="{% url 'requests' %}">Back to safety</a>
 </div>
 {% endif %}

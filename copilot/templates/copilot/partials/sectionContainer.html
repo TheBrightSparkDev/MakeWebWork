@@ -1,0 +1,46 @@
+{% load static %}
+<div class="col-12 mt-5">
+  <div class="section-container">
+
+    <!-- Section Title -->
+    <div class="seperator-title 
+                {{ section.titleBackgroundColor|default:project.titleBackgroundColor }} 
+                {{ section.titleBackgroundColorModifier|default:project.titleBackgroundColorModifier }} 
+                {{ section.titleColor|default:project.titleColor }} 
+                {{ section.titleTextColorModifier|default:project.titleTextColorModifier }} 
+                top-left">
+      <h2 class="title-text">{{ section.sectionTitle }}</h2>
+    </div>
+
+    <!-- Border wrappers -->
+    <div class="section-wrapper 
+                primary-border 
+                match-border 
+                sep-top 
+                sep-left 
+                {{ section.backgroundColor|default:project.backgroundColor }} 
+                {{ section.backgroundColorModifier|default:project.backgroundColorModifier }}">
+    </div>
+
+    <div class="section-wrapper 
+                black-border 
+                sep-bottom 
+                sep-right 
+                {{ section.backgroundColor|default:project.backgroundColor }} 
+                {{ section.backgroundColorModifier|default:project.backgroundColorModifier }}">
+    </div>
+
+    <!-- Section-specific content -->
+    <div class="content row py-3 px-3 
+                {{ section.textColor|default:project.textColor }} 
+                {{ section.textColorModifier|default:project.textColorModifier }}">
+      {% block section_content %}
+      <!-- Default fallback content -->
+      <div class="col-12">
+        <p>No content provided for this section type.</p>
+      </div>
+      {% endblock %}
+    </div>
+
+  </div>
+</div>

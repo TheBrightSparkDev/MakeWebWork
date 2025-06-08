@@ -1,0 +1,35 @@
+{% extends 'partials/sectionContainer.html' %}
+{% load static %}
+{% block section_content %}
+{% if section.videoFile %}
+  <div class="col-5-lg col-12">
+    <div class="responsive-video-wrapper border rounded">
+      <video class="w-100" controls poster="{% static 'images/Makewebwork_logo.png' %}">
+        <source src="{{ section.videoFile.url }}" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
+{% else %}
+  <div class="col-12">
+    <h3>Coming Soon</h3>
+  </div>
+{% endif %}
+
+<div class="col-5-lg col-12 ms-auto my-auto">
+  <div class="section-container">
+    <div class="section-wrapper sep-top sep-left 
+      {{ section.backgroundColor|default:project.backgroundColor }} 
+      {{ section.backgroundColorModifier|default:project.backgroundColorModifier }} op-3"></div>
+      
+    <div class="section-wrapper sep-bottom sep-right grey darken-4 op-3"></div>
+
+    <div class="content 
+      {{ section.textColor|default:project.textColor }} 
+      {{ section.textColorModifier|default:project.textColorModifier }}">
+      <h3>Purpose?</h3>
+      <p>{{ section.shortDescription }}</p>
+    </div>
+  </div>
+</div>
+{% endblock %}

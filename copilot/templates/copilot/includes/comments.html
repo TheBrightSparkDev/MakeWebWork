@@ -1,0 +1,57 @@
+<div id="comment-wrapper-{{ section.id }}" class="card p-3 mb-4">
+  <h5 class="mb-3">Comments</h5>
+
+  <!-- Top-level comment form -->
+  <form method="post" class="comment-form" data-section-id="{{ section.id }}">
+    {% csrf_token %}
+    <input type="hidden" name="submit_type" value="comment">
+    <input type="hidden" name="section_id" value="{{ section.id }}">
+    <input type="hidden" name="parent_id" value=""> <!-- Top-level -->
+
+    <div class="mb-2">
+      <input type="text" name="username" class="form-control" placeholder="Your name" required>
+    </div>
+    <div class="mb-2">
+      <textarea name="content" class="form-control" rows="2" placeholder="Add a comment..." required></textarea>
+    </div>
+    <button type="submit" class="btn btn-sm btn-primary">Post Comment</button>
+  </form>
+
+  <hr>
+
+  <!-- Comment list -->
+  {% for comment in section.comments.all %}
+    {% if not comment.parent %}
+      <div class="mb-3">
+        <div class="d-flex">
+          <strong>{{ comment.username }}</strong>
+          <small class="text-muted ms-2">{{ comment.created_at|naturaltime }}</small>
+        </div>
+        <p class="mb-1">{{ comment.content }}</p>
+
+        <!-- Reply form -->
+        <form method="post" class="comment-form ms-3 mb-2" data-section-id="{{ section.id }}">
+          {% csrf_token %}
+          <input type="hidden" name="submit_type" value="comment">
+          <input type="hidden" name="section_id" value="{{ section.id }}">
+          <input type="hidden" name="parent_id" value="{{ comment.id }}">
+
+          <input type="text" name="username" class="form-control form-control-sm my-1" placeholder="Your name" required>
+          <textarea name="content" class="form-control form-control-sm mb-1" rows="1" placeholder="Reply..." required></textarea>
+          <button type="submit" class="btn btn-sm btn-outline-secondary">Reply</button>
+        </form>
+
+        <!-- Replies -->
+        {% for reply in comment.replies.all %}
+          <div class="ms-4 mt-2 border-start ps-3">
+            <div class="d-flex">
+              <strong>{{ reply.username }}</strong>
+              <small class="text-muted ms-2">{{ reply.created_at|naturaltime }}</small>
+            </div>
+            <p class="mb-1">{{ reply.content }}</p>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>

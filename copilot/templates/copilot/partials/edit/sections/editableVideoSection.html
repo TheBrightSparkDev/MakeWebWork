@@ -1,0 +1,40 @@
+{% extends 'copilot/partials/edit/editableSectionContainer.html' %}
+{% load static %}
+{% block section_content %}
+<div class="col-5-lg col-12">
+  <div class="responsive-video-wrapper border rounded">
+    <video class="w-100" controls poster="{% static 'images/Makewebwork_logo.png' %}">
+      <source src="{{ section.videoFile.url|default:'' }}" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+  <div class="mt-2">
+    <label class="form-label">Video File</label>
+    <select name="videoFile" class="form-select">
+      <option value="">-- Select video from media --</option>
+      {% for media in uploadedMedia %}
+        {% if media.videoURL and media.videoURL.url and media.videoURL.url|slice:"-4:" == ".mp4" %}
+          <option value="{{ media.id }}">{{ media.videoURL.name }}</option>
+        {% endif %}
+      {% endfor %}
+    </select>
+  </div>
+</div>
+
+<div class="col-5-lg col-12 ms-auto my-auto">
+  <div class="section-container">
+    <div class="section-wrapper sep-top sep-left 
+                {{ section.backgroundColor|default:project.backgroundColor }} 
+                {{ section.backgroundColorModifier|default:project.backgroundColorModifier }} op-3"></div>
+
+    <div class="section-wrapper sep-bottom sep-right grey darken-4 op-3"></div>
+
+    <div class="content 
+                {{ section.textColor|default:project.textColor }} 
+                {{ section.textColorModifier|default:project.textColorModifier }}">
+      <h3>Purpose?</h3>
+      <textarea name="shortDescription" class="form-control" rows="4" placeholder="Write the purpose here...">{{ section.shortDescription }}</textarea>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% load static %}
+<form method="POST" action="{{ formAction }}" enctype="multipart/form-data" class="col-12 mt-5 section-form">
+  {% csrf_token %}
+  <div class="section-container">
+
+    <!-- Editable Section Title -->
+    <div class="seperator-title 
+                {{ section.titleBackgroundColor|default:project.titleBackgroundColor }} 
+                {{ section.titleBackgroundColorModifier|default:project.titleBackgroundColorModifier }} 
+                {{ section.titleColor|default:project.titleColor }} 
+                {{ section.titleTextColorModifier|default:project.titleTextColorModifier }} 
+                top-left">
+      <h2 class="title-text" contenteditable="true"
+          oninput="document.getElementById('id_sectionTitle').value = this.innerText">
+        {{ section.sectionTitle|default:"New Section Title" }}
+      </h2>
+      <input type="hidden" name="sectionTitle" id="id_sectionTitle" value="{{ section.sectionTitle }}">
+      <input type="hidden" name="sectionType" id="sectionTypeInput" value="{{ section.sectionType }}">
+    </div>
+
+    <!-- Border wrappers using section or fallback project border colors -->
+    <div class="section-wrapper 
+                {{ section.backgroundColor|default:project.backgroundColor }} 
+                {{ section.backgroundColorModifier|default:project.backgroundColorModifier }} 
+                primary-border match-border sep-top sep-left">
+    </div>
+    <div class="section-wrapper 
+                {{ section.backgroundColor|default:project.backgroundColor }} 
+                {{ section.backgroundColorModifier|default:project.backgroundColorModifier }} 
+                black-border sep-bottom sep-right">
+    </div>
+
+    <!-- Section-specific editable content -->
+    <div class="content row col-12 py-3 px-3 
+                {{ section.textColor|default:project.textColor }} 
+                {{ section.textColorModifier|default:project.textColorModifier }}">
+      {% block section_content %}
+      <div class="col-12">
+        <p>No content provided for this section type.</p>
+      </div>
+      {% endblock %}
+    </div>
+  </div>
+
+  <!-- Common fields like order, media -->
+  <div class="row px-3 pb-3">
+    <div class="col-md-6 mb-3">
+      <label class="form-label">Media</label>
+      <button type="button" class="btn btn-outline-primary open-media-selector">Choose Media</button>
+      <div id="selectedMediaPreview" class="mt-2 d-flex flex-wrap gap-2"></div>
+    </div>
+
+    <div class="col-md-6 mb-3">
+      <label class="form-label">Display Order</label>
+      <input type="number" class="form-control" name="order" value="{{ section.order|default:1 }}" min="1" required>
+    </div>
+  </div>
+
+  <div class="text-end px-3 pb-3">
+    <button type="submit" class="btn btn-success">Save Section</button>
+  </div>
+</form>

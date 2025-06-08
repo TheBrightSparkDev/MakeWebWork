@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="col-12 hero-img-holder">
+    <img class="hero-img" src="{% static 'images/Pink_paint_explosion.png' %}" 
+    alt="A large splash image of a pink paint explosion">
+</div>
+<div id="hero-cover" class="custom-scroll black" 
+animationProps="100,screenHeight/2,0,-screenHeight/1.5,down">
+    <div class="mx-3 black op-8">
+        <div  class="mx-3 text-center py-3  {% if project.colorOne == 'black' %} white-text {% else %} {{ project.colorOne }}-text {% endif %} {{ project.colorOneModifier }}">
+            <h1 id="clientColor">{{project.projectName}}</h1>
+            <p>
+                {{project.projectShortDescription}}
+            </p>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="projectId" value="{{ project.id }}">
+{% if project.active %}
+
+    {% include 'copilot/includes/MarketingPageTemplate.html' %}
+
+{% endif %}
+
+{% include 'includes/seperator.html' %}
+
+{% endblock %}
+{% load static %}
+
+{% block extra_js %}
+
+<script>
+  window.urls = {
+    rename: "{% url 'renameMedia' %}",
+    delete: "{% url 'deleteMedia' %}",
+    cycle: "{% url 'cycleMedia' %}"
+  };
+</script>
+
+<script src="{% static 'js/comment.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'js/copilot.js' %}"></script>
+{% endblock %}

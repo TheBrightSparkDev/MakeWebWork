@@ -46,50 +46,62 @@ label:not(.ignore-label-styles){
 }
 input[type='number']{
     color:white !important;
+    background-color: #000 !important;
     text-align:center;
 }
 input[type='text']{
     color:white !important;
+    background-color: #000 !important;
     text-align:center;
 }
 input[type='password']{
     color:white !important;
+    background-color: #000 !important;
     text-align:center;
 }
 input[type='email']{
     color:white !important;
+    background-color: #000 !important;
     text-align:center;
 }
 input[type='tel']{
     color:white !important;
+    background-color: #000 !important;
     text-align:center;
 }
 input[type='URL']{
     color:white !important;
+    background-color: #000 !important;
     text-align:center;
 }
 input[type='date']{
     color:white !important;
+    background-color: #000 !important;
     text-align:center;
 }
 input[type='datetime-local']{
     color:white !important;
+    background-color: #000 !important;
     text-align:center;
 }
 input[type='time']{
     color:white !important;
+    background-color: #000 !important;
     text-align:center;
 }
 input[type='week']{
     color:white !important;
+    background-color: #000 !important;
     text-align:center;
 }
 input[type='month']{
     color:white !important;
+    background-color: #000 !important;
     text-align:center;
 }
 textarea{
     color:white !important;
+    background-color: #000 !important;
 }
 
 /* 
@@ -124,6 +136,7 @@ I changed it after to suit my site
     width: 120px;
     height: 40px;
     border-radius: 3px;
+    -webkit-appearance: initial;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     font-weight: bold;
     outline:none;

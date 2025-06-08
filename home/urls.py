@@ -49,5 +49,6 @@ urlpatterns = [
     path('updateInvoice', updateInvoice, name="updateInvoice"),
     path('checkout_success', checkoutSuccess, name="checkout_success"),
     # admin paths
-    path('admin_dashboard/', include('customadmin.urls'))
+    path('admin_dashboard/', include('customadmin.urls')),
+    path('copilot/', include('copilot.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

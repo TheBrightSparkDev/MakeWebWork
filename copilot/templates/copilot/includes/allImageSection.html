@@ -1,0 +1,83 @@
+<div class="col-12 mb-4">
+  <button class="btn {{ project.colorOne }}-text {{ project.colorModifierOne }}-text w-100 text-start"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#allImages"
+          aria-expanded="false"
+          aria-controls="allImages">
+    All Uploaded Images
+  </button>
+
+  <div class="collapse mt-2" id="allImages">
+    <div class="text-end mt-2">
+      <button type="button" class="btn btn-sm btn-outline-warning toggle-edit-btn">
+        Edit Section
+      </button>
+    </div>
+    <div class="row g-3">
+      {% for media in project.uploadedmedia_set.all %}
+        {% if media.imageURL %}
+          <div class="col-12 col-md-4">
+            <div id="media-card-{{ media.id }}"
+                class="card h-100 {{ media.backgroundColor }} {{ media.backgroundColorModifier }} {{ media.textColor }} {{ media.textColorModifier }}"
+                data-bg-class="{{ media.backgroundColor }} {{ media.backgroundColorModifier }}"
+                data-text-class="{{ media.textColor }} {{ media.textColorModifier }}">
+              <img src="{{ media.imageURL.url }}" class="card-img-top" alt="{{ media.fileName }}">
+              <div class="card-body">
+                <h6 class="card-title">{{ media.fileName|default:"Unnamed Image" }}</h6>
+                <p class="card-text text-muted small">{{ media.dateUploaded }}</p>
+
+                <!-- CONTROL BUTTONS -->
+                <div class="d-flex gap-2 flex-wrap media-controls d-none">
+                  <button class="btn btn-sm btn-outline-secondary cycle-background-btn"
+                          data-media-id="{{ media.id }}"
+                          data-project-id="{{ project.id }}">
+                    Change Background Colour
+                  </button>
+                  <button class="btn btn-sm btn-outline-primary cycle-text-btn"
+                          data-media-id="{{ media.id }}"
+                          data-project-id="{{ project.id }}">
+                    Change Text Colour
+                  </button>
+                  <button class="btn btn-sm btn-outline-success rename-media-btn"
+                          data-media-id="{{ media.id }}">
+                    Rename
+                  </button>
+                  <button class="btn btn-sm btn-outline-danger delete-media-btn"
+                          data-media-id="{{ media.id }}">
+                    Delete
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    <div class="modal fade" id="renameMediaModal" tabindex="-1" aria-labelledby="renameMediaLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <form id="renameMediaForm" method="post">
+          {% csrf_token %}
+          <div class="modal-content {{ project.colorOne }}-text {{ project.colorModifierOne }}-text">
+            <div class="modal-header">
+              <h5 class="modal-title" id="renameMediaLabel">Rename Media</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <input type="hidden" name="mediaId" id="renameMediaId">
+              <div class="mb-3">
+                <label for="newFileName" class="form-label">New File Name</label>
+                <input type="text" class="form-control" name="newFileName" id="newFileName" required>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">Save Changes</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<input type="hidden" id="csrf-token" value="{{ csrf_token }}">

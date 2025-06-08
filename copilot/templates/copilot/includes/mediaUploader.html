@@ -1,0 +1,95 @@
+<div class="card {{ project.colorTwo }} {{ project.colorModifierTwo }} p-4 mb-4">
+  <h5 class="mb-3">Upload Media</h5>
+
+  {% if project.id %}
+  <form id="media-upload-form" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="mediaFile" class="form-label">Select Images or Videos</label>
+      <input class="form-control" type="file" id="mediaFile" name="media" multiple accept="image/*,video/*" required>
+    </div>
+
+    <!-- Corrected hidden field -->
+    <input type="hidden" name="projectId" value="{{ project.id }}">
+
+    <div class="progress mb-3" style="height: 20px;">
+      <div id="uploadProgressBar" class="progress-bar" role="progressbar" style="width: 0%">0%</div>
+    </div>
+
+    <button type="submit" class="btn btn-success">Upload</button>
+  </form>
+  {% else %}
+    <div class="alert alert-warning">No project found. Media upload disabled.</div>
+  {% endif %}
+
+  <div id="uploadStatus" class="mt-2"></div>
+</div>
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const form = document.getElementById('media-upload-form');
+  if (!form) return;
+
+  const progressBar = document.getElementById('uploadProgressBar');
+  const status = document.getElementById('uploadStatus');
+  const uploadUrl = "{% url 'upload-media' %}";
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const files = document.getElementById('mediaFile').files;
+    const projectId = form.querySelector('[name="projectId"]').value;
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    if (!files.length || !projectId) {
+      alert("Missing media files or project ID.");
+      return;
+    }
+
+    let uploadedCount = 0;
+    progressBar.style.width = '0%';
+    progressBar.textContent = '0%';
+    status.innerHTML = '';
+
+    Array.from(files).forEach((file, index) => {
+      const formData = new FormData();
+      formData.append('media', file);
+      formData.append('projectId', projectId);
+
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', uploadUrl, true);
+      xhr.setRequestHeader('X-CSRFToken', csrfToken);
+      xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
+      xhr.upload.addEventListener('progress', function (e) {
+        if (e.lengthComputable) {
+          const percent = Math.round(((uploadedCount + e.loaded / e.total) / files.length) * 100);
+          progressBar.style.width = percent + '%';
+          progressBar.textContent = percent + '%';
+        }
+      });
+
+      xhr.onload = function () {
+        uploadedCount++;
+        if (xhr.status !== 200) {
+          status.innerHTML += `<div class="alert alert-danger">Error uploading ${file.name}</div>`;
+        }
+        if (uploadedCount === files.length) {
+          progressBar.style.width = '100%';
+          progressBar.textContent = '100%';
+          status.innerHTML += `<div class="alert alert-success">All uploads complete</div>`;
+          form.reset();
+        }
+      };
+
+      xhr.onerror = function () {
+        status.innerHTML += `<div class="alert alert-danger">Upload failed for ${file.name}</div>`;
+      };
+
+      xhr.send(formData);
+    });
+  });
+});
+</script>
+{% endblock %}

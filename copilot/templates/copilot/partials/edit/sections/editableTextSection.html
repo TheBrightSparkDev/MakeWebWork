@@ -1,0 +1,21 @@
+{% extends 'copilot/partials/edit/editableSectionContainer.html' %}
+{% load static %}
+{% block section_content %}
+<div class="col-12 ms-auto my-auto">
+  <div class="section-container">
+    <!-- Border wrappers -->
+    <div class="section-wrapper sep-top sep-left 
+                {{ section.backgroundColor|default:project.backgroundColor }} 
+                {{ section.backgroundColorModifier|default:project.backgroundColorModifier }} op-3">
+    </div>
+    <div class="section-wrapper sep-bottom sep-right grey darken-4 op-3"></div>
+
+    <!-- Content area -->
+    <div class="content 
+                {{ section.textColor|default:project.textColor }} 
+                {{ section.textColorModifier|default:project.textColorModifier }}">
+      <textarea name="shortDescription" class="form-control" rows="4" placeholder="Write your section text here...">{{ section.shortDescription }}</textarea>
+    </div>
+  </div>
+</div>
+{% endblock %}

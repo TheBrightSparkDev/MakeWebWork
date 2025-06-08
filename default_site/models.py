@@ -206,7 +206,7 @@ class UserProfile(models.Model):
     '''
 
     CustomerID = models.BigAutoField(primary_key=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     House_number_or_name = models.CharField(max_length=150, null=True, blank=True)
     Address_line_one = models.CharField(max_length=150, null=True, blank=True)
     Town = models.CharField(max_length=150, null=True, blank=True)
@@ -336,9 +336,9 @@ class ClientGalleryPage(models.Model):
     '''
     clientID = models.ForeignKey(ClientsAndGroups, on_delete=models.CASCADE)
     imageURL = models.ImageField(upload_to=upload_to_image_link_graphic, height_field=None, 
-                                        width_field=None, max_length=150, blank=True)
+                                    width_field=None, max_length=150, blank=True)
     imageTwoURL = models.ImageField(upload_to=upload_to_image_link_graphic, height_field=None, 
-        width_field=None, max_length=150, blank=True)   
+                                    width_field=None, max_length=150, blank=True)
     videoURL = models.CharField(max_length=300, null=True, blank=True)
     sectionTitle = models.CharField(max_length=300, null=True, blank=True)
     sectionType = models.CharField(max_length=300, null=True, blank=True)

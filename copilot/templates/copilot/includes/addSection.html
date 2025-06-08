@@ -1,0 +1,25 @@
+<!-- Add Section Button (Collapsed by default) -->
+<div class="col-12 offset-md-2 col-md-8 mt-4 d-flex justify-content-center">
+  <button class="btn btn-success " id="showAddSectionChooser">
+    <i class="fas fa-plus"></i> Add Section
+  </button>
+</div>
+
+<!-- Section Type Chooser -->
+<div class="col-12 offset-md-2 col-md-8 mt-3 d-none d-flex justify-content-center row" id="sectionTypeChooser">
+  <label class="form-label">Select Section Type:</label>
+  <select class="form-select mb-3" id="sectionTypeSelector">
+    <option value="">Choose a type</option>
+    <option value="image">Image</option>
+    <option value="video">Video</option>
+    <option value="business">Business Card</option>
+    <option value="text">Text</option>
+    <option value="rebrand">Rebrand</option>
+  </select>
+  <button class="btn btn-primary" id="showSectionForm">Next</button>
+</div>
+
+<!-- Dynamic Editable Preview Section -->
+<div class="col-12 mt-5 d-none" id="addSectionFormContainer">
+  <div id="editableSectionPreview"></div>
+</div>

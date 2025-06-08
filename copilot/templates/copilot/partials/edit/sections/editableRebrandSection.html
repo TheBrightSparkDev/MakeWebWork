@@ -1,0 +1,46 @@
+{% extends 'copilot/partials/edit/editableSectionContainer.html' %}
+{% load static %}
+{% block section_content %}
+<div class="col-6 {{ section.textColor|default:project.textColor }} {{ section.textColorModifier|default:project.textColorModifier }}">
+  <div class="section-container">
+    <div class="section-wrapper primary-border match-border sep-top sep-left"></div>
+    <div class="section-wrapper black-border sep-bottom sep-right"></div>
+    <div class="seperator-title 
+                {{ section.titleBackgroundColor|default:project.titleBackgroundColor }} 
+                {{ section.titleBackgroundColorModifier|default:project.titleBackgroundColorModifier }} 
+                {{ section.titleColor|default:project.titleColor }} top-left">
+      <h3 class="title-text">Old</h3>
+    </div>
+    <img class="img-fluid col-10 my-5 mx-auto" src="{% static 'images/Makewebwork_logo.png' %}" alt="Placeholder Old Image">
+  </div>
+</div>
+
+<div class="col-6 {{ section.textColor|default:project.textColor }} {{ section.textColorModifier|default:project.textColorModifier }}">
+  <div class="section-container">
+    <div class="section-wrapper primary-border match-border sep-top sep-left"></div>
+    <div class="section-wrapper black-border sep-bottom sep-right"></div>
+    <div class="seperator-title 
+                {{ section.titleBackgroundColor|default:project.titleBackgroundColor }} 
+                {{ section.titleBackgroundColorModifier|default:project.titleBackgroundColorModifier }} 
+                {{ section.titleColor|default:project.titleColor }} top-left">
+      <h3 class="title-text">New</h3>
+    </div>
+    <img class="img-fluid col-10 my-5 mx-auto" src="{% static 'images/Makewebwork_logo.png' %}" alt="Placeholder New Image">
+  </div>
+</div>
+
+<div class="col-12 ms-auto my-auto">
+  <div class="section-container">
+    <div class="section-wrapper sep-top sep-left 
+                {{ section.backgroundColor|default:project.backgroundColor }} 
+                {{ section.backgroundColorModifier|default:project.backgroundColorModifier }} op-3"></div>
+    <div class="section-wrapper sep-bottom sep-right grey darken-4 op-3"></div>
+    <div class="content 
+                {{ section.textColor|default:project.textColor }} 
+                {{ section.textColorModifier|default:project.textColorModifier }}">
+      <h3>Purpose?</h3>
+      <textarea name="shortDescription" class="form-control mt-2" rows="3" placeholder="Describe the purpose here...">{{ section.shortDescription }}</textarea>
+    </div>
+  </div>
+</div>
+{% endblock %}
