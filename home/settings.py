@@ -203,7 +203,7 @@ else:
     STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
     STRIPE_WH_SECRET = os.environ.get('STRIPE_WH_SECRET')
 
-if os.getenv('production') == True:
+if os.getenv('PRODUCTION') == True:
     DEFAULT_FILE_STORAGE = 'custom_azure.AzureMediaStorage'
     STATICFILES_STORAGE = 'custom_azure.AzureStaticStorage'
     STATIC_LOCATION = "static"
