@@ -203,7 +203,7 @@ else:
     STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
     STRIPE_WH_SECRET = os.environ.get('STRIPE_WH_SECRET')
 
-if os.getenv('PRODUCTION') == True:
+if os.getenv('PRODUCTION') == "True":
     DEFAULT_FILE_STORAGE = 'custom_azure.AzureMediaStorage'
     STATICFILES_STORAGE = 'custom_azure.AzureStaticStorage'
     STATIC_LOCATION = "static"
@@ -212,3 +212,9 @@ if os.getenv('PRODUCTION') == True:
     AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
     STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
     MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
+else:
+    STATIC_URL = '/static/'
+    MEDIA_URL = '/images/'
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'static')
+    ]
