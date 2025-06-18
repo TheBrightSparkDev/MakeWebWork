@@ -6,18 +6,42 @@ from .models import Project, ProjectPage, ProjectPageSections, SectionComments, 
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from django.views.decorators.http import require_POST
 from django.urls import reverse
+from django.contrib import messages
+from .forms import ProjectForm
+from .models import Project
+
+
+def createProject(request):
+    if request.method == 'POST':
+        form = ProjectForm(request.POST, request.FILES)
+        if form.is_valid():
+            project = form.save(commit=False)
+            project.save()
+
+            # Add current user's profile to linkedUsers if they have one
+            if hasattr(request.user, 'profile'):
+                project.linkedUsers.add(request.user.profile)
+
+            return redirect('copilot-home')  # Change this to your actual home view name
+    else:
+        form = ProjectForm()
+
+    return render(request, 'copilot/createProject.html', {
+        'form': form
+    })
+
 
 def marketingCopilot(request, projectName):
     project = get_object_or_404(Project, projectName=projectName)
 
     sections = ProjectPageSections.objects.filter(
-        uploadedMedia__project=project,
+        projectPage__project=project,
         display=True
     ).prefetch_related(
     'uploadedMedia',
     'comments__replies',
     'uploadedMedia__uploadedmediametadata_set__tags'
-    ).order_by('order')
+    ).order_by('order').distinct()
 
     # Handle comment submission
     if request.method == 'POST' and request.POST.get('submit_type') == 'comment':
@@ -68,20 +92,26 @@ def webCopilot(request, projectName):
     project = get_object_or_404(Project, projectName=projectName)
 
     sections = ProjectPageSections.objects.filter(
-        uploadedMedia__project=project,
+        projectPage__project=project,
         display=True
     ).prefetch_related(
-    'uploadedMedia',
-    'comments__replies',
-    'uploadedMedia__uploadedmediametadata_set__tags'
-    ).order_by('order')
+        'uploadedMedia',
+        'comments__replies',
+        'uploadedMedia__uploadedmediametadata_set__tags'
+    ).order_by('order').distinct()
 
     if request.method == 'POST' and request.POST.get('submit_type') == 'comment':
         section_id = request.POST.get('section_id')
-        username = request.POST.get('username', '').strip()
         content = request.POST.get('content', '').strip()
         parent_id = request.POST.get('parent_id')
 
+        # Use logged-in user if available
+        if request.user.is_authenticated:
+            username = request.user.get_full_name() or request.user.username
+        else:
+            username = request.POST.get('username', '').strip()
+
+        # Basic validation
         if not (section_id and username and content):
             return HttpResponseBadRequest("Missing required fields.")
 
@@ -103,8 +133,9 @@ def webCopilot(request, projectName):
             comment.save()
 
             if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-                html = render_to_string('copilot/includes/comments.html', {
-                    'section': section
+                html = render_to_string('copilot/includes/innerComments.html', {
+                    'section': section,
+                    'project': section.projectPage.project  # ✅ Now included for template use
                 }, request=request)
                 return HttpResponse(html)
 
@@ -119,25 +150,21 @@ def webCopilot(request, projectName):
     })
 
 
+
 def copilotHome(request):
     user = request.user
 
     if user.is_superuser:
-        # Superuser sees all
-        marketing_projects = Project.objects.filter(marketing=True, active=True)
-        website_projects = Project.objects.filter(website=True, active=True)
+        projects = Project.objects.filter(active=True)
     else:
-        # Regular users only see their own projects
-        marketing_projects = Project.objects.filter(
-            marketing=True,
-            active=True,
-            LinkedUser__user=user
-        )
-        website_projects = Project.objects.filter(
-            website=True,
-            active=True,
-            LinkedUser__user=user
-        )
+        try:
+            profile = user.profile
+            projects = Project.objects.filter(active=True, linkedUsers=profile)
+        except UserProfile.DoesNotExist:
+            projects = Project.objects.none()  # No profile found = no projects
+
+    marketing_projects = projects.filter(marketing=True)
+    website_projects = projects.filter(website=True)
 
     return render(request, 'copilot/CopilotHome.html', {
         'marketing_projects': marketing_projects,
@@ -263,10 +290,11 @@ def delete_media(request):
 
 
 def add_project_section(request, project_id):
-    print("🚀 REACHED add_project_section VIEW")
+    print("REACHED add_project_section VIEW")
     project = get_object_or_404(Project, id=project_id)
 
     if request.method == 'POST':
+        print(request)
         title = request.POST.get('sectionTitle', '').strip()
         section_type = request.POST.get('sectionType', '').strip()
         media_ids = request.POST.getlist('mediaIds[]')
@@ -275,8 +303,11 @@ def add_project_section(request, project_id):
         order = int(request.POST.get('order') or 1)
         display = request.POST.get('display') == 'on'
 
-        if not media_ids:
-            messages.error(request, "You must select at least one media item.")
+        # Only skip media requirement for specific section types
+        media_optional_types = ['text', 'rebrand']  # Add more if needed
+
+        if section_type not in media_optional_types and not media_ids:
+            messages.error(request, f"{section_type.capitalize()} sections require at least one media item.")
             return redirect(request.META.get('HTTP_REFERER', '/'))
 
         # Ensure the related ProjectPage exists

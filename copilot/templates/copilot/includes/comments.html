@@ -1,57 +1,121 @@
-<div id="comment-wrapper-{{ section.id }}" class="card p-3 mb-4">
-  <h5 class="mb-3">Comments</h5>
+{% load humanize %}
+<div class="col-12 mt-4">
+  <div class="section-container">
 
-  <!-- Top-level comment form -->
-  <form method="post" class="comment-form" data-section-id="{{ section.id }}">
-    {% csrf_token %}
-    <input type="hidden" name="submit_type" value="comment">
-    <input type="hidden" name="section_id" value="{{ section.id }}">
-    <input type="hidden" name="parent_id" value=""> <!-- Top-level -->
-
-    <div class="mb-2">
-      <input type="text" name="username" class="form-control" placeholder="Your name" required>
+    <!-- Section Title -->
+    <div class="seperator-title 
+                {{ section.titleBackgroundColor|default:project.titleBackgroundColor }} 
+                {{ section.titleBackgroundColorModifier|default:project.titleBackgroundColorModifier }} 
+                {{ section.titleColor|default:project.titleColor }} 
+                {{ section.titleTextColorModifier|default:project.titleTextColorModifier }} 
+                top-left">
+      <h4 class="title-text mb-0">Comments</h4>
     </div>
-    <div class="mb-2">
-      <textarea name="content" class="form-control" rows="2" placeholder="Add a comment..." required></textarea>
+
+    <!-- Border Wrappers -->
+    <div class="section-wrapper 
+                primary-border 
+                match-border 
+                sep-top 
+                sep-left 
+                {{ section.backgroundColor|default:project.backgroundColor }} 
+                {{ section.backgroundColorModifier|default:project.backgroundColorModifier }}">
     </div>
-    <button type="submit" class="btn btn-sm btn-primary">Post Comment</button>
-  </form>
+    <div class="section-wrapper 
+                black-border 
+                sep-bottom 
+                sep-right 
+                {{ section.backgroundColor|default:project.backgroundColor }} 
+                {{ section.backgroundColorModifier|default:project.backgroundColorModifier }}">
+    </div>
 
-  <hr>
+    <!-- Content Wrapper -->
+    <div id="comment-wrapper-{{ section.id }}" class="content row py-3 px-3 
+                {{ section.textColor|default:project.textColor }} 
+                {{ section.textColorModifier|default:project.textColorModifier }}">
+      
+      <div class="col-12">
 
-  <!-- Comment list -->
-  {% for comment in section.comments.all %}
-    {% if not comment.parent %}
-      <div class="mb-3">
-        <div class="d-flex">
-          <strong>{{ comment.username }}</strong>
-          <small class="text-muted ms-2">{{ comment.created_at|naturaltime }}</small>
-        </div>
-        <p class="mb-1">{{ comment.content }}</p>
-
-        <!-- Reply form -->
-        <form method="post" class="comment-form ms-3 mb-2" data-section-id="{{ section.id }}">
+        <!-- Top-Level Comment Form -->
+        <form method="post" class="comment-form mb-3" data-section-id="{{ section.id }}">
           {% csrf_token %}
           <input type="hidden" name="submit_type" value="comment">
           <input type="hidden" name="section_id" value="{{ section.id }}">
-          <input type="hidden" name="parent_id" value="{{ comment.id }}">
+          <input type="hidden" name="parent_id" value="">
 
-          <input type="text" name="username" class="form-control form-control-sm my-1" placeholder="Your name" required>
-          <textarea name="content" class="form-control form-control-sm mb-1" rows="1" placeholder="Reply..." required></textarea>
-          <button type="submit" class="btn btn-sm btn-outline-secondary">Reply</button>
+          <div class="row">
+            {% if request.user.is_authenticated %}
+              <input type="hidden" name="username" value="{{ request.user.get_full_name|default:request.user.username }}">
+              <p class="mb-2 ps-3">Commenting as <strong>{{ request.user.get_full_name|default:request.user.username }}</strong></p>
+            {% else %}
+              <div class="col-md-4 mb-2">
+                <input type="text" name="username" class="form-control" placeholder="Your name" required>
+              </div>
+            {% endif %}
+            <div class="{% if request.user.is_authenticated %}col-12{% else %}col-md-8{% endif %} mb-2">
+              <textarea name="content" class="form-control" rows="2" placeholder="Add a comment..." required></textarea>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-sm btn-primary">Post Comment</button>
         </form>
 
-        <!-- Replies -->
-        {% for reply in comment.replies.all %}
-          <div class="ms-4 mt-2 border-start ps-3">
-            <div class="d-flex">
-              <strong>{{ reply.username }}</strong>
-              <small class="text-muted ms-2">{{ reply.created_at|naturaltime }}</small>
+        <hr>
+
+        <!-- Comment List -->
+        {% for comment in section.comments.all %}
+          {% if not comment.parent %}
+            <div class="mb-4">
+              <div class="d-flex justify-content-between align-items-center">
+                <strong class="{% if comment.username == 'MakeWebWorkAdmin' %}rainbow-text{% endif %}">
+                  {% if comment.username == 'MakeWebWorkAdmin' %}
+                    Dan
+                  {% else %}
+                    {{ comment.username }}
+                  {% endif %}
+                </strong>
+                <small class="text-muted">{{ comment.created_at|naturaltime }}</small>
+              </div>
+              <p class="mb-2">{{ comment.content }}</p>
+
+              <!-- Reply Form -->
+              <form method="post" class="comment-form ms-3 mb-2" data-section-id="{{ section.id }}">
+                {% csrf_token %}
+                <input type="hidden" name="submit_type" value="comment">
+                <input type="hidden" name="section_id" value="{{ section.id }}">
+                <input type="hidden" name="parent_id" value="{{ comment.id }}">
+
+                {% if request.user.is_authenticated %}
+                  <input type="hidden" name="username" value="{{ request.user.get_full_name|default:request.user.username }}">
+                  <p class="mb-1">Replying as <strong>{{ request.user.get_full_name|default:request.user.username }}</strong></p>
+                {% else %}
+                  <input type="text" name="username" class="form-control form-control-sm my-1" placeholder="Your name" required>
+                {% endif %}
+
+                <textarea name="content" class="form-control form-control-sm mb-1" rows="1" placeholder="Reply..." required></textarea>
+                <button type="submit" class="btn btn-sm btn-outline-secondary">Reply</button>
+              </form>
+
+              <!-- Replies -->
+              {% for reply in comment.replies.all %}
+                <div class="ms-4 mt-2 border-start ps-3">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <strong class="{% if reply.username == 'MakeWebWorkAdmin' %}rainbow-text{% endif %}">
+                      {% if reply.username == 'MakeWebWorkAdmin' %}
+                        Dan
+                      {% else %}
+                        {{ reply.username }}
+                      {% endif %}
+                    </strong>
+                    <small class="text-muted">{{ reply.created_at|naturaltime }}</small>
+                  </div>
+                  <p class="mb-1">{{ reply.content }}</p>
+                </div>
+              {% endfor %}
             </div>
-            <p class="mb-1">{{ reply.content }}</p>
-          </div>
+          {% endif %}
         {% endfor %}
+
       </div>
-    {% endif %}
-  {% endfor %}
+    </div>
+  </div>
 </div>

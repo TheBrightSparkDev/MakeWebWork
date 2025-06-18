@@ -1,7 +1,11 @@
 {% extends 'copilot/partials/edit/editableSectionContainer.html' %}
 {% load static %}
+
 {% block section_content %}
-<div class="col-12 ms-auto my-auto">
+<!-- Defines media limits: 0 media required -->
+<data maxMedia="0" minMedia="0"></data>
+
+<div class="col-12 ms-auto my-auto py-3 px-3">
   <div class="section-container">
     <!-- Border wrappers -->
     <div class="section-wrapper sep-top sep-left 
@@ -10,12 +14,16 @@
     </div>
     <div class="section-wrapper sep-bottom sep-right grey darken-4 op-3"></div>
 
-    <!-- Content area -->
+    <!-- Editable content -->
     <div class="content 
                 {{ section.textColor|default:project.textColor }} 
                 {{ section.textColorModifier|default:project.textColorModifier }}">
+      <h3 class="{{ section.titleColor|default:project.titleColor }} {{ section.titleTextColorModifier|default:project.titleTextColorModifier }}">
+        Section Content
+      </h3>
       <textarea name="shortDescription" class="form-control" rows="4" placeholder="Write your section text here...">{{ section.shortDescription }}</textarea>
     </div>
   </div>
 </div>
 {% endblock %}
+

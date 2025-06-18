@@ -1,0 +1,199 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+  <h2>Create New Project</h2>
+
+  <form method="POST" enctype="multipart/form-data" class="mt-4">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+
+    <!-- Basic text fields -->
+    <div class="mb-3">
+      <label for="{{ form.projectName.id_for_label }}" class="form-label">{{ form.projectName.label }}</label>
+      {{ form.projectName }}
+    </div>
+    <div class="mb-3">
+      <label for="{{ form.projectShortDescription.id_for_label }}" class="form-label">{{ form.projectShortDescription.label }}</label>
+      {{ form.projectShortDescription }}
+    </div>
+    <div class="mb-3">
+      <label for="{{ form.projectLongDescription.id_for_label }}" class="form-label">{{ form.projectLongDescription.label }}</label>
+      {{ form.projectLongDescription }}
+    </div>
+
+    <!-- Image fields -->
+    <div class="mb-3">
+      <label>{{ form.projectLogoURL.label }}</label>
+      {{ form.projectLogoURL }}
+    </div>
+    <div class="mb-3">
+      <label>{{ form.projectHeroURL.label }}</label>
+      {{ form.projectHeroURL }}
+    </div>
+
+    <!-- Checkboxes -->
+    <div class="form-check mb-3">
+      {{ form.marketing }} <label class="form-check-label">{{ form.marketing.label }}</label>
+    </div>
+    <div class="form-check mb-3">
+      {{ form.website }} <label class="form-check-label">{{ form.website.label }}</label>
+    </div>
+    <div class="form-check mb-3">
+      {{ form.active }} <label class="form-check-label">{{ form.active.label }}</label>
+    </div>
+
+    <!-- Client/Request dropdowns -->
+    <div class="mb-3">
+      <label>{{ form.LinkedClient.label }}</label>
+      {{ form.LinkedClient }}
+    </div>
+    <div class="mb-3">
+      <label>{{ form.LinkedRequest.label }}</label>
+      {{ form.LinkedRequest }}
+    </div>
+
+    <!-- COLOR FIELDS -->
+
+    <!-- Base color fields -->
+    <div class="mb-3">
+      <label class="form-label">{{ form.colorOne.label }}</label>
+      <div class="customColorSelector {{ form.colorOne.value|default:'black' }}"
+          style="border: 2px solid #2196f3; padding: 5px; border-radius: 6px;"
+          data-transparency="true"
+          data-field="colorOne">
+        <div class="color-preview-box {{ form.colorOne.value|default:'black' }}"
+            style="width: 50px; height: 30px; border-radius: 4px;"></div>
+        <input type="hidden" name="colorOne" data-role="base" value="{{ form.colorOne.value|default:'' }}">
+        <input type="hidden" name="colorModifierOne" data-role="modifier">
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">{{ form.colorTwo.label }}</label>
+      <div class="customColorSelector {{ form.colorTwo.value|default:'black' }}"
+          style="border: 2px solid #2196f3; padding: 5px; border-radius: 6px;"
+          data-transparency="true"
+          data-field="colorTwo">
+        <div class="color-preview-box {{ form.colorTwo.value|default:'black' }}"
+            style="width: 50px; height: 30px; border-radius: 4px;"></div>
+        <input type="hidden" name="colorTwo" data-role="base" value="{{ form.colorTwo.value|default:'' }}">
+        <input type="hidden" name="colorModifierTwo" data-role="modifier">
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">{{ form.colorThree.label }}</label>
+      <div class="customColorSelector {{ form.colorThree.value|default:'black' }}"
+          style="border: 2px solid #2196f3; padding: 5px; border-radius: 6px;"
+          data-transparency="true"
+          data-field="colorThree">
+        <div class="color-preview-box {{ form.colorThree.value|default:'black' }}"
+            style="width: 50px; height: 30px; border-radius: 4px;"></div>
+        <input type="hidden" name="colorThree" data-role="base" value="{{ form.colorThree.value|default:'' }}">
+        <input type="hidden" name="colorModifierThree" data-role="modifier">
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">{{ form.colorFour.label }}</label>
+      <div class="customColorSelector {{ form.colorFour.value|default:'black' }}"
+          style="border: 2px solid #2196f3; padding: 5px; border-radius: 6px;"
+          data-transparency="true"
+          data-field="colorFour">
+        <div class="color-preview-box {{ form.colorFour.value|default:'black' }}"
+            style="width: 50px; height: 30px; border-radius: 4px;"></div>
+        <input type="hidden" name="colorFour" data-role="base" value="{{ form.colorFour.value|default:'' }}">
+        <input type="hidden" name="colorModifierFour" data-role="modifier">
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">{{ form.colorFive.label }}</label>
+      <div class="customColorSelector {{ form.colorFive.value|default:'black' }}"
+          style="border: 2px solid #2196f3; padding: 5px; border-radius: 6px;"
+          data-transparency="true"
+          data-field="colorFive">
+        <div class="color-preview-box {{ form.colorFive.value|default:'black' }}"
+            style="width: 50px; height: 30px; border-radius: 4px;"></div>
+        <input type="hidden" name="colorFive" data-role="base" value="{{ form.colorFive.value|default:'' }}">
+        <input type="hidden" name="colorModifierFive" data-role="modifier">
+      </div>
+    </div>
+    <!-- background color and title background color -->
+    <div class="mb-3">
+      <label class="form-label">{{ form.backgroundColor.label }}</label>
+      <div class="customColorSelector {{ form.backgroundColor.value|default:'black' }}"
+          style="border: 2px solid #2196f3; padding: 5px; border-radius: 6px;"
+          data-transparency="true"
+          data-field="backgroundColor">
+        <div class="color-preview-box {{ form.backgroundColor.value|default:'black' }}"
+            style="width: 50px; height: 30px; border-radius: 4px;"></div>
+        <input type="hidden" name="backgroundColor" data-role="base" value="{{ form.backgroundColor.value|default:'' }}">
+        <input type="hidden" name="backgroundColorModifier" data-role="modifier">
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">{{ form.titleBackgroundColor.label }}</label>
+      <div class="customColorSelector {{ form.titleBackgroundColor.value|default:'black' }}"
+          style="border: 2px solid #2196f3; padding: 5px; border-radius: 6px;"
+          data-transparency="true"
+          data-field="titleBackgroundColor">
+        <div class="color-preview-box {{ form.titleBackgroundColor.value|default:'black' }}"
+            style="width: 50px; height: 30px; border-radius: 4px;"></div>
+        <input type="hidden" name="titleBackgroundColor" data-role="base" value="{{ form.titleBackgroundColor.value|default:'' }}">
+        <input type="hidden" name="titleBackgroundColorModifier" data-role="modifier">
+      </div>
+    </div>
+
+
+    <!-- Text color fields with data-text -->
+    <div class="mb-3">
+      <label class="form-label">{{ form.textColor.label }}</label>
+      <div class="customColorSelector {{ form.textColor.value|default:'white-text' }}"
+          style="border: 2px solid #2196f3; padding: 5px; border-radius: 6px;"
+          data-transparency="true"
+          data-text="true"
+          data-field="textColor">
+        <div class="color-preview-box {{ form.textColor.value|default:'white-text' }}"
+            style="width: 50px; height: 30px; border-radius: 4px;"></div>
+        <input type="hidden" name="textColor" data-role="base" value="{{ form.textColor.value|default:'' }}">
+        <input type="hidden" name="textColorModifier" data-role="modifier">
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">{{ form.titleColor.label }}</label>
+      <div class="customColorSelector {{ form.titleColor.value|default:'white-text' }}"
+          style="border: 2px solid #2196f3; padding: 5px; border-radius: 6px;"
+          data-transparency="true"
+          data-text="true"
+          data-field="titleColor">
+        <div class="color-preview-box {{ form.titleColor.value|default:'white-text' }}"
+            style="width: 50px; height: 30px; border-radius: 4px;"></div>
+        <input type="hidden" name="titleColor" data-role="base" value="{{ form.titleColor.value|default:'' }}">
+        <input type="hidden" name="titleColorModifier" data-role="modifier">
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <div class="mt-4">
+      <button type="submit" class="btn btn-success">Create Project</button>
+      <a href="{% url 'copilot-home' %}" class="btn btn-secondary ms-2">Cancel</a>
+    </div>
+  </form>
+</div>
+
+
+<!-- COLOR SELECTOR MODAL -->
+<div id="colorSelectorModal" class="color-selector-modal d-none rainbow-element">
+  <div type="button" id="cancelColorBtn">X</div> <!-- X in  box to close modal -->
+  <div class="mb-3">
+    <label>Color picker</label>
+    <div id="SwatchContainer" class="swatch-container"></div>
+  </div>
+  <!-- Modal closes when javascript is finished -->
+</div>
+{% endblock %}

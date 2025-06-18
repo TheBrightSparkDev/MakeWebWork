@@ -31,5 +31,12 @@
       <p>No website projects found.</p>
     {% endfor %}
   </div>
+
+  <div class="d-flex justify-content-between align-items-center mt-4 col-12">
+    <h2>Marketing Projects</h2>
+    {% if request.user.is_superuser %}
+      <a href="{% url 'createProject' %}" class="btn btn-success">+ New Project</a>
+    {% endif %}
+  </div>
 </div>
 {% endblock %}

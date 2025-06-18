@@ -27,7 +27,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-mor2j7g3xb1m^*l0il&_=f9s2ftlxv*@b+8m%0r0x+zpkb!7i4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+PRODUCTION = os.getenv("PRODUCTION", "False") == "True"
+DEVELOPMENT = os.getenv("DEVELOPMENT", "False") == "True"
+DEBUG = DEVELOPMENT and not PRODUCTION
 
 ALLOWED_HOSTS = ['8000-thebrightsp-makewebwork-s2cd4pfok8p.ws-eu120.gitpod.io','makewebwork.azurewebsites.net','makewebwork.com']
 
@@ -41,6 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # added this for the comments area
+    'django.contrib.humanize',
     # my applications
     'default_site',
     'home',
@@ -73,7 +77,7 @@ ACCOUNT_FORMS = {'signup': 'default_site.forms.MyCustomSignupForm'}
 ROOT_URLCONF = 'home.urls'
 
 CSRF_TRUSTED_ORIGINS = ['https://8000-thebrightsp-makewebwork-s2cd4pfok8p.ws-eu120.gitpod.io/*',
-                        'https://makewebwork.azurewebsites.net/*','makewebwork.com/*']
+                        'https://makewebwork.azurewebsites.net/*','https://makewebwork.com/*']
 
 TEMPLATES = [
     {
@@ -204,18 +208,22 @@ else:
     STRIPE_WH_SECRET = os.environ.get('STRIPE_WH_SECRET')
 
 
-collectstatic = False  
-if collectstatic == True:
-    DEFAULT_FILE_STORAGE = 'custom_azure.AzureMediaStorage'
-    STATICFILES_STORAGE = 'custom_azure.AzureStaticStorage'
-    STATIC_LOCATION = "static"
-    MEDIA_LOCATION = "media"
-    AZURE_ACCOUNT_NAME = "makewebworkstatic"
-    AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
-    STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
-    MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
+collectstatic = False
+sendToProduction = False  
+if sendToProduction == True:
+    if collectstatic == True:
+        AZURE_ACCOUNT_KEY = environ.get("AZURE_ACCOUNT_KEY")  # Secure access key
+
+        DEFAULT_FILE_STORAGE = 'custom_azure.AzureMediaStorage'
+        STATICFILES_STORAGE = 'custom_azure.AzureStaticStorage'
+        STATIC_LOCATION = "static"
+        MEDIA_LOCATION = "media"
+        AZURE_ACCOUNT_NAME = environ.get("AZURE_ACCOUNT_NAME")
+        AZURE_CUSTOM_DOMAIN = f"{AZURE_ACCOUNT_NAME}.blob.core.windows.net"
+        STATIC_URL = f"https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/"
+        MEDIA_URL = f"https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/"
 else:
-    if os.getenv('PRODUCTION') == "True":
+    if collectstatic == True:
         DEFAULT_FILE_STORAGE = 'custom_azure.AzureMediaStorage'
         STATICFILES_STORAGE = 'custom_azure.AzureStaticStorage'
         STATIC_LOCATION = "static"
@@ -225,8 +233,18 @@ else:
         STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
         MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
     else:
-        STATIC_URL = '/static/'
-        MEDIA_URL = '/images/'
-        STATICFILES_DIRS = [
-            os.path.join(BASE_DIR, 'static')
-        ]
+        if os.getenv('PRODUCTION') == "True":
+            DEFAULT_FILE_STORAGE = 'custom_azure.AzureMediaStorage'
+            STATICFILES_STORAGE = 'custom_azure.AzureStaticStorage'
+            STATIC_LOCATION = "static"
+            MEDIA_LOCATION = "media"
+            AZURE_ACCOUNT_NAME = "makewebworkstatic"
+            AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
+            STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
+            MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
+        else:
+            STATIC_URL = '/static/'
+            MEDIA_URL = '/images/'
+            STATICFILES_DIRS = [
+                os.path.join(BASE_DIR, 'static')
+            ]

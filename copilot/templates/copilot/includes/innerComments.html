@@ -1,0 +1,71 @@
+{% load humanize %}
+      <div class="col-12">
+
+        <!-- Top-Level Comment Form -->
+        <form method="post" class="comment-form mb-3" data-section-id="{{ section.id }}">
+          {% csrf_token %}
+          <input type="hidden" name="submit_type" value="comment">
+          <input type="hidden" name="section_id" value="{{ section.id }}">
+          <input type="hidden" name="parent_id" value="">
+
+          <div class="row">
+            {% if request.user.is_authenticated %}
+              <input type="hidden" name="username" value="{{ request.user.get_full_name|default:request.user.username }}">
+              <p class="mb-2 ps-3">Commenting as <strong>{{ request.user.get_full_name|default:request.user.username }}</strong></p>
+            {% else %}
+              <div class="col-md-4 mb-2">
+                <input type="text" name="username" class="form-control" placeholder="Your name" required>
+              </div>
+            {% endif %}
+            <div class="{% if request.user.is_authenticated %}col-12{% else %}col-md-8{% endif %} mb-2">
+              <textarea name="content" class="form-control" rows="2" placeholder="Add a comment..." required></textarea>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-sm btn-primary">Post Comment</button>
+        </form>
+
+        <hr>
+
+        <!-- Comment List -->
+        {% for comment in section.comments.all %}
+          {% if not comment.parent %}
+            <div class="mb-4">
+              <div class="d-flex justify-content-between align-items-center">
+                <strong>{{ comment.username }}</strong>
+                <small class="text-muted">{{ comment.created_at|naturaltime }}</small>
+              </div>
+              <p class="mb-2">{{ comment.content }}</p>
+
+              <!-- Reply Form -->
+              <form method="post" class="comment-form ms-3 mb-2" data-section-id="{{ section.id }}">
+                {% csrf_token %}
+                <input type="hidden" name="submit_type" value="comment">
+                <input type="hidden" name="section_id" value="{{ section.id }}">
+                <input type="hidden" name="parent_id" value="{{ comment.id }}">
+
+                {% if request.user.is_authenticated %}
+                  <input type="hidden" name="username" value="{{ request.user.get_full_name|default:request.user.username }}">
+                  <p class="mb-1">Replying as <strong>{{ request.user.get_full_name|default:request.user.username }}</strong></p>
+                {% else %}
+                  <input type="text" name="username" class="form-control form-control-sm my-1" placeholder="Your name" required>
+                {% endif %}
+
+                <textarea name="content" class="form-control form-control-sm mb-1" rows="1" placeholder="Reply..." required></textarea>
+                <button type="submit" class="btn btn-sm btn-outline-secondary">Reply</button>
+              </form>
+
+              <!-- Replies -->
+              {% for reply in comment.replies.all %}
+                <div class="ms-4 mt-2 border-start ps-3">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <strong>{{ reply.username }}</strong>
+                    <small class="text-muted">{{ reply.created_at|naturaltime }}</small>
+                  </div>
+                  <p class="mb-1">{{ reply.content }}</p>
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endfor %}
+
+      </div>

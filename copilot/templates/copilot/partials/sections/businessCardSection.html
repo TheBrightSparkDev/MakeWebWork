@@ -1,19 +1,31 @@
-{% extends 'partials/sectionContainer.html' %}
+{% extends 'copilot/partials/sectionContainer.html' %}
 {% load static %}
 {% block section_content %}
 <div class="row py-3 px-3">
-  <div class="col-5-lg col-12">
-    <div class="flip-card">
-      <div class="flip-card-inner">
-        <div class="flip-card-front">
-          <img src="{{ section.imageURL.url }}" alt="Front">
-        </div>
-        <div class="flip-card-back">
-          <img src="{{ section.imageTwoURL.url }}" alt="Back">
-        </div>
+<div class="col-5-lg col-12">
+  <div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        {% with section.uploadedMedia.all|first as frontMedia %}
+          {% if frontMedia %}
+            <img src="{{ frontMedia.imageURL.url }}" alt="Front">
+          {% else %}
+            <p>No front media</p>
+          {% endif %}
+        {% endwith %}
+      </div>
+      <div class="flip-card-back">
+        {% with section.uploadedMedia.all|slice:"1:2" as backMediaList %}
+          {% if backMediaList and backMediaList.0 %}
+            <img src="{{ backMediaList.0.imageURL.url }}" alt="Back">
+          {% else %}
+            <p>No back media</p>
+          {% endif %}
+        {% endwith %}
       </div>
     </div>
   </div>
+</div>
 
   <div class="col-5-lg col-12 ms-auto my-auto">
     <div class="section-container">
@@ -26,25 +38,4 @@
     </div>
   </div>
 </div>
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.flip-card').forEach(card => {
-    const inner = card.querySelector('.flip-card-inner');
-
-    card.addEventListener('mouseenter', () => {
-      if (!card.classList.contains('flipped')) card.classList.add('tease');
-    });
-
-    card.addEventListener('animationend', () => {
-      card.classList.remove('tease');
-    });
-
-    card.addEventListener('click', () => {
-      card.classList.toggle('flipped');
-      card.classList.remove('tease');
-    });
-  });
-});
-</script>
 {% endblock %}

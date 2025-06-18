@@ -54,6 +54,10 @@
       <label class="form-label">Display Order</label>
       <input type="number" class="form-control" name="order" value="{{ section.order|default:1 }}" min="1" required>
     </div>
+    <div class="form-check mb-3">
+      <input type="checkbox" class="form-check-input" id="displayCheckbox" name="display" value="on">
+      <label class="form-check-label" for="displayCheckbox">Display?</label>
+    </div>
   </div>
 
   <div class="text-end px-3 pb-3">

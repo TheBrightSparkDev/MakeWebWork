@@ -352,16 +352,32 @@ document.addEventListener('DOMContentLoaded', function () {
       const minMedia = parseInt(dataTag.getAttribute('minMedia') || '1');
       const maxMedia = parseInt(dataTag.getAttribute('maxMedia') || '1');
 
-      const mediaElems = document.querySelectorAll('[id^="media-card-"] img');
-      uploadedMedia = Array.from(mediaElems).map(img => ({
-        id: img.closest('[id^="media-card-"]').id.split('-')[2],
-        url: img.src,
-        name: img.alt || 'Media'
-      }));
+      const mediaElems = document.querySelectorAll('[id^="media-card-"] img, [id^="media-card-"] video');
+
+      uploadedMedia = Array.from(mediaElems).map(el => {
+        const card = el.closest('[id^="media-card-"]');
+        const id = card ? card.id.split('-')[2] : null;
+        if (!id) return null;
+
+        let url = '';
+        let name = '';
+
+        if (el.tagName.toLowerCase() === 'video') {
+          const source = el.querySelector('source');
+          url = source ? source.src : '';
+          name = el.getAttribute('data-name') || 'Video';
+        } else {
+          url = el.src;
+          name = el.alt || 'Image';
+        }
+
+        return { id, url, name };
+      }).filter(Boolean); // Filter out any nulls
 
       loadMediaIntoModal(uploadedMedia, minMedia, maxMedia);
     }
   });
+
     console.log(
     document.getElementById('mediaSelectorModal'),
     document.getElementById('mediaGrid'),
@@ -415,5 +431,6 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     });
   });
+  
 });
 

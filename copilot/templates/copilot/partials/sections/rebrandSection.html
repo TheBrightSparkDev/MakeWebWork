@@ -1,16 +1,23 @@
-{% extends 'partials/sectionContainer.html' %}
+{% extends 'copilot/partials/sectionContainer.html' %}
 {% load static %}
 {% block section_content %}
 <div class="col-6 {{ section.textColor|default:project.textColor }} {{ section.textColorModifier|default:project.textColorModifier }}">
   <div class="section-container">
     <div class="section-wrapper primary-border match-border sep-top sep-left"></div>
     <div class="section-wrapper black-border sep-bottom sep-right"></div>
-    <div class="seperator-title {{ section.titleBackgroundColor|default:project.titleBackgroundColor }} 
-                                 {{ section.titleBackgroundColorModifier|default:project.titleBackgroundColorModifier }} 
-                                 {{ section.titleColor|default:project.titleColor }} top-left">
+    <div class="seperator-title 
+                {{ section.titleBackgroundColor|default:project.titleBackgroundColor }} 
+                {{ section.titleBackgroundColorModifier|default:project.titleBackgroundColorModifier }} 
+                {{ section.titleColor|default:project.titleColor }} top-left">
       <h3 class="title-text">Old</h3>
     </div>
-    <img class="img-fluid col-10 my-5 mx-auto" src="{{ section.imageTwoURL.url }}">
+    {% with section.uploadedMedia.all|first as oldImage %}
+      {% if oldImage and oldImage.imageURL %}
+        <img class="img-fluid col-10 my-5 mx-auto" src="{{ oldImage.imageURL.url }}" alt="Old Image">
+      {% else %}
+        <p class="text-center mt-4">No old image uploaded.</p>
+      {% endif %}
+    {% endwith %}
   </div>
 </div>
 
@@ -18,20 +25,31 @@
   <div class="section-container">
     <div class="section-wrapper primary-border match-border sep-top sep-left"></div>
     <div class="section-wrapper black-border sep-bottom sep-right"></div>
-    <div class="seperator-title {{ section.titleBackgroundColor|default:project.titleBackgroundColor }} 
-                                 {{ section.titleBackgroundColorModifier|default:project.titleBackgroundColorModifier }} 
-                                 {{ section.titleColor|default:project.titleColor }} top-left">
+    <div class="seperator-title 
+                {{ section.titleBackgroundColor|default:project.titleBackgroundColor }} 
+                {{ section.titleBackgroundColorModifier|default:project.titleBackgroundColorModifier }} 
+                {{ section.titleColor|default:project.titleColor }} top-left">
       <h3 class="title-text">New</h3>
     </div>
-    <img class="img-fluid col-10 my-5 mx-auto" src="{{ section.imageURL.url }}">
+    {% with section.uploadedMedia.all|slice:"1:2" as newImageList %}
+      {% if newImageList and newImageList.0 and newImageList.0.imageURL %}
+        <img class="img-fluid col-10 my-5 mx-auto" src="{{ newImageList.0.imageURL.url }}" alt="New Image">
+      {% else %}
+        <p class="text-center mt-4">No new image uploaded.</p>
+      {% endif %}
+    {% endwith %}
   </div>
 </div>
 
 <div class="col-5-lg col-12 ms-auto my-auto">
   <div class="section-container">
-    <div class="section-wrapper sep-top sep-left {{ section.backgroundColor|default:project.backgroundColor }} {{ section.backgroundColorModifier|default:project.backgroundColorModifier }} op-3"></div>
+    <div class="section-wrapper sep-top sep-left 
+                {{ section.backgroundColor|default:project.backgroundColor }} 
+                {{ section.backgroundColorModifier|default:project.backgroundColorModifier }} op-3"></div>
     <div class="section-wrapper sep-bottom sep-right grey darken-4 op-3"></div>
-    <div class="content {{ section.textColor|default:project.textColor }} {{ section.textColorModifier|default:project.textColorModifier }}">
+    <div class="content 
+                {{ section.textColor|default:project.textColor }} 
+                {{ section.textColorModifier|default:project.textColorModifier }}">
       <h3>Purpose?</h3>
       <p>{{ section.shortDescription }}</p>
     </div>

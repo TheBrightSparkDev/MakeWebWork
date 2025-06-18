@@ -358,23 +358,47 @@ function updateAll(currScrollPos){
         }
     } 
 }
-// this detects screen resizing and recalculates the animation properties
-let resizing = false;
-window.addEventListener("resize", function(event){
-    resizing = true;
-  });
-setInterval(() => {
-    if (resizing) {
-    // this section of code is here to save the origional begin so that resizing doesn't ruin animations
-    var wait = true;
-    setInterval(() => {
-        if (wait){
-            wait = false;
-        }
-    },250);
-    if (!DontReload){
-        location.reload();
+let lastWidth = window.innerWidth;
+let lastHeight = window.innerHeight;
+let isFullscreen = false;
+let suppressNextResize = false;
+let resizing = false;  // <-- Reintroduced
+
+// Handle fullscreen enter/exit events
+function setFullscreenState(state) {
+  isFullscreen = state;
+  suppressNextResize = true;
+
+  // Suppress reloads for 500ms after exiting fullscreen
+  setTimeout(() => {
+    suppressNextResize = false;
+  }, 500);
+}
+
+// Cross-browser fullscreen detection
+document.addEventListener("fullscreenchange", () => setFullscreenState(!!document.fullscreenElement));
+document.addEventListener("webkitfullscreenchange", () => setFullscreenState(!!document.webkitFullscreenElement));
+document.addEventListener("mozfullscreenchange", () => setFullscreenState(!!document.mozFullScreenElement));
+document.addEventListener("msfullscreenchange", () => setFullscreenState(!!document.msFullscreenElement));
+
+// Debounced resize handler
+let resizeTimeout;
+window.addEventListener("resize", () => {
+  resizing = true;  // <-- mark resizing started
+
+  clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(() => {
+    const widthChanged = window.innerWidth !== lastWidth;
+    const heightChanged = window.innerHeight !== lastHeight;
+
+    if (!suppressNextResize && (widthChanged || heightChanged) && !window.DontReload) {
+      location.reload();
     }
-    resizing = false;
-    }
-},1000);
+
+    // Update dimensions
+    lastWidth = window.innerWidth;
+    lastHeight = window.innerHeight;
+
+    resizing = false; // <-- mark resizing finished
+  }, 300);
+});

@@ -1,9 +1,11 @@
 from storages.backends.azure_storage import AzureStorage
 import os
 
+
+
 account_key_os = os.environ.get('MAKEWEBWORKSTATIC')
 # account_key_os = ''
-account_name_os = 'makewebworkstatic'
+account_name_os = os.environ.get('MAKEWEBWORKSTATICNAME')
 
 class AzureMediaStorage(AzureStorage):
     account_name = account_name_os

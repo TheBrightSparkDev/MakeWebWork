@@ -1,20 +1,23 @@
-{% extends 'partials/sectionContainer.html' %}
+{% extends 'copilot/partials/sectionContainer.html' %}
 {% load static %}
 {% block section_content %}
-{% if section.videoFile %}
-  <div class="col-5-lg col-12">
-    <div class="responsive-video-wrapper border rounded">
-      <video class="w-100" controls poster="{% static 'images/Makewebwork_logo.png' %}">
-        <source src="{{ section.videoFile.url }}" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
+{% with section.uploadedMedia.all|first as video %}
+  {% if video and video.videoURL %}
+    <div class="col-5-lg col-12">
+      <div class="responsive-video-wrapper">
+        <video class="col-12" controls >
+          <source src="{{ video.videoURL.url }}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
     </div>
-  </div>
-{% else %}
-  <div class="col-12">
-    <h3>Coming Soon</h3>
-  </div>
-{% endif %}
+  {% else %}
+    <div class="col-12">
+      <h3>Coming Soon</h3>
+    </div>
+  {% endif %}
+{% endwith %}
+
 
 <div class="col-5-lg col-12 ms-auto my-auto">
   <div class="section-container">

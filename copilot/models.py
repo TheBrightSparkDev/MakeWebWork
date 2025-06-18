@@ -1,9 +1,11 @@
 from django.db import models
 from default_site.models import ClientsAndGroups, RequestTickets, UserProfile
 from django.utils import timezone
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
+from django.core.files.storage import default_storage
 import os
 # Copilot shared models
-
 
 def get_upload_path(instance, filename, field_name):
     """
@@ -21,7 +23,9 @@ def get_upload_path(instance, filename, field_name):
 
     return os.path.join(f'static/uploadedmedia/services/{service_name}/{field_name}', clean_filename)
 
-
+def delete_file(file_field):
+    if file_field and file_field.name and default_storage.exists(file_field.name):
+        default_storage.delete(file_field.name)
 
 def upload_to_image_link_logo(self, filename):
     return get_upload_path(self, filename, 'Logo')
@@ -83,7 +87,8 @@ class Project(models.Model):
     # linked entities
     LinkedClient = models.ForeignKey(ClientsAndGroups, on_delete=models.SET_NULL, null=True, blank=True)
     LinkedRequest = models.ForeignKey(RequestTickets, on_delete=models.SET_NULL, null=True, blank=True)
-    LinkedUser = models.ForeignKey(UserProfile, on_delete=models.SET_NULL, null=True, blank=True)
+    linkedUsers = models.ManyToManyField(UserProfile, blank=True, related_name="projects")
+
     def __str__(self):
         return f'{self.LinkedClient.clientName if self.LinkedClient else "No Client"} - {self.projectName or "Unnamed Project"}'
 
@@ -111,6 +116,11 @@ class UploadedMedia(models.Model):
     textColor = models.CharField(max_length=100, default="white-text", blank=False)
     textColorModifier = models.CharField(max_length=100, null=True, blank=True)
 
+    def delete(self, *args, **kwargs):
+        delete_file(self.imageURL)
+        delete_file(self.videoURL)
+        super().delete(*args, **kwargs)
+
     def save(self, *args, **kwargs):
         if not self.fileName and self.imageURL:
             self.fileName = self.imageURL.name
@@ -121,6 +131,24 @@ class UploadedMedia(models.Model):
     def __str__(self):
         return f"{self.fileName or 'Unnamed File'} - {self.dateUploaded.strftime('%Y-%m-%d')}"
 
+
+@receiver(pre_save, sender=UploadedMedia)
+def auto_delete_replaced_files(sender, instance, **kwargs):
+    if not instance.pk:
+        return  # New instance, no replacement yet
+
+    try:
+        old = UploadedMedia.objects.get(pk=instance.pk)
+    except UploadedMedia.DoesNotExist:
+        return
+
+    # Check for image replacement
+    if old.imageURL and old.imageURL != instance.imageURL:
+        delete_file(old.imageURL)
+
+    # Check for video replacement
+    if old.videoURL and old.videoURL != instance.videoURL:
+        delete_file(old.videoURL)
 
 class Tag(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -144,7 +172,7 @@ class ProjectPageSections(models.Model):
     projectPage = models.ForeignKey(ProjectPage, on_delete=models.CASCADE, blank=False, null=False)
     sectionTitle = models.CharField(max_length=300, null=True, blank=True)
     sectionType = models.CharField(max_length=300, null=True, blank=True)
-    uploadedMedia = models.ManyToManyField(UploadedMedia, blank=False)
+    uploadedMedia = models.ManyToManyField(UploadedMedia, blank=True)
     shortDescription = models.CharField(max_length=500, null=True, blank=True)
     longDescription = models.CharField(max_length=3000, null=True, blank=True)
     order = models.IntegerField(null=False, blank=False)

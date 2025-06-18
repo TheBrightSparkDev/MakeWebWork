@@ -12,4 +12,5 @@ urlpatterns = [
     path('copilot/media/delete/', views.delete_media, name='deleteMedia'),
     path('project/<int:project_id>/add-section/', views.add_project_section, name='addProjectSection'),
     path('load-editable-section/', views.load_editable_section, name='section_preview'),
+    path('projects/create/', views.createProject, name='createProject')
 ]

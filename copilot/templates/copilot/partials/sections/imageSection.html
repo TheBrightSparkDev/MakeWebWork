@@ -1,10 +1,18 @@
-{% extends 'partials/sectionContainer.html' %}
+{% extends 'copilot/partials/sectionContainer.html' %}
 {% load static %}
+
 {% block section_content %}
 <div class="row py-3 px-3">
   <div class="col-12 mx-auto {{ section.textColor|default:project.textColor }} {{ section.textColorModifier|default:project.textColorModifier }}">
-    <img class="img-fluid col-12 my-2 match-border" src="{{ section.imageURL.url }}">
+    {% with section.uploadedMedia.all|first as image %}
+      {% if image and image.imageURL %}
+        <img class="img-fluid col-12 my-2 match-border" src="{{ image.imageURL.url }}" alt="{{ image.fileName }}">
+      {% else %}
+        <p class="text-center">No image selected.</p>
+      {% endif %}
+    {% endwith %}
   </div>
+
   <div class="col-12 ms-auto my-auto">
     <div class="section-container">
       <div class="section-wrapper sep-top sep-left {{ section.backgroundColor|default:project.backgroundColor }} {{ section.backgroundColorModifier|default:project.backgroundColorModifier }} op-3"></div>

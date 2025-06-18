@@ -2,7 +2,9 @@
     {% include 'copilot/includes/mediaUploader.html' %}
     {% include 'copilot/includes/allVideoSection.html' %}
     {% include 'copilot/includes/allImageSection.html' %}
-    {% include 'copilot/includes/addSection.html' %}
+    {% if request.user.is_superuser %}
+        {% include 'copilot/includes/addSection.html' %}
+    {% endif %}
     </div>
 
 {% for section in sections %}
@@ -10,29 +12,29 @@
 
     {% include 'includes/seperator.html' %}
 
-    {% if section.sectionType == "video" %}
+ {% if section.sectionType == "video" %}
 
-        {% include 'copilot/includes/videoSection.html' %}
+        {% include 'copilot/partials/sections/videoSection.html' %}
         {% include 'copilot/includes/comments.html' %}
 
     {% elif section.sectionType == "text" %}
 
-        {% include 'copilot/includes/textSection.html' %}
+        {% include 'copilot/partials/sections/textSection.html' %}
         {% include 'copilot/includes/comments.html' %}
 
     {% elif section.sectionType == "image" %}
 
-        {% include 'copilot/includes/imageSection.html' %}
+        {% include 'copilot/partials/sections/imageSection.html' %}
         {% include 'copilot/includes/comments.html' %}
 
     {% elif section.sectionType == "rebrand" %}
 
-        {% include 'copilot/includes/rebrandSection.html' %}
+        {% include 'copilot/partials/sections/rebrandSection.html' %}
         {% include 'copilot/includes/comments.html' %}
 
-    {% elif section.sectionType == "businessCards" %}  
+    {% elif section.sectionType == "business" %}  
 
-        {% include 'copilot/includes/businessCardSection.html' %}
+        {% include 'copilot/partials/sections/businessCardSection.html' %}
         {% include 'copilot/includes/comments.html' %}
 
     {% endif %}
