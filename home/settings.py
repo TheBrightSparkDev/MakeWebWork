@@ -33,7 +33,7 @@ PRODUCTION = os.getenv("PRODUCTION", "False") == "True"
 DEVELOPMENT = os.getenv("DEVELOPMENT", "False") == "True"
 DEBUG = DEVELOPMENT and not PRODUCTION
 
-ALLOWED_HOSTS = ['8000-thebrightsp-makewebwork-s2cd4pfok8p.ws-eu120.gitpod.io','makewebwork.azurewebsites.net','makewebwork.com']
+ALLOWED_HOSTS = ['8000-thebrightsp-makewebwork-s2cd4pfok8p.ws-eu120.gitpod.io','makewebwork.azurewebsites.net','makewebwork.co.uk']
 
 
 # Application definition
