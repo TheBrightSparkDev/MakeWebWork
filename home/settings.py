@@ -12,10 +12,12 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+import runpy
 from django.core.mail import send_mail
 
-if os.path.exists("env.py"):
-    import env
+env_path = os.path.join(os.path.dirname(__file__), "env.py")
+if os.path.exists(env_path):
+    runpy.run_path(env_path)
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -208,17 +210,19 @@ else:
     STRIPE_WH_SECRET = os.environ.get('STRIPE_WH_SECRET')
 
 
-collectstatic = False
-sendToProduction = False  
+collectstatic = True
+sendToProduction = True  
 if sendToProduction == True:
     if collectstatic == True:
-        AZURE_ACCOUNT_KEY = environ.get("AZURE_ACCOUNT_KEY")  # Secure access key
-
-        DEFAULT_FILE_STORAGE = 'custom_azure.AzureMediaStorage'
-        STATICFILES_STORAGE = 'custom_azure.AzureStaticStorage'
+        
+        AZURE_ACCOUNT_KEY = os.environ.get("AZURE_ACCOUNT_KEY")  # Secure access key
+        DEFAULT_FILE_STORAGE = 'home.custom_azure.AzureMediaStorage'
+        STATICFILES_STORAGE = 'home.custom_azure.AzureStaticStorage'
         STATIC_LOCATION = "static"
         MEDIA_LOCATION = "media"
-        AZURE_ACCOUNT_NAME = environ.get("AZURE_ACCOUNT_NAME")
+        AZURE_ACCOUNT_NAME = "makewebworklivestatic"
+        print("Account Name:", os.environ.get("AZURE_ACCOUNT_NAME"))
+        print("Account Key:", os.environ.get("AZURE_ACCOUNT_KEY"))
         AZURE_CUSTOM_DOMAIN = f"{AZURE_ACCOUNT_NAME}.blob.core.windows.net"
         STATIC_URL = f"https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/"
         MEDIA_URL = f"https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/"
