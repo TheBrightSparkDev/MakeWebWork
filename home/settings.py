@@ -79,7 +79,7 @@ ACCOUNT_FORMS = {'signup': 'default_site.forms.MyCustomSignupForm'}
 ROOT_URLCONF = 'home.urls'
 
 CSRF_TRUSTED_ORIGINS = ['https://8000-thebrightsp-makewebwork-s2cd4pfok8p.ws-eu120.gitpod.io/*',
-                        'https://makewebwork.azurewebsites.net/*','https://makewebwork.com/*']
+                        'https://makewebwork.azurewebsites.net/*','https://makewebwork.co.uk/*']
 
 TEMPLATES = [
     {
