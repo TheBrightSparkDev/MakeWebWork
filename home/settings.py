@@ -210,14 +210,14 @@ else:
     STRIPE_WH_SECRET = os.environ.get('STRIPE_WH_SECRET')
 
 
-collectstatic = True
-sendToProduction = True  
+collectstatic = False
+sendToProduction = False  
 if sendToProduction == True:
     if collectstatic == True:
-        
+        # collectstatic live
         AZURE_ACCOUNT_KEY = os.environ.get("AZURE_ACCOUNT_KEY")  # Secure access key
-        DEFAULT_FILE_STORAGE = 'home.custom_azure.AzureMediaStorage'
-        STATICFILES_STORAGE = 'home.custom_azure.AzureStaticStorage'
+        DEFAULT_FILE_STORAGE = 'custom_azure.AzureMediaStorage'
+        STATICFILES_STORAGE = 'custom_azure.AzureStaticStorage'
         STATIC_LOCATION = "static"
         MEDIA_LOCATION = "media"
         AZURE_ACCOUNT_NAME = "makewebworklivestatic"
@@ -228,6 +228,7 @@ if sendToProduction == True:
         MEDIA_URL = f"https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/"
 else:
     if collectstatic == True:
+        # collectStatic test
         DEFAULT_FILE_STORAGE = 'custom_azure.AzureMediaStorage'
         STATICFILES_STORAGE = 'custom_azure.AzureStaticStorage'
         STATIC_LOCATION = "static"
@@ -237,6 +238,7 @@ else:
         STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
         MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
     else:
+        # test
         if os.getenv('PRODUCTION') == "True":
             DEFAULT_FILE_STORAGE = 'custom_azure.AzureMediaStorage'
             STATICFILES_STORAGE = 'custom_azure.AzureStaticStorage'
@@ -246,7 +248,22 @@ else:
             AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
             STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
             MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
+
+        elif os.environ('LIVE') == "True":
+            # live
+            AZURE_ACCOUNT_KEY = os.environ.get("AZURE_ACCOUNT_KEY")  # Secure access key
+            DEFAULT_FILE_STORAGE = 'custom_azure.AzureMediaStorage'
+            STATICFILES_STORAGE = 'custom_azure.AzureStaticStorage'
+            STATIC_LOCATION = "static"
+            MEDIA_LOCATION = "media"
+            AZURE_ACCOUNT_NAME = "makewebworklivestatic"
+            print("Account Name:", os.environ.get("AZURE_ACCOUNT_NAME"))
+            print("Account Key:", os.environ.get("AZURE_ACCOUNT_KEY"))
+            AZURE_CUSTOM_DOMAIN = f"{AZURE_ACCOUNT_NAME}.blob.core.windows.net"
+            STATIC_URL = f"https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/"
+            MEDIA_URL = f"https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/"
         else:
+            # local 
             STATIC_URL = '/static/'
             MEDIA_URL = '/images/'
             STATICFILES_DIRS = [

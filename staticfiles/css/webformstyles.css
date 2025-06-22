@@ -1,0 +1,223 @@
+.form-area:not(.hide){
+    display:flex;
+    width:100%;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:space-around;
+    margin-bottom:20px;
+    margin-top:20px;
+}
+select {
+    appearance: none;
+    outline: 0;
+    color:white !important;
+    text-align:center;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    border-radius: 3px;
+}
+select::after{
+    background-color: white!important;
+}
+.small-input{
+    min-width: 32%;
+    max-width: 33%;
+    margin-bottom: 20px;
+}
+.medium-input{
+    min-width: 65%;
+    max-width: 66%;
+    margin-bottom: 20px;
+}
+.large-input{
+    min-width: 99%;
+    max-width: 100%;
+    margin-bottom: 20px;
+}
+label:not(.ignore-label-styles){
+    width:100%;
+}
+.input-fill{
+    width:100%;
+}
+.input-deep{
+    width:100%;
+}
+input[type='number']{
+    color:white !important;
+    background-color: #000 !important;
+    text-align:center;
+}
+input[type='text']{
+    color:white !important;
+    background-color: #000 !important;
+    text-align:center;
+}
+input[type='password']{
+    color:white !important;
+    background-color: #000 !important;
+    text-align:center;
+}
+input[type='email']{
+    color:white !important;
+    background-color: #000 !important;
+    text-align:center;
+}
+input[type='tel']{
+    color:white !important;
+    background-color: #000 !important;
+    text-align:center;
+}
+input[type='URL']{
+    color:white !important;
+    background-color: #000 !important;
+    text-align:center;
+}
+input[type='date']{
+    color:white !important;
+    background-color: #000 !important;
+    text-align:center;
+}
+input[type='datetime-local']{
+    color:white !important;
+    background-color: #000 !important;
+    text-align:center;
+}
+input[type='time']{
+    color:white !important;
+    background-color: #000 !important;
+    text-align:center;
+}
+input[type='week']{
+    color:white !important;
+    background-color: #000 !important;
+    text-align:center;
+}
+input[type='month']{
+    color:white !important;
+    background-color: #000 !important;
+    text-align:center;
+}
+textarea{
+    color:white !important;
+    background-color: #000 !important;
+}
+
+/* 
+The autofill boxes were ugly which really bothered me 
+the below code came from: 
+https://css-tricks.com/almanac/selectors/a/autofill/ 
+much better 
+*/
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: 1px solid grey;
+  -webkit-box-shadow: 0 0 0px 1000px #212121 inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+/* 
+The checkboxes were ugly which really bothered me 
+the below code came from: 
+http://jsfiddle.net/dv904vn1/2/
+I changed it after to suit my site
+*/
+.flipswitch
+{
+    position: relative;
+    background: rgba(66,66,66, 1);
+    width: 120px;
+    height: 40px;
+    border-radius: 3px;
+    -webkit-appearance: initial;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    font-weight: bold;
+    outline:none;
+    cursor:pointer;
+    border:1px solid #ddd;
+}
+.flipswitch:after
+{
+    position:absolute;
+    top:5%;
+    display:block; 
+    line-height:32px;
+    width:45%;
+    height:90%;
+    background: rgba(33,33,33, 1);
+    box-sizing:border-box;
+    text-align:center;
+    transition: all 0.3s ease-in 0s; 
+    color:white;
+    border:#888 1px solid;
+    border-radius:3px;
+}
+.flipswitch:after
+{
+    left:2%;
+    content: "No";
+}
+.flipswitch:checked:after
+{
+    left:53%;
+    content: "Yes";  
+}
+/* end of external code */
+@media (max-width: 576px) {
+    .small-input{
+        min-width: 32%;
+        max-width: 33%;
+    }
+    .medium-input{
+        min-width: 65%;
+        max-width: 66%;
+    }
+    .large-input{
+        min-width: 99%;
+        max-width: 100%
+    }
+}
+@media (min-width: 576px){
+
+}
+@media (min-width: 768px){
+    .small-input{
+        min-width: 24%;
+        max-width: 25%;
+    }
+    .medium-input{
+        min-width: 49%;
+        max-width: 50%;
+    }
+    .large-input{
+        min-width: 99%;
+        max-width: 100%
+    }
+}
+@media (min-width: 992px){
+
+}
+@media (min-width: 1200px){
+    .small-input{
+        min-width: 19%;
+        max-width: 20%;
+    }
+    .medium-input{
+        min-width: 32%;
+        max-width: 33%;
+    }
+    .large-input{
+        min-width: 99%;
+        max-width: 100%
+    }
+}
+@media (min-width: 1400px){
+
+}
